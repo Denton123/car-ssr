@@ -1,0 +1,163 @@
+// 后台管理界面公共样式
+* {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+}
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+code,
+form,
+fieldset,
+legend,
+input,
+button,
+textarea,
+p,
+blockquote,
+th,
+td {
+  margin: 0;
+  padding: 0;
+}
+a,
+span,
+div {
+  moz-user-select: -moz-none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+fieldset,
+img {
+  border: 0;
+}
+
+:focus {
+  outline: 0;
+}
+
+address,
+caption,
+cite,
+code,
+dfn,
+em,
+strong,
+th,
+var,
+optgroup {
+  font-style: normal;
+  font-weight: normal;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: 100%;
+  font-weight: normal;
+}
+
+abbr,
+acronym {
+  border: 0;
+  font-variant: normal;
+}
+
+code,
+kbd,
+samp,
+tt {
+  font-size: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  border: none;
+  outline: none;
+  font: 14px/1.4 'Microsoft YaHei', tahoma, arial;
+}
+
+button {
+  cursor: pointer;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+i,
+em {
+  font-style: normal;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  outline: none;
+}
+input,
+button,
+select,
+textarea {
+  outline: none;
+}
+
+body {
+  font-family: -apple-system, "PingFang SC","Lantinghei SC","Microsoft YaHei","HanHei SC","Helvetica Neue","Open Sans",Arial,"Hiragino Sans GB","微软雅黑",STHeiti,"WenQuanYi Micro Hei",SimSun,sans-serif !important;
+  font-size: @font14;
+  line-height: 1.42858;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -moz-font-feature-settings: 'liga', 'kern';
+  background-color: @admin-bgcolor;
+}
+
+pre {
+  font: 14px/1.6 'Microsoft YaHei', tahoma, arial;
+  color: @font-color-primary;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  *white-space: normal;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+fieldset,
+img {
+  border: 0;
+}
+
+// 引入过渡效果
+@import './transition.less';
+// 覆盖 elementUI 样式
+@import './my-elementui.less';
