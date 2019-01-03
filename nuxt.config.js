@@ -71,6 +71,10 @@ module.exports = {
     // Doc: https://bootstrap-vue.js.org/docs/
     // 'bootstrap-vue/nuxt'
   ],
+  // 注册全局
+  styleResources: {
+    less: 'assets/style/common/basic.less'
+  },
   /*
    ** Axios module configuration
    */
@@ -142,10 +146,6 @@ module.exports = {
         maxSize: 0,
         minChunks: 1
       }
-    },
-    // 注册全局
-    styleResources: {
-      less: 'assets/style/common/basic.less'
     },
     /*
      ** You can extend webpack config here
