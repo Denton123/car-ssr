@@ -6847,6 +6847,12 @@ uuid@^3.3.2:
   version "3.3.2"
   resolved "http://registry.npm.taobao.org/uuid/download/uuid-3.3.2.tgz#1b4af4955eb3077c501c23872fc6513811587131"
 
+v-distpicker@^1.0.23:
+  version "1.0.23"
+  resolved "http://registry.npm.taobao.org/v-distpicker/download/v-distpicker-1.0.23.tgz#e96d66da86abbc2ff259835459aea0aa9e18f493"
+  dependencies:
+    vue "^2.5.17"
+
 vary@^1.1.2, vary@~1.1.2:
   version "1.1.2"
   resolved "http://registry.npm.taobao.org/vary/download/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"

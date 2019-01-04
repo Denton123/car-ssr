@@ -217,7 +217,7 @@ export default {
   },
   data() {
     return {
-      bigCourselData: this.bigCourselData, // 顶部banner轮播图数据
+      // bigCourselData: this.bigCourselData, // 顶部banner轮播图数据
       newsCourselData: [], // 今日车闻轮播图数据
       newsActiveUrl: "", // 今日车闻当前轮播图
       newsRightList: [], // 今日车闻右侧内容
