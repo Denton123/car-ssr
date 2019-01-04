@@ -1,6 +1,6 @@
 <template>
   <div>
-    <index-container :weeklist="weeklist"></index-container>
+    <index-container :weeklist="weeklist" :bigCourselData="bigCourselData"></index-container>
   </div>
 </template>
 <script>
@@ -20,6 +20,9 @@ export default {
       weeklist: weeklist.data ? weeklist.data.essayEntities : [],
       bigCourselData: bigCourselData.data ? bigCourselData.data : []
     };
+  },
+  mounted() {
+    console.log(this.bigCourselData)
   }
 };
 </script>

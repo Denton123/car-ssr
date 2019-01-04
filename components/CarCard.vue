@@ -61,20 +61,12 @@ export default {
       let data = this.cardData == null ? {} : this.cardData
       if (data.cover !== '' && data.cover != null) {
         data.photo = utils.getApi(data.cover)
+      } else if (data.photo !== '' && data.photo != null) {
+        data.photo = utils.getApi(data.photo)
       }
       if (data.photoUrl !== '' && data.photoUrl != null) {
         data.photoUrl = utils.getApi(data.photoUrl)
       }
-      // data.classOneName = data.classOneName.toLowerCase()
-      // if (data.classOneName === 'news') {
-      //   data.classOneName = '今日车闻'
-      // } else if (data.classOneName === 'video') {
-      //   data.classOneName === '视频'
-      // } else if (data.classOneName === 'ev') {
-      //   data.classOneName === '新能源'
-      // } else {
-      //   data.classOneName === '兴趣部落'
-      // }
       return data
     },
     moduleType: function() {

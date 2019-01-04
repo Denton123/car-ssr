@@ -144,7 +144,7 @@
             <pagination v-show="totalPage >0"
               :classId="this.hobbiesClassId"
               @pageChange="pageChange"
-              :routePage="`${routePage}`"
+              :routePage="`${currentPage}`"
               :totalPage="totalPage"
               :totalCount="totalCount"
               :toTop={y:1024}
@@ -466,7 +466,8 @@ export default {
       })
       this.hobbiesTwelve = this.mockHobbyItems.slice(0, 12)
       this.mockHobbyItems = this.hobbiesTwelve
-      this.$refs.pagination.routLinkCurrentPage()
+      // console.log(this.$refs.pagination, 'page')
+      // this.$refs.pagination.routLinkCurrentPage()
 
       let mySwipers = new Swiper('.swiper-containers', {
         slidesPerView: 6

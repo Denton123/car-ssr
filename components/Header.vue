@@ -12,7 +12,7 @@
             :class="{'hasSubScript': item.name === activeName}"
             @click="handleClick(item.name)"
             :key="index">
-            <a href="javascript:void(0);"
+            <a :href="item.to"
               :class="{'fontWeight': item.name === activeName}">{{item.title}}</a>
           </li>
         </ul>
@@ -142,25 +142,25 @@ export default {
           title: '今日车闻',
           id: 0,
           to: '/news/1',
-          name: 'news'
+          name: 'news-page'
         },
         {
           title: '新能源',
           id: 1,
           to: '/ev/1',
-          name: 'ev'
+          name: 'ev-page'
         },
         {
           title: '兴趣部落',
           id: 2,
-          to: '/hobbies/1',
-          name: 'hobbies'
+          to: '/hobby/1',
+          name: 'hobby-page'
         },
         {
           title: '视频',
           id: 3,
           to: '/video/1',
-          name: 'video'
+          name: 'video-page'
         }
       ],
       isShowSearch: false,
@@ -295,7 +295,7 @@ export default {
   mounted() {
     this.cookie = this.getCookie('token')
     let route = this.$route
-    // console.log(route)
+    console.log(route)
     if (route.params.model) {
       this.activeName = route.params.model
     } else {

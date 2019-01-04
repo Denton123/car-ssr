@@ -1330,6 +1330,15 @@ export default {
       })
     }
   },
+  // async asyncData({params}) {
+  //   let articleCommentData = await $get(webEssayEssayCommentList, {essayId: '11101000010110111010101110010111101010000000000000000000000',
+  //       limit: '10',
+  //       order: 'asc',
+  //       page: 1})
+  //     return {
+  //       articleCommentData: articleCommentData.data ? articleCommentData.data.list : []
+  //     }
+  // },
   mounted() {
     this.cookie = this.getCookie('token')
     if (this.cookie == '') {

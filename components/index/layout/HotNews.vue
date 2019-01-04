@@ -63,6 +63,14 @@ export default {
       newsObj: {} // 最新资讯
     }
   },
+  // props: {
+  //   newsObj: {
+  //     type: Object,
+  //     default() {
+  //       return {}
+  //     }
+  //   }
+  // }
   mounted() {
     this.$nextTick(async () => {
       let hotNews = this.getHotNews()
@@ -89,7 +97,6 @@ export default {
         if (Array.isArray(dataObj.hotTime)) {
           result.hotTime = dataObj.hotTime
           result.hotTime.forEach(v => {
-            console.log(v.classOneName, 'classOneName')
             v.classOneName = v.classOneName.toLowerCase()
             if (v.classOneName.toLowerCase() == 'news') {
               v.classOneName = '今日车闻'
