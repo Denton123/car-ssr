@@ -2,8 +2,8 @@
   <div class="car_header">
     <div class="car_header_wrap">
       <div class="car_header_logo">
-        <router-link to="/index">
-          <img src="/static/header/logo.png">
+        <router-link to="/">
+          <img src="~static/header/logo.png">
         </router-link>
       </div>
       <div class="car_header_banner">
@@ -13,7 +13,6 @@
             @click="handleClick(item.name)"
             :key="index">
             <a href="javascript:void(0);"
-              :href="item.to"
               :class="{'fontWeight': item.name === activeName}">{{item.title}}</a>
           </li>
         </ul>
@@ -57,7 +56,7 @@
                 <div class="triangle">
                   <span></span>
                 </div>
-                <img src="/static/detail/code.jpg">
+                <img src="~static/detail/code.jpg">
               </div>
             </li>
             <li class="car_header_banner_icon_wechat"
@@ -71,7 +70,7 @@
                 <div class="triangle">
                   <span></span>
                 </div>
-                <img src="/static/detail/code.jpg">
+                <img src="~static/detail/code.jpg">
               </div>
             </li>
           </ul>
@@ -90,7 +89,7 @@
                       :src="formatPic(user.photo)"
                       alt="">
                     <img v-else
-                      src="/static/detail/detail_user.png"
+                      src="~static/detail/detail_user.png"
                       alt="">
                     <!-- </router-link> -->
                   </div>
@@ -380,7 +379,7 @@ export default {
   font-weight: bold;
 }
 .car_header_banner ul li:hover {
-  background: url('/static/header/subscript.png') no-repeat;
+  background: url('~static/header/subscript.png') no-repeat;
   background-position: bottom left;
 }
 .car_header_banner ul li,
@@ -439,38 +438,38 @@ export default {
   position: relative;
 }
 .car_header_banner_icon_search a i {
-  background: url('/static/header/nav_search.png');
+  background: url('~static/header/nav_search.png');
 }
 .car_header_banner_icon_search a i:hover {
-  background-image: url('/static/header/nav_search_hover.png');
+  background-image: url('~static/header/nav_search_hover.png');
 }
 .header_input_search {
-  background-image: url('/static/header/nav_search_hover.png') !important;
+  background-image: url('~static/header/nav_search_hover.png') !important;
   width: 40px;
   height: 40px;
   display: inline-block;
   position: absolute;
 }
 .hasSearchHover {
-  background-image: url('/static/header/nav_search_hover.png') !important;
+  background-image: url('~static/header/nav_search_hover.png') !important;
 }
 .car_header_banner_icon_upload a i {
-  background: url('/static/header/nav_upload.png');
+  background: url('~static/header/nav_upload.png');
 }
 .car_header_banner_icon_upload a i:hover {
-  background-image: url('/static/header/nav_upload_hover.png');
+  background-image: url('~static/header/nav_upload_hover.png');
 }
 .car_header_banner_icon_phone a i {
-  background: url('/static/header/nav_phone.png');
+  background: url('~static/header/nav_phone.png');
 }
 .car_header_banner_icon_phone a i:hover {
-  background-image: url('/static/header/nav_phone_hover.png');
+  background-image: url('~static/header/nav_phone_hover.png');
 }
 .car_header_banner_icon_wechat a i {
-  background: url('/static/header/nav_wechat.png');
+  background: url('~static/header/nav_wechat.png');
 }
 .car_header_banner_icon_wechat a i:hover {
-  background-image: url('/static/header/nav_wechat_hover.png');
+  background-image: url('~static/header/nav_wechat_hover.png');
 }
 .car_header_banner_search_input {
   width: 300px;
@@ -517,7 +516,7 @@ export default {
 .car_header_login_registry .car_header_login_registry_operate a:hover {
   color: rgba(255, 255, 255, 1);
   font-weight: bold;
-  background: url('/static/header/subscript.png') no-repeat;
+  background: url('~static/header/subscript.png') no-repeat;
   background-position: bottom right;
 }
 .desperate {
@@ -525,11 +524,11 @@ export default {
   padding: 0 5px;
 }
 .hasSubScript {
-  background: url('/static/header/subscript.png') no-repeat;
+  background: url('~static/header/subscript.png') no-repeat;
   background-position: bottom left;
 }
 .car_header .operateHasClick {
-  background: url('/static/header/subscript.png') no-repeat;
+  background: url('~static/header/subscript.png') no-repeat;
   background-position: bottom right;
 }
 .car_header .phone_code {

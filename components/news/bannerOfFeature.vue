@@ -12,18 +12,24 @@
           class="todayCarousel"
           :key="index">
           <div class="car_carsouel">
-            <a :href="item.url">
+            <a :href="item.url"
+              target="_blank">
               <img :src="bannerData&&bannerData.length != null?piectFeatureUrl(item.photo):''"
                 :alt='`${bannerData[index].title}`'
                 width="100%"
                 height="100%"
                 @error="imgFeatureLossLoad(item)"
-                @load="imgFeatureSeccessLoad()">
+                @load="imgFeatureSeccessLoad()"
+                class="car_carsouel_img_class">
               <!-- 没图片或加载不出来，展示默认图片 -->
               <div class="defaultBox"
                 v-if="imgFeatureLoadStatus == false&& index == imgFeatureLossIndex">
-                <img src="~static/common/default.png"
-                  alt="尖峰咖">
+                <a :href="item.url"
+                  target="_blank">
+                  <img src="~static/common/default.png"
+                    alt="尖峰咖"
+                    width="160px">
+                </a>
               </div>
             </a>
             <!-- 多个轮播数据的专栏遮罩层 -->
@@ -138,7 +144,7 @@ export default {
   height: 100%;
   position: relative;
 }
-.todayCarousel .car_carsouel a > img {
+.todayCarousel .car_carsouel .car_carsouel_img_class {
   position: absolute;
   z-index: 1;
 }
@@ -146,6 +152,7 @@ export default {
   width: 320px;
   height: 236px;
   position: absolute;
+  text-align: center;
   z-index: 2;
   line-height: 236px;
 }

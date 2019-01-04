@@ -105,13 +105,13 @@ export default {
   padding-right: 18px;
 }
 .video_card_list .video_card .video_title:hover .video_title_line {
-  background: url('/static/images/line_red.png') no-repeat;
+  background: url('~static/images/line_red.png') no-repeat;
 }
 .video_card_list .video_card .video_title:hover {
   color: #be001e;
 }
 .video_card_list .video_title_line {
-  background: url('/static/images/line_gray.png') no-repeat;
+  background: url('~static/images/line_gray.png') no-repeat;
   width: 3px;
   height: 21px;
   display: inline-block;

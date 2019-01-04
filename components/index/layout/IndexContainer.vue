@@ -201,9 +201,23 @@ export default {
     "m-header": Header,
     "m-footer": Footer
   },
+  props: {
+    weeklist: {
+      type: Array,
+      default() {
+        return [];
+      }
+    },
+    bigCourselData: {
+      type: Array,
+      default() {
+        return [];
+      }
+    }
+  },
   data() {
     return {
-      bigCourselData: [], // 顶部banner轮播图数据
+      bigCourselData: this.bigCourselData, // 顶部banner轮播图数据
       newsCourselData: [], // 今日车闻轮播图数据
       newsActiveUrl: "", // 今日车闻当前轮播图
       newsRightList: [], // 今日车闻右侧内容
@@ -222,7 +236,7 @@ export default {
       tagThree: [], // 底部tag数组
       tagHot: [], // 热点
       dayList: [], // 日排行版数据
-      weekList: [], // 周排行榜数据
+      weekList: this.weeklist, // 周排行榜数据
       monthList: [], // 月排行版数据,
       carsouelFlag: "video"
     };
@@ -236,7 +250,7 @@ export default {
       // this.getAdverBlock('hobbiesAdver', '5993927')
       // this.getAdverBlock('videoAdver', '5993929')
       // 获取顶部轮播图数据
-      let bigCoursel = this.getBannerData("18");
+      // let bigCoursel = this.getBannerData("18");
       let newsCoursel = this.getBannerData("14");
       let EvCoursel = this.getBannerData("15");
       let hobbiesCoursel = this.getBannerData("17");
@@ -257,12 +271,12 @@ export default {
       // 获取日，月，周排行版
       let dayList = this.getSortList("day");
       let monthList = this.getSortList("month");
-      let weekList = this.getSortList("week");
+      // let weekList = this.getSortList("week");
       // 获取hobbies列表数据
       let hobbiesList = this.getHobbiesList();
       let hobbiesItem = this.getHobbiesItem();
 
-      this.bigCourselData = await bigCoursel;
+      // this.bigCourselData = await bigCoursel;
       this.newsCourselData = await newsCoursel;
       this.EvCourselData = await EvCoursel;
       this.hobbiesCourselData = await hobbiesCoursel;
@@ -278,7 +292,7 @@ export default {
       this.videoRightList = await videoList;
       this.dayList = await dayList;
       this.monthList = await monthList;
-      this.weekList = await weekList;
+      // this.weekList = await weekList;
       this.hobbiesItem = await hobbiesItem;
     });
   },

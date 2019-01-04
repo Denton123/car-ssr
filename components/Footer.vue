@@ -16,7 +16,7 @@
         <div class="footer_friend_link">
           <div class="footer_logo">
             <router-link to="/index">
-              <img src="/static/footer/logo.png">
+              <img src="~static/footer/logo.png">
             </router-link>
           </div>
           <div class="footer_link">
@@ -34,18 +34,18 @@
           <ul>
             <li>
               <span class="footer_phone_code">
-                <img src="/static/detail/code.jpg">
+                <img src="~static/detail/code.jpg">
               </span>
               <a class="footer_code_desc"
                 href="javascript:void(0);">
-                <img src="/static/footer/wechat.png"
+                <img src="~static/footer/wechat.png"
                   class="footer_wechat">
                 <a>尖峰咖</a>
               </a>
             </li>
             <li>
               <span class="footer_phone_code">
-                <img src="/static/detail/code.jpg">
+                <img src="~static/detail/code.jpg">
               </span>
               <a class="footer_code_desc"
                 href="javascript:void(0);">

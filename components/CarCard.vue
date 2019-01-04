@@ -140,7 +140,7 @@ export default {
 .info_header {
   width: 25px;
   height: 25px;
-  background: url('/static/images/icon_head.png') no-repeat;
+  background: url('~static/images/icon_head.png') no-repeat;
   float: left;
   border-radius: 50%;
   overflow: hidden;
