@@ -30,6 +30,15 @@ module.exports = {
     }]
   },
 
+  env: {
+    commonUrl: 'http://123.207.11.165/image/',
+    commonFileUrl: 'http://123.207.11.165/'
+  },
+
+  router: {
+    middleware: 'getHost'
+  },
+
   /*
    ** Customize the progress-bar color
    ** https://zh.nuxtjs.org/api/configuration-loading/

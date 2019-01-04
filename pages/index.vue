@@ -1,6 +1,7 @@
 <template>
   <div>
-    <index-container :weeklist="weeklist" :bigCourselData="bigCourselData"></index-container>
+    <index-container :weeklist="weeklist"
+      :big-coursel-data="bigCourselData"></index-container>
   </div>
 </template>
 <script>
@@ -12,10 +13,12 @@ export default {
   components: {
     "index-container": IndexContainer
   },
-  async asyncData({params}) {
+  async asyncData({ params }) {
     let weeklist = await $get(webEssayGetWeekendRank, { pageNo: 1, size: 10 });
-    let bigCourselData = await $get(webBannerList, { cChannel: 18, linktype: 'second' });
-    
+    let bigCourselData = await $get(webBannerList, {
+      cChannel: 18,
+      linktype: "second"
+    });
     return {
       weeklist: weeklist.data ? weeklist.data.essayEntities : [],
       bigCourselData: bigCourselData.data ? bigCourselData.data : []
