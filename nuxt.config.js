@@ -27,16 +27,20 @@ module.exports = {
       rel: 'icon',
       type: 'image/x-icon',
       href: '/favicon.ico'
+    }],
+    script: [{
+      src: 'http://dup.baidustatic.com/js/ds.js'
     }]
   },
 
   env: {
     commonUrl: 'http://123.207.11.165/image/',
-    commonFileUrl: 'http://123.207.11.165/'
+    commonFileUrl: 'http://123.207.11.165/',
+    baseURL: 'http://123.207.11.165/api'
   },
 
   router: {
-    middleware: 'getHost'
+    middleware: ['getHost', 'baidu-statistics']
   },
 
   /*
@@ -65,6 +69,7 @@ module.exports = {
   plugins: [
     '@/plugins/babel-polyfill',
     '@/plugins/element-ui',
+    {src: '@/plugins/v-distpicker', ssr: false},
     '@/plugins/vue-swiper',
   ],
 
