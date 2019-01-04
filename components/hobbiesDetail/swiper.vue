@@ -37,13 +37,19 @@ export default {
       type: Array,
       required: true
     },
-    hobbiesId: 0
+    hobbiesId: ''
   },
   computed: {},
   mounted() {
     this.$nextTick(() => {
+      console.log('1222222')
+        console.log(this.hobbiesId)
+        console.log('1111222222222221111111')
       $get(webHobbiesDetailInfo, { hobbiesId: this.hobbiesId }).then(res => {
         let photoList = res.data.result_data.hobbies.photoList
+        console.log('11111111111')
+        console.log(photoList)
+        console.log('11111111111')
         if (photoList.length !== 0) {
           this.sliderData = photoList
           for (let i = 0; i < photoList.length; i++) {
@@ -51,6 +57,7 @@ export default {
             $('.swiper-wrapper').append(
               `<div class="swiper-slide"><img src="${imgUrl}"></div>`
             )
+            console.log('1122222222222')
           }
           var length = this.sliderData.length
           if (length == 9) {

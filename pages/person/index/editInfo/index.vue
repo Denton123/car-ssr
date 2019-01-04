@@ -64,7 +64,7 @@
             :data="uploadData"
             :before-upload="beforeAvatarUpload">
             <div class="avatar-uploader_wrap">
-              <img v-if="editForm.photo!==''"
+              <img v-if="editForm.photo"
                 :src="formatPic(editForm.photo)"
                 alt="">
               <img v-else
@@ -115,12 +115,14 @@
         <el-form-item prop="province"
           class="person_info_form_address">
           <el-col :span="11">
+            <no-ssr>
             <v-distpicker hide-area
               @select="onSelected"
               @province="onChangeProvince"
               @city="onChangeCity"
               :province="editForm.province"
               :city="editForm.city"></v-distpicker>
+            </no-ssr>
           </el-col>
           <el-col :span="11">
             <el-input v-model="editForm.address"
@@ -152,7 +154,7 @@
   </div>
 </template>
 <script>
-import VDistpicker from 'v-distpicker'
+// import VDistpicker from 'v-distpicker'
 import {
   smsSendMsgByRegister,
   webUserUpdate,
@@ -166,24 +168,9 @@ import { callbackify } from 'util'
 
 export default {
   name: 'personInfo',
-  metaInfo: {
-    // 设置 title
-    title: '编辑个人信息',
-    // 设置 meta
-    meta: [
-      {
-        name: 'keyWords',
-        content: 'vue '
-      }
-    ],
-    // 设置 link
-    link: [
-      {
-        rel: 'asstes',
-        href: 'https://assets-cdn.github.com/'
-      }
-    ]
-  },
+  // components: {
+  //   VDistpicker
+  // },
   data() {
     let state = false
     let checkPhoneValue = (rule, value, callback) => {
@@ -235,6 +222,10 @@ export default {
     }
     return {
       editForm: {
+        photo: null,
+        phone: null,
+        city: null,
+        email: null,
         account: null
       },
       rules: {
@@ -307,9 +298,7 @@ export default {
     //   }
     // }
   },
-  components: {
-    VDistpicker
-  },
+  
   mounted() {
     this.uploadUrl =
       process.env.NODE_ENV === 'development'
@@ -324,7 +313,7 @@ export default {
     }
     this.getUserInfo()
     // console.log(this.editForm)
-    if (this.editForm.photo !== '') {
+    if (this.editForm.photo) {
       this.imageUrl = this.editForm.photo
     }
   },
@@ -485,7 +474,10 @@ export default {
         'X-Auth0-Token': this.cookie !== '' ? this.cookie : this.tokenObj.token
       }).then(res => {
         this.userData = res.data.des
-        this.editForm = this.userData.user
+        this.editForm = {
+          ...this.editForm,
+          ...this.userData.user
+        }
       })
     },
     handleCancel() {

@@ -50,7 +50,7 @@
                 <el-tabs v-model="activeName"
                   @tab-click="handleClick">
                   <el-tab-pane label="我的文章"
-                    name="myEssay">
+                    name="person-index-myEssay-page">
                     <router-view class="view"></router-view>
                     <!--<my-essay></my-essay>-->
                   </el-tab-pane>
@@ -64,11 +64,11 @@
                     name="fourth">我的关注</el-tab-pane> -->
 
                   <el-tab-pane label="个人信息"
-                    name="editInfo">
+                    name="person-index-editInfo">
                     <person-info></person-info>
                   </el-tab-pane>
                   <el-tab-pane label="修改密码"
-                    name="resetPassword">
+                    name="person-index-resetPassword">
                     <reset-password></reset-password>
                   </el-tab-pane>
                 </el-tabs>
@@ -77,7 +77,9 @@
                     <img src="~static/images/ad_image.png"
                       alt="">
                   </a> -->
+                  <no-ssr>
                   <div id="index_footer_ad"></div>
+                  </no-ssr>
                 </div>
               </div>
               <Footer></Footer>
@@ -93,9 +95,9 @@
 // import './index.less'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
-import myEssay from './myEssay/_page.vue'
-import personInfo from './editInfo/index.vue'
-import resetPassword from './resetPassword/index.vue'
+import myEssay from '@/pages/person/index/myEssay/_page.vue'
+import personInfo from '@/pages/person/index/editInfo/index.vue'
+import resetPassword from '@/pages/person/index/resetPassword/index.vue'
 
 import { webUserSelectByPrimaryKey } from '@/http/api'
 import { $get, $post } from '@/http/ajax'
@@ -105,38 +107,6 @@ import systemManage from '@/http/photoApi.js'
 // const url = serverUrl + utils.apiPath + 'sys/uploadFile'
 export default {
   name: 'person',
-  metaInfo() {
-    return {
-      title: '个人中心',
-      // 设置 meta
-      meta: [
-        {
-          name: 'keyWords',
-          content: 'vue '
-        },
-        {
-          name: 'description',
-          content: `${this.metaDesc}`
-        },
-        {
-          name: 'applicable-device',
-          content: 'pc'
-        },
-        {
-          name: 'mobile-agent',
-          content: 'format=html5;url=http://m.mgous.com'
-        }
-      ],
-      // 设置 link
-      link: [
-        {
-          rel: 'alternate',
-          media: 'handheld',
-          href: 'http://m.mgous.com/'
-        }
-      ]
-    }
-  },
   data() {
     return {
       activeName: 'myEssay',
@@ -159,10 +129,11 @@ export default {
     handleClick(tab, event) {
       console.log(tab, event)
       this.activeName = tab.name
-      if (tab.name === 'myEssay') {
-        this.$router.push(`/person/${tab.name}/1`)
+      let tabArray = tab.name.split('-')
+      if (tabArray[2] === 'myEssay') {
+        this.$router.push(`/person/${tabArray[2]}/1`)
       } else {
-        this.$router.push(`/person/${tab.name}`)
+        this.$router.push(`/person/${tabArray[2]}`)
       }
     },
     getUserInfo() {
@@ -179,8 +150,8 @@ export default {
         }
       ).then(res => {
         // console.log(res)
-        this.userData = res.data.des
-        this.editForm = this.userData.user
+        this.userData = {...this.userData,...res.data.des}
+        this.editForm = {...this.editForm, ...this.userData.user}
       })
     },
     formatPic(item) {
@@ -200,21 +171,35 @@ export default {
     // 接入广告函数
     createAd() {
       // 底部通栏广告
-      ;(window.slotbydup = window.slotbydup || []).push({
+      let ad = document.getElementById('index_footer_ad')
+      if (ad) {
+        ;(window.slotbydup = window.slotbydup || []).push({
         id: '5993946',
         container: 'index_footer_ad',
         size: '1200,200',
         display: 'inlay-fix',
         async: true
       })
+      }
+      
     }
   },
   mounted() {
     this.getUserInfo()
-    this.createAd()
+    this.$nextTick(() => {this.createAd()})
     console.log(this.activeName, 'activeName')
     console.log(this.$route)
     this.activeName = this.$route.name
+    // let ad = document.getElementById('index_footer_ad')
+    //   if (ad) {
+    //     ;(window.slotbydup = window.slotbydup || []).push({
+    //     id: '5993946',
+    //     container: 'index_footer_ad',
+    //     size: '1200,200',
+    //     display: 'inlay-fix',
+    //     async: true
+    //   })
+    //   }
   },
   components: {
     Header,

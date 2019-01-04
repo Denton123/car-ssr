@@ -72,7 +72,7 @@ export default {
     moduleType: function() {
       return this.cardType
     }
-  }
+  },
 }
 </script>
 <style>

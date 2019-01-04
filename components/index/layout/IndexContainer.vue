@@ -6,7 +6,7 @@
     <!-- 顶部轮播图模块 -->
     <big-coursel :list="bigCourselData"
       id="index"></big-coursel>
-    <hot-news id="news"></hot-news>
+    <hot-news id="news" :newsObj="newsObj"></hot-news>
     <aside-bar></aside-bar>
     <!-- 中间tag -->
     <tags class="mt40"
@@ -213,6 +213,18 @@ export default {
       default() {
         return [];
       }
+    },
+    tagOne: {
+      type: Array,
+      default() {
+        return [];
+      }
+    },
+    newsObj: {
+      type: Object,
+      default() {
+        return {}
+      }
     }
   },
   data() {
@@ -231,7 +243,7 @@ export default {
       hobbiesItem: {}, // 兴趣部落右方文字
       videoCourselData: [], // 视频轮播图数据
       videoRightList: [], // 视频右方数据
-      tagOne: [], // 顶部tag数组
+      // tagOne: [], // 顶部tag数组
       tagTwo: [], // 中间tag数组
       tagThree: [], // 底部tag数组
       tagHot: [], // 热点
@@ -256,7 +268,7 @@ export default {
       let hobbiesCoursel = this.getBannerData("17");
       let videoCoursel = this.getBannerData("16");
       // 获取tag
-      let tagOne = this.getTag(2);
+      // let tagOne = this.getTag(2);
       let tagTwo = this.getTag(6);
       let tagThree = this.getTag(5);
       // 获取新能源热点tag
@@ -281,7 +293,7 @@ export default {
       this.EvCourselData = await EvCoursel;
       this.hobbiesCourselData = await hobbiesCoursel;
       this.videoCourselData = await videoCoursel;
-      this.tagOne = await tagOne;
+      // this.tagOne = await tagOne;
       this.tagTwo = await tagTwo;
       this.tagThree = await tagThree;
       this.tagHot = await tagHot;

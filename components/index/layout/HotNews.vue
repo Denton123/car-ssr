@@ -58,45 +58,35 @@ export default {
   components: {
     'car-card': CarCard
   },
-  data() {
-    return {
-      newsObj: {} // 最新资讯
+  // data() {
+  //   return {
+  //     newsObj: {} // 最新资讯
+  //   }
+  // },
+  props: {
+    newsObj: {
+      type: Object,
+      default() {
+        return {}
+      }
     }
   },
-  // props: {
-  //   newsObj: {
-  //     type: Object,
-  //     default() {
-  //       return {}
-  //     }
-  //   }
-  // }
   mounted() {
     this.$nextTick(async () => {
-      let hotNews = this.getHotNews()
-      this.newsObj = await hotNews
-    })
-  },
-  methods: {
-    // 获取最热的5篇文章和点击量最多的10篇文章
-    async getHotNews() {
-      let result = {}
-      try {
-        let data = await $get(webEssayGethoteassy)
-        let dataObj = data.data
-        if (Array.isArray(dataObj.click)) {
+      // let hotNews = this.getHotNews()
+      // this.newsObj = await hotNews
+      if (Array.isArray(this.newsObj.click)) {
           // 数据大于4条只取前4
-          if (dataObj.click.length > 4) {
-            result.click = dataObj.click.slice(0, 4)
+          if (this.newsObj.click.length > 4) {
+            this.newsObj.click = this.newsObj.click.slice(0, 4)
           } else {
-            result.click = dataObj.click
+            this.newsObj.click = this.newsObj.click
           }
         } else {
-          result.click = []
+          this.newsObj.click = []
         }
-        if (Array.isArray(dataObj.hotTime)) {
-          result.hotTime = dataObj.hotTime
-          result.hotTime.forEach(v => {
+        if (Array.isArray(this.newsObj.hotTime)) {
+          this.newsObj.hotTime.forEach(v => {
             v.classOneName = v.classOneName.toLowerCase()
             if (v.classOneName.toLowerCase() == 'news') {
               v.classOneName = '今日车闻'
@@ -108,17 +98,53 @@ export default {
               v.classOneName = '兴趣部落'
             }
           })
-          console.log(result.hotTime)
         } else {
-          result.hotTime = []
+          this.newsObj.hotTime = []
         }
-      } catch (err) {
-        console.log(err)
-        result.click = []
-        result.hotTime = []
-      }
-      return result
-    }
+    })
+  },
+  methods: {
+    // 获取最热的5篇文章和点击量最多的10篇文章
+    // async getHotNews() {
+    //   let result = {}
+    //   try {
+    //     let data = await $get(webEssayGethoteassy)
+    //     let dataObj = data.data
+    //     if (Array.isArray(dataObj.click)) {
+    //       // 数据大于4条只取前4
+    //       if (dataObj.click.length > 4) {
+    //         result.click = dataObj.click.slice(0, 4)
+    //       } else {
+    //         result.click = dataObj.click
+    //       }
+    //     } else {
+    //       result.click = []
+    //     }
+    //     if (Array.isArray(dataObj.hotTime)) {
+    //       result.hotTime = dataObj.hotTime
+    //       result.hotTime.forEach(v => {
+    //         v.classOneName = v.classOneName.toLowerCase()
+    //         if (v.classOneName.toLowerCase() == 'news') {
+    //           v.classOneName = '今日车闻'
+    //         } else if (v.classOneName.toLowerCase() == 'video') {
+    //           v.classOneName = '视频'
+    //         } else if (v.classOneName.toLowerCase() == 'ev') {
+    //           v.classOneName = '新能源'
+    //         } else {
+    //           v.classOneName = '兴趣部落'
+    //         }
+    //       })
+    //       console.log(result.hotTime)
+    //     } else {
+    //       result.hotTime = []
+    //     }
+    //   } catch (err) {
+    //     console.log(err)
+    //     result.click = []
+    //     result.hotTime = []
+    //   }
+    //   return result
+    // }
   }
 }
 </script>

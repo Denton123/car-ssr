@@ -1248,9 +1248,10 @@ this.cookie = this.getCookie('token')
     if (this.tokenObj == null) {
       this.tokenObj = {}
     }
- 
+    console.log(this.$route)
     this.currentPage = this.$route.params.page
     this.hobbiesid = `${this.$route.params.id}`
+    console.log(this.hobbiesid, 'this.hobbiesid')
     this.getArticleData()
     this.getCommentData(this.currentPage)
     this.getDataWithTag()

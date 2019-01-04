@@ -1,17 +1,18 @@
 import axios from 'axios'
 
-console.log(process.env)
+console.log(process.env.NODE_ENV)
+console.log('ssssssssssssssssssss')
 
-let baseDomain
-if (process.env.NODE_ENV === 'development') {
-  baseDomain = 'http://123.207.11.165/api'
-} else {
-  baseDomain = `http://${window.location.host}/api`
-}
+// let baseDomain
+// if (process.env.NODE_ENV === 'development') {
+//   baseDomain = 'http://123.207.11.165/api'
+// } else {
+//   baseDomain = `http://${window.location.host}/api`
+// }
 
 export const instance = axios.create({
   // baseURL: `http://${window.location.host}/api`,
-  baseURL: baseDomain,
+  baseURL: process.env.baseURL,
   // baseURL: 'http://10.10.0.42:8080',
   // baseURL: 'http://10.10.3.60:8080/',
   // baseURL: "http://10.10.2.201:8080/",

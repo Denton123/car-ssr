@@ -12,18 +12,14 @@ const apiSchedule = '/api/v1/schedule/' // 门户服务
  * 11.27新增服务器ip
  */
 
-console.log(process.env)
-let commonUrl, commonFileUrl
-if (process.env.NODE_ENV === 'development') {
-  commonUrl = 'http://123.207.11.165/image/' // 服务器图片拉取ip
-  commonFileUrl = 'http://123.207.11.165/' // 服务器图片上传ip
-} else {
-  commonUrl = `http://${window.location.host}/image/` // 服务器图片拉取ip
-  commonFileUrl = `http://${window.location.host}`
-}
-/*
- * 12.28新增线上服务器ip
- */
+console.log(process.env.commonUrl)
+console.log('-------------')
+
+let commonUrl = process.env.commonUrl
+let commonFileUrl = process.env.commonFileUrl
+
+//  * 12.28新增线上服务器ip
+//  */
 // 服务器图片上传ip
 /**
  * 二级域名
