@@ -51,8 +51,8 @@
                   @tab-click="handleClick">
                   <el-tab-pane label="我的文章"
                     name="person-index-myEssay-page">
-                    <router-view class="view"></router-view>
-                    <!--<my-essay></my-essay>-->
+                    <nuxt-child/>
+                    <!--<router-view class="view"></router-view>-->
                   </el-tab-pane>
                   <!-- <el-tab-pane label="我的积分"
                     name="second">
@@ -181,7 +181,7 @@ export default {
         async: true
       })
       }
-      
+
     }
   },
   mounted() {

@@ -16,22 +16,22 @@
         </div>
         <div class="cropper-content">
           <div class="cropper">
-            <vueCropper ref="cropper"
-              :img="option.img"
-              :outputSize="option.size"
-              :outputType="option.outputType"
-              :info="true"
-              :full="option.full"
-              :canMove="option.canMove"
-              :canMoveBox="option.canMoveBox"
-              :original="option.original"
-              :autoCrop="option.autoCrop"
-              :autoCropWidth="option.autoCropWidth"
-              :autoCropHeight="option.autoCropHeight"
-              :fixedBox="option.fixedBox"
-              @realTime="realTime"
-              @imgLoad="imgLoad">
-            </vueCropper>
+              <vueCropper ref="cropper"
+                          :img="option.img"
+                          :outputSize="option.size"
+                          :outputType="option.outputType"
+                          :info="true"
+                          :full="option.full"
+                          :canMove="option.canMove"
+                          :canMoveBox="option.canMoveBox"
+                          :original="option.original"
+                          :autoCrop="option.autoCrop"
+                          :autoCropWidth="option.autoCropWidth"
+                          :autoCropHeight="option.autoCropHeight"
+                          :fixedBox="option.fixedBox"
+                          @realTime="realTime"
+                          @imgLoad="imgLoad">
+              </vueCropper>
           </div>
           <div style="margin-left:20px;">
             <div class="show-preview"
@@ -88,7 +88,14 @@
 import until from '@/utils/until'
 import axios from 'axios'
 const url = until.commonFileUrl + until.apiPath + 'sys/uploadFile'
+// if(process.client) {
+//   vueCropper = require('vue-cropper')
+//   Vue.use(vueCropper.default)
+// }
 export default {
+  // components: {
+  //   vueCropper
+  // },
   watch: {
     clearMessage() {
       console.log(this.option.img)
