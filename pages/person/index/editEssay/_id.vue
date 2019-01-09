@@ -2,19 +2,13 @@
   <div class="article_content_editEssay">
     <el-breadcrumb separator-class="el-icon-arrow-right"
       class="nav_title">
-      <el-breadcrumb-item>
-        <router-link to="/person/myEssay/1">个人中心
-        </router-link>
-      </el-breadcrumb-item>
-      <el-breadcrumb-item>
-        <router-link to="/person/myEssay/1">我的文章
-        </router-link>
-      </el-breadcrumb-item>
-      <el-breadcrumb-item class="nav_title_active">发表文章</el-breadcrumb-item>
+      <el-breadcrumb-item>个人中心</el-breadcrumb-item>
+      <el-breadcrumb-item>我的文章</el-breadcrumb-item>
+      <el-breadcrumb-item class="nav_title_active">编辑文章</el-breadcrumb-item>
     </el-breadcrumb>
     <div class="publish_article">
       <div class="article_title">
-        发表文章
+        编辑文章
       </div>
       <div class="article_table">
         <el-form :model="articleForm"
@@ -134,7 +128,7 @@
               :before-upload="beforeUploadVideo"
               :on-progress="uploadVideoProcess"
               :on-remove="handleRemoveVideo">
-              <img src="~static/images/video_image.png" alt="" class="videoControl">
+              <img src="/static/images/video_image.png" alt="">
             </el-upload>
             <video v-if="articleForm.video"
               :src="pieceVideoUrl"
@@ -149,7 +143,7 @@
               <!--:height="320"></vue-html5-editor>-->
               <!--暂时去掉，以后加上-->
               <div id="summernote"
-              :content="articleForm.description"></div>
+                :content="articleForm.description"></div>
               <span class="require_icon"><i>*</i>必填</span>
             </div>
           </el-form-item>
@@ -169,22 +163,26 @@
 </template>
 <script>
 // import 'bootstrap/dist/css/bootstrap.css'
-import Header from 'components/Header'
-import Footer from 'components/Footer'
-import VueCropper from 'components/VueCropper'
-import { $get, $post } from '@/http/ajax'
+import Header from '@/components/Header'
+import Footer from '@/components/Footer'
+import VueCropper from '@/components/VueCropper'
+import { $get, $post, $put } from '@/http/ajax'
 import { instance } from '@/http/instance'
-import { webEssaySave, filePicture, webEssayArticleType } from '@/http/api'
+import {
+  webEssayUpdate,
+  filePicture,
+  webEssayArticleType,
+  webEssayInfo
+} from '@/http/api'
 import systemManage from '@/http/photoApi.js'
 import utils from '@/utils/until'
-import $ from 'jquery'
+// import $ from 'jquery'
 import axios from 'axios'
 const url = utils.commonFileUrl + utils.apiPath + 'sys/uploadFile'
 // const serverUrl = utils.commonUrl
 // const url = serverUrl + utils.apiPath + 'sys/uploadFile'
-
-if(process.client){
-  require('summernote/dist/summernote-lite')
+if (process.client) {
+  require("summernote/dist/summernote-lite");
 }
 
 export default {
@@ -245,6 +243,7 @@ export default {
       imgType: {
         moduleName: 'web'
       },
+      id: 1,
       saveTrue: true,
       dialogVisible: false,
       avatarUrl2: null,
@@ -255,7 +254,14 @@ export default {
       clearMessage: true
     }
   },
-  created() {},
+  created() {
+    if (this.$route.params.id) {
+      this.id = this.$route.params.id
+    } else {
+      this.id =
+        sessionStorage.getItem('eassyId')
+    }
+  },
   /* 预览图和视频地址拼接 */
   computed: {
     piectImgUrl() {
@@ -274,10 +280,10 @@ export default {
       let index = this.oneClassOptions.findIndex(function(item) {
         return item.id === that.articleForm.classOne
       })
-      // console.log(index)
+      console.log(index)
       let temp = this.oneClassOptions.slice()
       temp.splice(index, 1)
-      // console.log(temp)
+      console.log(temp)
       return temp
     },
     connectClassOneState() {
@@ -293,6 +299,21 @@ export default {
     /* piectImgUrl(item) {
       return systemManage.getApi(item.photo)
     }, */
+    // 获取文章信息
+    async getArticleInfo() {
+      let res = await $get(webEssayInfo, { id: this.id })
+      console.log(res)
+      this.articleForm = res.data
+      $('#summernote').summernote('code', this.articleForm.description)
+      this.articleForm.selectedOptions = []
+      // 选中对象默认模块
+      this.articleForm.selectedOptions.push(this.articleForm.classOne)
+      console.log(this.articleForm.classOne)
+      // 文章图片地址拼接显示
+      this.articleForm.fileList = [
+        { name: 'img', url: systemManage.getApi(this.articleForm.photo) }
+      ]
+    },
     // 获取文章类别
     async getArticleType() {
       let res = await $get(webEssayArticleType, {})
@@ -326,7 +347,7 @@ export default {
         url: systemManage.getApi(data)
       })
       this.articleForm.photo = data
-      // console.log(data)
+      console.log(data)
     },
     closeDialog() {
       this.clearMessage = !this.clearMessage
@@ -384,7 +405,7 @@ export default {
     uploadPicSuccess(res) {
       if (res.code === 0) {
         this.articleForm.photo = res.urls[0]
-        // console.log(this.articleForm.photo)
+        console.log(this.articleForm.photo)
         this.url = systemManage.getApi(this.articleForm.photo)
         document.querySelector('.el-upload').style.display = 'none'
         this.showCropper = true
@@ -407,14 +428,14 @@ export default {
       })
     },
     handleClick(tab, event) {
-      // console.log(tab, event)
+      console.log(tab, event)
     },
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
           alert('submit!')
         } else {
-          // console.log('error submit!!')
+          console.log('error submit!!')
           return false
         }
       })
@@ -489,8 +510,8 @@ export default {
               } else {
                 token = this.getCookie('token')
               }
-              $post(
-                webEssaySave,
+              $put(
+                webEssayUpdate,
                 {
                   ...this.articleForm,
                   state: '3'
@@ -560,8 +581,8 @@ export default {
               } else {
                 token = this.getCookie('token')
               }
-              $post(
-                webEssaySave,
+              $put(
+                webEssayUpdate,
                 {
                   ...this.articleForm,
                   state: '1'
@@ -634,112 +655,110 @@ export default {
   mounted() {
     this.$nextTick(async () => {
       this.getArticleType()
+      this.getArticleInfo()
     })
-    $(document).ready(() => {
-      /* 富文本相关 */
-      var myVideoBtn = function(context) {
-        var ui = $.summernote.ui
-        // create button
-        var button = ui.button({
-          contents:
-            '<i class="note-icon-video"/><input title="视频" onchange="uploadVideo()" type="file" id="videoInput" accept="video/mp4" style="opacity: 0; filter:Alpha(opacity=0);width:20px;height: 20px;margin-left: -20px;position:absolute;">' // 这个是展示在富文本顶部的操作图标，这个rich-video-icon是自己写的
-          // tooltip: '' //todo 这个视频提示报错，未知原因
-          // click: function() {// 点击按钮触发事件，这边不需要用到
-          // context.invoke('editor.insertText', 'xxx')
-          // }
-        })
-        return button.render() // return button as jquery object
-      }
-      console.log(123, $('#summernote').summernote)
-      $('#summernote').summernote({
-        lang: 'zh-CN',
-        placeholder: '请输入内容',
-        height: 600,
-        width: 800,
-        htmlMode: true,
-        dialogsInBody: false,
-        toolbar: [
-          ['style', ['bold', 'italic', 'underline', 'clear']],
-          ['fontsize', ['fontsize']],
-          ['fontname', ['fontname']],
-          ['color', ['color']],
-          ['para', ['ul', 'ol', 'paragraph']],
-          ['insert', ['link', 'picture', 'video']],
-          ['mybutton', ['myVideo']]
-        ],
-        fontSizes: ['8', '9', '10', '11', '12', '14', '18', '24', '36'],
-        fontNames: [
-          'Arial',
-          'Arial Black',
-          'Comic Sans MS',
-          'Courier New',
-          'Helvetica Neue',
-          'Helvetica',
-          'Impact',
-          'Lucida Grande',
-          'Tahoma',
-          'Times New Roman',
-          'Verdana'
-        ],
-        buttons: {
-          myVideo: myVideoBtn
-        },
-        popover: {
-          air: [['color', ['color']], ['font', ['bold', 'underline', 'clear']]]
-        },
-        callbacks: {
-          onImageUpload: function(files) {
-            console.log(files[0])
-            let formData = new FormData()
-            formData.append('file', files[0])
-            formData.append('moduleName', 'essay')
-            console.log(formData)
-            axios
-              .post(url, formData, {
-                contentType: false,
-                processData: false,
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-              })
-              .then(response => {
-                var res = response.data
-                if (res.code === 0) {
-                  console.log(systemManage.getApi(res.urls[0]))
-                  $('#summernote').summernote(
-                    'insertImage',
-                    systemManage.getApi(res.urls[0])
-                  )
-                }
-              })
-          }
-        }
+    /* 富文本相关 */
+    var myVideoBtn = function(context) {
+      var ui = $.summernote.ui
+      // create button
+      var button = ui.button({
+        contents:
+          '<i class="note-icon-video"/><input title="视频" onchange="uploadVideo()" type="file" id="videoInput" accept="video/mp4" style="opacity: 0; filter:Alpha(opacity=0);width:20px;height: 20px;margin-left: -20px;position:absolute;">' // 这个是展示在富文本顶部的操作图标，这个rich-video-icon是自己写的
+        // tooltip: '' //todo 这个视频提示报错，未知原因
+        // click: function() {// 点击按钮触发事件，这边不需要用到
+        // context.invoke('editor.insertText', 'xxx')
+        // }
       })
-      window.uploadVideo = function() {
-        // vm.showLoading = true // 因ship上传比较耗时，所以加了个loading提示
-        let formData = new FormData()
-        console.log($('#videoInput')[0].files[0])
-        formData.append('file', $('#videoInput')[0].files[0])
-        formData.append('moduleName', 'essay')
-        axios
-          .post(url, formData, {
-            contentType: false,
-            processData: false,
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-          })
-          .then(response => {
-            var res = response.data
-            if (res.code === 0) {
-              console.log(systemManage.getApi(res.urls[0]))
-              var node = document.createElement('div') // 创建节点，用于包裹视频，再加这一层是方便调视频样式
-              node.innerHTML =
-                '<video controls="controls" style="max-width:100%;" src="' +
-                systemManage.getApi(res.urls[0]) +
-                '" />'
-              node.cssText = 'width:100%;text-aligen:center;'
-              $('#summernote').summernote('insertNode', node) // 插入视频
-            }
-          })
+      return button.render() // return button as jquery object
+    }
+    $('#summernote').summernote({
+      lang: 'zh-CN',
+      placeholder: '请输入内容',
+      height: 600,
+      width: 800,
+      htmlMode: true,
+      dialogsInBody: false,
+      toolbar: [
+        ['style', ['bold', 'italic', 'underline', 'clear']],
+        ['fontsize', ['fontsize']],
+        ['fontname', ['fontname']],
+        ['color', ['color']],
+        ['para', ['ul', 'ol', 'paragraph']],
+        ['insert', ['link', 'picture', 'video']],
+        ['mybutton', ['myVideo']]
+      ],
+      fontSizes: ['8', '9', '10', '11', '12', '14', '18', '24', '36'],
+      fontNames: [
+        'Arial',
+        'Arial Black',
+        'Comic Sans MS',
+        'Courier New',
+        'Helvetica Neue',
+        'Helvetica',
+        'Impact',
+        'Lucida Grande',
+        'Tahoma',
+        'Times New Roman',
+        'Verdana'
+      ],
+      buttons: {
+        myVideo: myVideoBtn
+      },
+      popover: {
+        air: [['color', ['color']], ['font', ['bold', 'underline', 'clear']]]
+      },
+      callbacks: {
+        onImageUpload: function(files) {
+          console.log(files[0])
+          let formData = new FormData()
+          formData.append('file', files[0])
+          formData.append('moduleName', 'essay')
+          console.log(formData)
+          axios
+            .post(url, formData, {
+              contentType: false,
+              processData: false,
+              headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+            })
+            .then(response => {
+              var res = response.data
+              if (res.code === 0) {
+                console.log(systemManage.getApi(res.urls[0]))
+                $('#summernote').summernote(
+                  'insertImage',
+                  systemManage.getApi(res.urls[0])
+                )
+              }
+            })
+        }
       }
     })
+    window.uploadVideo = function() {
+      // vm.showLoading = true // 因ship上传比较耗时，所以加了个loading提示
+      let formData = new FormData()
+      console.log($('#videoInput')[0].files[0])
+      formData.append('file', $('#videoInput')[0].files[0])
+      formData.append('moduleName', 'essay')
+      axios
+        .post(url, formData, {
+          contentType: false,
+          processData: false,
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        })
+        .then(response => {
+          var res = response.data
+          if (res.code === 0) {
+            console.log(systemManage.getApi(res.urls[0]))
+            var node = document.createElement('div') // 创建节点，用于包裹视频，再加这一层是方便调视频样式
+            node.innerHTML =
+              '<video controls="controls" style="max-width:100%;" src="' +
+              systemManage.getApi(res.urls[0]) +
+              '" />'
+            node.cssText = 'width:100%;text-aligen:center;'
+            $('#summernote').summernote('insertNode', node) // 插入视频
+          }
+        })
+    }
   },
   components: {
     Header,
@@ -749,292 +768,292 @@ export default {
 }
 </script>
 <style lang="less">
-.el-breadcrumb__separator:last-child {
-  &::before {
-    content: '';
-    display: inline-block;
-    padding: 0 10px;
-    width: 6px;
-    height: 8px;
-    background: url('~static/images/small_right_black.png') no-repeat
+  .el-breadcrumb__separator:last-child {
+    &::before {
+      content: '';
+      display: inline-block;
+      padding: 0 10px;
+      width: 6px;
+      height: 8px;
+      background: url('~static/images/small_right_black.png') no-repeat
       center;
-  }
-}
-.person_theme {
-  width: 100%;
-  height: 400px;
-  background: url('~static/images/person_head.png') no-repeat;
-  background-size: 100% 100%;
-}
-.person_container {
-  width: 100%;
-  height: 100%;
-  background: #f6f6f6;
-}
-.person_wrap {
-  width: 1200px;
-  height: auto;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.person_head {
-  width: 130px;
-  height: 130px;
-  border-radius: 50%;
-  background: #fff;
-  margin: 30px auto 15px;
-}
-.person_head img {
-  width: 130px;
-  height: 130px;
-}
-.person_name {
-  font-size: 24px;
-  font-weight: bold;
-  color: #fff;
-  margin-bottom: 12px;
-}
-.person_approve {
-  width: 80px;
-  height: 30px;
-  line-height: 30px;
-  text-align: center;
-  margin-left: 10px;
-  -webkit-transform: skew(10deg);
-  -moz-transform: skew(10deg);
-  -o-transform: skew(10deg);
-  background: #be001e;
-  font-size: 14px;
-  color: #fff;
-  font-style: italic;
-}
-.person_msg {
-  width: 60%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  margin-top: 50px;
-}
-.person_msg div {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.person_msg div span {
-  display: inline-block;
-  color: #fff;
-  margin: 5px 0;
-}
-.person_msg div span:first-child {
-  font-size: 16px;
-}
-.person_msg div span:last-child {
-  font-size: 18px;
-}
-.person_content {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  background: #f6f6f6;
-}
-.person_mask {
-  position: absolute;
-  width: 100%;
-  height: 50px;
-  background: #fff;
-}
-.person_bg {
-  width: 100%;
-  background: #f6f6f6;
-}
-.person_title {
-  width: 100%;
-  height: 50px;
-  line-height: 50px;
-  border-bottom: 1px solid #121212;
-  margin: 0 auto;
-  background: #fff;
-}
-.article_content_editEssay .person_title .title_nav {
-  width: 1200px;
-  margin: 0 auto;
-}
-.article_content_editEssay .publish_article {
-  background: #fff !important;
-}
-.article_table {
-  width: 94%;
-  margin: 0 auto;
-}
-.article_title {
-  width: 100%;
-  padding: 30px 0;
-  text-align: center;
-  font-size: 22px;
-  color: #121212;
-  font-weight: bold;
-  letter-spacing: 2px;
-  margin: 0;
-}
-.nav_title {
-  height: 60px;
-  line-height: 60px;
-  background: #f6f6f6;
-}
-.nav_title_active span {
-  color: #be001e !important;
-}
-.article_form_title {
-  font-size: 20px;
-  color: #121212;
-  font-weight: bold;
-}
-.article_form_title i {
-  font-style: normal;
-  color: #be001e;
-}
-.article_form_title span {
-  color: #999999;
-  font-size: 12px;
-  margin-left: 10px;
-  font-weight: normal;
-}
-.require_icon {
-  margin-left: 20px;
-  font-size: 14px;
-  color: #aaa;
-}
-.require_icon i {
-  font-style: normal;
-  color: #be001e;
-}
-.article_file_picture {
-  position: relative;
-  margin-top: 20px;
-}
-.article_ruleForm .el-input {
-  width: 65%;
-}
-.article_ruleForm .el-select {
-  width: 100%;
-}
-.articleVerify {
-  display: inline-block;
-  width: 360px;
-}
-.article_ruleForm .articleVerify:nth-child(1) {
-  margin-right: 10px;
-}
-.article_ruleForm .articleVerify .el-input {
-  width: 100%;
-}
-.article_ruleForm .el-radio-button,
-.article_ruleForm .el-radio-button__inner {
-  margin-right: 15px;
-}
-.article_ruleForm .el-radio-button__inner {
-  /*border-left: 0;*/
-  width: 89px;
-  height: 42px;
-  border: 1px solid #dcdfe6;
-  border-radius: 4px !important;
-  color: #121212;
-  font-weight: bold;
-}
-.el-tabs__active-bar {
-  background: transparent !important;
-}
-// radio按钮的样式
-.article_ruleForm .el-radio-button__orig-radio:checked+.el-radio-button__inner{
-  width: 89px;
-  height: 42px;
-  background: url("~static/images/select_radio_active.png") no-repeat transparent;
-  background-size: 100% 100%;
-  border: none transparent;
-  box-shadow: none;
-  color: #121212;
-}
-// .el-tabs__item {
-//   padding: 0px 38px;
-//   height: 50px !important;
-//   line-height: 51px;
-//   color: #121212;
-//   font-weight: bold;
-// }
-// // 这里影响了全局
-// .article_content .el-tabs__item.is-active {
-//   width: 120px;
-//   height: 50px;
-//   background: url('~static/images/active_icon.png') no-repeat;
-//   background-size: 100% 100%;
-//   color: #fff;
-//   padding-left: 18px !important;
-// }
-.title_nav .el-tabs__header {
-  margin: 0;
-}
-.article_ruleForm .form_editor{
-  margin-top: 30px;
-  display: flex;
-}
-.picture_mark {
-  margin-top: -20px;
-  span {
-    color: #409eff;
-    &:first-child {
-      margin: 0 96px 0 50px;
     }
   }
-}
-/* 裁剪图片相关 */
-.app-main-content {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 150px;
-  height: 100%;
-  cursor: pointer;
-}
-/* 限制上传视频名字宽度 */
-.person_container .el-upload-list {
-  width: 58%;
-}
-/*广告*/
-.advertise_wrapper {
-  margin: 20px 0;
-  width: 100%;
-  height: 200px;
-}
-.advertise_wrapper > a {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-.advertise_wrapper > a > img {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
+  .person_theme {
+    width: 100%;
+    height: 400px;
+    background: url('~static/images/person_head.png') no-repeat;
+    background-size: 100% 100%;
+  }
+  .person_container {
+    width: 100%;
+    height: 100%;
+    background: #f6f6f6;
+  }
+  .person_wrap {
+    width: 1200px;
+    height: auto;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .person_head {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    background: #fff;
+    margin: 30px auto 15px;
+  }
+  .person_head img {
+    width: 130px;
+    height: 130px;
+  }
+  .person_name {
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 12px;
+  }
+  .person_approve {
+    width: 80px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    margin-left: 10px;
+    -webkit-transform: skew(10deg);
+    -moz-transform: skew(10deg);
+    -o-transform: skew(10deg);
+    background: #be001e;
+    font-size: 14px;
+    color: #fff;
+    font-style: italic;
+  }
+  .person_msg {
+    width: 60%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 50px;
+  }
+  .person_msg div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .person_msg div span {
+    display: inline-block;
+    color: #fff;
+    margin: 5px 0;
+  }
+  .person_msg div span:first-child {
+    font-size: 16px;
+  }
+  .person_msg div span:last-child {
+    font-size: 18px;
+  }
+  .person_content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: #f6f6f6;
+  }
+  .person_mask {
+    position: absolute;
+    width: 100%;
+    height: 50px;
+    background: #fff;
+  }
+  .person_bg {
+    width: 100%;
+    background: #f6f6f6;
+  }
+  .person_title {
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    border-bottom: 1px solid #121212;
+    margin: 0 auto;
+    background: #fff;
+  }
+  .article_content_editEssay .person_title .title_nav {
+    width: 1200px;
+    margin: 0 auto;
+  }
+  .article_content_editEssay .publish_article {
+    background: #fff !important;
+  }
+  .article_table {
+    width: 94%;
+    margin: 0 auto;
+  }
+  .article_title {
+    width: 100%;
+    padding: 30px 0;
+    text-align: center;
+    font-size: 22px;
+    color: #121212;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin: 0;
+  }
+  .nav_title {
+    height: 60px;
+    line-height: 60px;
+    background: #f6f6f6;
+  }
+  .nav_title_active span {
+    color: #be001e !important;
+  }
+  .article_form_title {
+    font-size: 20px;
+    color: #121212;
+    font-weight: bold;
+  }
+  .article_form_title i {
+    font-style: normal;
+    color: #be001e;
+  }
+  .article_form_title span {
+    color: #999999;
+    font-size: 12px;
+    margin-left: 10px;
+    font-weight: normal;
+  }
+  .require_icon {
+    margin-left: 20px;
+    font-size: 14px;
+    color: #aaa;
+  }
+  .require_icon i {
+    font-style: normal;
+    color: #be001e;
+  }
+  .article_file_picture {
+    position: relative;
+    margin-top: 20px;
+  }
+  .article_ruleForm .el-input {
+    width: 65%;
+  }
+  .article_ruleForm .el-select {
+    width: 100%;
+  }
+  .articleVerify {
+    display: inline-block;
+    width: 360px;
+  }
+  .article_ruleForm .articleVerify:nth-child(1) {
+    margin-right: 10px;
+  }
+  .article_ruleForm .articleVerify .el-input {
+    width: 100%;
+  }
+  .article_ruleForm .el-radio-button,
+  .article_ruleForm .el-radio-button__inner {
+    margin-right: 15px;
+  }
+  .article_ruleForm .el-radio-button__inner {
+    /*border-left: 0;*/
+    width: 89px;
+    height: 42px;
+    border: 1px solid #dcdfe6;
+    border-radius: 4px !important;
+    color: #121212;
+    font-weight: bold;
+  }
+  .el-tabs__active-bar {
+    background: transparent !important;
+  }
+  // radio按钮的样式
+  .article_ruleForm .el-radio-button__orig-radio:checked+.el-radio-button__inner{
+    width: 89px;
+    height: 42px;
+    background: url("~static/images/select_radio_active.png") no-repeat transparent;
+    background-size: 100% 100%;
+    border: none transparent;
+    box-shadow: none;
+    color: #121212;
+  }
+  // .el-tabs__item {
+  //   padding: 0px 38px;
+  //   height: 50px !important;
+  //   line-height: 51px;
+  //   color: #121212;
+  //   font-weight: bold;
+  // }
+  // // 这里影响了全局
+  // .article_content .el-tabs__item.is-active {
+  //   width: 120px;
+  //   height: 50px;
+  //   background: url('/static/images/active_icon.png') no-repeat;
+  //   background-size: 100% 100%;
+  //   color: #fff;
+  //   padding-left: 18px !important;
+  // }
+  .title_nav .el-tabs__header {
+    margin: 0;
+  }
+  .article_ruleForm .form_editor{
+    margin-top: 30px;
+    display: flex;
+  }
+  .picture_mark {
+    margin-top: -20px;
+    span {
+      color: #409eff;
+      &:first-child {
+        margin: 0 96px 0 50px;
+      }
+    }
+  }
+  /* 裁剪图片相关 */
+  .app-main-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 150px;
+    height: 100%;
+    cursor: pointer;
+  }
+  /* 限制上传视频名字宽度 */
+  .person_container .el-upload-list {
+    width: 58%;
+  }
+  /*广告*/
+  .advertise_wrapper {
+    margin: 20px 0;
+    width: 100%;
+    height: 200px;
+  }
+  .advertise_wrapper > a {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .advertise_wrapper > a > img {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
 
-/* 发布和草稿按钮 */
-.person_container .person_btn {
-  width: 150px;
-  height: 40px;
-  border-radius: 0;
-  border: none;
-}
-.person_container .person_btn:hover {
-  border-color: red;
-}
-.person_container .person_btn.publish {
-  color: #f6f6f6;
-  background: url('~static/images/person_publish.png') no-repeat !important;
-}
-.person_container .person_btn.draft {
-  color: #000;
-  background: url('~static/images/person_draft.png') no-repeat !important;
-}
+  /* 发布和草稿按钮 */
+  .person_container .person_btn {
+    width: 150px;
+    height: 40px;
+    border-radius: 0;
+    border: none;
+  }
+  .person_container .person_btn:hover {
+    border-color: red;
+  }
+  .person_container .person_btn.publish {
+    color: #f6f6f6;
+    background: url('~static/images/person_publish.png') no-repeat !important;
+  }
+  .person_container .person_btn.draft {
+    color: #000;
+    background: url('~static/images/person_draft.png') no-repeat !important;
+  }
 </style>

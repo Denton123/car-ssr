@@ -13,7 +13,6 @@ console.log('ssssssssssssssssssss')
 export const instance = axios.create({
   // baseURL: `http://${window.location.host}/api`,
   // baseURL: process.env.baseURL,
-  // baseURL: 'http://10.10.0.42:8080',
   // baseURL: 'http://10.10.3.60:8080/',
   // baseURL: "http://10.10.2.201:8080/",
   // baseURL: 'http://172.31.162.93:8080/',

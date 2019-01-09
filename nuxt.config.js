@@ -1,4 +1,5 @@
 const path = require('path')
+const webpack = require('webpack')
 const merge = require('webpack-merge')
 const pkg = require('./package')
 
@@ -61,7 +62,8 @@ module.exports = {
     '@/assets/css/base.css',
     'element-ui/lib/theme-chalk/index.css',
     "swiper/dist/css/swiper.css",
-    'font-awesome/css/font-awesome.css'
+    'font-awesome/css/font-awesome.css',
+    'summernote/dist/summernote-lite.css'
   ],
 
   /*
@@ -70,7 +72,10 @@ module.exports = {
   plugins: [
     '@/plugins/babel-polyfill',
     '@/plugins/element-ui',
-    {src: '@/plugins/v-distpicker', ssr: false},
+    {
+      src: '@/plugins/v-distpicker',
+      ssr: false
+    },
     '@/plugins/vue-swiper',
   ],
 
@@ -140,7 +145,15 @@ module.exports = {
    ** Build configuration
    */
   build: {
-    // vendor: ['swiper'],
+    vendor: ['jquery', 'bootstrap'],
+    plugins: [
+      // set shortcuts as global for bootstrap
+      new webpack.ProvidePlugin({
+        $: 'jquery',
+        jQuery: 'jquery',
+        'window.jQuery': 'jquery'
+      })
+    ],
     // analyze: true,
     // babel: {
     //   presets: ['es2015', 'stage-2'],

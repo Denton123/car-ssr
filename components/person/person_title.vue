@@ -30,7 +30,7 @@ export default {
   methods: {
     publicRouter() {
       this.$router.push({
-        name: 'publishEssay'
+        path: '/person/publishEssay'
       })
     },
     hobbiesRouter() {
