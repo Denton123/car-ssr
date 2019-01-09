@@ -36,11 +36,12 @@ module.exports = {
   env: {
     commonUrl: 'http://123.207.11.165/image/',
     commonFileUrl: 'http://123.207.11.165/',
-    baseURL: 'http://123.207.11.165/api'
+    baseURL: 'http://123.207.11.165/api',
+    isGetHost: false,
   },
 
   router: {
-    middleware: ['getHost', 'baidu-statistics']
+    middleware: ['getHost', 'baidu-statistics', 'setStore']
   },
 
   /*

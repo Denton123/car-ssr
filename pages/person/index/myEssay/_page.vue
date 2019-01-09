@@ -93,32 +93,32 @@ export default {
       ).then(res => {
         // console.log(res)
         this.listData = res.data.des
-        // if (this.listData) {
-        //     this.listData.list.forEach(v => {
-        //   switch (v.state) {
-        //     case 1:
-        //       v.state = '草稿'
-        //       break
-        //     case 2:
-        //       v.state = '发布'
-        //       break
-        //     case 3:
-        //       v.state = '审核'
-        //       break
-        //     case 4:
-        //       v.state = '审核不通过'
-        //       break
-        //   }
-        //   if (
-        //     v.className !== '今日车闻' &&
-        //     v.className !== '视频' &&
-        //     v.className !== '新能源'
-        //   ) {
-        //     v.className = '兴趣部落'
-        //   }
-        //   this.toLinkDetail = v.title !== 'hobbies' ? 'detail' : 'hobbiesDetail'
-        // })
-        // }
+        if (this.listData) {
+            this.listData.list.forEach(v => {
+          switch (v.state) {
+            case 1:
+              v.state = '草稿'
+              break
+            case 2:
+              v.state = '发布'
+              break
+            case 3:
+              v.state = '审核'
+              break
+            case 4:
+              v.state = '草稿'
+              break
+          }
+          if (
+            v.className !== '今日车闻' &&
+            v.className !== '视频' &&
+            v.className !== '新能源'
+          ) {
+            v.className = '兴趣部落'
+          }
+          this.toLinkDetail = v.title !== 'hobbies' ? 'detail' : 'hobbiesDetail'
+        })
+        }
         
       })
     },

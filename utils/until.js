@@ -15,8 +15,11 @@ const apiSchedule = '/api/v1/schedule/' // 门户服务
 console.log(process.env.commonUrl)
 console.log('-------------')
 
-let commonUrl = process.env.commonUrl
-let commonFileUrl = process.env.commonFileUrl
+// let commonUrl = process.env.commonUrl
+// let commonFileUrl = process.env.commonFileUrl
+let commonUrl = 'http://www.jfcar.com.cn/image/'
+let commonFileUrl ='http://www.jfcar.com.cn/'
+
 
 //  * 12.28新增线上服务器ip
 //  */

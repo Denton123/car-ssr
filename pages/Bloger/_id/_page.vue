@@ -109,24 +109,6 @@
   import systemManage from '@/http/photoApi.js'
   export default {
     name: 'Bloger',
-    metaInfo: {
-      // 设置 title
-      title: '博主主页',
-      // 设置 meta
-      meta: [
-        {
-          name: 'keyWords',
-          content: 'vue '
-        }
-      ],
-      // 设置 link
-      link: [
-        {
-          rel: 'asstes',
-          href: 'https://assets-cdn.github.com/'
-        }
-      ]
-    },
     data() {
       return {
         bloggerId: '1',

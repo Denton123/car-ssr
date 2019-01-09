@@ -409,8 +409,8 @@ export default {
 }
 .title_nav .el-tabs__item {
   width: 120px;
-  height: 50px !important;
-  line-height: 50px;
+  height: 51px !important;
+  line-height: 51px;
   color: #121212;
   font-weight: bold;
   padding-left: 18px;
@@ -419,7 +419,7 @@ export default {
 
 .title_nav .el-tabs__header {
   margin: 0;
-  border-bottom: 1px solid;
+  /* border-bottom: 1px solid; */
 }
 .picture_mark {
   margin-top: -20px;

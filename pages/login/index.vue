@@ -56,25 +56,6 @@ import { webAccountLogin } from '@/http/api'
 const _webAccountLogin_ = webAccountLogin
 export default {
   name: 'Login',
-
-  metaInfo: {
-    // 设置 title
-    title: '登录页',
-    // 设置 meta
-    meta: [
-      {
-        name: 'keyWords',
-        content: 'vue '
-      }
-    ],
-    // 设置 link
-    link: [
-      {
-        rel: 'asstes',
-        href: 'https://assets-cdn.github.com/'
-      }
-    ]
-  },
   data() {
     return {
       loginObj: {
@@ -144,7 +125,7 @@ export default {
         urlParam.append('password', that.loginObj.password)
         $post(_webAccountLogin_, urlParam)
           .then(res => {
-            console.log(res.data)
+            console.log(res.data, 'data')
             if (res.data.des.token) {
               // 永久记住登陆状态，保存token，账号和密码
               if (that.loginObj.checked === true) {
@@ -155,10 +136,14 @@ export default {
                   ...res.data.des
                 })
                 localStorage.setItem('userMsg', msg)
+                // this.$store.state.userMsg = msg.token ? msg.token : null
+                console.log(this.$store.state.userMsg, 'user')
                 that.$router.push({ name: 'index' })
               } else {
                 // 不记住登陆状态， 只保存token 1个小时
                 this.setCookie('token', res.data.des.token, 1 / 24)
+                // this.$store.state.userMsg = res.data.des.token ? res.data.des.token : null
+                console.log(this.$store.state.userMsg, 'user')
                 that.$router.push({ name: 'index' })
               }
             } else {

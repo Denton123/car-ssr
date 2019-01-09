@@ -43,7 +43,7 @@
             </el-form-item>
             <el-button type="primary"
               @click="handlePhoneChange(editForm.verificationCode, editForm.phone)">保存</el-button>
-            <el-button>取消</el-button>
+            <el-button class="phoneCancel">取消</el-button>
           </div>
 
         </div>
@@ -112,25 +112,28 @@
             placeholder="请输入您的邮箱"></el-input>
         </el-form-item>
         <!-- 地址 -->
+        <el-row>
+          <el-col :span="10">
         <el-form-item prop="province"
           class="person_info_form_address">
-          <el-col :span="11">
-            <no-ssr>
             <v-distpicker hide-area
               @select="onSelected"
               @province="onChangeProvince"
               @city="onChangeCity"
               :province="editForm.province"
-              :city="editForm.city"></v-distpicker>
-            </no-ssr>
-          </el-col>
-          <el-col :span="11">
-            <el-input v-model="editForm.address"
-              prop="address"
-              placeholder="请输入详细地址"></el-input>
-          </el-col>
-          <span class="person_info_form_address_required person_info_form_required"><i>*</i>必填</span>
+              :city="editForm.city"
+              :placeholders="addressPlaceholder"></v-distpicker>
         </el-form-item>
+          </el-col>
+          <el-col :span="14">
+            <el-form-item prop="address" class="person_info_form_detailAddress">
+              <el-input v-model="editForm.address"
+                placeholder="请输入详细地址"></el-input>
+            </el-form-item>
+              <span class="person_info_form_address_required person_info_form_required"><i>*</i>必填</span>
+          </el-col>
+        </el-row>
+        
         <!-- 职业 -->
         <el-form-item prop="profession">
           <el-select v-model="editForm.profession"
@@ -146,7 +149,7 @@
         <el-form-item>
           <el-button type="primary"
             @click="handleEdit('editForm')">保存</el-button>
-          <el-button @click="handleCancel">取消</el-button>
+          <el-button @click="handleCancel" class="cancelBtn">取消</el-button>
         </el-form-item>
 
       </el-form>
@@ -165,6 +168,7 @@ import { $get, $post } from '@/http/ajax'
 import systemManage from '@/http/photoApi.js'
 import { setTimeout } from 'timers'
 import { callbackify } from 'util'
+import $ from 'jquery'
 
 export default {
   name: 'personInfo',
@@ -216,7 +220,7 @@ export default {
       }
     }
     let checkProvinceValue = (rule, value, callback) => {
-      if (value === '省') {
+      if (value === '请选择省份') {
         return callback(new Error('请输入省份'))
       }
     }
@@ -247,7 +251,7 @@ export default {
         ],
         verificationCode: [
           { required: true, message: '请输入短信验证码', trigger: 'blur' }
-        ]
+        ],
         // email: [{ validator: checkEmailValue, trigger: 'blur' }]
         // city: [
         //   {
@@ -256,20 +260,20 @@ export default {
         //     trigger: 'blur'
         //   }
         // ],
-        // province: [
-        //   {
-        //     required: true,
-        //     validator: checkProvinceValue,
-        //     trigger: 'blur'
-        //   }
-        // ],
-        // address: [
-        //   {
-        //     required: true,
-        //     message: '请输入地址',
-        //     trigger: 'blur'
-        //   }
-        // ]
+        province: [
+          {
+            required: true,
+            validator: checkProvinceValue,
+            trigger: 'blur'
+          }
+        ],
+        address: [
+          {
+            required: true,
+            message: '请输入地址',
+            trigger: 'blur'
+          }
+        ]
       },
       imageUrl: '',
       state: state,
@@ -285,7 +289,11 @@ export default {
       isVf: false,
       Time: null,
       func: null,
-      uploadUrl: ''
+      uploadUrl: '',
+      addressPlaceholder: {
+        province: '请选择省份',
+        city: '请选择城市'
+      }
     }
   },
   props: {
@@ -524,7 +532,7 @@ export default {
   width: 900px !important;
 }
 .person_info_form_address_required {
-  right: 56px !important;
+  right: -54px !important;
 }
 .distpicker-address-wrapper select {
   width: 175px !important;
@@ -661,8 +669,8 @@ export default {
   z-index: 999999;
 }
 .phonePromptWrap {
-  width: 493px;
-  height: 279px;
+  width: 369px;
+  height: 191px;
   position: absolute;
   background: #ffff;
   z-index: 9999999;
@@ -755,5 +763,21 @@ export default {
   top: 47px;
   right: 22px;
   left: 0;
+}
+.person_info .cancelBtn span{
+  color: #000;
+}
+.person_info .person_info_form_address_required {
+  right: 157px !important;
+  top: 15px;
+}
+.person_info .person_info_form_detailAddress  {
+  width: 530px;
+}
+.person_info .person_info_form_detailAddress .el-input {
+  width: 380px;
+}
+.person_info .phoneCancel span{
+  color: #000;
 }
 </style>

@@ -6,9 +6,9 @@
       </div>
     </div>
     <div class="swiper-button-next"
-      style="background: url(~assets/detail/right.png);position:absolute;top:77.5%;left:47.3%;width: 51px;height: 77px;"></div>
+      style="position:absolute;top:77.5%;left:47.3%;width: 51px;height: 77px;"></div>
     <div class="swiper-button-prev"
-      style="background: url(~assets/detail/left.png);position:absolute;top:77.5%;left:40%;width: 51px;height: 77px;"></div>
+      style="background: url(~static/detail/left.png);position:absolute;top:77.5%;left:40%;width: 51px;height: 77px;"></div>
     <div class="swiper-container gallery-thumbs"
       style="margin-top: 50px;">
       <div class="swiper-wrapper">
@@ -23,6 +23,7 @@ import 'swiper/dist/css/swiper.min.css'
 import systemManage from '@/http/photoApi.js'
 import { $get, $post } from '@/http/ajax'
 import { webHobbiesDetailInfo } from '@/http/api'
+import $ from 'jquery'
 
 export default {
   name: 'test',
@@ -42,14 +43,9 @@ export default {
   computed: {},
   mounted() {
     this.$nextTick(() => {
-      console.log('1222222')
-        console.log(this.hobbiesId)
-        console.log('1111222222222221111111')
-      $get(webHobbiesDetailInfo, { hobbiesId: this.hobbiesId }).then(res => {
+      console.log(this.$route)
+      $get(webHobbiesDetailInfo, { hobbiesId: this.$route.params.id}).then(res => {
         let photoList = res.data.result_data.hobbies.photoList
-        console.log('11111111111')
-        console.log(photoList)
-        console.log('11111111111')
         if (photoList.length !== 0) {
           this.sliderData = photoList
           for (let i = 0; i < photoList.length; i++) {
@@ -171,5 +167,11 @@ export default {
   width: 51px;
   height: 77px;
   outline: none;
+}
+.hobbiesDetailSwiper .swiper-button-next {
+  background: url('~static/detail/right.png') !important;
+}
+.hobbiesDetailSwiper .swiper-button-prev {
+   background: url('~static/detail/left.png') !important;
 }
 </style>

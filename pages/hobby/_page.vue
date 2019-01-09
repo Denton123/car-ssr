@@ -131,10 +131,10 @@
                             </span>
                               <span class="detail-container-left-text">{{mockHobbyItem.userName}}</span>
                         </nuxt-link>
-                        <div class="detail-container-middle">
+                        <!-- <div class="detail-container-middle">
                           <img src="~static/picture/line_middle.png">
                         </div>
-                        <div class="detail-container-right">{{mockHobbyItem.className}}</div>
+                        <div class="detail-container-right">{{mockHobbyItem.className}}</div> -->
                       </div>
                     </div>
               <!--</nuxt-link>-->
@@ -171,7 +171,7 @@
               v-for="(bloggerItem, index) in bloggerItems"
               :key="index"
               v-show="bloggerItem.name !== null && bloggerItem.name !== ''">
-              <nuxt-link :to="`/bloger/${bloggerItem.id}/1`">
+              <nuxt-link :to="`/Bloger/${bloggerItem.id}/1`">
                 <img class="avatar-blogger"
                   :src="piectImg(bloggerItem)">
                 <span class="name-blogger">{{bloggerItem.name}}</span>
@@ -294,7 +294,7 @@ export default {
       loginFlag: null,
       routePage: 2,
       metaWords: 'str',
-      metaKeyWords: [],
+      // metaKeyWords: [],
       metaDescription: 1,
       path: '',
       // 大轮播
@@ -352,7 +352,7 @@ export default {
       weekDecoration: true,
       monthDecoration: false,
       // 数组变量
-      tagItems: [],
+      // tagItems: [],
       hobbiesFour: [],
       hobbiesEight: [],
       hobbiesTwelve: [],
@@ -374,27 +374,26 @@ export default {
     Header,
     BigCoursel
   },
-//   created() {
-//     if (
-//       localStorage.getItem('userMsg') !== '' &&
-//       localStorage.getItem('userMsg') !== null
-//     ) {
-//       this.tokenObj = JSON.parse(localStorage.getItem('userMsg')).token
-//       console.log('localstroge', this.tokenObj)
-//     } else if (this.cookie !== '') {
-//       this.cookie = this.getCookie('token')
-//       this.tokenObj = this.cookie
-//     }
-//     // if (localStorage.getItem('userMsg')) {
-//     //   this.tokenObj = JSON.parse(localStorage.getItem('userMsg'))
-//     // }
-//     // 获取token
-//     // console.log('token', this.tokenObj)
-//     if (this.tokenObj === null) {
-//       this.tokenObj = {}
-//     }
-//   },
+  // nuxt异步获取数据
+  async asyncData(context) {
+    console.log('oooooo')
+    console.log(context)
+    console.log('yyyyy')
+    // 标签
+    let tokenObj = '8f558bfd4dd5aa42898a394d8b1accc3'
+    let _tagItems = await $get('/web/hobbies/gotohobbies', {}, {'X-Auth0-Token': null})
+    // // 周排行
+    let _hostPointItems = await $get('/web/hobbies/hobbiesWeekRank?', {
+        pageNo: 1,
+        size: 10
+      }, {'X-Auth0-Token': null})
+    return {
+      tagItems: _tagItems.data ? _tagItems.data.tagsShowList : [],
+      hostPointItems: _hostPointItems.data ? _hostPointItems.data : []
+    }
+  },
   mounted() {
+    // console.log(this.$store.state.userMsg, 'tag')
       if (
       localStorage.getItem('userMsg') !== '' &&
       localStorage.getItem('userMsg') !== null
@@ -426,14 +425,14 @@ export default {
       this.secondNav = navSecondData.data.hobbies
 
       // 获取tag的数据——
-      let _tagItems = await $get('/web/hobbies/gotohobbies', obj)
-      this.tagItems = _tagItems.data.tagsShowList
-      for (let i = 0, len = this.tagItems.length; i < len; i++) {
-        this.metaKeyWords.push(this.tagItems[i].title)
-      }
-      this.metaKeyWords = this.selectOne(this.metaKeyWords)
-      this.metaKeyWords = this.metaKeyWords.slice(0, 8)
-      this.metaWords = this.metaKeyWords.join()
+      // let _tagItems = await $get('/web/hobbies/gotohobbies', obj)
+      // this.tagItems = _tagItems.data.tagsShowList
+      // for (let i = 0, len = this.tagItems.length; i < len; i++) {
+      //   this.metaKeyWords.push(this.tagItems[i].title)
+      // }
+      // this.metaKeyWords = this.selectOne(this.metaKeyWords)
+      // this.metaKeyWords = this.metaKeyWords.slice(0, 8)
+      // this.metaWords = this.metaKeyWords.join()
       // 获取热门博主的数据——
       let _tagBloggerItems = await $get('/web/hobbies/getHotBloggers?', {
         pageNo: 1,
@@ -441,11 +440,11 @@ export default {
       }, obj)
       this.bloggerItems = _tagBloggerItems.data
       // 获取周排行榜数据
-      let _hostPointItems = await $get('/web/hobbies/hobbiesWeekRank?', {
-        pageNo: 1,
-        size: 10
-      }, obj)
-      this.hostPointItems = _hostPointItems.data
+      // let _hostPointItems = await $get('/web/hobbies/hobbiesWeekRank?', {
+      //   pageNo: 1,
+      //   size: 10
+      // }, obj)
+      // this.hostPointItems = _hostPointItems.data
 
       // 获取初始hobbies列表的数据
       let _mockHobbyItems = await $get('/web/hobbies/list?', {
@@ -475,12 +474,12 @@ export default {
     })
     // this.$refs.pagination.routLinkCurrentPage(2)
     this.path = this.$route.path
-    // this.$nextTick(() => {
-    //   setTimeout(() => {
-    //     this.waterFlow('content-wrap', 'contain-hobby-wrap')
-    //     // this.routLinkCurrentPage(this.curPage)
-    //   }, 1000)
-    // })
+    this.$nextTick(() => {
+      setTimeout(() => {
+        this.waterFlow('content-wrap', 'contain-hobby-wrap')
+        // this.routLinkCurrentPage(this.curPage)
+      }, 3000)
+    })
     // 广告
     let adv = document.getElementById('advertisement')
     if (adv) {
@@ -505,15 +504,15 @@ export default {
       return ''
     },
     // 去重
-    selectOne(arr) {
-      let oneArr = []
-      for (let i = 0, len = arr.length; i < len; i++) {
-        if (oneArr.indexOf(arr[i]) < 0) {
-          oneArr.push(arr[i])
-        }
-      }
-      return oneArr
-    },
+    // selectOne(arr) {
+    //   let oneArr = []
+    //   for (let i = 0, len = arr.length; i < len; i++) {
+    //     if (oneArr.indexOf(arr[i]) < 0) {
+    //       oneArr.push(arr[i])
+    //     }
+    //   }
+    //   return oneArr
+    // },
     // 数据请求函数
     hobbiesImageChage(arr, index) {
       if (arr.length === 1) {
@@ -651,7 +650,7 @@ export default {
       // this.scrollEvent()
       setTimeout(() => {
         this.waterFlow('content-wrap', 'contain-hobby-wrap')
-      }, 0)
+      }, 1000)
     },
     //  图片拼接
     piectImgUrl(item) {

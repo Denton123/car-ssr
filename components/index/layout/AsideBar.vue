@@ -154,7 +154,7 @@ export default {
 .aside_bar_index_block .line {
   width: 2px;
   margin-top: 10px;
-  height: 160px;
+  height: 244px;
   font-size: 14px;
   background-color: #cccccc;
   position: absolute;

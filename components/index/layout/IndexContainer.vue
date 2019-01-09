@@ -125,7 +125,7 @@
         <sort class="ml30"
           title="周排行榜"
           type="w"
-          :list="weekList"></sort>
+          :list="weeklist"></sort>
         <sort class="ml30"
           title="月排行榜"
           type="m"
@@ -225,31 +225,121 @@ export default {
       default() {
         return {}
       }
+    },
+    newsCourselData: {
+      type: Array,
+      default(){
+        return []
+      }
+    },
+    newsRightList: {
+      type: Array,
+      default () {
+        return []
+      }
+    },
+    newsList: {
+      type: Array,
+      default () {
+        return []
+      }
+    },
+    EvCourselData: {
+      type: Array,
+      default () {
+        return []
+      }
+    },
+    tagHot: {
+      type: Array,
+      default () {
+        return []
+      }
+    },
+    EvList: {
+      type: Array,
+      default () {
+        return []
+      }
+    },
+    hobbiesCourselData: {
+      type: Array,
+      default () {
+        return []
+      }
+    },
+    hobbiesItem: {
+      type: Object,
+      default() {
+        return {}
+      }
+    },
+    hobbiesList: {
+      type: Array,
+      default () {
+        return []
+      }
+    },
+    tagTwo: {
+      type: Array,
+      default () {
+        return []
+      }
+    },
+    videoCourselData: {
+      type: Array,
+      default () {
+        return []
+      }
+    },
+    videoRightList: {
+      type: Array,
+      default () {
+        return []
+      }
+    },
+    tagThree: {
+      type: Array,
+      default () {
+        return []
+      }
+    },
+    dayList: {
+      type: Array,
+      default () {
+        return []
+      }
+    },
+    monthList: {
+      type: Array,
+      default () {
+        return []
+      }
     }
   },
   data() {
     return {
       // bigCourselData: this.bigCourselData, // 顶部banner轮播图数据
-      newsCourselData: [], // 今日车闻轮播图数据
+      // newsCourselData: [], // 今日车闻轮播图数据
       newsActiveUrl: "", // 今日车闻当前轮播图
-      newsRightList: [], // 今日车闻右侧内容
-      newsList: [], // 今日车闻下方文章
-      EvCourselData: [], // 新能源轮播图数据
-      EvList: [], // 新能源下方文章
-      hobbiesCourselData: [], // 兴趣部落轮播图数据
+      // newsRightList: [], // 今日车闻右侧内容
+      // newsList: [], // 今日车闻下方文章
+      // EvCourselData: [], // 新能源轮播图数据
+      // EvList: [], // 新能源下方文章
+      // hobbiesCourselData: [], // 兴趣部落轮播图数据
       hobbiesActiveUrl: "", // 兴趣部落当前轮播图
       hobbiesRightList: [], // 兴趣部落右侧内容
-      hobbiesList: [], // 兴趣部落下方文章列表
-      hobbiesItem: {}, // 兴趣部落右方文字
-      videoCourselData: [], // 视频轮播图数据
-      videoRightList: [], // 视频右方数据
+      // hobbiesList: [], // 兴趣部落下方文章列表
+      // hobbiesItem: {}, // 兴趣部落右方文字
+      // videoCourselData: [], // 视频轮播图数据
+      // videoRightList: [], // 视频右方数据
       // tagOne: [], // 顶部tag数组
-      tagTwo: [], // 中间tag数组
-      tagThree: [], // 底部tag数组
-      tagHot: [], // 热点
-      dayList: [], // 日排行版数据
-      weekList: this.weeklist, // 周排行榜数据
-      monthList: [], // 月排行版数据,
+      // tagTwo: [], // 中间tag数组
+      // tagThree: [], // 底部tag数组
+      // tagHot: [], // 热点
+      // dayList: [], // 日排行版数据
+      // weekList: this.weeklist, // 周排行榜数据
+      // monthList: [], // 月排行版数据,
       carsouelFlag: "video"
     };
   },
@@ -263,49 +353,49 @@ export default {
       // this.getAdverBlock('videoAdver', '5993929')
       // 获取顶部轮播图数据
       // let bigCoursel = this.getBannerData("18");
-      let newsCoursel = this.getBannerData("14");
-      let EvCoursel = this.getBannerData("15");
-      let hobbiesCoursel = this.getBannerData("17");
-      let videoCoursel = this.getBannerData("16");
+      // let newsCoursel = this.getBannerData("14");
+      // let EvCoursel = this.getBannerData("15");
+      // let hobbiesCoursel = this.getBannerData("17");
+      // let videoCoursel = this.getBannerData("16");
       // 获取tag
       // let tagOne = this.getTag(2);
-      let tagTwo = this.getTag(6);
-      let tagThree = this.getTag(5);
+      // let tagTwo = this.getTag(6);
+      // let tagThree = this.getTag(5);
       // 获取新能源热点tag
-      let tagHot = this.getHotTag();
+      // let tagHot = this.getHotTag();
       // 获取今日车闻右侧内容
-      let newsRight = this.getNewsRightContent(2);
+      // let newsRight = this.getNewsRightContent(2);
       // 获取今日车闻下方文章内容
-      let newsList = this.chennelContent(2, 1, 3);
-      let evList = this.chennelContent(4, 1, 3);
+      // let newsList = this.chennelContent(2, 1, 3);
+      // let evList = this.chennelContent(4, 1, 3);
       // let hobbiesList = this.chennelContent(6, 1, 6)
-      let videoList = this.chennelContent(5, 1, 3);
+      // let videoList = this.chennelContent(5, 1, 3);
       // 获取日，月，周排行版
-      let dayList = this.getSortList("day");
-      let monthList = this.getSortList("month");
+      // let dayList = this.getSortList("day");
+      // let monthList = this.getSortList("month");
       // let weekList = this.getSortList("week");
       // 获取hobbies列表数据
-      let hobbiesList = this.getHobbiesList();
-      let hobbiesItem = this.getHobbiesItem();
+      // let hobbiesList = this.getHobbiesList();
+      // let hobbiesItem = this.getHobbiesItem();
 
       // this.bigCourselData = await bigCoursel;
-      this.newsCourselData = await newsCoursel;
-      this.EvCourselData = await EvCoursel;
-      this.hobbiesCourselData = await hobbiesCoursel;
-      this.videoCourselData = await videoCoursel;
+      // this.newsCourselData = await newsCoursel;
+      // this.EvCourselData = await EvCoursel;
+      // this.hobbiesCourselData = await hobbiesCoursel;
+      // this.videoCourselData = await videoCoursel;
       // this.tagOne = await tagOne;
-      this.tagTwo = await tagTwo;
-      this.tagThree = await tagThree;
-      this.tagHot = await tagHot;
-      this.newsRightList = await newsRight;
-      this.newsList = await newsList;
-      this.EvList = await evList;
-      this.hobbiesList = await hobbiesList;
-      this.videoRightList = await videoList;
-      this.dayList = await dayList;
-      this.monthList = await monthList;
+      // this.tagTwo = await tagTwo;
+      // this.tagThree = await tagThree;
+      // this.tagHot = await tagHot;
+      // this.newsRightList = await newsRight;
+      // this.newsList = await newsList;
+      // this.EvList = await evList;
+      // this.hobbiesList = await hobbiesList;
+      // this.videoRightList = await videoList;
+      // this.dayList = await dayList;
+      // this.monthList = await monthList;
       // this.weekList = await weekList;
-      this.hobbiesItem = await hobbiesItem;
+      // this.hobbiesItem = await hobbiesItem;
     });
   },
   methods: {

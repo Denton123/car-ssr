@@ -148,40 +148,6 @@ import {
 
 export default {
   name: 'rankDetail',
-  metaInfo() {
-    return {
-      title: `${this.modelName}-${this.typeParamsName}_${
-        this.currentPage
-      }页-尖峰咖`,
-      // 设置 meta
-      meta: [
-        {
-          name: 'keyWords',
-          content: 'vue '
-        },
-        {
-          name: 'description',
-          content: this.metaDesc
-        },
-        {
-          name: 'applicable-device',
-          content: 'pc'
-        },
-        {
-          name: 'mobile-agent',
-          content: 'format=html5;url=http://m.mgous.com'
-        }
-      ],
-      // 设置 link
-      link: [
-        {
-          rel: 'alternate',
-          media: 'handheld',
-          href: 'http://m.mgous.com/'
-        }
-      ]
-    }
-  },
   data: function() {
     return {
       crumbsData: [],

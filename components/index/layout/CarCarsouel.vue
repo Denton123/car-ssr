@@ -212,4 +212,19 @@ export default {
   border-left: 14px solid #fff;
   margin: 12px auto;
 }
+.indexCarousel .el-carousel__arrow i {
+  width: 36px;
+  height: 36px;
+  /* border: 1px solid; */
+  border-radius: 50%;
+  line-height: 36px;
+  background-color: rgba(31, 45, 61, 0.11);
+}
+.indexCarousel .el-carousel__arrow {
+  width: 93px;
+  height: 300px;
+  background-color: transparent;
+  /* border: 1px solid; */
+  border-radius: 0%;
+}
 </style>

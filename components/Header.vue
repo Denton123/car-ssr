@@ -287,7 +287,10 @@ export default {
       } else {
         this.$message('请先实名验证身份证')
         setTimeout(() => {
-          this.toAnotherRouter('editInfo')
+          // this.toAnotherRouter('editInfo')
+          this.$router.push({
+          path: '/person/editInfo'
+        })
         }, 1500)
       }
     }

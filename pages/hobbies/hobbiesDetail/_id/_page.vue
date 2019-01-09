@@ -14,12 +14,12 @@
           </div>
           <!-- <div class="detail_content_hot"></div> -->
           <!-- 用户信息 -->
-          <div class="detail_content_user">
+          <div class="detail_content_user" style="background: url('~static/header/nav_upload.png');">
             <nuxt-link :to="`/Bloger/${essayData.userId}/1`"
               class="detail_content_user_avatar">
               <img :src="formatPic(userInfo.photo)"
                 class="detail_content_userAvatar"
-                v-if="essayData.photo !== ''">
+                v-if="userInfo.photo !== ''">
               <img v-else
                 src="~static/detail/detail_user.png"
                 class="detail_content_userAvatar">
@@ -323,8 +323,8 @@
                   <div class="detail_user_msg_avatar_wrap">
                     <img v-if="userInfo.photo !== ''"
                       :src="formatPic(userInfo.photo)">
-                    <!-- <img v-else
-                      src="~static/detail/person_default.png"> -->
+                    <img v-else
+                      src="~static/detail/person_default.png">
                   </div>
                 </nuxt-link>
                 <nuxt-link :to="essayData.userId !== user.id ? `/Bloger/${essayData.userId}/1` : '/person/myEssay/1'">
@@ -837,40 +837,27 @@ export default {
             this.cookie !== '' ? this.cookie : this.tokenObj.token
         }
       )
-      // console.log(res, '文章信息')
       let hobbiesDetailData = res.data
       this.hobbiesIdDetailData = res.data.result_data
       // 文章信息
-      this.essayData = hobbiesDetailData.result_data.hobbies
+      this.essayData = res.data.result_data.hobbies
       this.getDataTopSix()
       this.getRandomData()
-      // if (this.essayData.photoList.length !== 0) {
-      //   this.picList = this.essayData.photoList
-      // }
-      // console.log(this.picList)
-      // 判断是否有点赞数据/ 判断是否登录
-      // if (this.tokenObj.token !== undefined) {
-
-      // } else {
-      //   this.isUp = false
-      //   this.isDown = false
-      // }
-      // console.log(typeof this.essayData.photoList)
       // 判断是否可以关注
-      if (this.userCode !== 2) {
-        if (
-          res.data.result_data.couldFollow &&
-          res.data.result_data.couldFollow !== null
-        ) {
-          this.isFollow = '取消关注'
-        } else {
-          this.isFollow = '关注'
-        }
-      } else {
-        this.isFollow = '关注'
-      }
-      if (hobbiesDetailData.result_data.hobbies.tagList.length > 1) {
-        this.tabList = hobbiesDetailData.result_data.hobbies.tagList
+      // if (this.userCode !== 2) {
+      //   if (
+      //     res.data.result_data.couldFollow &&
+      //     res.data.result_data.couldFollow !== null
+      //   ) {
+      //     this.isFollow = '取消关注'
+      //   } else {
+      //     this.isFollow = '关注'
+      //   }
+      // } else {
+      //   this.isFollow = '关注'
+      // }
+      if (this.essayData.tagList.length > 1) {
+        this.tabList = this.hobbiesIdDetailData.hobbies.tagList
         this.tabList.forEach(list => {
           if (list.isShow === 1) {
             this.brandDetail = list
@@ -882,8 +869,7 @@ export default {
       }
 
       if (
-        hobbiesDetailData.result_data.hobbiesLogEntity !== null ||
-        hobbiesDetailData.result_data.hobbiesLogEntity.length !== 0
+        this.hobbiesIdDetailData.hobbiesLogEntity !== null
       ) {
         if (this.essayData.good !== 0 || this.essayData.bad !== 0) {
           this.isUp = true
@@ -910,24 +896,10 @@ export default {
         this.isCanDown = false
         this.isCanUp = false
       }
-      // console.log('--------------------------------')
-      // console.log(this.essayData)
-      // console.log('-------------------------------')
-      // 随机推荐
-      // this.randomData =
-      //   hobbiesDetailData.result_data.randomRecommendHobbies.result_data
-      // 热门作品
-      // this.hotData = hobbiesDetailData.result_data.topSixHobbies
-      // 相关文章
-      // this.essaysWidthTag = hobbiesDetailData.result_data.hobbiesWithTag
       // 是否显示回复按钮
-      this.couldReply = hobbiesDetailData.result_data.couldReply
+      this.couldReply = this.hobbiesIdDetailData.couldReply
       // 博主粉丝等信息
-      this.userInfo = hobbiesDetailData.result_data.bloggerInfo
-      // let hobbiesLogEntity = hobbiesDetailData.result_data.hobbiesLogEntity
-      // if (hobbiesLogEntity.goodBad === 1) {
-
-      // }
+      this.userInfo = this.hobbiesIdDetailData.bloggerInfo
     },
     // 获取相关文章信息
     async getDataWithTag() {
@@ -1239,9 +1211,23 @@ export default {
       this.$router.go(0)
     }
   },
+  // async asyncData ({parmas, context}) {
+  //   let essayData, hobbiesDetailData
+  //   let hobbiesDetailData = await $get(webHobbiesDetailInfo, {
+  //     hobbiesId: parmas.id
+  //   }, {
+  //     'X-Auth0-Token': null
+  //   })
+  //   return {
+  //     hobbiesIdDetailData: hobbiesDetailData.data ? hobbiesDetailData.data.result_data : [],
+  //     hobbiesDetailData: hobbiesDetailData.data ? hobbiesDetailData.data : {},
+  //     essayData: essayData.data ? essayData.data.result_data.hobbies : {}
+  //   }
+    
+  // },
   mounted() {
-      this.$nextTick(async() => {
-this.cookie = this.getCookie('token')
+    this.$nextTick(async() => {
+    this.cookie = this.getCookie('token')
     if (this.cookie == '') {
       this.tokenObj = JSON.parse(localStorage.getItem('userMsg'))
     }
@@ -1269,7 +1255,7 @@ this.cookie = this.getCookie('token')
       })
     }
       })
-    
+   
   },
   watch: {
     $route(to, from) {
@@ -2214,4 +2200,5 @@ detail_comment_form_input_operate_emoji:hover span {
 #advertisement {
   margin-bottom: 30px;
 }
+
 </style>

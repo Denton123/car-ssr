@@ -11,7 +11,7 @@
             <el-breadcrumb-item class="current">{{tagObj.title}}</el-breadcrumb-item>
           </el-breadcrumb>
         </div>
-        <div class="tag_des">
+        <div class="tag_des" v-if="tagObj.url && tagObj.des">
           <div class="tag_des_img">
             <img v-if="tagObj.url"
               :src="titleUrl"
@@ -403,6 +403,7 @@ export default {
     }
     .tag_des {
       position: relative;
+      margin-bottom: 51px;
       width: 100%;
       height: 200px;
       padding: 28px 0 0 0;
@@ -464,7 +465,6 @@ export default {
     .tag_main_content {
       background: #f6f6f6;
       .tag_main_nav {
-        padding-top: 51px;
         background: #f6f6f6;
         .title {
           margin-bottom: 31px;

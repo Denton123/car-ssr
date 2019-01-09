@@ -19,10 +19,13 @@
               v-model="registerObj.account"
               key="2"></el-input>
           </el-form-item>
-          <el-form-item prop="loginName">
+          <el-form-item 
+            prop="loginName"
+            v-show="false">
             <el-input class="input"
+              type="hidden"
               placeholder="请输入昵称"
-              v-model="registerObj.loginName"></el-input>
+              v-model="registerObj.account"></el-input>
           </el-form-item>
           <el-form-item prop="password">
             <el-input class="input"
@@ -149,7 +152,6 @@ export default {
         confirmPassword: '', */
       rules: {
         account: [{ required: true, validator: checkAccount, trigger: 'blur' }],
-        loginName: [{ required: true, message: '请输入昵称', trigger: 'blur' }],
         password: [
           { required: true, validator: checkPasswordValue, trigger: 'blur' }
         ],
@@ -219,6 +221,7 @@ export default {
   },
   methods: {
     registerAccount(formName) {
+      this.registerObj.loginName = this.registerObj.account
       this.$refs[formName].validate(valid => {
         if (valid && this.passwordFlag) {
           $post(webRegister, this.registerObj).then(res => {

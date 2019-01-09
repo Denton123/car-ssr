@@ -1,6 +1,6 @@
 <template>
   <div class="big_container">
-    <!-- <swiper :options="swiperOption"
+    <swiper :options="swiperOption"
       :ref="id"
       class="big_coursel_swiper"
       v-if="listData && listData.length > 1"
@@ -23,15 +23,15 @@
       <div class="swiper-button-next swiper-button-white"
         slot="button-next"
         @click="next"></div>
-    </swiper> -->
-    <div v-swiper:mySwiper="swiperOption"
+    </swiper>
+    <!-- <div v-swiper:mySwiper="swiperOption"
       :ref="id"
       class="big_coursel_swiper"
       v-if="listData.length"
       @slideChange="change">
       <div class="swiper-wrapper">
         <div class="swiper-slide"
-          v-for="(item, index) in listData"
+          v-for="(item, index) in list"
           :key="index">
           <div class="item">
             <a :href="item.linkurl"
@@ -51,7 +51,7 @@
       <div class="swiper-button-next swiper-button-white"
         slot="button-next"
         @click="next"></div>
-    </div>
+    </div> -->
     <div class="titleBg"></div>
     <strong class="title"
       v-text="title"></strong>
@@ -67,6 +67,7 @@
 import utils from "@/http/url";
 // import 'swiper/dist/css/swiper.css'
 // import { swiper, swiperSlide } from 'vue-awesome-swiper'
+import Swiper from 'swiper'
 export default {
   name: "BigCoursel",
   props: {
@@ -113,7 +114,7 @@ export default {
     },
 
     activeIndex: function() {
-      this.title = this.listData[this.realIndex].title;
+      // this.title = this.list[this.realIndex].title;
       return this.realIndex;
     }
   },
@@ -121,13 +122,18 @@ export default {
     // this.$nextTick(() => {
     //   this.mySwiper = this.$refs[this.id].swiper
     // })
+    // setTimeout(() => {
+    //   this.mySwiper = new Swiper('.big_coursel_swiper', {
+    //     ...this.swiperOption
+    //   })
+    // }, 100)
   },
   methods: {
     // 轮播改变
     change() {
       this.realIndex = this.$refs[this.id].swiper.realIndex; // 获取当前轮播图下标
       // console.log(this.realIndex)
-      this.title = this.listData[this.realIndex].title;
+      this.title = this.list[this.realIndex].title;
     },
 
     // 向左滑动
@@ -264,9 +270,20 @@ export default {
   cursor: pointer;
 }
 .big_container .swiper-button-prev.swiper-button-white {
-  margin-left: 40px;
+  /* margin-left: 40px; */
+  width: 138px;
+  height: 598px;
 }
 .big_container .swiper-button-next.swiper-button-white {
-  margin-right: 40px;
+  width: 138px;
+  height: 598px;
+}
+.big_container .swiper-button-next {
+  right: 0;
+  top: 0;
+}
+.big_container .swiper-button-prev {
+  right: 0;
+  top: 0;
 }
 </style>

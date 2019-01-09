@@ -12,7 +12,7 @@ console.log('ssssssssssssssssssss')
 
 export const instance = axios.create({
   // baseURL: `http://${window.location.host}/api`,
-  baseURL: process.env.baseURL,
+  // baseURL: process.env.baseURL,
   // baseURL: 'http://10.10.0.42:8080',
   // baseURL: 'http://10.10.3.60:8080/',
   // baseURL: "http://10.10.2.201:8080/",
@@ -21,6 +21,7 @@ export const instance = axios.create({
   // baseURL: 'http://10.10.0.184:8080/',
   // baseURL: 'http://172.20.13.180:8080/',
   // baseURL: 'http://10.10.0.184:8080/',
+  baseURL: 'http://www.jfcar.com.cn/api/',
   timeout: 60000
 })
 
