@@ -51,14 +51,28 @@ import { webEssayGetMonthRank } from '@/http/api.js'
 
 export default {
   name: 'todayRankTab',
-  props: { model: '' },
   data: function() {
     return {
-      rankWeekLists: [],
-      rankMonthLists: [],
+      // rankWeekLists: [],
+      // rankMonthLists: [],
       activeName: 'first',
       fullPath: ''
     }
+  },
+  props: {
+    model: '',
+    rankWeekLists: {
+      type: Array,
+      default() {
+        return [];
+      }
+    },
+    rankMonthLists: {
+      type: Array,
+      default() {
+        return [];
+      }
+    },
   },
   methods: {
     refresh: function() {
@@ -73,16 +87,16 @@ export default {
       this.fullPath = fullPath.pop()
     }
     this.$nextTick(async () => {
-      let rankWeekData = await $get(webEssayGetWeekendRank, {
-        pageNo: 1,
-        size: 10
-      })
-      let rankMonthData = await $get(webEssayGetMonthRank, {
-        pageNo: 1,
-        size: 10
-      })
-      this.rankWeekLists = rankWeekData.data.essayEntities
-      this.rankMonthLists = rankMonthData.data.essayEntities
+      // let rankWeekData = await $get(webEssayGetWeekendRank, {
+      //   pageNo: 1,
+      //   size: 10
+      // })
+      // let rankMonthData = await $get(webEssayGetMonthRank, {
+      //   pageNo: 1,
+      //   size: 10
+      // })
+      // this.rankWeekLists = rankWeekData.data.essayEntities
+      // this.rankMonthLists = rankMonthData.data.essayEntities
     })
   }
 }

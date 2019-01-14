@@ -81,5 +81,6 @@ export default {
 }
 .tags-ul_li_wrap {
   display: inline-block;
+  margin-bottom: 10px;
 }
 </style>

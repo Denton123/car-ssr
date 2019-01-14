@@ -506,38 +506,6 @@ import systemManage from '@/http/photoApi.js'
 
 export default {
   name: 'Detail',
-  metaInfo() {
-    return {
-      // title: `${this.titleModel}详情_${this.currentPage}页-尖峰咖`,
-      // 设置 meta
-      // meta: [
-      //   {
-      //     name: 'keyWords',
-      //     content: 'vue '
-      //   },
-      //   {
-      //     name: 'description',
-      //     content: `${this.metaDesc}`
-      //   },
-      //   {
-      //     name: 'applicable-device',
-      //     content: 'pc'
-      //   },
-      //   {
-      //     name: 'mobile-agent',
-      //     content: 'format=html5;url=http://m.mgous.com'
-      //   }
-      // ],
-      // 设置 link
-      // link: [
-      //   {
-      //     rel: 'alternate',
-      //     media: 'handheld',
-      //     href: 'http://m.mgous.com/'
-      //   }
-      // ]
-    }
-  },
   components: {
     'index-header': Header,
     'index-footer': Footer,
@@ -569,9 +537,9 @@ export default {
       shareType: ['detail_wechat', 'detail_qq', 'detail_weibo'],
       listIndex: -1,
       // 热门作品数据
-      hotData: [],
+      // hotData: [],
       // 随机推荐数据
-      randomData: [],
+      // randomData: [],
       // 文章评论列表数据
       // articleCommentData: [],
       test: 'gfygy',
@@ -626,7 +594,7 @@ export default {
     console.log('我是谁')
     console.log(params, 'aaaaa')
     console.log(context, 'aaaaa')
-    let essayData, tabList
+    let essayData
     // 文章评论
     let articleCommentData = await $get(webEssayEssayCommentList, {essayId: params.id,
         limit: '10',
@@ -642,14 +610,23 @@ export default {
     }, {
           'X-Auth0-Token': null
         })
+    // 热门作品
+    let hotData = await $get(webHobbiesDetailTopSix, {
+      bloggerId: detailData.data.result_data.essay.userId
+    })
+    // 随机推荐
+    let randomData = await $get(webHobbiesDetailRandomData, {
+      bloggerId: detailData.data.result_data.essay.userId
+    })
       return {
         articleCommentData: articleCommentData.data ? articleCommentData.data.list : [],
         commentData: articleCommentData.data ? articleCommentData.data : [],
         articleCommentSize: articleCommentData.data.totalCount ? articleCommentData.data.totalCount : '',
         essaysWidthTag: essaysWidthTag.data.result_data ? essaysWidthTag.data.result_data : [],
         essayData: detailData.data.result_data.essay ? detailData.data.result_data.essay : {},
-        // tabList: detailData.data.essay.tagList ?  detailData.data.essay.tagList : [],
         detailData: detailData.data.result_data ? detailData.data.result_data : {},
+        hotData: hotData.data.result_data ? hotData.data.result_data : [],
+        randomData: randomData.data.result_data ? randomData.data.result_data : []
       }
   },
   methods: {
@@ -901,6 +878,83 @@ export default {
       this.essayData = this.detailData.essay
       this.getDataTopSix()
       this.getRandomData()
+      // 判断是否可以关注
+      if (this.userCode !== 2) {
+        if (
+          this.detailData.couldFollow &&
+          this.detailData.couldFollow !== null
+        ) {
+          this.isFollow = '取消关注'
+        } else {
+          this.isFollow = '关注'
+        }
+      } else {
+        this.isFollow = '关注'
+      }
+      switch (this.essayData.classOneName) {
+        case '今日车闻':
+          this.titleModel = 'news'
+          break
+        case '兴趣部落':
+          this.titleModel = 'hobbies'
+          break
+        case '新能源':
+          this.titleModel = 'ev'
+          break
+        case '视频':
+          this.titleModel = 'video'
+          break
+      }
+      this.tabList = this.detailData.essay.tagList
+      this.randomType =
+        this.tabList.forEach(list => {
+          if (list.isShow === 1) {
+            this.brandDetail = list
+          }
+        })
+      // 判断是否点击过
+      if (
+        this.detailData.essayLogEntity &&
+        this.detailData.essayLogEntity !== null &&
+        this.detailData.essayLogEntity.length !== 0
+      ) {
+        if (this.essayData.good !== 0 || this.essayData.bad !== 0) {
+          this.isUp = true
+          this.isDown = true
+          this.goodPercent =
+            Math.round(
+              (this.essayData.good /
+                (this.essayData.good + this.essayData.bad)) *
+                100
+            ) + '%'
+
+          this.badPercent =
+            Math.round(
+              (this.essayData.bad /
+                (this.essayData.good + this.essayData.bad)) *
+                100
+            ) + '%'
+        }
+        this.isCanDown = true
+        this.isCanUp = true
+      } else {
+        this.isCanDown = false
+        this.isCanUp = false
+      }
+      // 是否显示回复按钮
+      this.couldReply = this.detailData.couldReply
+      // 判断文章类型
+      switch (this.essayData.type) {
+        case 1:
+          this.essayType = '原创'
+          break
+        case 2:
+          this.essayType = '转载'
+          break
+        case 3:
+          this.essayType = '翻译'
+          break
+      }
     },
     // 获取相关文章信息
     async getDataWithTag() {
@@ -1151,15 +1205,13 @@ export default {
     async focusBlogger(id) {
       console.log(this.essayData.id, 'this.essayData.id')
       console.log(this.user.id, 'this.user.id')
-      // console.log('测试token')
-      // console.log(this.tokenObj)
-      // console.log(this.cookie)
-
+      console.log(this.essayData.userId, 'this.essayData.userId')
       // 没有登录
       if (this.tokenObj.token !== undefined || this.cookie !== '') {
         if (this.essayData.userId == this.user.id) {
           this.$message('用户不能关注自己')
         } else {
+          console.log('关注关注关注关注关注')
           let urlParam = new URLSearchParams()
           urlParam.append('bloggerId', `${id}`)
           if (this.detailData && this.detailData.couldFollow) {
@@ -1173,6 +1225,7 @@ export default {
             this.getUserInfo()
             // console.log(res)
           } else {
+            console.log('取消关注取消关注取消关注取消关注')
             urlParam.append('type', 'follow')
             let res = await $post(webUserClickCare, urlParam, {
               'X-Auth0-Token':
@@ -1317,6 +1370,32 @@ export default {
           this.essayType = '翻译'
           break
       }
+      this.hotData.forEach(v => {
+        if (v.className == '新能源') {
+          v.className = 'ev'
+        } else if (v.className == '今日车闻') {
+          v.className = 'news'
+        } else if (v.className == '兴趣部落') {
+          v.className = 'hobbies'
+        } else if (v.className == '视频') {
+          v.className = 'video'
+        } else {
+          v.className = 'hobbies'
+        }
+      })
+      this.randomData.forEach(v => {
+        if (v.className == '新能源') {
+          v.className = 'ev'
+        } else if (v.className == '今日车闻') {
+          v.className = 'news'
+        } else if (v.className == '兴趣部落') {
+          v.className = 'hobbies'
+        } else if (v.className == '视频') {
+          v.className = 'video'
+        } else {
+          v.className = 'hobbies'
+        }
+      })
     }
   },
   
@@ -1341,8 +1420,8 @@ export default {
       this.getLoginUserInfo()
       // this.getArticleData()
       this.getUserInfo()
-      this.getDataTopSix()
-      this.getRandomData()
+      // this.getDataTopSix()
+      // this.getRandomData()
     console.log(this.articleCommentData)
     console.log('aaaaaaaaaaaaaaaaaaa')
       let ad = document.getElementById('advertisement')

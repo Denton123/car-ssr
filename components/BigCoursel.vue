@@ -271,11 +271,11 @@ export default {
 }
 .big_container .swiper-button-prev.swiper-button-white {
   /* margin-left: 40px; */
-  width: 138px;
+  width: calc((100% - 1200px) / 2);
   height: 598px;
 }
 .big_container .swiper-button-next.swiper-button-white {
-  width: 138px;
+  width: calc((100% - 1200px) / 2);
   height: 598px;
 }
 .big_container .swiper-button-next {

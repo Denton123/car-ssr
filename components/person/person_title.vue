@@ -19,28 +19,67 @@
   </div>
 </template>
 <script>
+import { webUserSelectByPrimaryKey } from '@/http/api'
+import { $get } from '@/http/ajax'
 export default {
   name: 'title',
   data() {
-    return {}
+    return {
+      userData: {}
+    }
   },
   props: {
     num: ''
   },
   methods: {
     publicRouter() {
-      this.$router.push({
-        path: '/person/publishEssay'
-      })
+      if (this.userData.grade !== 2) {
+        this.$message('您当前还没有发表文章的权限')
+      } else {
+        this.$router.push({
+          name: 'publishEssay'
+        })
+      }
     },
     hobbiesRouter() {
       this.$router.push({
         name: 'publicHobbies'
       })
+    },
+    getUserInfo() {
+      let cookie = this.getCookie('token')
+      let tokenObj = JSON.parse(localStorage.getItem('userMsg'))
+      if (tokenObj == null) {
+        tokenObj = {}
+      }
+      $get(
+        webUserSelectByPrimaryKey,
+        {},
+        {
+          'X-Auth0-Token': cookie !== '' ? cookie : tokenObj.token
+        }
+      ).then(res => {
+        // console.log(res)
+        this.userData = res.data.des.user
+      })
+    },
+    getCookie(cname) {
+      // console.log(cname, 'cookie')
+      var name = cname + '='
+      var ca = document.cookie.split(';')
+      for (var i = 0; i < ca.length; i++) {
+        var c = ca[i].trim()
+        if (c.indexOf(name) == 0) return c.substring(name.length, c.length)
+      }
+      return ''
     }
+  },
+  mounted() {
+    this.getUserInfo()
   }
 }
 </script>
+
 <style scoped>
 .detail_content_article_title {
   padding: 40px 0;

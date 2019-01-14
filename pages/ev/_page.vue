@@ -252,7 +252,7 @@
               </div>
             </div>
             <div class="todayRank">
-              <todayRankTab :model="path[0]"></todayRankTab>
+              <todayRankTab :model="path[0]" :rankWeekLists="rankWeekLists" :rankMonthLists="rankMonthLists"></todayRankTab>
             </div>
           </div>
         </div>
@@ -283,7 +283,9 @@ import {
   dsfFeatureGetRutureByChannel,
   webEssayGetEssayByChannel,
   webEssayClickEssay,
-  webBannerList
+  webBannerList,
+  webEssayGetWeekendRank,
+  webEssayGetMonthRank
 } from '@/http/api.js'
 
 // import { setTimeout } from 'timers'
@@ -295,11 +297,11 @@ export default {
       currentPage: 1,
       flag: 0,
       adverTop: '',
-      tabData: [],
+      // tabData: [],
       topBanner: [],
       bannerMessageData: {},
       bannerTopicData: {},
-      leftSideResult: [],
+      // leftSideResult: [],
       navTabActiveStatus: false,
       navTabActiveIndex: '',
       titleActiveIndex: '',
@@ -315,38 +317,6 @@ export default {
       tokenObj: null //token对象
     }
   },
-  metaInfo() {
-    return {
-      title: `新能源_${this.currentPage}页-尖峰咖`,
-      // 设置 meta
-      meta: [
-        {
-          name: 'keyWords',
-          content: 'vue'
-        },
-        {
-          name: 'description',
-          content: `${this.metaDesc}`
-        },
-        {
-          name: 'applicable-device',
-          content: 'pc'
-        },
-        {
-          name: 'mobile-agent',
-          content: 'format=html5;url=http://m.mgous.com'
-        }
-      ],
-      // 设置 link
-      link: [
-        {
-          rel: 'alternate',
-          media: 'handheld',
-          href: 'http://m.mgous.com/'
-        }
-      ]
-    }
-  },
   components: {
     bannerOfFeature,
     todayRankTab,
@@ -354,6 +324,36 @@ export default {
     Header,
     Footer,
     BigCoursel
+  },
+  async asyncData ({params}) {
+    let tabData = await $get(webTagGetRandomTagsByChannel, { id: '2' })
+    let leftSideResult = await $get(
+        webEssayGetEssayByChannel,
+        {
+          channel: 4,
+          pageNo: params.page,
+          size: 6
+        },
+        {
+          'X-Auth0-Token': null
+        }
+      )
+    // 周排行
+    let rankWeekLists = await $get(webEssayGetWeekendRank, {
+      pageNo: 1,
+      size: 10
+    })
+    // 月排行
+    let rankMonthLists = await $get(webEssayGetMonthRank, {
+      pageNo: 1,
+      size: 10
+    })
+    return {
+      tabData: tabData.data ?  tabData.data : [],
+      leftSideResult: leftSideResult.data ? leftSideResult.data : [],
+      rankWeekLists: rankWeekLists.data.essayEntities ? rankWeekLists.data.essayEntities : [],
+      rankMonthLists: rankMonthLists.data.essayEntities ? rankMonthLists.data.essayEntities : []
+    }
   },
   methods: {
     beforeRouteUpdate(to, from, next) {},
@@ -497,26 +497,29 @@ export default {
       let obj = {
         'X-Auth0-Token': this.cookie != '' ? this.cookie : this.tokenObj.token
       }
-      let tabResult = await $get(webTagGetRandomTagsByChannel, { id: '2' })
+      // let tabResult = await $get(webTagGetRandomTagsByChannel, { id: '2' })
       let topBigBanner = await $get(webBannerList, {
         bChannel: 4,
         linktype: 'first'
       })
-      let leftSideResult = await $get(
-        webEssayGetEssayByChannel,
-        {
-          channel: 4,
-          pageNo: this.currentPage,
-          size: 6
-        },
-        obj
-      )
+      // let leftSideResult = await $get(
+      //   webEssayGetEssayByChannel,
+      //   {
+      //     channel: 4,
+      //     pageNo: this.currentPage,
+      //     size: 6
+      //   },
+      //   obj
+      // )
+      if (this.tabData.length >= 11) {
+        this.tabData.splice(11)
+      }
       // 判断是否为空
-      let leftResult = leftSideResult.data == null ? [] : leftSideResult.data
-      let tab = tabResult.data == null ? [] : tabResult.data
+      // let leftResult = leftSideResult.data == null ? [] : leftSideResult.data
+      // let tab = tabResult.data == null ? [] : tabResult.data
       let topBigBannerData = topBigBanner == null ? [] : topBigBanner
-      this.tabData = tab
-      this.leftSideResult = leftResult
+      // this.tabData = tab
+      // this.leftSideResult = leftResult
       this.topBanner = topBigBannerData.data
       // 以下是测试数据若不够多时，广告位的位置变化的代码：
       // this.leftSideResult.EssayEntity.forEach((element, index) => {
@@ -702,16 +705,14 @@ body {
   margin-top: 40px;
   margin-bottom: 41px;
   width: 1200px;
-  height: 45px;
   text-align: center;
 }
 .sources .todayNav ul {
-  height: 100%;
-  display: flex;
-  justify-content: center;
+  width: 100%;
 }
 .sources .navWrap {
-  text-align: left;
+  margin-bottom: 10px;
+  display: inline-block;
 }
 .sources .todayNav ul li {
   position: relative;
@@ -771,7 +772,7 @@ body {
 .sources .leftSide #advertiseBox {
   position: absolute;
   height: 586px;
-  top: 1407px;
+  top: 1416px;
 }
 .sources #advertiseBox #imgBox {
   width: 100%;
@@ -810,7 +811,7 @@ body {
   background: #f6f6f6;
   position: relative;
 }
-.sources .defaultBox {
+/* .sources .defaultBox {
   overflow: hidden;
   width: 100%;
   height: 450px;
@@ -818,7 +819,7 @@ body {
   line-height: 450px;
   background: #e7e7e7;
   position: relative;
-}
+} */
 .sources .todayImg .todayImg_class {
   width: 100%;
   position: absolute;
@@ -903,7 +904,7 @@ body {
 .sources .todayFooter .todayDivider {
   width: 1px;
   height: 11px;
-  background: rgba(177, 177, 177, 1);
+  background: rgba(224, 224, 224, 1);
   margin-top: 4px;
 }
 .sources .todayFooter span {
@@ -924,6 +925,9 @@ body {
 .sources .todayResult .badBox {
   float: left;
   position: relative;
+}
+.sources .todayResult .goodBox {
+  margin-right: 4px;
 }
 .sources .todayResult .goodAnimation {
   display: inline-block;
@@ -966,18 +970,18 @@ body {
   cursor: pointer;
 }
 .sources .todayResult .up {
-  background-image: url('~static/images/202.png');
+  background-image: url('/static/images/202.png');
 }
 .sources .todayResult .down {
   margin-left: -13px;
-  background-image: url('~static/images/211.png');
+  background-image: url('/static/images/211.png');
 }
 .sources .goodPrecentBackground {
-  background-image: url('~static/images/201.png');
+  background-image: url('/static/images/201.png');
 }
 .sources .badPrecentBackground {
   margin-left: -13px;
-  background-image: url('~static/images/21.png');
+  background-image: url('/static/images/21.png');
 }
 .sources .todayResult img {
   margin-top: -10px;
@@ -995,12 +999,12 @@ body {
 .sources .rightSideContent .firstBanner,
 .sources .rightSideContent .secondBanner {
   width: 337px;
-  height: 280px;
+  height: 224px;
   position: relative;
 }
 .sources .rightSideContent .firstBanner {
   left: 31px;
-  margin-bottom: 83px;
+  margin-bottom: 76px;
   top: 30px;
 }
 .sources .firstBanner .feature_titleWrap,
@@ -1025,7 +1029,7 @@ body {
   top: 0;
 }
 .sources .rightSideContent .oneItemBlock {
-  height: 236px;
+  height: 180px;
   width: 320px;
   background: #e7e7e7;
   margin-top: 45px;
@@ -1034,9 +1038,9 @@ body {
 .sources .rightSideContent .oneItemBlock .oneItemDefaultBox {
   overflow: hidden;
   width: 100%;
-  height: 236px;
+  height: 180px;
   text-align: center;
-  line-height: 236px;
+  line-height: 180px;
   background: #e7e7e7;
   position: relative;
 }
@@ -1044,7 +1048,7 @@ body {
   height: 50px !important;
   width: auto !important;
   position: absolute;
-  bottom: 0;
+  bottom: -1px;
   left: 0;
   z-index: 3;
 }
@@ -1054,13 +1058,13 @@ body {
   font-weight: 500;
   color: rgba(255, 255, 255, 1);
   position: absolute;
-  bottom: 21px;
+  bottom: 20px;
   left: 28px;
   z-index: 3;
 }
 .sources .rightSideContent .oneItemBlock .itemBlockImg {
   width: 320px;
-  height: 236px;
+  height: 180px;
   position: absolute;
 }
 .sources .rightSide > img {
@@ -1078,7 +1082,7 @@ body {
 }
 .sources .todayRank {
   position: relative;
-  width: 92%;
+  width: 100%;
   padding: 18px 0px 0px 31px;
 }
 

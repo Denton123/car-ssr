@@ -357,8 +357,8 @@ export default {
       hobbiesEight: [],
       hobbiesTwelve: [],
       secondNav: [],
-      bloggerItems: [],
-      hostPointItems: [],
+      // bloggerItems: [],
+      // hostPointItems: [],
       mockHobbyItems: [],
       timer: 0, // 监听滚动
       picCount: 0, // 图片加载完数量
@@ -375,25 +375,50 @@ export default {
     BigCoursel
   },
   // nuxt异步获取数据
-  async asyncData(context) {
-    console.log('oooooo')
-    console.log(context)
-    console.log('yyyyy')
+  async asyncData({params, env, req}) {
+    var userCookie = null
+    if (req && req.headers) {
+      // console.log(req.headers.cookie.split(';'), 'headers')
+      let reqHeaders = req.headers.cookie.split(';')
+      let tokenArr
+      reqHeaders.forEach(v => {
+        if (v.indexOf('token') !== -1) {
+          tokenArr = v.split('=')
+          console.log(tokenArr)
+        }
+      })
+      userCookie = tokenArr[1]
+    }
+    // console.log(userCookie, 'userCookie')
+    let mockHobbyItems
     // 标签
     let tokenObj = '8f558bfd4dd5aa42898a394d8b1accc3'
-    let _tagItems = await $get('/web/hobbies/gotohobbies', {}, {'X-Auth0-Token': null})
+    let tagItems = await $get('/web/hobbies/gotohobbies', {}, {'X-Auth0-Token': null})
     // // 周排行
     let _hostPointItems = await $get('/web/hobbies/hobbiesWeekRank?', {
         pageNo: 1,
         size: 10
-      }, {'X-Auth0-Token': null})
+      }, {'X-Auth0-Token': userCookie})
+    // 博主数据
+    let bloggerItems =  await $get('/web/hobbies/getHotBloggers?', {
+      pageNo: 1,
+        pageSize: 10
+    }, {'X-Auth0-Token': userCookie})
+    // let mockHobbyItems = await $get('/web/hobbies/list?', {
+    //   limit: 12,
+    //   page: params.page,
+    //   order: 'desc',
+    //   sidx: 'h.create_time'
+    // }, {'X-Auth0-Token': null})
     return {
-      tagItems: _tagItems.data ? _tagItems.data.tagsShowList : [],
-      hostPointItems: _hostPointItems.data ? _hostPointItems.data : []
+      tagItems: tagItems.data ? tagItems.data.tagsShowList : [],
+      hostPointItems: _hostPointItems.data ? _hostPointItems.data : [],
+      bloggerItems: bloggerItems.data ? bloggerItems.data : [],
+      // mockHobbyItems: _mockHobbyItems.data.list ? _mockHobbyItems.data.list : [],
+      // _mockHobbyItems: _mockHobbyItems.data ? _mockHobbyItems.data : {},
     }
   },
   mounted() {
-    // console.log(this.$store.state.userMsg, 'tag')
       if (
       localStorage.getItem('userMsg') !== '' &&
       localStorage.getItem('userMsg') !== null
@@ -434,11 +459,11 @@ export default {
       // this.metaKeyWords = this.metaKeyWords.slice(0, 8)
       // this.metaWords = this.metaKeyWords.join()
       // 获取热门博主的数据——
-      let _tagBloggerItems = await $get('/web/hobbies/getHotBloggers?', {
-        pageNo: 1,
-        pageSize: 10
-      }, obj)
-      this.bloggerItems = _tagBloggerItems.data
+      // let _tagBloggerItems = await $get('/web/hobbies/getHotBloggers?', {
+      //   pageNo: 1,
+      //   pageSize: 10
+      // }, obj)
+      // this.bloggerItems = _tagBloggerItems.data
       // 获取周排行榜数据
       // let _hostPointItems = await $get('/web/hobbies/hobbiesWeekRank?', {
       //   pageNo: 1,
@@ -474,12 +499,12 @@ export default {
     })
     // this.$refs.pagination.routLinkCurrentPage(2)
     this.path = this.$route.path
-    this.$nextTick(() => {
-      setTimeout(() => {
-        this.waterFlow('content-wrap', 'contain-hobby-wrap')
-        // this.routLinkCurrentPage(this.curPage)
-      }, 3000)
-    })
+    // this.$nextTick(() => {
+    //   setTimeout(() => {
+    //     this.waterFlow('content-wrap', 'contain-hobby-wrap')
+    //     // this.routLinkCurrentPage(this.curPage)
+    //   }, 3000)
+    // })
     // 广告
     let adv = document.getElementById('advertisement')
     if (adv) {
@@ -906,6 +931,9 @@ export default {
       this.$router.push({
         path: `/hobbies/${page}`
       })
+      setTimeout(() => {
+        this.waterFlow('content-wrap', 'contain-hobby-wrap')
+      }, 5000)
       this.getRecentlyHobbiesList(this.hobbiesClassId, page)
       this.currentPage = page
     }

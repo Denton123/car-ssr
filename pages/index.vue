@@ -1,7 +1,6 @@
 <template>
   <div>
     <index-container 
-      :big-coursel-data="bigCourselData"
       :newsObj="newsObj"
       :tagOne="tagOne"
       :newsCourselData="newsCourselData"
@@ -38,10 +37,10 @@ export default {
     // 周排行
     let weeklist = await $get(webEssayGetWeekendRank, { pageNo: 1, size: 10 });
     // 大轮播图
-    let bigCourselData = await $get(webBannerList, {
-      cChannel: 18,
-      linktype: "second"
-    });
+    // let bigCourselData = await $get(webBannerList, {
+    //   cChannel: 18,
+    //   linktype: "second"
+    // });
     // 热点咨询
     let newsObj = await $get(webEssayGethoteassy)
     // 标签
@@ -110,7 +109,7 @@ export default {
     let monthList = await $get(webEssayGetMonthRank, { pageNo: 1, size: 10 });
     return {
       weeklist: weeklist.data ? weeklist.data.essayEntities : [],
-      bigCourselData: bigCourselData.data ? bigCourselData.data : [],
+      // bigCourselData: bigCourselData.data ? bigCourselData.data : [],
       newsObj: newsObj.data ? newsObj.data : {},
       tagOne: tagOne.data ? tagOne.data : [],
       newsCourselData: newsCourselData.data ? newsCourselData.data : [],
@@ -151,7 +150,7 @@ export default {
     this.formatName(this.EvList)
     // this.formatName(this.hobbiesList)
     console.log('aaaaaa')
-    console.log(this.weeklist)
+    console.log(this.newsObj)
   }
 };
 </script>

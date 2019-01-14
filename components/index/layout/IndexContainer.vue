@@ -208,12 +208,12 @@ export default {
         return [];
       }
     },
-    bigCourselData: {
-      type: Array,
-      default() {
-        return [];
-      }
-    },
+    // bigCourselData: {
+    //   type: Array,
+    //   default() {
+    //     return [];
+    //   }
+    // },
     tagOne: {
       type: Array,
       default() {
@@ -319,7 +319,7 @@ export default {
   },
   data() {
     return {
-      // bigCourselData: this.bigCourselData, // 顶部banner轮播图数据
+      bigCourselData: [], // 顶部banner轮播图数据
       // newsCourselData: [], // 今日车闻轮播图数据
       newsActiveUrl: "", // 今日车闻当前轮播图
       // newsRightList: [], // 今日车闻右侧内容
@@ -341,7 +341,7 @@ export default {
       // weekList: this.weeklist, // 周排行榜数据
       // monthList: [], // 月排行版数据,
       carsouelFlag: "video"
-    };
+    }
   },
   mounted() {
     // 添加百度管家广告
@@ -352,7 +352,7 @@ export default {
       // this.getAdverBlock('hobbiesAdver', '5993927')
       // this.getAdverBlock('videoAdver', '5993929')
       // 获取顶部轮播图数据
-      // let bigCoursel = this.getBannerData("18");
+      let bigCoursel = this.getBannerData("18");
       // let newsCoursel = this.getBannerData("14");
       // let EvCoursel = this.getBannerData("15");
       // let hobbiesCoursel = this.getBannerData("17");
@@ -378,7 +378,7 @@ export default {
       // let hobbiesList = this.getHobbiesList();
       // let hobbiesItem = this.getHobbiesItem();
 
-      // this.bigCourselData = await bigCoursel;
+      this.bigCourselData = await bigCoursel;
       // this.newsCourselData = await newsCoursel;
       // this.EvCourselData = await EvCoursel;
       // this.hobbiesCourselData = await hobbiesCoursel;
@@ -626,7 +626,7 @@ export default {
       });
     }
   }
-};
+}
 </script>
 <style>
 .mt40 {

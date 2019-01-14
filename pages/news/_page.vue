@@ -250,7 +250,7 @@
               </el-container>
             </div>
             <div class="todayRank">
-              <todayRankTab :model="path[0]"></todayRankTab>
+              <todayRankTab :model="path[0]" :rankWeekLists="rankWeekLists" :rankMonthLists="rankMonthLists"></todayRankTab>
             </div>
           </div>
         </div>
@@ -282,55 +282,25 @@ import {
   dsfFeatureGetRutureByChannel,
   webEssayGetEssayByChannel,
   webEssayClickEssay,
-  webBannerList
+  webBannerList,
+  webEssayGetWeekendRank,
+  webEssayGetMonthRank
 } from '@/http/api.js'
 
 import { setTimeout } from 'timers'
 
 export default {
   name: 'News',
-  metaInfo() {
-    return {
-      title: `今日车闻_${this.currentPage}页-尖峰咖`,
-      // 设置 meta
-      meta: [
-        {
-          name: 'keyWords',
-          content: 'vue '
-        },
-        {
-          name: 'description',
-          content: `${this.metaDesc}`
-        },
-        {
-          name: 'applicable-device',
-          content: 'pc'
-        },
-        {
-          name: 'mobile-agent',
-          content: 'format=html5;url=http://m.mgous.com'
-        }
-      ],
-      // 设置 link
-      link: [
-        {
-          rel: 'alternate',
-          media: 'handheld',
-          href: 'http://m.mgous.com/'
-        }
-      ]
-    }
-  },
   data: function() {
     return {
       currentPage: 1,
       flag: 0,
       adverTop: '',
-      tabData: [],
+      // tabData: [],
       topBanner: [],
       bannerMessageData: {},
       bannerTopicData: {},
-      leftSideResult: [],
+      // leftSideResult: [],
       navTabActiveStatus: false,
       navTabActiveIndex: '',
       titleActiveIndex: '',
@@ -355,6 +325,38 @@ export default {
     Header,
     Footer,
     BigCoursel
+  },
+  // nuxt异步获取数据
+  async asyncData ({params}) {
+    // 标签tag
+    let tabData = await $get(webTagGetRandomTagsByChannel, { id: '2' })
+    let leftSideResult = await $get(
+        webEssayGetEssayByChannel,
+        {
+          channel: '2',
+          pageNo: params.page,
+          size: 6
+        },
+        {
+          'X-Auth0-Token': null
+        }
+      )
+    // 周排行
+    let rankWeekLists = await $get(webEssayGetWeekendRank, {
+      pageNo: 1,
+      size: 10
+    })
+    // 月排行
+    let rankMonthLists = await $get(webEssayGetMonthRank, {
+        pageNo: 1,
+        size: 10
+      })
+    return {
+      tabData: tabData.data ?  tabData.data : [],
+      leftSideResult: leftSideResult.data ? leftSideResult.data : [],
+      rankWeekLists: rankWeekLists.data.essayEntities ? rankWeekLists.data.essayEntities : [],
+      rankMonthLists: rankMonthLists.data.essayEntities ? rankMonthLists.data.essayEntities : []
+    }
   },
   methods: {
     // 获取广告
@@ -507,40 +509,31 @@ export default {
       let obj = {
         'X-Auth0-Token': this.cookie != '' ? this.cookie : this.tokenObj.token
       }
-      let tabResult = await $get(webTagGetRandomTagsByChannel, { id: '2' })
+      // let tabResult = await $get(webTagGetRandomTagsByChannel, { id: '2' })
       let topBigBanner = await $get(webBannerList, {
         bChannel: 2,
         linktype: 'first'
       })
-      let leftSideResult = await $get(
-        webEssayGetEssayByChannel,
-        {
-          channel: '2',
-          pageNo: this.$route.params.page,
-          size: 6
-        },
-        obj
-      )
-
+      // let leftSideResult = await $get(
+      //   webEssayGetEssayByChannel,
+      //   {
+      //     channel: '2',
+      //     pageNo: this.$route.params.page,
+      //     size: 6
+      //   },
+      //   obj
+      // )
+      if (this.tabData.length >= 11) {
+        this.tabData.splice(11)
+      }
       // 判断是否为空
-      let leftResult = leftSideResult.data == null ? [] : leftSideResult.data
-      let tab = tabResult.data == null ? [] : tabResult.data
+      // let leftResult = leftSideResult.data == null ? [] : leftSideResult.data
+      // let tab = tabResult.data == null ? [] : tabResult.data
       let topBigBannerData = topBigBanner == null ? [] : topBigBanner
-      this.tabData = tab
-      this.leftSideResult = leftResult
+      // 使用nuxt异步获取数据
+      // this.tabData = tab
+      // this.leftSideResult = leftResult
       this.topBanner = topBigBannerData.data
-      //以下是测试数据若不够多时，广告位的位置变化的代码：
-      // this.leftSideResult.EssayEntity.forEach((element, index) => {
-      //   if (index >= 1) {
-      //     this.leftSideResult.EssayEntity.splice(1)
-      //   }
-      // })
-      // 以下是测试若图片加载不出来时，显示默认图片
-      // this.leftSideResult.EssayEntity.forEach((element, index) => {
-      //   if (index == 0) {
-      //     element.photo = ''
-      //   }
-      // })
       if (this.leftSideResult.EssayEntity.length <= 2) {
         this.adverTop = (this.leftSideResult.EssayEntity.length + 1) * 704 - 88
       } else {
@@ -553,13 +546,6 @@ export default {
         this.$set(element, 'downSrc', '')
         this.$set(element, 'showPercent', '')
         this.$set(element, 'goodAddClass', 'false')
-        // 以下方法不起效
-        // element = Object.assign({}, element, {
-        //   upSrc: '',
-        //   downSrc: '',
-        //   showPercent: '',
-        //   goodAddClass: ''
-        // })
         if (index == 0) {
           this.metaDesc = element.digest
         }
@@ -602,12 +588,6 @@ export default {
           this.bannerTopicData = element
         }
       })
-      // 以下是测试专栏多个轮播数据图片加载失败时，默认图片的设置
-      // this.bannerTopicData.photoLinks.forEach((e, i) => {
-      //   if (i == 0) {
-      //     e.photo = ''
-      //   }
-      // })
     })
   },
   watch: {
@@ -720,24 +700,21 @@ body {
 .todayNew .todayNav {
   margin: 0px auto;
   margin-top: 40px;
-  margin-bottom: 41px;
   width: 1200px;
-  height: 45px;
+  margin-bottom: 41px;
   text-align: center;
 }
 .todayNew .todayNav ul {
-  height: 100%;
-  display: flex;
-  justify-content: center;
+  width: 100%;
 }
 .todayNew .navWrap {
-  text-align: left;
+  margin-bottom: 10px;
+  display: inline-block;
 }
 .todayNew .todayNav ul li {
   position: relative;
   list-style-type: none;
   float: left;
-  box-sizing: border-box;
   line-height: 40px;
   padding: 0px 16px 0px 16px;
   height: 42px;
@@ -788,7 +765,7 @@ body {
 .todayNew .leftSide #advertiseBox {
   position: absolute;
   height: 586px;
-  top: 1407px;
+  top: 1416px;
 }
 .todayNew #advertiseBox #imgBox {
   width: 100%;
@@ -827,7 +804,7 @@ body {
   background: #f6f6f6;
   position: relative;
 }
-.todayNew .defaultBox {
+/* .todayNew .defaultBox {
   overflow: hidden;
   width: 100%;
   height: 450px;
@@ -835,13 +812,13 @@ body {
   line-height: 450px;
   background: #e7e7e7;
   position: relative;
-}
+} */
 .todayNew .oneItemBlock .oneItemDefaultBox {
   overflow: hidden;
   width: 100%;
-  height: 236px;
+  height: 180px;
   text-align: center;
-  line-height: 236px;
+  line-height: 180px;
   background: #e7e7e7;
   position: relative;
 }
@@ -859,6 +836,14 @@ body {
   position: relative;
 }
 .todayNew .imgDesc p {
+  /* width:54px;
+height:14px;
+font-size:14px;
+font-family:SourceHanSansCN-Light;
+font-weight:300;
+color:rgba(177,177,177,1);
+line-height:125px; */
+
   font-size: 26px;
   font-weight: 500;
   line-height: 24px;
@@ -931,7 +916,7 @@ body {
 .todayNew .todayFooter .todayDivider {
   width: 1px;
   height: 11px;
-  background: rgba(177, 177, 177, 1);
+  background: rgba(224, 224, 224, 1);
   margin-top: 4px;
 }
 .todayNew .todayFooter span {
@@ -953,6 +938,9 @@ body {
 .todayNew .todayResult .badBox {
   float: left;
   position: relative;
+}
+.todayNew .todayResult .goodBox {
+  margin-right: 4px;
 }
 .todayNew .todayResult .goodAnimation {
   display: inline-block;
@@ -994,18 +982,18 @@ body {
   cursor: pointer;
 }
 .todayNew .todayResult .up {
-  background-image: url('~static/images/202.png');
+  background-image: url('/static/images/202.png');
 }
 .todayNew .todayResult .down {
   margin-left: -13px;
-  background-image: url('~static/images/211.png');
+  background-image: url('/static/images/211.png');
 }
 .todayNew .goodPrecentBackground {
-  background-image: url('~static/images/201.png');
+  background-image: url('/static/images/201.png');
 }
 .todayNew .badPrecentBackground {
   margin-left: -13px;
-  background-image: url('~static/images/21.png');
+  background-image: url('/static/images/21.png');
 }
 .todayNew .todayResult img {
   margin-top: -10px;
@@ -1023,12 +1011,12 @@ body {
 .todayNew .rightSideContent .firstBanner,
 .todayNew .rightSideContent .secondBanner {
   width: 320px;
-  height: 280px;
+  height: 224px;
   position: relative;
 }
 .todayNew .rightSideContent .firstBanner {
   left: 31px;
-  margin-bottom: 83px;
+  margin-bottom: 76px;
   top: 30px;
 }
 .todayNew .rightSideContent .secondBanner {
@@ -1037,7 +1025,7 @@ body {
 }
 .todayNew .rightSideContent .oneItemBlock .itemBlockImg {
   width: 100%;
-  height: 236px;
+  height: 180px;
   position: absolute;
 }
 .todayNew .firstBanner .feature_titleWrap,
@@ -1054,7 +1042,7 @@ body {
   height: 50px !important;
   width: auto !important;
   position: absolute;
-  bottom: 0;
+  bottom: -1px;
   left: 0;
   z-index: 3;
 }
@@ -1064,7 +1052,7 @@ body {
   font-weight: 500;
   color: rgba(255, 255, 255, 1);
   position: absolute;
-  bottom: 21px;
+  bottom: 20px;
   left: 28px;
   z-index: 3;
 }
@@ -1076,7 +1064,7 @@ body {
   top: 0;
 }
 .todayNew .rightSideContent .oneItemBlock {
-  height: 236px;
+  height: 180px;
   width: 320px;
   background: #e7e7e7;
   margin-top: 45px;
@@ -1096,7 +1084,7 @@ body {
 }
 .todayNew .todayRank {
   position: relative;
-  width: 92%;
+  width: 100%;
   padding: 18px 0px 0px 31px;
 }
 

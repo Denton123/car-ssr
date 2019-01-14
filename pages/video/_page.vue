@@ -269,7 +269,7 @@
               </div>
             </div>
             <div class="todayRank">
-              <todayRankTab :model="path[0]"></todayRankTab>
+              <todayRankTab :model="path[0]" :rankWeekLists="rankWeekLists" :rankMonthLists="rankMonthLists"></todayRankTab>
             </div>
           </div>
         </div>
@@ -300,55 +300,25 @@ import {
   dsfFeatureGetRutureByChannel,
   webEssayGetEssayByChannel,
   webEssayClickEssay,
-  webBannerList
+  webBannerList,
+  webEssayGetWeekendRank,
+  webEssayGetMonthRank
 } from '@/http/api.js'
 
 import { setTimeout } from 'timers'
 
 export default {
   name: 'car_video',
-  metaInfo() {
-    return {
-      title: `视频_${this.currentPage}页-尖峰咖`,
-      // 设置 meta
-      meta: [
-        {
-          name: 'keyWords',
-          content: 'vue '
-        },
-        {
-          name: 'description',
-          content: this.metaDesc
-        },
-        {
-          name: 'applicable-device',
-          content: 'pc'
-        },
-        {
-          name: 'mobile-agent',
-          content: 'format=html5;url=http://m.mgous.com'
-        }
-      ],
-      // 设置 link
-      link: [
-        {
-          rel: 'alternate',
-          media: 'handheld',
-          href: 'http://m.mgous.com/'
-        }
-      ]
-    }
-  },
   data: function() {
     return {
       currentPage: 1,
       flag: 0,
       adverTop: '',
-      tabData: [],
+      // tabData: [],
       topBanner: [],
       bannerMessageData: {},
       bannerTopicData: {},
-      leftSideResult: [],
+      // leftSideResult: [],
       navTabActiveStatus: false,
       navTabActiveIndex: '',
       titleActiveIndex: '',
@@ -371,6 +341,37 @@ export default {
     Header,
     Footer,
     BigCoursel
+  },
+  async asyncData({params}) {
+    let tabData = await $get(webTagGetRandomTagsByChannel, { id: '2' })
+    let leftSideResult = await $get(
+        webEssayGetEssayByChannel,
+        {
+          channel: '5',
+          pageNo: params.page,
+          size: 6
+        },
+        {
+          'X-Auth0-Token': null
+        }
+      )
+     // 周排行
+    let rankWeekLists = await $get(webEssayGetWeekendRank, {
+      pageNo: 1,
+      size: 10
+    })
+    // 月排行
+    let rankMonthLists = await $get(webEssayGetMonthRank, {
+      pageNo: 1,
+      size: 10
+    })
+    return {
+      tabData: tabData.data ? tabData.data : [],
+      leftSideResult: leftSideResult.data ? leftSideResult.data : [],
+      rankWeekLists: rankWeekLists.data.essayEntities ? rankWeekLists.data.essayEntities : [],
+      rankMonthLists: rankMonthLists.data.essayEntities ? rankMonthLists.data.essayEntities : []
+    }
+
   },
   methods: {
     // 获取广告
@@ -513,39 +514,30 @@ export default {
       let obj = {
         'X-Auth0-Token': this.cookie != '' ? this.cookie : this.tokenObj.token
       }
-      let tabResult = await $get(webTagGetRandomTagsByChannel, { id: '2' })
+      // let tabResult = await $get(webTagGetRandomTagsByChannel, { id: '2' })
       let topBigBanner = await $get(webBannerList, {
         bChannel: 5,
         linktype: 'first'
       })
-      let leftSideResult = await $get(
-        webEssayGetEssayByChannel,
-        {
-          channel: '5',
-          pageNo: this.$route.params.page,
-          size: 6
-        },
-        obj
-      )
+      // let leftSideResult = await $get(
+      //   webEssayGetEssayByChannel,
+      //   {
+      //     channel: '5',
+      //     pageNo: this.$route.params.page,
+      //     size: 6
+      //   },
+      //   obj
+      // )
+      if (this.tabData.length >= 11) {
+        this.tabData.splice(11)
+      }
       // 判断是否为空
-      let leftResult = leftSideResult.data == null ? [] : leftSideResult.data
-      let tab = tabResult.data == null ? [] : tabResult.data
+      // let leftResult = leftSideResult.data == null ? [] : leftSideResult.data
+      // let tab = tabResult.data == null ? [] : tabResult.data
       let topBigBannerData = topBigBanner == null ? [] : topBigBanner
-      this.tabData = tab
-      this.leftSideResult = leftResult
+      // this.tabData = tab
+      // this.leftSideResult = leftResult
       this.topBanner = topBigBannerData.data
-      //以下是测试数据若不够多时，广告位的位置变化的代码：
-      // this.leftSideResult.EssayEntity.forEach((element, index) => {
-      //   if (index >= 1) {
-      //     this.leftSideResult.EssayEntity.splice(1)
-      //   }
-      // })
-      // 以下是测试若图片加载不出来时，显示默认图片
-      // this.leftSideResult.EssayEntity.forEach((element, index) => {
-      //   if (index == 0) {
-      //     element.photo = ''
-      //   }
-      // })
       if (this.leftSideResult.EssayEntity.length <= 2) {
         this.adverTop = (this.leftSideResult.EssayEntity.length + 1) * 696 - 88
       } else {
@@ -715,18 +707,16 @@ body {
 .car_video .todayNav {
   margin: 0px auto;
   margin-top: 40px;
-  margin-bottom: 41px;
   width: 1200px;
-  height: 45px;
+  margin-bottom: 41px;
   text-align: center;
 }
 .car_video .todayNav ul {
-  height: 100%;
-  display: flex;
-  justify-content: center;
+  width: 100%;
 }
 .car_video .navWrap {
-  text-align: left;
+  margin-bottom: 10px;
+  display: inline-block;
 }
 .car_video .todayNav ul li {
   position: relative;
@@ -824,9 +814,10 @@ body {
   overflow: hidden;
   width: 100%;
   height: 444.4px;
+  z-index: 1;
   position: relative;
 }
-.car_video .defaultBox {
+/* .car_video .defaultBox {
   overflow: hidden;
   width: 100%;
   height: 444.4px;
@@ -834,7 +825,7 @@ body {
   line-height: 444.4px;
   background: #e7e7e7;
   position: relative;
-}
+} */
 .car_video .mask {
   cursor: pointer;
   position: absolute;
@@ -948,8 +939,8 @@ body {
 
 .car_video .todayFooter .todayDivider {
   width: 1px;
+  background: rgba(224, 224, 224, 1);
   height: 11px;
-  background: rgba(177, 177, 177, 1);
   margin-top: 4px;
 }
 .car_video .todayFooter span {
@@ -970,6 +961,9 @@ body {
 .car_video .todayResult .badBox {
   float: left;
   position: relative;
+}
+.car_video .todayResult .goodBox {
+  margin-right: 4px;
 }
 .car_video .todayResult .goodAnimation {
   display: inline-block;
@@ -1012,18 +1006,18 @@ body {
   cursor: pointer;
 }
 .car_video .todayResult .up {
-  background-image: url('~static/images/202.png');
+  background-image: url('/static/images/202.png');
 }
 .car_video .todayResult .down {
   margin-left: -13px;
-  background-image: url('~static/images/211.png');
+  background-image: url('/static/images/211.png');
 }
 .car_video .goodPrecentBackground {
-  background-image: url('~static/images/201.png');
+  background-image: url('/static/images/201.png');
 }
 .car_video .badPrecentBackground {
   margin-left: -13px;
-  background-image: url('~static/images/21.png');
+  background-image: url('/static/images/21.png');
 }
 .car_video .todayResult img {
   margin-top: -10px;
@@ -1041,13 +1035,13 @@ body {
 .car_video .rightSideContent .firstBanner,
 .car_video .rightSideContent .secondBanner {
   width: 337px;
-  height: 280px;
+  height: 224px;
   position: relative;
 }
 .car_video .rightSideContent .firstBanner {
   left: 31px;
   top: 30px;
-  margin-bottom: 83px;
+  margin-bottom: 76px;
 }
 .car_video .rightSideContent .secondBanner {
   left: 31px;
@@ -1058,7 +1052,7 @@ body {
   position: absolute;
   bottom: -1px;
   width: 320px;
-  z-index: 2;
+  z-index: 1;
   height: 50px;
   background: rgba(0, 0, 0, 1);
   opacity: 0.5;
@@ -1067,7 +1061,7 @@ body {
   height: 50px !important;
   width: auto !important;
   position: absolute;
-  bottom: 0;
+  bottom: -1px;
   left: 0;
   z-index: 3;
 }
@@ -1077,7 +1071,7 @@ body {
   font-weight: 500;
   color: rgba(255, 255, 255, 1);
   position: absolute;
-  bottom: 21px;
+  bottom: 20px;
   left: 28px;
   z-index: 3;
 }
@@ -1089,7 +1083,7 @@ body {
   top: 0;
 }
 .car_video .rightSideContent .oneItemBlock {
-  height: 236px;
+  height: 180px;
   width: 320px;
   background: #e7e7e7;
   margin-top: 45px;
@@ -1097,15 +1091,15 @@ body {
 .car_video .rightSideContent .oneItemBlock .oneItemDefaultBox {
   overflow: hidden;
   width: 100%;
-  height: 236px;
+  height: 180px;
   text-align: center;
-  line-height: 236px;
+  line-height: 180px;
   background: #e7e7e7;
   position: relative;
 }
 .car_video .rightSideContent .oneItemBlock .itemBlockImg {
   width: 320px;
-  height: 236px;
+  height: 180px;
   position: absolute;
 }
 .car_video .rightSide > img {
@@ -1123,7 +1117,7 @@ body {
 }
 .car_video .todayRank {
   position: relative;
-  width: 92%;
+  width: 100%;
   padding: 18px 0px 0px 31px;
 }
 
@@ -1173,3 +1167,4 @@ body {
   height: 100%;
 }
 </style>
+

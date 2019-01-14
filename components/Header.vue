@@ -3,17 +3,25 @@
     <div class="car_header_wrap">
       <div class="car_header_logo">
         <router-link to="/">
-          <img src="~static/header/logo.png">
+          <img src="~static/header/pc_logo.png">
         </router-link>
       </div>
       <div class="car_header_banner">
         <ul>
           <li v-for="(item, index) in header_banner_data"
-            :class="{'hasSubScript': item.name === activeName}"
             @click="handleClick(item.name)"
-            :key="index">
+            class="car_header_banner_li"
+            :key="index"
+            @mouseenter="headerTagHover(item.name)"
+            @mouseout="headerTagOut(item.name)">
             <a :href="item.to"
-              :class="{'fontWeight': item.name === activeName}">{{item.title}}</a>
+              :class="{'fontWeight': item.name === activeName}">{{item.title}}
+              <span class="headerSubScript"
+                v-if="item.name === activeName || item.name === hoverName">
+                <span></span>
+              </span>
+            </a>
+
           </li>
         </ul>
       </div>
@@ -32,7 +40,8 @@
                   name=""
                   v-if="isShowSearch"
                   placeholder="搜索"
-                  v-model="searchContent">
+                  v-model="searchContent"
+                  @keypress="search">
               </div>
               <i class="header_input_search"
                 v-if="isShowSearch"
@@ -136,6 +145,7 @@ export default {
     return {
       active: 0,
       activeName: 'news',
+      hoverName: '',
       msg: 'Welcome to Your Vue.js App',
       header_banner_data: [
         {
@@ -222,6 +232,15 @@ export default {
       return systemManage.getApi(item)
     },
     // 跳转到搜索页
+    search(event) {
+      if (event.keyCode === 13) {
+        if (this.searchContent !== '') {
+          this.$router.push({
+            path: `/search/1/${this.searchContent}`
+          })
+        }
+      }
+    },
     toSearch() {
       if (this.searchContent !== '' && this.isShowSearch) {
         this.$router.push({
@@ -279,20 +298,21 @@ export default {
         this.$router.push({
           path: '/person/myEssay/1'
         })
-        this.$router.push({
-          path: '/person/editInfo'
-        })
         // this.toAnotherRouter('myEssay')
         // this.toAnotherRouter('publishEssay')
       } else {
         this.$message('请先实名验证身份证')
         setTimeout(() => {
-          // this.toAnotherRouter('editInfo')
-          this.$router.push({
-          path: '/person/editInfo'
-        })
+          this.toAnotherRouter('editInfo')
         }, 1500)
       }
+    },
+    headerTagHover(name) {
+      this.hoverName = name
+      console.log(name)
+    },
+    headerTagOut() {
+      this.hoverName = this.activeName
     }
   },
   mounted() {
@@ -345,7 +365,13 @@ export default {
   height: inherit;
   display: inline-block;
   float: left;
+  line-height: 64px;
+  text-align: center;
 }
+/* .car_header_logo img {
+  width: 140px;
+  height: 50px;
+} */
 .car_header_banner {
   height: 64px;
   display: inline-block;
@@ -373,39 +399,56 @@ export default {
   margin-left: 5px;
   /*text-align: left;*/
 }
+.car_header_banner_li {
+  display: inline-block;
+}
 .car_header_banner ul li {
-  width: 70px;
-  padding-bottom: 22px;
+  /* width: 70px; */
+  height: 64px;
+  position: relative;
+  /* padding-bottom: 22px; */
   /*text-align: left;*/
 }
+/* .car_header_banner ul li a span {
+  display: inline-block;
+  height: 6px;
+  background: #be001e;
+  width: calc(100% - 16px);
+  position: absolute;
+  bottom: 0;
+} */
 .car_header_banner ul li:hover a {
   font-weight: bold;
 }
 .car_header_banner ul li:hover {
-  background: url('~static/header/subscript.png') no-repeat;
+  /* background: url('/static/header/subscript.png') no-repeat; */
+  /* border-bottom: 2px solid red; */
   background-position: bottom left;
 }
 .car_header_banner ul li,
 .car_header_banner_icon ul li {
-  display: inline;
+  /* display: inline; */
   /* margin: 0 15px; */
   cursor: pointer;
   /* padding-right: 30px; */
   margin-left: 30px;
 }
 .car_header_banner ul li a {
+  /* position: relative; */
   /* width: 70px; */
   display: inline-block;
   color: rgba(224, 224, 224, 1);
   font-size: 16px;
   font-weight: 300;
   /* font-family: SourceHanSansCN-Light; */
-  line-height: 32px;
+  /* line-height: 32px; */
   text-decoration: none;
-  height: 64px;
+  /* height: 49px; */
+  /* border-bottom: 6px solid red; */
+  /* background: url('/static/header/header_side.png') no-repeat right bottom; */
 }
 .car_header_banner ul li a:last-child {
-  width: 70px;
+  /* width: 70px; */
 }
 .car_header_banner_icon {
   display: inline-block;
@@ -678,5 +721,25 @@ export default {
 .car_header .el-menu--horizontal .el-menu .el-menu-item,
 .el-menu--horizontal .el-menu .el-submenu__title {
   color: #000 !important;
+}
+.car_header_banner_icon ul li {
+  display: inline;
+}
+.headerSubScript {
+  display: inline-block;
+  width: 100%;
+  height: 6px;
+  /* border: 1px solid red; */
+  background: url('~static/header/header_side.png') no-repeat right bottom;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+.headerSubScript span {
+  width: calc(100% - 16px);
+  display: inline-block;
+  background: #be001e;
+  height: 100%;
+  position: absolute;
 }
 </style>

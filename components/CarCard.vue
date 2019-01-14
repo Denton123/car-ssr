@@ -4,7 +4,7 @@
     <div class="pic">
       <router-link :to="moduleType == 'hobbies' ? `/${moduleType}/hobbiesDetail/${card.id == null ? '' : card.id}/1`:  `/${moduleType}/detail/${card.id == null ? '' : card.id}/1`"
         class="img_a">
-        <img :src="card.photo"
+        <img :src="formatPic(card.photo)"
           :alt="card.title"
           width="100%"
           height="100%"
@@ -19,7 +19,7 @@
         <div class="info_left">
           <router-link :to="`/Bloger/${card.authorId}/1`">
             <span class="info_header">
-              <img :src="card.photoUrl"
+              <img :src="formatPic(card.photoUrl)"
                 :alt="card.title"
                 height="100%"
                 width="100%">
@@ -38,6 +38,7 @@
 </template>
 <script>
 import utils from '@/http/url'
+import systemManage from '@/http/photoApi.js'
 export default {
   name: 'CarCard',
   props: {
@@ -60,12 +61,12 @@ export default {
     card: function() {
       let data = this.cardData == null ? {} : this.cardData
       if (data.cover !== '' && data.cover != null) {
-        data.photo = utils.getApi(data.cover)
+        data.photo = data.cover
       } else if (data.photo !== '' && data.photo != null) {
-        data.photo = utils.getApi(data.photo)
+        data.photo = data.photo
       }
       if (data.photoUrl !== '' && data.photoUrl != null) {
-        data.photoUrl = utils.getApi(data.photoUrl)
+        data.photoUrl = data.photoUrl
       }
       return data
     },
@@ -73,6 +74,11 @@ export default {
       return this.cardType
     }
   },
+  methods: {
+    formatPic(item) {
+      return systemManage.getApi(item)
+    },
+  }
 }
 </script>
 <style>

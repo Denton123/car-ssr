@@ -11,7 +11,7 @@
           </div>
           <a :href="item.linkurl"
             class="car_carsouel_a">
-            <img :src="item.url"
+            <img :src="formatPic(item.url) "
               :alt="item.title"
               width="100%"
               height="100%">
@@ -39,6 +39,7 @@
 </template>
 <script>
 import utils from '@/http/url'
+import systemManage from '@/http/photoApi.js'
 export default {
   name: 'CarCarsouel',
   props: {
@@ -62,7 +63,7 @@ export default {
       let list = this.list == null ? [] : this.list
       let result = list.map(item => {
         if (item.url !== '' && item.url != null) {
-          item.url = utils.getApi(item.url)
+          item.url = item.url
         }
         return item
       })
@@ -85,7 +86,10 @@ export default {
         this.activeIndex = index
       }
       this.$emit('change', url)
-    }
+    },
+    formatPic(item) {
+      return systemManage.getApi(item)
+    },
   },
   mounted() {
     console.log(this.data)
@@ -219,6 +223,9 @@ export default {
   border-radius: 50%;
   line-height: 36px;
   background-color: rgba(31, 45, 61, 0.11);
+}
+.indexCarousel .el-carousel__arrow:focus {
+  outline: none;
 }
 .indexCarousel .el-carousel__arrow {
   width: 93px;

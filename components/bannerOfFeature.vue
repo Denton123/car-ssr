@@ -88,8 +88,17 @@ export default {
 }
 </script>
 <style>
+#bannerOfFeature button {
+  outline: none;
+}
+#bannerOfFeature button i {
+  border: 0px;
+}
 .todayBanner .el-carousel__indicators {
   display: none;
+}
+.todayBanner .el-carousel__container{
+  height: 180px !important;
 }
 .carousel_indicators {
   position: absolute;
@@ -135,19 +144,20 @@ export default {
   margin: 0;
 }
 .todayCarousel .car_carsouel {
-  height: 100%;
+  height: 180px;
   position: relative;
 }
-.todayCarousel .car_carsouel a > img {
+.todayCarousel .car_carsouel .car_carsouel_img_class {
   position: absolute;
   z-index: 1;
 }
 .todayCarousel .defaultBox {
   width: 320px;
-  height: 236px;
+  height: 180px;
   position: absolute;
+  text-align: center;
   z-index: 2;
-  line-height: 236px;
+  line-height: 180px;
 }
 .todayCarousel:nth-child(2n) {
   background-color: #99a9bf;
@@ -164,7 +174,7 @@ export default {
   background-color: #bd081e;
   border: 1px solid #bd081e !important;
 }
-.todayCarousel .car_carsouel .feature_titleWrap {
+#bannerOfFeature .todayCarousel .car_carsouel .feature_Wrap {
   position: absolute;
   bottom: -1px;
   width: 320px;

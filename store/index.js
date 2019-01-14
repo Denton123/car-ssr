@@ -13,7 +13,7 @@ const store = () => new Vuex.Store({
         setUserMsg(state, msg){
             state.userMsg = msg
         }
-    }
+    },
 })
 
 export default store

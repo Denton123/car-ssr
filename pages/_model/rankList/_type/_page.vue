@@ -155,7 +155,7 @@ export default {
       currentPage: '1',
       flag: 0,
       bannerTopicData: [],
-      leftSideResult: [],
+      // leftSideResult: [],
       showPercent: false,
       upPrecent: '70%',
       downPrecent: '30%',
@@ -178,6 +178,34 @@ export default {
     pagination,
     Header,
     Footer
+  },
+  // nuxt获取数据
+  async asyncData ({params}) {
+    if (params.type && params.type == 'w') {
+      let leftSideResult = await $get(webEssayGetWeekendRank, {
+        pageNo: params.page,
+        size: 10
+      })
+      return {
+        leftSideResult: leftSideResult.data ? leftSideResult.data : []
+      }
+    } else if (params.type && params.type == 'm') {
+      let leftSideResult = await $get(webEssayGetMonthRank, {
+        pageNo: params.page,
+        size: 10
+      })
+      return {
+        leftSideResult: leftSideResult.data ? leftSideResult.data : []
+      }
+    } else {
+      let leftSideResult = await $get(webEssayGetDayRank, {
+        pageNo: params.page,
+        size: 10
+      })
+      return {
+        leftSideResult: leftSideResult.data ? leftSideResult.data : []
+      }
+    }
   },
   methods: {
     titleActive(item) {
@@ -347,7 +375,9 @@ export default {
   },
   beforeRouteEnter(to, from, next) {
     // 获取标签列表过来的信息
-    let tagInfo = JSON.parse(sessionStorage.getItem('tagInfo'))
+    if(sessionStorage && JSON.parse(sessionStorage.getItem('tagInfo'))){
+      var tagInfo = JSON.parse(sessionStorage.getItem('tagInfo'))
+    }
     let tagInfo_title = tagInfo ? tagInfo.title : ''
     let tagInfo_id = tagInfo ? tagInfo.tagId : ''
     next(vm => {
@@ -407,25 +437,25 @@ export default {
         '5993950'
       )
       // 触发广告位方法
-      if (this.$route.params.type && this.$route.params.type == 'w') {
-        let rankWeekDetail = await $get(webEssayGetWeekendRank, {
-          pageNo: this.$route.params.page,
-          size: 10
-        })
-        this.leftSideResult = rankWeekDetail.data
-      } else if (this.$route.params.type && this.$route.params.type == 'm') {
-        let rankMonthDetail = await $get(webEssayGetMonthRank, {
-          pageNo: this.$route.params.page,
-          size: 10
-        })
-        this.leftSideResult = rankMonthDetail.data
-      } else {
-        let rankDayDetail = await $get(webEssayGetDayRank, {
-          pageNo: this.$route.params.page,
-          size: 10
-        })
-        this.leftSideResult = rankDayDetail.data
-      }
+      // if (this.$route.params.type && this.$route.params.type == 'w') {
+        // let rankWeekDetail = await $get(webEssayGetWeekendRank, {
+        //   pageNo: this.$route.params.page,
+        //   size: 10
+        // })
+        // this.leftSideResult = rankWeekDetail.data
+      // } else if (this.$route.params.type && this.$route.params.type == 'm') {
+      //   let rankMonthDetail = await $get(webEssayGetMonthRank, {
+      //     pageNo: this.$route.params.page,
+      //     size: 10
+      //   })
+      //   this.leftSideResult = rankMonthDetail.data
+      // } else {
+      //   let rankDayDetail = await $get(webEssayGetDayRank, {
+      //     pageNo: this.$route.params.page,
+      //     size: 10
+      //   })
+      //   this.leftSideResult = rankDayDetail.data
+      // }
       // // 触发pagination子组件中的方法，改变子组件的页码
       // this.$refs.pagination.routLinkCurrentPage()
       this.leftSideResult.essayEntities.forEach((element, index) => {

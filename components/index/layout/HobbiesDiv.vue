@@ -23,7 +23,7 @@
         <div class="info_left"
           @click="$router.push(`/Bloger/${cardData.id}/1`)">
           <span class="info_header">
-            <img :src="card.authorphoto"
+            <img :src="formatPic(card.authorphoto) "
               alt="头像"
               height="100%"
               width="100%"
@@ -45,6 +45,8 @@
 </template>
 <script>
 import utils from '@/http/url'
+import systemManage from '@/http/photoApi.js'
+
 export default {
   name: 'HobbiesDiv',
   props: {
@@ -69,7 +71,7 @@ export default {
       let data = this.cardData == null ? {} : this.cardData
       console.log(data)
       if (data.authorphoto !== '' && data.authorphoto != null) {
-        data.authorphoto = utils.getApi(data.authorphoto)
+        data.authorphoto = data.authorphoto
       } else {
         data.authorphoto = null
       }
@@ -88,6 +90,11 @@ export default {
     sContent: function() {
       return this.isContent
     }
+  },
+  methods: {
+    formatPic(item) {
+      return systemManage.getApi(item)
+    },
   }
 }
 </script>

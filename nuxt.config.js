@@ -39,6 +39,7 @@ module.exports = {
     commonFileUrl: 'http://123.207.11.165/',
     baseURL: 'http://123.207.11.165/api',
     isGetHost: false,
+    userToken: ''
   },
 
   router: {

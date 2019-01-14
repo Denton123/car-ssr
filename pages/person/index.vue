@@ -273,7 +273,7 @@ export default {
   background: url('~static/person/validator.png');
   font-size: 14px;
   color: #fff;
-  /* font-style: italic; */
+  font-style: italic;
 }
 .person_msg {
   width: 60%;

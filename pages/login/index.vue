@@ -142,6 +142,7 @@ export default {
               } else {
                 // 不记住登陆状态， 只保存token 1个小时
                 this.setCookie('token', res.data.des.token, 1 / 24)
+                // process.env.userToken = res.data.des.token
                 // this.$store.state.userMsg = res.data.des.token ? res.data.des.token : null
                 console.log(this.$store.state.userMsg, 'user')
                 that.$router.push({ name: 'index' })
