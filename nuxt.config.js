@@ -43,7 +43,8 @@ module.exports = {
   },
 
   router: {
-    middleware: ['getHost', 'baidu-statistics', 'setStore']
+    middleware: ['getHost', 'baidu-statistics', 'setStore'],
+    // base: '/nuxt/'
   },
 
   /*
@@ -189,6 +190,7 @@ module.exports = {
           'utils': path.resolve(__dirname, 'utils')
         }
       })
-    }
+    },
+    publicPath: '/pc/'
   }
 }

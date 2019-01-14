@@ -247,8 +247,8 @@ import utils from '@/http/url'
 import Footer from '@/components/Footer.vue'
 import Header from '@/components/Header.vue'
 import BigCoursel from '@/components/BigCoursel'
-import Swiper from 'swiper'
-import 'swiper/dist/css/swiper.css'
+// import Swiper from 'swiper'
+// import 'swiper/dist/css/swiper.css'
 
 export default {
   name: 'hobby',
@@ -377,28 +377,30 @@ export default {
   // nuxt异步获取数据
   async asyncData({params, env, req}) {
     var userCookie = null
-    if (req && req.headers) {
-      // console.log(req.headers.cookie.split(';'), 'headers')
+    if (req && req.headers && req.headers.cookie) {
+      console.log(req.header)
+      console.log(req.headers.cookie.split(';'), 'headers')
       let reqHeaders = req.headers.cookie.split(';')
       let tokenArr
       reqHeaders.forEach(v => {
         if (v.indexOf('token') !== -1) {
           tokenArr = v.split('=')
           console.log(tokenArr)
+          userCookie = tokenArr[1]
         }
       })
-      userCookie = tokenArr[1]
     }
-    // console.log(userCookie, 'userCookie')
+    console.log(userCookie, 'userCookie')
     let mockHobbyItems
     // 标签
     let tokenObj = '8f558bfd4dd5aa42898a394d8b1accc3'
-    let tagItems = await $get('/web/hobbies/gotohobbies', {}, {'X-Auth0-Token': null})
+    let tagItems = await $get('/web/hobbies/gotohobbies', {}, {'X-Auth0-Token': userCookie})
     // // 周排行
     let _hostPointItems = await $get('/web/hobbies/hobbiesWeekRank?', {
         pageNo: 1,
         size: 10
       }, {'X-Auth0-Token': userCookie})
+
     // 博主数据
     let bloggerItems =  await $get('/web/hobbies/getHotBloggers?', {
       pageNo: 1,
@@ -493,9 +495,9 @@ export default {
       // console.log(this.$refs.pagination, 'page')
       // this.$refs.pagination.routLinkCurrentPage()
 
-      let mySwipers = new Swiper('.swiper-containers', {
-        slidesPerView: 6
-      })
+      // let mySwipers = new Swiper('.swiper-containers', {
+      //   slidesPerView: 6
+      // })
     })
     // this.$refs.pagination.routLinkCurrentPage(2)
     this.path = this.$route.path

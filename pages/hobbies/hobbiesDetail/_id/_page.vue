@@ -567,16 +567,20 @@ export default {
     }
   },
   async asyncData ({params, env, req }) {
-    // console.log(document.cookie, '888888888888888888888')
-    // console.log(2222222222, env, req, res)
     var userCookie = null
     if (req && req.headers) {
-      userCookie = req.headers.cookie.split(';')[0].split('=')[1]
+      console.log(req.headers.cookie.split(';'), 'headers')
+      let reqHeaders = req.headers.cookie.split(';')
+      let tokenArr
+      reqHeaders.forEach(v => {
+        if (v.indexOf('token') !== -1) {
+          tokenArr = v.split('=')
+          console.log(tokenArr)
+          userCookie = tokenArr[1]
+        }
+      })
     }
     console.log(userCookie, 'aaaa')
-    // console.log(req.headers.cookie.split(';')[0].split('=')[1])
-    // 
-    // console.log(userCookie, '11111111111111111111111')
     let essayData, commentData, articleCommentSize
     // 兴趣部落详情信息
     let hobbiesIdDetailData = await $get(webHobbiesDetailInfo, {

@@ -374,7 +374,50 @@ export default {
     }
   },
   beforeRouteEnter(to, from, next) {
-    // 获取标签列表过来的信息
+    // // 获取标签列表过来的信息
+    // if(sessionStorage && JSON.parse(sessionStorage.getItem('tagInfo'))){
+    //   var tagInfo = JSON.parse(sessionStorage.getItem('tagInfo'))
+    // }
+    // let tagInfo_title = tagInfo ? tagInfo.title : ''
+    // let tagInfo_id = tagInfo ? tagInfo.tagId : ''
+    // next(vm => {
+    //   // 保存在实例中的，关于tagList页跳转过来的信息
+    //   vm.tagName = tagInfo_title
+    //   vm.tagId = tagInfo_id
+    //   vm.crumbsData = [
+    //     { pathName: '首页', link: '/index' },
+    //     {
+    //       pathName:
+    //         from.meta.title &&
+    //         from.meta.title != undefined &&
+    //         from.meta.title != 'tag列表页'
+    //           ? from.meta.title
+    //           : vm.modelName == 'tag列表页'
+    //           ? vm.tagName
+    //           : vm.modelName,
+    //       link:
+    //         from.path != undefined && from.path != '/'
+    //           ? from.path
+    //           : vm.modelName == 'tag列表页'
+    //           ? `${vm.model[0]}/${vm.tagId}/1`
+    //           : `${vm.model[0]}/1`
+    //     },
+    //     {
+    //       pathName: vm.typeParamsName,
+    //       link: ''
+    //     }
+    //   ]
+    //   if (vm.model[0] == '/index') {
+    //     vm.crumbsData.shift()
+    //   }
+    //   if (vm.model[0] == '/search') {
+    //     vm.crumbsData.splice(1, 1)
+    //   }
+    //   // 通过 `vm` 访问组件实例
+    // })
+  },
+  mounted() {
+     // 获取标签列表过来的信息
     if(sessionStorage && JSON.parse(sessionStorage.getItem('tagInfo'))){
       var tagInfo = JSON.parse(sessionStorage.getItem('tagInfo'))
     }
@@ -415,8 +458,6 @@ export default {
       }
       // 通过 `vm` 访问组件实例
     })
-  },
-  mounted() {
     this.typeParams = this.$route.params
     this.currentPage = this.$route.params.page
     // 获取路由数据中的参数

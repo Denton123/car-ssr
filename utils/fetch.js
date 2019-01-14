@@ -34,8 +34,8 @@ service.interceptors.request.use(
     }
     if (token && tokenFlag) {
       // 条件允许，携带token请求
-      config.headers['token'] = token
-      // config.headers['X-Auth0-Token'] = token
+      // config.headers['token'] = token
+      config.headers['X-Auth0-Token'] = token
     } else {
       headers = 'application/x-www-form-urlencoded'
     }
