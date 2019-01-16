@@ -12,7 +12,7 @@ export default function ({
     env.commonUrl = `http://www.jfcar.com.cn/image/`
     env.commonFileUrl = `http://www.jfcar.com.cn/`
   }
-  if (!isDev && req && req.headers && !env.isGetHost) {
+  if (req && req.headers && !env.isGetHost) {
     const {
       host
     } = req.headers

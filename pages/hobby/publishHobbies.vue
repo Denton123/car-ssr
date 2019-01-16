@@ -9,7 +9,7 @@
               <el-breadcrumb separator-class="el-icon-arrow-right"
                 class="nav_title hobby_tip">
                 <el-breadcrumb-item>
-                  <nuxt-link to="/hobbies/1">
+                  <nuxt-link to="/pc/hobbies/1">
                     兴趣部落
                   </nuxt-link>
                 </el-breadcrumb-item>

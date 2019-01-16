@@ -35,23 +35,23 @@
       </div>
       <!--插件-->
       <!--<div class="nav-hobby">-->
-      <!--<div class="swiper-containers">-->
-      <!--<div class="swiper-wrapper">-->
-      <!--<div class="swiper-slide nav-slide-item-wrap"  v-for="(navItem, index) in secondNav" :key="index"-->
-      <!--@mouseenter="mouseEnterNav(index)"-->
-      <!--@mouseleave="mouseLeverNav()"-->
-      <!--@click="enterSecondNav(index, navItem.id)">-->
-      <!--<div class="nav-hobby-img"-->
-      <!--:class="{ navBorderOn: type===index || enterType === index }">-->
-      <!--<img :src="utils.getApi(navItem.photoUrl.slice(1))"-->
-      <!--v-if="navItem.photoUrl != null && navItem.photoUrl != ''"-->
-      <!--alt="尖峰咖"-->
-      <!--/></div>-->
-      <!--<div class="nav-hobby-text"-->
-      <!--:class="{ navTxtOn: type===index || enterType === index, navTxtRed : redType===index}">{{navItem.label}}</div>-->
-      <!--</div>-->
-      <!--</div>-->
-      <!--</div>-->
+        <!--<div class="swiper-containers">-->
+          <!--<div class="swiper-wrapper">-->
+            <!--<div class="swiper-slide nav-slide-item-wrap"  v-for="(navItem, index) in secondNav" :key="index"-->
+                 <!--@mouseenter="mouseEnterNav(index)"-->
+                 <!--@mouseleave="mouseLeverNav()"-->
+                 <!--@click="enterSecondNav(index, navItem.id)">-->
+               <!--<div class="nav-hobby-img"-->
+                    <!--:class="{ navBorderOn: type===index || enterType === index }">-->
+                    <!--<img :src="utils.getApi(navItem.photoUrl.slice(1))"-->
+                    <!--v-if="navItem.photoUrl != null && navItem.photoUrl != ''"-->
+                    <!--alt="尖峰咖"-->
+                     <!--/></div>-->
+                <!--<div class="nav-hobby-text"-->
+                        <!--:class="{ navTxtOn: type===index || enterType === index, navTxtRed : redType===index}">{{navItem.label}}</div>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
       <!--</div>-->
       <!--正文内容-->
       <div class="content-contain"
@@ -78,12 +78,11 @@
                 src="~static/picture/hobby.jpg">
             </div>
             <!--<nuxt-link :to="`/publishHobbies`">-->
-            <div class="add-wrap">
-              <img class="img_add"
-                src="~static/picture/add.jpg">
-            </div>
-            <div class="hobby-text-wrap"
-              @click="publishHobbies()">发布兴趣部落</div>
+              <div class="add-wrap" >
+                <img class="img_add"
+                     src="~static/picture/add.jpg">
+              </div>
+              <div class="hobby-text-wrap" @click="publishHobbies()">发布兴趣部落</div>
             <!--</nuxt-link>-->
           </div>
           <!--瀑布流图片区-->
@@ -92,53 +91,52 @@
             style=" height:1300px;">
             <div class="contain-hobby-wrap"
               v-for="(mockHobbyItem, index) in mockHobbyItems"
-              @mouseenter="isRedOn(index)"
-              @mouseleave="isRedIn"
+                 @mouseenter="isRedOn(index)"
+                 @mouseleave="isRedIn"
               :key="index">
               <nuxt-link :to="`/hobbies/hobbiesDetail/${mockHobbyItem.id}/1`">
-                <span class="box-picture"
-                  v-for="(hobbyPicture, index) in mockHobbyItem.photoList"
-                  :key="index">
+                                <span class="box-picture"
+                                      v-for="(hobbyPicture, index) in mockHobbyItem.photoList"
+                                      :key="index">
                   <!--<img src="./picture/x1.png">-->
                   <img class="get-hobby-image"
-                    :alt="`尖峰咖_${mockHobbyItem.description}`"
-                    :src="piectImgUrl(hobbyPicture)"
-                    :class="hobbiesImageChage(mockHobbyItem.photoList, index)">
+                       :alt="`尖峰咖_${mockHobbyItem.description}`"
+                       :src="piectImgUrl(hobbyPicture)"
+                       :class="hobbiesImageChage(mockHobbyItem.photoList, index)">
                 </span>
               </nuxt-link>
-              <div class="detail-hobby-artical">
-                <div class="red-line"><img src="~static/picture/line_gray.png"> </div>
-                <div class="red-line"
-                  v-show="isRed===index"><img src="~static/picture/line_red.png"> </div>
-                <div class="title-wrap">
-                  <nuxt-link :to="`/hobbies/hobbiesDetail/${mockHobbyItem.id}/1`">
-                    <span class="detail-hobby-title"
-                      @mouseenter="isRedOn(index)">
-                      {{mockHobbyItem.description}}</span>
-                  </nuxt-link>
-                </div>
-                <div class="left-line-gray"></div>
-                <div class="left-line-red"></div>
-                <div class="detail-container">
-                  <nuxt-link :to="`/Bloger/${mockHobbyItem.userId}/1`">
-                    <span style="display: inline-block;float:left"
-                      v-if="mockHobbyItem.authorphoto !== ''&&mockHobbyItem.authorphoto !== null">
-                      <img class="detail-container-left-img"
-                        :src="piecImgUrl(mockHobbyItem)">
-                    </span>
-                    <span style="display: inline-block"
-                      v-else>
-                      <img class="detail-container-left-img"
-                        src="~static/picture/icon_head.png">
-                    </span>
-                    <span class="detail-container-left-text">{{mockHobbyItem.userName}}</span>
-                  </nuxt-link>
-                  <!-- <div class="detail-container-middle">
+                <div class="detail-hobby-artical">
+                      <div class="red-line"><img src="~static/picture/line_gray.png"> </div>
+                      <div class="red-line"
+                           v-show="isRed===index"><img src="~static/picture/line_red.png"> </div>
+                      <div class="title-wrap">
+                        <nuxt-link :to="`/hobbies/hobbiesDetail/${mockHobbyItem.id}/1`">
+                                                 <span class="detail-hobby-title"
+                                                       @mouseenter="isRedOn(index)"
+                                                 >
+                          {{mockHobbyItem.description}}</span>
+                        </nuxt-link>
+                      </div>
+                      <div class="left-line-gray"></div>
+                      <div class="left-line-red"></div>
+                      <div class="detail-container">
+                        <nuxt-link :to="`/Bloger/${mockHobbyItem.userId}/1`">
+                            <span style="display: inline-block;float:left" v-if="mockHobbyItem.authorphoto !== ''&&mockHobbyItem.authorphoto !== null">
+                                 <img class="detail-container-left-img"
+                                      :src="piecImgUrl(mockHobbyItem)"
+                                 >
+                            </span>
+                            <span style="display: inline-block" v-else>
+                                  <img class="detail-container-left-img" src="~static/picture/icon_head.png">
+                            </span>
+                              <span class="detail-container-left-text">{{mockHobbyItem.userName}}</span>
+                        </nuxt-link>
+                        <!-- <div class="detail-container-middle">
                           <img src="~static/picture/line_middle.png">
                         </div>
                         <div class="detail-container-right">{{mockHobbyItem.className}}</div> -->
-                </div>
-              </div>
+                      </div>
+                    </div>
               <!--</nuxt-link>-->
             </div>
           </div>
@@ -157,16 +155,16 @@
         <div class="content-contain-right">
           <!--热门博主模块——标题与内容-->
 
-          <div style="position:relative">
-            <div class="title-hot-bloggers">
-              <img class="img_blogger"
-                src="~static/picture/3.jpg">
-              <span class="text-blogger">热门博主</span>
-            </div>
-            <nuxt-link :to="`/blogers/1`">
+            <div style="position:relative">
+              <div class="title-hot-bloggers">
+                <img class="img_blogger"
+                  src="~static/picture/3.jpg">
+                <span class="text-blogger">热门博主</span>
+              </div>
+              <nuxt-link :to="`/blogers/1`">
               <span class="text-more">更多></span>
-            </nuxt-link>
-          </div>
+              </nuxt-link>
+            </div>
 
           <div class="contain-wrap-blogger">
             <div class="content-blogger"
@@ -227,7 +225,8 @@
         </div>
       </div>
 
-      <div id="advertisement">
+      <div id="advertisement"
+        >
         <!--<img src="~static/picture/adv.png"-->
         <!--style="width: 1200px;height: 200px;">-->
       </div>
@@ -239,24 +238,20 @@
   </div>
 </template>
 <script>
-import { $get } from "@/http/ajax";
-import { instance } from "@/http/instance";
-import {
-  webHobbiesInfo,
-  webHobbiesGetClassList,
-  webUserSelectByPrimaryKey
-} from "@/http/api";
-import systemManage from "@/http/photoApi.js";
-import pagination from "@/components/pagination.vue";
-import utils from "@/http/url";
-import Footer from "@/components/Footer.vue";
-import Header from "@/components/Header.vue";
-import BigCoursel from "@/components/BigCoursel";
-// import Swiper from "swiper";
-// import "swiper/dist/css/swiper.css";
+import { $get } from '@/http/ajax'
+import { instance } from '@/http/instance'
+import { webHobbiesInfo, webHobbiesGetClassList, webUserSelectByPrimaryKey } from '@/http/api'
+import systemManage from '@/http/photoApi.js'
+import pagination from '@/components/pagination.vue'
+import utils from '@/http/url'
+import Footer from '@/components/Footer.vue'
+import Header from '@/components/Header.vue'
+import BigCoursel from '@/components/BigCoursel'
+// import Swiper from 'swiper'
+// import 'swiper/dist/css/swiper.css'
 
 export default {
-  name: "hobby",
+  name: 'hobby',
   metaInfo() {
     return {
       // 设置 title
@@ -264,44 +259,44 @@ export default {
       // 设置 meta
       meta: [
         {
-          name: "keyWords",
+          name: 'keyWords',
           content: this.metaWords
         },
         {
-          name: "description",
+          name: 'description',
           content: this.metaDescription
         },
         {
-          name: "mobile-anent",
-          content: "url=http://"
+          name: 'mobile-anent',
+          content: 'url=http://'
         },
         {
-          name: "applicable-device",
-          content: "pc"
+          name: 'applicable-device',
+          content: 'pc'
         }
       ],
       // 设置 link
       link: [
         {
-          rel: "asstes",
-          href: "https://assets-cdn.github.com/"
+          rel: 'asstes',
+          href: 'https://assets-cdn.github.com/'
         },
         {
-          rel: "alternate",
-          media: "handheld",
-          href: "http://m.mgous.com"
+          rel: 'alternate',
+          media: 'handheld',
+          href: 'http://m.mgous.com'
         }
       ]
-    };
+    }
   },
   data() {
     return {
       loginFlag: null,
       routePage: 2,
-      metaWords: "str",
+      metaWords: 'str',
       // metaKeyWords: [],
       metaDescription: 1,
-      path: "",
+      path: '',
       // 大轮播
       bannerItem: [],
       list: [],
@@ -325,8 +320,8 @@ export default {
       isPaginationOn: 2,
       isPagination: 1,
       // 二级导航
-      redType: null,
-      enterType: null,
+      redType:null,
+      enterType:null,
       flags: false,
       startX: 0,
       moveX: 0,
@@ -335,11 +330,11 @@ export default {
       y: 0,
       // fiveImage: true,
       // 传参用的变量
-      rankId: "w",
-      orderDesc: "desc",
-      sidx: "h.create_time",
-      sidxRecently: "h.create_time",
-      sidexHot: "visits",
+      rankId: 'w',
+      orderDesc: 'desc',
+      sidx: 'h.create_time',
+      sidxRecently: 'h.create_time',
+      sidexHot: 'visits',
       hobbiesClassId: null,
       // 控制修饰颜色的变量
       isRed: -1,
@@ -370,8 +365,8 @@ export default {
       picTotal: 0, // 图片总数量
       curPage: 1,
       cookie: null,
-      tokenObj: null
-    };
+      tokenObj:null
+    }
   },
   components: {
     pagination,
@@ -380,47 +375,37 @@ export default {
     BigCoursel
   },
   // nuxt异步获取数据
-  async asyncData({ params, env, req }) {
-    var userCookie = null;
+  async asyncData({params, env, req}) {
+    var userCookie = null
     if (req && req.headers && req.headers.cookie) {
-      // console.log(req.headers.cookie.split(';'), 'headers')
-      let reqHeaders = req.headers.cookie.split(";");
-      let tokenArr;
+      console.log(req.header)
+      console.log(req.headers.cookie.split(';'), 'headers')
+      let reqHeaders = req.headers.cookie.split(';')
+      let tokenArr
       reqHeaders.forEach(v => {
-        if (v.indexOf("token") !== -1) {
-          tokenArr = v.split("=");
-          console.log(tokenArr);
-          userCookie = tokenArr[1];
+        if (v.indexOf('token') !== -1) {
+          tokenArr = v.split('=')
+          console.log(tokenArr)
+          userCookie = tokenArr[1]
         }
-      });
+      })
     }
-    // console.log(userCookie, 'userCookie')
-    let mockHobbyItems;
+    console.log(userCookie, 'userCookie')
+    let mockHobbyItems
     // 标签
-    let tokenObj = "8f558bfd4dd5aa42898a394d8b1accc3";
-    let tagItems = await $get(
-      "/web/hobbies/gotohobbies",
-      {},
-      { "X-Auth0-Token": userCookie }
-    );
+    let tokenObj = '8f558bfd4dd5aa42898a394d8b1accc3'
+    let tagItems = await $get('/web/hobbies/gotohobbies', {}, {'X-Auth0-Token': userCookie})
     // // 周排行
-    let _hostPointItems = await $get(
-      "/web/hobbies/hobbiesWeekRank?",
-      {
+    let _hostPointItems = await $get('/web/hobbies/hobbiesWeekRank?', {
         pageNo: 1,
         size: 10
-      },
-      { "X-Auth0-Token": userCookie }
-    );
+      }, {'X-Auth0-Token': userCookie})
+
     // 博主数据
-    let bloggerItems = await $get(
-      "/web/hobbies/getHotBloggers?",
-      {
-        pageNo: 1,
+    let bloggerItems =  await $get('/web/hobbies/getHotBloggers?', {
+      pageNo: 1,
         pageSize: 10
-      },
-      { "X-Auth0-Token": userCookie }
-    );
+    }, {'X-Auth0-Token': userCookie})
     // let mockHobbyItems = await $get('/web/hobbies/list?', {
     //   limit: 12,
     //   page: params.page,
@@ -430,45 +415,41 @@ export default {
     return {
       tagItems: tagItems.data ? tagItems.data.tagsShowList : [],
       hostPointItems: _hostPointItems.data ? _hostPointItems.data : [],
-      bloggerItems: bloggerItems.data ? bloggerItems.data : []
+      bloggerItems: bloggerItems.data ? bloggerItems.data : [],
       // mockHobbyItems: _mockHobbyItems.data.list ? _mockHobbyItems.data.list : [],
       // _mockHobbyItems: _mockHobbyItems.data ? _mockHobbyItems.data : {},
-    };
+    }
   },
   mounted() {
-    if (
-      localStorage.getItem("userMsg") !== "" &&
-      localStorage.getItem("userMsg") !== null
+      if (
+      localStorage.getItem('userMsg') !== '' &&
+      localStorage.getItem('userMsg') !== null
     ) {
-      this.tokenObj = JSON.parse(localStorage.getItem("userMsg")).token;
-      console.log("localstroge", this.tokenObj);
-    } else if (this.cookie !== "") {
-      this.cookie = this.getCookie("token");
-      this.tokenObj = this.cookie;
+      this.tokenObj = JSON.parse(localStorage.getItem('userMsg')).token
+      console.log('localstroge', this.tokenObj)
+    } else if (this.cookie !== '') {
+      this.cookie = this.getCookie('token')
+      this.tokenObj = this.cookie
     }
     if (this.tokenObj === null) {
-      this.tokenObj = {};
+      this.tokenObj = {}
     }
-    let obj = { "X-Auth0-Token": this.tokenObj };
-    this.curPage = this.$route.params.page;
-    this.routePage = this.$route.params.page;
-    this.currentPage = this.$route.params.page;
-    this.$nextTick(async () => {
+    let obj = { 'X-Auth0-Token': this.tokenObj }
+    this.curPage = this.$route.params.page
+    this.routePage = this.$route.params.page
+    this.currentPage = this.$route.params.page
+    this.$nextTick(async() => {
       // 获取二级导航的数据——hobbies的分类，id
-      let item = await $get(
-        "/web/banner/list?",
-        {
-          linktype: "first",
-          bChannel: 6
-        },
-        obj
-      );
-      this.list = item.data;
+      let item = await $get('/web/banner/list?', {
+        linktype: 'first',
+        bChannel: 6
+      }, obj)
+      this.list = item.data
 
       // 获取二级导航的数据——hobbies的分类，id
-      let navSecondData = await $get("/web/hobbies/gotohobbies", obj);
-      this.hobbiesClassId = undefined; // hobbies的各种分类需要传值的id, 初始时需要用到
-      this.secondNav = navSecondData.data.hobbies;
+      let navSecondData = await $get('/web/hobbies/gotohobbies', obj)
+      this.hobbiesClassId = undefined // hobbies的各种分类需要传值的id, 初始时需要用到
+      this.secondNav = navSecondData.data.hobbies
 
       // 获取tag的数据——
       // let _tagItems = await $get('/web/hobbies/gotohobbies', obj)
@@ -493,37 +474,33 @@ export default {
       // this.hostPointItems = _hostPointItems.data
 
       // 获取初始hobbies列表的数据
-      let _mockHobbyItems = await $get(
-        "/web/hobbies/list?",
-        {
-          limit: 12,
-          page: this.curPage,
-          // classfiy: this.hobbiesClassId,
-          order: "desc",
-          sidx: this.sidxRecently
-        },
-        obj
-      ); // 初始化 传值 id,desc,h.create_time，页数 (还未实现)
-      this.totalPage = _mockHobbyItems.data.totalPage;
-      this.totalCount = _mockHobbyItems.data.totalCount;
-      this.mockHobbyItems = _mockHobbyItems.data.list;
-      this.metaDescription = this.mockHobbyItems[0].description;
-      this.picCount = 0;
-      this.picTotal = 0;
+      let _mockHobbyItems = await $get('/web/hobbies/list?', {
+        limit: 12,
+        page: this.curPage,
+        // classfiy: this.hobbiesClassId,
+        order: 'desc',
+        sidx: this.sidxRecently
+      }, obj) // 初始化 传值 id,desc,h.create_time，页数 (还未实现)
+      this.totalPage = _mockHobbyItems.data.totalPage
+      this.totalCount = _mockHobbyItems.data.totalCount
+      this.mockHobbyItems = _mockHobbyItems.data.list
+      this.metaDescription = this.mockHobbyItems[0].description
+      this.picCount = 0
+      this.picTotal = 0
       this.mockHobbyItems.forEach(item => {
-        this.picTotal += item.photoList.length;
-      });
-      this.hobbiesTwelve = this.mockHobbyItems.slice(0, 12);
-      this.mockHobbyItems = this.hobbiesTwelve;
+        this.picTotal += item.photoList.length
+      })
+      this.hobbiesTwelve = this.mockHobbyItems.slice(0, 12)
+      this.mockHobbyItems = this.hobbiesTwelve
       // console.log(this.$refs.pagination, 'page')
       // this.$refs.pagination.routLinkCurrentPage()
 
-      let mySwipers = new Swiper(".swiper-containers", {
-        slidesPerView: 6
-      });
-    });
+      // let mySwipers = new Swiper('.swiper-containers', {
+      //   slidesPerView: 6
+      // })
+    })
     // this.$refs.pagination.routLinkCurrentPage(2)
-    this.path = this.$route.path;
+    this.path = this.$route.path
     // this.$nextTick(() => {
     //   setTimeout(() => {
     //     this.waterFlow('content-wrap', 'contain-hobby-wrap')
@@ -531,27 +508,27 @@ export default {
     //   }, 3000)
     // })
     // 广告
-    let adv = document.getElementById("advertisement");
+    let adv = document.getElementById('advertisement')
     if (adv) {
-      (window.slotbydup = window.slotbydup || []).push({
-        id: "5993945",
+      ;(window.slotbydup = window.slotbydup || []).push({
+        id: '5993945',
         container: adv,
-        size: "1200,200",
-        display: "inlay-fix",
+        size: '1200,200',
+        display: 'inlay-fix',
         async: true
-      });
+      })
     }
   },
   methods: {
     // 获取cookies
     getCookie(cname) {
-      let name = cname + "=";
-      let ca = document.cookie.split(";");
+      let name = cname + '='
+      let ca = document.cookie.split(';')
       for (let i = 0; i < ca.length; i++) {
-        let c = ca[i].trim();
-        if (c.indexOf(name) === 0) return c.substring(name.length, c.length);
+        let c = ca[i].trim()
+        if (c.indexOf(name) === 0) return c.substring(name.length, c.length)
       }
-      return "";
+      return ''
     },
     // 去重
     // selectOne(arr) {
@@ -566,77 +543,77 @@ export default {
     // 数据请求函数
     hobbiesImageChage(arr, index) {
       if (arr.length === 1) {
-        return "oneImage";
+        return 'oneImage'
       }
       if (arr.length === 2 || arr.length === 4) {
-        return "twoImage";
+        return 'twoImage'
       }
       // 五张
       if (arr.length === 5 || arr.length === 0) {
-        return "twoImage";
+        return 'twoImage'
       }
       if (arr.length === 5 || arr.length === 1) {
-        return "twoImage";
+        return 'twoImage'
       }
       if (arr.length === 5 && index === 2) {
-        return "threeImage";
+        return 'threeImage'
       }
       if (arr.length === 5 && index === 3) {
-        return "threeImage";
+        return 'threeImage'
       }
       if (arr.length === 5 && index === 4) {
-        return "threeImage";
+        return 'threeImage'
       }
       // 七张图片
       if (arr.length === 7 && index === 0) {
-        return "twoImage";
+        return 'twoImage'
       }
       if (arr.length === 7 && index === 1) {
-        return "twoImage";
+        return 'twoImage'
       }
       if (arr.length === 7 && index === 2) {
-        return "twoImage";
+        return 'twoImage'
       }
       if (arr.length === 7 && index === 3) {
-        return "twoImage";
+        return 'twoImage'
       }
       if (arr.length === 7 && index === 4) {
-        return "threeImage";
+        return 'threeImage'
       }
       if (arr.length === 7 && index === 5) {
-        return "threeImage";
+        return 'threeImage'
       }
       if (arr.length === 7 && index === 6) {
-        return "threeImage";
+        return 'threeImage'
       }
       //  八张图片
       if (arr.length === 8 && index === 0) {
-        return "twoImage";
+        return 'twoImage'
       }
       if (arr.length === 8 && index === 1) {
-        return "twoImage";
+        return 'twoImage'
       }
       if (arr.length === 8 && index === 2) {
-        return "threeImage";
+        return 'threeImage'
       }
       if (arr.length === 8 && index === 3) {
-        return "threeImage";
+        return 'threeImage'
       }
       if (arr.length === 8 && index === 4) {
-        return "threeImage";
+        return 'threeImage'
       }
       if (arr.length === 8 && index === 5) {
-        return "threeImage";
+        return 'threeImage'
       }
       if (arr.length === 8 && index === 6) {
-        return "threeImage";
+        return 'threeImage'
       }
       if (arr.length === 8 && index === 7) {
-        return "threeImage";
+        return 'threeImage'
       }
       // 九张
       if (arr.length === 9 || arr.length === 6 || arr.length === 3) {
-        return "threeImage";
+        return 'threeImage'
       }
     },
     // handleScrollEvent() {
@@ -673,94 +650,94 @@ export default {
     //   }
     // },
     async getRecentlyHobbiesList(id, page = 1) {
-      let wparent = document.getElementsByClassName("content-wrap");
-      let contentContain = document.getElementsByClassName("content-contain");
-      wparent[0].style.height = 1300 + "px";
-      contentContain[0].style.height = 1600 + "px";
-      this.mockHobbyItems = null;
-      this.hobbiesClassId = id;
+      let wparent = document.getElementsByClassName('content-wrap')
+      let contentContain = document.getElementsByClassName('content-contain')
+      wparent[0].style.height = 1300 + 'px'
+      contentContain[0].style.height = 1600 + 'px'
+      this.mockHobbyItems = null
+      this.hobbiesClassId = id
       // 获取初始hobbies列表的数据
-      this.mockHobbyItems = null;
-      let _mockHobbyItems = await $get("/web/hobbies/list?", {
+      this.mockHobbyItems = null
+      let _mockHobbyItems = await $get('/web/hobbies/list?', {
         limit: 12,
         page: page,
         classfiy: id,
-        order: "desc",
+        order: 'desc',
         sidx: this.sidx
-      }); // 初始化 传值 id,desc,h.create_time，页数 (还未实现)
-      this.mockHobbyItems = _mockHobbyItems.data.list;
-      this.totalPage = _mockHobbyItems.data.totalPage;
-      this.totalCount = _mockHobbyItems.data.totalCount;
-      this.indexId = 0;
-      this.hobbiesFour = this.mockHobbyItems.slice(0, 4);
-      this.hobbiesEight = this.mockHobbyItems.slice(0, 8);
-      this.hobbiesTwelve = this.mockHobbyItems.slice(0, 12);
-      this.mockHobbyItems = this.hobbiesTwelve;
+      }) // 初始化 传值 id,desc,h.create_time，页数 (还未实现)
+      this.mockHobbyItems = _mockHobbyItems.data.list
+      this.totalPage = _mockHobbyItems.data.totalPage
+      this.totalCount = _mockHobbyItems.data.totalCount
+      this.indexId = 0
+      this.hobbiesFour = this.mockHobbyItems.slice(0, 4)
+      this.hobbiesEight = this.mockHobbyItems.slice(0, 8)
+      this.hobbiesTwelve = this.mockHobbyItems.slice(0, 12)
+      this.mockHobbyItems = this.hobbiesTwelve
 
       // this.scrollEvent()
       setTimeout(() => {
-        this.waterFlow("content-wrap", "contain-hobby-wrap");
-      }, 1000);
+        this.waterFlow('content-wrap', 'contain-hobby-wrap')
+      }, 1000)
     },
     //  图片拼接
     piectImgUrl(item) {
-      return systemManage.getApi(item.photo);
+      return systemManage.getApi(item.photo)
     },
     piectImg(item) {
-      return systemManage.getApi(item.photo);
+      return systemManage.getApi(item.photo)
     },
     piecImgUrl(item) {
-      return systemManage.getApi(item.authorphoto);
+      return systemManage.getApi(item.authorphoto)
     },
     tagOn(index) {
-      this.tagType = index;
+      this.tagType = index
     },
     tagOnDeline(index) {
-      this.tagType = null;
+      this.tagType = null
     },
     // 瀑布流
     waterFlow(parent, chirp) {
       // let wparent = document.getElementsByClassName(parent);
-      let allArr = document.getElementsByClassName(chirp);
+      let allArr = document.getElementsByClassName(chirp)
       // console.log('test-------wparent', wparent[0].style.height);
       // let wchirldWidth = wparent.getElementsByClassName('*')
-      let num = 2;
+      let num = 2
       // 动态改变父容器宽度
       // wparent.style.cssText = 'width:' + allArr[0].offsetWidth * num + 'px '
-      this.getMinHeightOfCols(allArr, num);
+      this.getMinHeightOfCols(allArr, num)
       // console.log("test-------瀑布流函数", allArr[0].offsetWidth);
     },
     getMinHeightOfCols(chirdArr, num) {
-      let wparent = document.getElementsByClassName("content-wrap");
-      let contentContain = document.getElementsByClassName("content-contain");
+      let wparent = document.getElementsByClassName('content-wrap')
+      let contentContain = document.getElementsByClassName('content-contain')
       // console.log('test-------wparents', wparent[0].style.height)
-      let onlyOneColsArr = [];
+      let onlyOneColsArr = []
       for (let i = 0; i < chirdArr.length; i++) {
         if (i < num) {
-          onlyOneColsArr[i] = chirdArr[i].offsetHeight;
+          onlyOneColsArr[i] = chirdArr[i].offsetHeight
         } else {
           // 获取每个盒子中最小高度的一个
-          let minHeightOfCols = Math.min.apply(null, onlyOneColsArr);
+          let minHeightOfCols = Math.min.apply(null, onlyOneColsArr)
           //  获取最小高度图片下标
           let minHeightOfIndex = this.getMinIndex(
             onlyOneColsArr,
             minHeightOfCols
-          );
+          )
           if (wparent) {
-            chirdArr[i].style.position = "absolute";
-            chirdArr[i].style.top = minHeightOfCols + "px";
+            chirdArr[i].style.position = 'absolute'
+            chirdArr[i].style.top = minHeightOfCols + 'px'
             chirdArr[i].style.left =
-              chirdArr[minHeightOfIndex].offsetLeft + "px";
-            onlyOneColsArr[minHeightOfIndex] += chirdArr[i].offsetHeight;
+              chirdArr[minHeightOfIndex].offsetLeft + 'px'
+            onlyOneColsArr[minHeightOfIndex] += chirdArr[i].offsetHeight
             // 动态改变
-            let maxHeightOfCols = Math.max.apply(null, onlyOneColsArr);
+            let maxHeightOfCols = Math.max.apply(null, onlyOneColsArr)
             // console.log('test---max', maxHeightOfCols)
             // if (maxHeightOfCols > 1200) {
-            wparent[0].style.height = maxHeightOfCols + "px";
+            wparent[0].style.height = maxHeightOfCols + 'px'
             // let rightContain = document.getElementsByClassName('content-contain-right')[0]
-            contentContain[0].style.height = maxHeightOfCols + 205 + "px";
+            contentContain[0].style.height = maxHeightOfCols + 205 + 'px'
             if (maxHeightOfCols + 205 < 1400) {
-              contentContain[0].style.height = 1400 + "px";
+              contentContain[0].style.height = 1400 + 'px'
             }
             // console.log('test--------contentCotain', contentContain[0].style.height)
             // console.log('test---max', wparent[0].style.height)
@@ -774,44 +751,45 @@ export default {
     getMinIndex(onlyOneColsArr, min) {
       for (let i in onlyOneColsArr) {
         if (onlyOneColsArr[i] === min) {
-          return i;
+          return i
         }
       }
     },
     publishHobbies() {
       if (this.tokenObj == null) {
-        this.tokenObj = {};
+        this.tokenObj = {}
       }
       if (
-        localStorage.getItem("userMsg") !== "" &&
-        localStorage.getItem("userMsg") !== null
+        localStorage.getItem('userMsg') !== '' &&
+        localStorage.getItem('userMsg') !== null
       ) {
-        this.tokenObj = JSON.parse(localStorage.getItem("userMsg")).token;
-      } else if (this.cookie !== "") {
-        this.cookie = this.getCookie("token");
-        this.tokenObj = this.cookie;
+        this.tokenObj = JSON.parse(localStorage.getItem('userMsg')).token
+      } else if (this.cookie !== '') {
+        this.cookie = this.getCookie('token')
+        this.tokenObj = this.cookie
       }
       $get(
         webUserSelectByPrimaryKey,
         {},
         {
-          "X-Auth0-Token": this.tokenObj
+          'X-Auth0-Token':
+            this.tokenObj
         }
       ).then(res => {
-        console.log(res);
+        console.log(res)
         if (res.data.code === 0) {
-          this.loginFlag = res.data.code;
+          this.loginFlag = res.data.code
           this.$router.push({
             path: `/publishHobbies`
-          });
+          })
         } else {
-          let x = window.confirm("您还未登录，请登录！");
+          let x = window.confirm('您还未登录，请登录！')
           if (x === true) {
-            this.$router.push({ path: `/login` });
+            this.$router.push({ path: `/login` })
             // window.location.href = 'http://165.qiweioa.cn/login/'
           }
         }
-      });
+      })
       // console.log('ssefef')
       // if (
       //   localStorage.getItem('userMsg') !== '' &&
@@ -833,136 +811,136 @@ export default {
       // }
     },
     isRedOn(index) {
-      this.isRed = index;
+      this.isRed = index
     },
     isRedIn() {
-      this.isRed = -1;
+      this.isRed = -1
     },
     // 二级导航——改变导航样式
     mouseEnterNav(index) {
-      this.redType = index;
+      this.redType = index
     },
     mouseLeverNav() {
-      this.redType = null;
+      this.redType = null
     },
     enterSecondNav(index, id) {
-      this.sidx = this.sidxRecently;
-      this.$refs.pagination.resertCurrentPage();
-      this.fourId = 44;
-      this.fiveId = 54;
-      this.sixId = 64;
-      this.sevenId = 74;
-      this.eightId = 84;
-      this.nineId = 94;
-      this.tenId = 104;
-      this.elevenId = 114;
-      this.type = index;
+      this.sidx = this.sidxRecently
+      this.$refs.pagination.resertCurrentPage()
+      this.fourId = 44
+      this.fiveId = 54
+      this.sixId = 64
+      this.sevenId = 74
+      this.eightId = 84
+      this.nineId = 94
+      this.tenId = 104
+      this.elevenId = 114
+      this.type = index
       // console.log('teeee', id)
       // 清空hobbies列表，传值id
-      this.getRecentlyHobbiesList(id);
-      this.hotDecorationOn = true;
-      this.hotLineDecoration = true;
-      this.recentlyDecorationOn = false;
-      this.recentlyLineDecoration = false;
+      this.getRecentlyHobbiesList(id)
+      this.hotDecorationOn = true
+      this.hotLineDecoration = true
+      this.recentlyDecorationOn = false
+      this.recentlyLineDecoration = false
     },
     // classMap () {
     //   this.imgType = 1
     // },
     enterRecentlyArtical() {
-      this.hotDecorationOn = true;
-      this.recentlyDecorationOn = false;
-      this.hotLineDecoration = true;
-      this.recentlyLineDecoration = false;
-      this.mockHobbyItems = null;
-      this.sidx = this.sidxRecently;
-      this.fourId = 44;
-      this.fiveId = 54;
-      this.sixId = 64;
-      this.sevenId = 74;
-      this.eightId = 84;
-      this.nineId = 94;
-      this.tenId = 104;
-      this.elevenId = 114;
-      this.getRecentlyHobbiesList(this.hobbiesClassId);
-      this.$refs.pagination.resertCurrentPage();
+      this.hotDecorationOn = true
+      this.recentlyDecorationOn = false
+      this.hotLineDecoration = true
+      this.recentlyLineDecoration = false
+      this.mockHobbyItems = null
+      this.sidx = this.sidxRecently
+      this.fourId = 44
+      this.fiveId = 54
+      this.sixId = 64
+      this.sevenId = 74
+      this.eightId = 84
+      this.nineId = 94
+      this.tenId = 104
+      this.elevenId = 114
+      this.getRecentlyHobbiesList(this.hobbiesClassId)
+      this.$refs.pagination.resertCurrentPage()
       // this.scrollEvent()
       // setTimeout(() => {
       //   this.waterFlow('content-wrap', 'contain-hobby-wrap')
       // }, 0)
     },
     async enterHotArtical() {
-      let wparent = document.getElementsByClassName("content-wrap");
-      let contentContain = document.getElementsByClassName("content-contain");
-      this.$refs.pagination.resertCurrentPage();
-      this.fourId = 44;
-      this.fiveId = 54;
-      this.sixId = 64;
-      this.sevenId = 74;
-      this.eightId = 84;
-      this.nineId = 94;
-      this.tenId = 104;
-      this.elevenId = 114;
-      this.recentlyDecorationOn = true;
-      this.hotDecorationOn = false;
-      this.hotLineDecoration = false;
-      this.recentlyLineDecoration = true;
-      this.sidx = this.sidexHot;
-      this.mockHobbyItems = null;
+      let wparent = document.getElementsByClassName('content-wrap')
+      let contentContain = document.getElementsByClassName('content-contain')
+      this.$refs.pagination.resertCurrentPage()
+      this.fourId = 44
+      this.fiveId = 54
+      this.sixId = 64
+      this.sevenId = 74
+      this.eightId = 84
+      this.nineId = 94
+      this.tenId = 104
+      this.elevenId = 114
+      this.recentlyDecorationOn = true
+      this.hotDecorationOn = false
+      this.hotLineDecoration = false
+      this.recentlyLineDecoration = true
+      this.sidx = this.sidexHot
+      this.mockHobbyItems = null
       // 获取初始hobbies列表的数据
-      let _mockHobbyItems = await $get("/web/hobbies/list?", {
+      let _mockHobbyItems = await $get('/web/hobbies/list?', {
         limit: 12,
         page: 1,
         classfiy: this.hobbiesClassId,
-        order: "desc",
+        order: 'desc',
         sidx: this.sidexHot
-      }); // 初始化 传值 id,desc,h.create_time，页数 (还未实现)
-      this.mockHobbyItems = _mockHobbyItems.data.list;
-      this.indexId = 0;
-      this.hobbiesTwelve = this.mockHobbyItems.slice(0, 12);
-      this.mockHobbyItems = this.hobbiesTwelve;
+      }) // 初始化 传值 id,desc,h.create_time，页数 (还未实现)
+      this.mockHobbyItems = _mockHobbyItems.data.list
+      this.indexId = 0
+      this.hobbiesTwelve = this.mockHobbyItems.slice(0, 12)
+      this.mockHobbyItems = this.hobbiesTwelve
       setTimeout(() => {
-        this.waterFlow("content-wrap", "contain-hobby-wrap");
-      }, 600);
+        this.waterFlow('content-wrap', 'contain-hobby-wrap')
+      }, 600)
       // this.scrollEvent()
     },
     // 本月热点——改变按钮样式&&
     async enterWeekHotList() {
-      this.rankId = "w";
-      this.monthHotOn = false;
-      this.monthDecoration = false;
-      this.weekDecoration = true;
-      this.weekHotOn = true;
-      let _hostPointItems = await $get("/web/hobbies/hobbiesWeekRank?", {
+      this.rankId = 'w'
+      this.monthHotOn = false
+      this.monthDecoration = false
+      this.weekDecoration = true
+      this.weekHotOn = true
+      let _hostPointItems = await $get('/web/hobbies/hobbiesWeekRank?', {
         pageNo: 1,
         size: 10
-      });
-      this.hostPointItems = _hostPointItems.data;
+      })
+      this.hostPointItems = _hostPointItems.data
     },
     // 本月热点——改变按钮样式&&
     async enterMonthHotList() {
-      this.rankId = "m";
-      this.monthHotOn = true;
-      this.monthDecoration = true;
-      this.weekHotOn = false;
-      this.weekDecoration = false;
-      let _hostPointItems = await $get("/web/hobbies/hobbiesMonthRank?", {
+      this.rankId = 'm'
+      this.monthHotOn = true
+      this.monthDecoration = true
+      this.weekHotOn = false
+      this.weekDecoration = false
+      let _hostPointItems = await $get('/web/hobbies/hobbiesMonthRank?', {
         pageNo: 1,
         size: 10
-      });
-      this.hostPointItems = _hostPointItems.data;
+      })
+      this.hostPointItems = _hostPointItems.data
     },
     pageChange(page) {
       this.$router.push({
         path: `/hobbies/${page}`
-      });
+      })
       setTimeout(() => {
-        this.waterFlow("content-wrap", "contain-hobby-wrap");
-      }, 5000);
-      this.getRecentlyHobbiesList(this.hobbiesClassId, page);
-      this.currentPage = page;
+        this.waterFlow('content-wrap', 'contain-hobby-wrap')
+      }, 5000)
+      this.getRecentlyHobbiesList(this.hobbiesClassId, page)
+      this.currentPage = page
     }
   }
-};
+}
 </script>
 
 <style>
@@ -1044,12 +1022,12 @@ html {
   border: 2px solid rgba(231, 231, 231, 1);
   color: rgba(42, 42, 42, 1);
   padding-top: 10px;
-  padding-left: 16px;
-  padding-right: 16px;
+  padding-left:16px;
+  padding-right:16px;
   vertical-align: top;
 }
 .tag-nav--change {
-  display: block;
+  display:block;
   text-align: right;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1081,7 +1059,7 @@ html {
   cursor: pointer;
 }
 /*.nav-slide-item-wrap:hover .nav-hobby-text {*/
-/*color: #BE001E*/
+  /*color: #BE001E*/
 /*}*/
 .nav-hobby-wrap {
   height: 185px;
@@ -1112,12 +1090,13 @@ html {
   box-sizing: border-box;
   width: 180px;
   height: 132px;
-  border: 2px solid rgba(0, 0, 0, 0);
+  border:2px solid rgba(0,0,0,0);
 }
 .nav-hobby-img img {
   width: 176px;
   height: 128px;
   vertical-align: top;
+
 }
 .nav-hobby-img.navBorderOn {
   border: 2px solid rgba(190, 0, 30, 1);
@@ -1133,7 +1112,7 @@ html {
   padding: 20px 0 19px 0;
 }
 .nav-hobby-text.navTxtRed {
-  color: #be001e;
+  color: #BE001E
 }
 .nav-hobby-text.navTxtOn {
   background: rgba(190, 0, 30, 1);
@@ -1244,15 +1223,15 @@ html {
   clear: right;
   cursor: pointer;
 }
-.contain-hobby-wrap:hover .detail-hobby-title {
-  color: #be001e !important;
+.contain-hobby-wrap:hover .detail-hobby-title{
+  color: #BE001E !important;
 }
 .box-picture {
   height: auto;
   display: inline-block;
 }
 .get-hobby-image {
-  border-bottom: #be001e;
+  border-bottom: #BE001E;
   display: inline-block;
   margin: 0 10px 10px 0;
 }
@@ -1358,11 +1337,11 @@ html {
 }
 
 /*.hobbiesDescription :hover {*/
-/*color: rgba(190, 0, 30, 1);*/
-/*text-decoration: none;*/
+  /*color: rgba(190, 0, 30, 1);*/
+  /*text-decoration: none;*/
 /*}*/
 .detail-hobby-title ::after {
-  content: "...";
+  content: '...';
   font-weight: bold;
   position: absolute;
   bottom: 0;
@@ -1381,9 +1360,7 @@ html {
 
 .detail-container-left-img {
   float: left;
-  height: 25px;
-  width: 25px;
-  border-radius: 50%;
+  height: 25px;width:25px;border-radius: 50%
 }
 /*.detail-container-left-img.oneImage {*/
 /*width: 280px;*/
@@ -1455,7 +1432,7 @@ html {
   margin-top: 2px;
 }
 .hobbies-pagination {
-  margin-top: 40px;
+  margin-top:40px;
 }
 .content-contain-right {
   box-sizing: border-box;
@@ -1467,7 +1444,7 @@ html {
   background-color: white;
 }
 .content-contain-right a :hover {
-  color: #be001e;
+  color: #BE001E;
   text-decoration: none;
 }
 /*.title-hot-bloggers {*/
@@ -1495,8 +1472,8 @@ html {
   border-bottom: 1px solid #f0f0f0;
   margin-bottom: 30px;
 }
-.content-blogger:hover .name-blogger {
-  color: #be001e;
+.content-blogger:hover .name-blogger{
+  color:#BE001E
 }
 .content-blogger:last-child {
   margin-bottom: 40px;
@@ -1509,11 +1486,11 @@ html {
   margin-right: 20px;
 }
 .name-blogger {
-  display: inline-block;
+  display:inline-block;
   font-size: 16px;
   font-weight: bold;
   width: 250px;
-  height: 50px;
+  height:50px;
   color: rgba(0, 0, 0, 1);
   margin-top: 17px;
   float: left;
@@ -1523,7 +1500,7 @@ html {
   position: relative;
 }
 .title-host-point a:hover {
-  color: #be001e;
+  color: #BE001E;
   text-decoration: none;
 }
 .title-hostPoint-bottom {
@@ -1555,7 +1532,7 @@ html {
   cursor: pointer;
 }
 .button-week:hover {
-  color: #be001e;
+  color: #BE001E;
   text-decoration: none;
 }
 .button-week.weekHotOn {
@@ -1570,7 +1547,7 @@ html {
   cursor: pointer;
 }
 .button-month:hover {
-  color: #be001e;
+  color: #BE001E;
   text-decoration: none;
 }
 .button-month.monthHotOn {
@@ -1657,7 +1634,7 @@ html {
   left: 50px;
 }
 .titleRank a:hover {
-  color: #be001e;
+  color: #BE001E;
   text-decoration: none;
 }
 #wrapHostPoint div:last-child {
@@ -1692,13 +1669,10 @@ html {
   color: rgba(170, 170, 170, 1);
   margin-top: 10px;
 }
-#advertisement {
-  margin-top: 40px;
-  color: red;
-  width: 1200px;
-  height: 200px;
-}
-.hobbies-footer {
-  margin-top: 20px;
-}
+  #advertisement {
+    margin-top: 40px;color:red;width: 1200px;height: 200px;
+  }
+  .hobbies-footer {
+    margin-top:20px;
+  }
 </style>

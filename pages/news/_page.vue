@@ -14,7 +14,7 @@
           <div v-for="(item, index) in tabData"
             :key="index"
             class="navWrap">
-            <nuxt-link :to="`/tagList/${item.id}/1`">
+            <nuxt-link :to="`/pc/tagList/${item.id}/1`">
               <li :class="navTabActiveStatus == true&&navTabActiveIndex == index ? ['navActiveClass', 'active']: '' "
                 @mouseenter="navTabActive(item)"
                 @mouseleave="removeNavTabActive()">
@@ -39,7 +39,7 @@
                   <div class="todayImg"
                     @mouseenter="titleActive(item)"
                     @mouseleave="removeTitleActiveFn()">
-                    <nuxt-link :to="`/news/detail/${item.id}/1`">
+                    <nuxt-link :to="`/pc/news/detail/${item.id}/1`">
                       <img :src="piectImgUrl(item)"
                         :alt="item.title"
                         @error="imgLossLoad(item)"
@@ -49,7 +49,7 @@
                     <div class="defaultBox"
                       v-if="imgLoadStatus == false&& index == imgLossIndex">
                       <!-- 没图片或加载不出来，展示默认图片 -->
-                      <nuxt-link :to="`/news/detail/${item.id}/1`">
+                      <nuxt-link :to="`/pc/news/detail/${item.id}/1`">
                         <img src="~static/common/default.png"
                           alt="尖峰咖"
                           width="160px">
@@ -60,7 +60,7 @@
                     <div @mouseenter="titleActive(item)"
                       @mouseleave="removeTitleActiveFn()"
                       :class="removeTitleActive == true&& titleActiveIndex == index ? 'redTitleLine' :'titleLine'"></div>
-                    <nuxt-link :to="`/news/detail/${item.id}/1`">
+                    <nuxt-link :to="`/pc/news/detail/${item.id}/1`">
                       <p :class="removeTitleActive == true&&titleActiveIndex == index ? 'redColor' :'title'"
                         @mouseenter="titleActive(item)"
                         @mouseleave="removeTitleActiveFn()">
@@ -74,10 +74,10 @@
                 </el-main>
                 <el-footer class="todayFooter">
                   <div class="footerBox">
-                    <nuxt-link :to="`/Bloger/${item.authorId}/1`">
+                    <nuxt-link :to="`/pc/Bloger/${item.authorId}/1`">
                       <img :src="piectProfileUrl(item)"
                         class="userIcon"></nuxt-link>
-                    <nuxt-link :to="`/Bloger/${item.authorId}/1`">
+                    <nuxt-link :to="`/pc/Bloger/${item.authorId}/1`">
                       <span class="userName">{{item.author}}</span></nuxt-link>
                     <div class="todayDivider"></div>
                     <!-- <span class="classOneName">{{item.classOneName}}</span> -->
@@ -177,7 +177,7 @@
                   <span v-html="bannerMessageData.title"></span>
                 </el-header>
                 <el-main v-if="bannerMessageData.photoLinks&&bannerMessageData.photoLinks.length >=2 ">
-                  <bannerOfFeature :bannerData="bannerMessageData.photoLinks"></bannerOfFeature>
+                  <firstFeature :bannerData="bannerMessageData.photoLinks"></firstFeature>
                 </el-main>
                 <div class="oneItemBlock"
                   v-else>
@@ -217,7 +217,7 @@
                   <span v-html="bannerTopicData.title"></span>
                 </el-header>
                 <el-main v-if="bannerTopicData.photoLinks&&bannerTopicData.photoLinks.length >=2 ">
-                  <bannerOfFeature :bannerData="bannerTopicData.photoLinks"></bannerOfFeature>
+                  <secondFeature :bannerData="bannerTopicData.photoLinks"></secondFeature>
                 </el-main>
                 <div class="oneItemBlock"
                   v-else>
@@ -268,7 +268,8 @@
 
 <script>
 import systemManage from '@/http/url'
-import bannerOfFeature from 'components/bannerOfFeature.vue'
+import firstFeature from '@/components/firstFeature.vue'
+import secondFeature from '@/components/secondFeature.vue'
 // 修改
 // import todayRankTab from './components/todayRankTab.vue'
 import todayRankTab from '@/components/rankTab.vue'
@@ -319,7 +320,8 @@ export default {
     }
   },
   components: {
-    bannerOfFeature,
+    firstFeature,
+    secondFeature,
     todayRankTab,
     pagination,
     Header,
@@ -328,6 +330,7 @@ export default {
   },
   // nuxt异步获取数据
   async asyncData ({params}) {
+    let bannerTopicData
     // 标签tag
     let tabData = await $get(webTagGetRandomTagsByChannel, { id: '2' })
     let leftSideResult = await $get(
@@ -348,14 +351,19 @@ export default {
     })
     // 月排行
     let rankMonthLists = await $get(webEssayGetMonthRank, {
-        pageNo: 1,
-        size: 10
-      })
+      pageNo: 1,
+      size: 10
+    })
+    let bannerMessageData = await $get(dsfFeatureGetRutureByChannel, {
+      channel: 2
+    })
     return {
       tabData: tabData.data ?  tabData.data : [],
       leftSideResult: leftSideResult.data ? leftSideResult.data : [],
       rankWeekLists: rankWeekLists.data.essayEntities ? rankWeekLists.data.essayEntities : [],
-      rankMonthLists: rankMonthLists.data.essayEntities ? rankMonthLists.data.essayEntities : []
+      rankMonthLists: rankMonthLists.data.essayEntities ? rankMonthLists.data.essayEntities : [],
+      bannerTopicData: bannerMessageData.data == null ? [] : bannerMessageData.data,
+      bannerMessageData: bannerMessageData.data == null ? [] : bannerMessageData.data
     }
   },
   methods: {
@@ -563,6 +571,16 @@ export default {
   },
 
   mounted() {
+    console.log('11111111111')
+    console.log(this.bannerMessageData)
+    // this.bannerResult.forEach((element, index) => {
+    //   if (index == 0) {
+    //     this.bannerMessageData = element
+    //   } else if (index == 1) {
+    //     this.bannerTopicData = element
+    //   }
+    // })
+    console.log('11111111111')
     this.path = this.$route.path.match(/^\/[a-z]+/gi)
     this.model = this.$route.fullPath.match(/^\/[a-z]+/gi)
     this.currentPage = this.$route.params.page
@@ -576,12 +594,12 @@ export default {
         this.tokenObj = {}
       }
       this.getTotalData()
-      let bannerResult = await $get(dsfFeatureGetRutureByChannel, {
-        channel: 2
-      })
-      let banner = bannerResult.data == null ? [] : bannerResult.data
-      this.bannerResult = banner
-      banner.forEach((element, index) => {
+      // let bannerResult = await $get(dsfFeatureGetRutureByChannel, {
+      //   channel: 2
+      // })
+      // let banner = bannerResult.data == null ? [] : bannerResult.data
+      // this.bannerResult = banner
+      this.bannerMessageData.forEach((element, index) => {
         if (index == 0) {
           this.bannerMessageData = element
         } else if (index == 1) {
@@ -1007,6 +1025,11 @@ line-height:125px; */
   background: white;
   position: relative;
   padding-bottom: 40px;
+}
+.todayNew .rightSideContent .firstBanner .el-main,
+.todayNew .rightSideContent .secondBanner .el-main {
+  padding: 0;
+  padding-top: 20px;
 }
 .todayNew .rightSideContent .firstBanner,
 .todayNew .rightSideContent .secondBanner {

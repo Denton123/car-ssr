@@ -15,7 +15,7 @@
           <!-- <div class="detail_content_hot"></div> -->
           <!-- 用户信息 -->
           <div class="detail_content_user" style="background: url('~static/header/nav_upload.png');">
-            <nuxt-link :to="`/Bloger/${essayData.userId}/1`"
+            <nuxt-link :to="`/pc/Bloger/${essayData.userId}/1`"
               class="detail_content_user_avatar">
               <img :src="formatPic(userInfo.photo)"
                 class="detail_content_userAvatar"
@@ -24,7 +24,7 @@
                 src="~static/detail/detail_user.png"
                 class="detail_content_userAvatar">
             </nuxt-link>
-            <nuxt-link :to="`/Bloger/${essayData.userId}/1`">
+            <nuxt-link :to="`/pc/Bloger/${essayData.userId}/1`">
               <span class="detail_content_userName"
                 v-if="essayData">{{essayData.userName == null ? '': essayData.userName}}</span>
             </nuxt-link>
@@ -52,7 +52,7 @@
               <ul>
                 <div v-for="tab in tabList"
                   :key="tab.title">
-                  <nuxt-link :to="`/tagList/${tab.id}/1`">
+                  <nuxt-link :to="`/pc/tagList/${tab.id}/1`">
                     <li>
                       <span>{{tab.title}}</span>
                       <!-- 品牌 -->
@@ -136,7 +136,7 @@
               <li v-for="(item, index) in essaysWidthTag"
                 :key="index"
                 class="detail_content_article_block">
-                <nuxt-link :to="`/${item.className.toLowerCase()}/${item.className.toLowerCase() !== 'hobbies' ? 'detail': 'hobbiesDetail'}/${item.id}/1`">
+                <nuxt-link :to="`/pc/${item.className.toLowerCase()}/${item.className.toLowerCase() !== 'hobbies' ? 'detail': 'hobbiesDetail'}/${item.id}/1`">
                   <img v-if="item.photo !== ''"
                     :src="formatPic(item.cover)"
                     class="detail_content_article_block_pic"
@@ -150,7 +150,7 @@
                   </span>
                   <h3 class="detail_content_article_block_title">{{item.title}}</h3>
                   <div class="detail_content_article_block_avatar_wrap">
-                    <nuxt-link :to="`/Bloger/${item.authorId}/1`">
+                    <nuxt-link :to="`/pc/Bloger/${item.authorId}/1`">
                       <img v-if="item.authorPhoto"
                         :src="formatPic(item.authorPhoto)"
                         class="detail_content_article_block_avatar">
@@ -159,7 +159,7 @@
                         class="detail_content_article_block_avatar">
                     </nuxt-link>
                   </div>
-                  <nuxt-link :to="`/Bloger/${item.authorId}/1`">
+                  <nuxt-link :to="`/pc/Bloger/${item.authorId}/1`">
                     <span class="detail_content_article_block_user">{{item.author}}</span>
                   </nuxt-link>
                   <span class="detail_content_article_block_desperate">|</span>
@@ -236,7 +236,7 @@
                 <div v-for="(list, index) in articleCommentData"
                   :key="index"
                   class="detail_comment_lists_content">
-                  <nuxt-link :to="`/Bloger/${list.userId}/1`">
+                  <nuxt-link :to="`/pc/Bloger/${list.userId}/1`">
                     <span class="detail_comment_lists_avatar">
                       <img :src="formatPic(list.userPhoto)"
                         v-if="list.userPhoto !== ''">
@@ -319,7 +319,7 @@
             <span class="detail_user_bg_red"></span>
             <div class="detail_user_msgWrap">
               <div class="detail_user_msg">
-                <nuxt-link :to="essayData.userId !== user.id ? `/Bloger/${essayData.userId}/1` : '/person/myEssay/1'">
+                <nuxt-link :to="essayData.userId !== user.id ? `/pc/Bloger/${essayData.userId}/1` : '/pc/person/myEssay/1'">
                   <div class="detail_user_msg_avatar_wrap">
                     <img v-if="userInfo.photo !== ''"
                       :src="formatPic(userInfo.photo)">
@@ -327,7 +327,7 @@
                       src="~static/detail/person_default.png">
                   </div>
                 </nuxt-link>
-                <nuxt-link :to="essayData.userId !== user.id ? `/Bloger/${essayData.userId}/1` : '/person/myEssay/1'">
+                <nuxt-link :to="essayData.userId !== user.id ? `/pc/Bloger/${essayData.userId}/1` : '/pc/person/myEssay/1'">
                   <span class="detail_user_msg_name">{{essayData.userName}}</span>
                 </nuxt-link>
                 <a href="javascript:void(0);"
@@ -353,7 +353,7 @@
                     </a>
                   </li>
                   <li>
-                    <nuxt-link :to="`/Bloger/${essayData.userId}/1`">
+                    <nuxt-link :to="`/pc/Bloger/${essayData.userId}/1`">
                       <span>文章</span>
                       <span>{{userInfo.essayCount == null ? 0 : userInfo.essayCount}}</span>
                     </nuxt-link>
@@ -370,7 +370,7 @@
           <div class="detail_more_title">
             <img src="~static/detail/detail_article.png">
             <h2>热门作品</h2>
-            <a :href="`/Bloger/${essayData.userId}/1`"
+            <a :href="`/pc/Bloger/${essayData.userId}/1`"
               class="detail_more_title_more">
               更多
             </a>
@@ -379,7 +379,7 @@
             <ul>
               <li v-for="(hot, index) in hotData"
                 :key="index">
-                <nuxt-link :to="`/${hot.className}/${hot.className !== 'hobbies' ? 'detail' : 'hobbiesDetail'}/${hot.id}/1`">
+                <nuxt-link :to="`/pc/${hot.className}/${hot.className !== 'hobbies' ? 'detail' : 'hobbiesDetail'}/${hot.id}/1`">
                   <span v-if="hot.cover">
                     <img :src="formatPic(hot.cover)">
                   </span>
@@ -417,7 +417,7 @@
             <ul>
               <li v-for="(random, index) in randomData"
                 :key="index">
-                <nuxt-link :to="`/${random.className}/${random.className !== 'hobbies' ? 'detail' : 'hobbiesDetail'}/${random.id}/1`"
+                <nuxt-link :to="`/pc/${random.className}/${random.className !== 'hobbies' ? 'detail' : 'hobbiesDetail'}/${random.id}/1`"
                   @click.native="flushCom(hot.id)">
                   <span v-if="random.cover!==''">
                     <img :src="formatPic(random.cover)">
@@ -567,16 +567,20 @@ export default {
     }
   },
   async asyncData ({params, env, req }) {
-    // console.log(document.cookie, '888888888888888888888')
-    // console.log(2222222222, env, req, res)
     var userCookie = null
     if (req && req.headers) {
-      userCookie = req.headers.cookie.split(';')[0].split('=')[1]
+      console.log(req.headers.cookie.split(';'), 'headers')
+      let reqHeaders = req.headers.cookie.split(';')
+      let tokenArr
+      reqHeaders.forEach(v => {
+        if (v.indexOf('token') !== -1) {
+          tokenArr = v.split('=')
+          console.log(tokenArr)
+          userCookie = tokenArr[1]
+        }
+      })
     }
     console.log(userCookie, 'aaaa')
-    // console.log(req.headers.cookie.split(';')[0].split('=')[1])
-    // 
-    // console.log(userCookie, '11111111111111111111111')
     let essayData, commentData, articleCommentSize
     // 兴趣部落详情信息
     let hobbiesIdDetailData = await $get(webHobbiesDetailInfo, {
@@ -584,7 +588,7 @@ export default {
     })
     // 热门信息
     let hotData = await $get(webHobbiesDetailTopSix, {
-      bloggerId: hobbiesIdDetailData.data.result_data.hobbies.userId
+      bloggerId: hobbiesIdDetailData && hobbiesIdDetailData.data ? hobbiesIdDetailData.data.result_data.hobbies.userId : ''
     })
     // 随机推荐
     let randomData = await $get(webHobbiesDetailRandomData, {

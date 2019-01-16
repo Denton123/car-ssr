@@ -65,9 +65,6 @@
 </template>
 <script>
 import utils from "@/http/url";
-// import 'swiper/dist/css/swiper.css'
-// import { swiper, swiperSlide } from 'vue-awesome-swiper'
-import Swiper from 'swiper'
 export default {
   name: "BigCoursel",
   props: {

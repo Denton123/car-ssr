@@ -39,7 +39,7 @@
             <ul>
               <li v-for="(item, index) in newsObj.click"
                 :key="index">
-                <a :href="`/hots/detail/${item.id}/1`"
+                <a :href="`/pc/hots/detail/${item.id}/1`"
                   class="item_title">{{item.title}}</a>
               </li>
             </ul>
@@ -75,16 +75,16 @@ export default {
     this.$nextTick(async () => {
       // let hotNews = this.getHotNews()
       // this.newsObj = await hotNews
-      if (Array.isArray(this.newsObj.click)) {
-          // 数据大于4条只取前4
-          if (this.newsObj.click.length > 4) {
-            this.newsObj.click = this.newsObj.click.slice(0, 4)
-          } else {
-            this.newsObj.click = this.newsObj.click
-          }
-        } else {
-          this.newsObj.click = []
-        }
+      // if (Array.isArray(this.newsObj.click)) {
+      //     // 数据大于4条只取前4
+      //     if (this.newsObj.click.length > 4) {
+      //       this.newsObj.click = this.newsObj.click.slice(0, 4)
+      //     } else {
+      //       this.newsObj.click = this.newsObj.click
+      //     }
+      //   } else {
+      //     this.newsObj.click = []
+      //   }
         if (Array.isArray(this.newsObj.hotTime)) {
           this.newsObj.hotTime.forEach(v => {
             v.classOneName = v.classOneName.toLowerCase()

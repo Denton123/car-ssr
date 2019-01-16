@@ -49,6 +49,8 @@
   </div>
 </template>
 <script>
+// import {instance} from '@/http/instance'
+import axios from 'axios'
 import Header from '@/components/Header.vue'
 import Footer from '@/components/Footer.vue'
 import { $post } from '@/http/ajax'
@@ -136,6 +138,8 @@ export default {
                   ...res.data.des
                 })
                 localStorage.setItem('userMsg', msg)
+                axios.defaults.headers["X-Auth0-Token"] = res.data.des.token
+                // instance.interceptors.request.headers["X-Auth0-Token"] = res.data.des.token
                 // this.$store.state.userMsg = msg.token ? msg.token : null
                 console.log(this.$store.state.userMsg, 'user')
                 that.$router.push({ name: 'index' })

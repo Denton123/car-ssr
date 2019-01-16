@@ -1,0 +1,198 @@
+<template>
+  <div id="secondFeature">
+    <div class="feature">
+      <div class="tabsContent">
+        <div class="swiper-container secondTabsSwiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide"
+              v-for="(item,index) in bannerData"
+              :key="index">
+              <a :href="item.url"
+                target="_blank">
+                <img :src='piectFeatureUrl(item)'
+                  :alt="item.title">
+
+                <!-- 多个轮播数据的专栏遮罩层 -->
+                <div class="feature_Wrap">
+                </div>
+                <img class="bannerBottomIcon"
+                  src="~static/images/car_left.png">
+                <strong class="bannerFeatureTitle">{{item.title}}</strong>
+              </a>
+            </div>
+          </div>
+        </div>
+        <!-- 轮播指示点 -->
+        <div class="feature_indicator_wrap">
+          <ul class="indicators">
+            <li @mouseenter="setItem(index)"
+              v-for="(item,index) in bannerData.length"
+              :key="index">
+              <div :class="indicatorIndex === index?'indicatorsActive':''"></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import Swiper from 'swiper'
+import 'swiper/dist/css/swiper.css'
+import systemManage from '@/http/photoApi'
+
+export default {
+  name: 'secondFeature',
+  props: ['bannerData'],
+  data: function() {
+    return {
+      secondTabsSwiper: '',
+      indicatorIndex: ''
+    }
+  },
+  components: {},
+  methods: {
+    //专栏的图片拼接
+    piectFeatureUrl(item) {
+      return systemManage.getApi(item.photo)
+    },
+    setItem(index) {
+      this.secondTabsSwiper.slideTo(index, 500, true)
+      this.indicatorIndex = index
+    }
+  },
+  mounted() {
+    let _this = this
+    var secondTabsSwiper = new Swiper('.secondTabsSwiper', {
+      autoplay: {
+        delay: 3000,
+        stopOnLastSlide: false,
+        disableOnInteraction: false
+      },
+      // loop: this.bannerData[0].photoLinks.length >=2 ?true :false,
+      loop: true,
+      slidesPerView: 'auto',
+      loopedSlides: this.bannerData.length,
+      // loopedSlides: 2,
+      centeredSlides: true,
+      observer: true, //修改swiper自己或子元素时，自动初始化swiper
+      observeParents: true, //修改swiper的父元素时，自动初始化swiper
+      on: {
+        slideChange: function() {
+          _this.indicatorIndex = this.realIndex
+        }
+      }
+    })
+    this.secondTabsSwiper = secondTabsSwiper
+
+    // 设置专栏轮播起初的高亮点
+    this.indicatorIndex = 0
+  }
+}
+</script>
+<style>
+#secondFeature .feature {
+  width: 320px;
+  background-color: white;
+  /* padding-top: 63px; */
+  padding-bottom: 58px;
+  overflow: hidden;
+}
+#secondFeature .feature .feature_indicator_wrap {
+  width: 100%;
+  height: 14px;
+  position: absolute;
+  display: flex;
+  justify-content: flex-end;
+  bottom: 10px;
+}
+#secondFeature .feature .indicators {
+  position: absolute;
+  list-style: none;
+  height: 9px;
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+}
+#secondFeature .feature .indicators li {
+  height: 9px;
+  display: inline-block;
+  padding-right: 10px;
+  transform: rotateZ(45deg);
+  cursor: pointer;
+}
+#secondFeature .feature .indicators li div {
+  width: 8px;
+  height: 8px;
+  outline: 0;
+  cursor: pointer;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  border: 1px solid rgba(255, 255, 255, 1);
+  /* margin-right: 4px; */
+}
+#secondFeature .feature .indicatorsActive {
+  background: rgba(190, 0, 30, 1);
+  border: 1px solid #bd081e !important;
+}
+
+#secondFeature .feature .tabsContent {
+  width: 100%;
+  height: 180px;
+  margin-top: 31px;
+  position: relative;
+}
+#secondFeature .feature .tabsContent.showActive {
+  display: block;
+}
+#secondFeature .secondTabsSwiper {
+  width: 100%;
+  height: 180px;
+}
+#secondFeature .feature .swiper-slide {
+  position: relative;
+  width: 320px !important;
+  height: 100%;
+  background: url('~static/common/default.png');
+  background-color: #e7e7e7;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+#secondFeature .feature .swiper-slide img {
+  width: 320px;
+  height: 180px;
+}
+#secondFeature .feature_Wrap {
+  position: absolute;
+  bottom: -1px;
+  width: 320px;
+  z-index: 2;
+  height: 50px;
+  background: rgba(0, 0, 0, 1);
+  opacity: 0.5;
+}
+#secondFeature .bannerBottomIcon {
+  width: 23px !important;
+  height: 50px !important;
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  z-index: 3;
+}
+#secondFeature .bannerFeatureTitle {
+  width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  height: 24px;
+  font-size: 18px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 1);
+  position: absolute;
+  bottom: 14px;
+  left: 28px;
+  z-index: 3;
+}
+</style>
+
