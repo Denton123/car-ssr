@@ -6,7 +6,7 @@
       <div class="person_essay_list_block"
         v-for="(item, index) in listData.list"
         :key="index">
-        <nuxt-link :to="`/${item.title !== 'hobbies' ? item.classLabel.toLowerCase() : 'hobbies'}/${item.title !== 'hobbies' ? 'detail' : 'hobbiesDetail'}/${item.id}/1`">
+        <nuxt-link :to="`/pc/${item.title !== 'hobbies' ? item.classLabel.toLowerCase() : 'hobbies'}/${item.title !== 'hobbies' ? 'detail' : 'hobbiesDetail'}/${item.id}/1`">
           <div class="person_essay_list_block_pic"
             v-if="item.photo !== ''">
             <img :src="formatPic(item.photo)"
@@ -36,7 +36,7 @@
         <!-- 编辑按钮 -->
         <div class="person_essay_list_block_desc_edit"
           v-if="item.state === '草稿'||item.state === '审核不通过'">
-          <nuxt-link :to="item.title == 'hobbies' ? `/editHobbies/${item.id}` : `/person/editEssay/${item.id}`">
+          <nuxt-link :to="item.title == 'hobbies' ? `/pc/editHobbies/${item.id}` : `/pc/person/editEssay/${item.id}`">
 
             <i class="el-icon-edit" />
           </nuxt-link>
@@ -64,11 +64,19 @@ export default {
   data() {
     return {
       num: '1',
-      listData: {},
+      // listData: {},
       state: '',
       toLinkDetail: '',
       currentPage: 1
     }
+  },
+  props: {
+    listData: {
+      type: Object,
+      default() {
+        return {}
+      }
+    },
   },
   components: {
     myTitle,
@@ -91,7 +99,7 @@ export default {
           'X-Auth0-Token': cookie !== '' ? cookie : tokenObj.token
         }
       ).then(res => {
-        // console.log(res)
+        console.log(res)
         this.listData = res.data.des
         if (this.listData) {
             this.listData.list.forEach(v => {
@@ -146,7 +154,7 @@ export default {
   },
   mounted() {
     // console.log(this.listData.list)
-    this.getArticle()
+    // this.getArticle()
     this.currentPage = this.$route.params.page
   }
 }

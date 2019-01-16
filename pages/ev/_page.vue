@@ -14,7 +14,7 @@
           <div v-for="(item, index) in tabData"
             :key="index"
             class="navWrap">
-            <nuxt-link :to="`/tagList/${item.id}/1`">
+            <nuxt-link :to="`/pc/tagList/${item.id}/1`">
               <li :class=" navTabActiveStatus == true&&navTabActiveIndex == index ? ['navActiveClass', 'active']: '' "
                 @mouseenter="navTabActive(item)"
                 @mouseleave="removeNavTabActive()">
@@ -39,7 +39,7 @@
                   <div class="todayImg"
                     @mouseenter="titleActive(item)"
                     @mouseleave="removeTitleActiveFn()">
-                    <nuxt-link :to="`/ev/detail/${item.id}/1`">
+                    <nuxt-link :to="`/pc/ev/detail/${item.id}/1`">
                       <img :src="piectImgUrl(item)"
                         :alt="item.title"
                         @error="imgLossLoad(item)"
@@ -49,7 +49,7 @@
                     <div class="defaultBox"
                       v-if="imgLoadStatus == false&& index == imgLossIndex">
                       <!-- 没图片或加载不出来，展示默认图片 -->
-                      <nuxt-link :to="`/ev/detail/${item.id}/1`">
+                      <nuxt-link :to="`/pc/ev/detail/${item.id}/1`">
                         <img src="~static/common/default.png"
                           alt="尖峰咖"
                           width="160px">
@@ -61,7 +61,7 @@
                     <div @mouseenter="titleActive(item)"
                       @mouseleave="removeTitleActiveFn()"
                       :class="removeTitleActive == true&& titleActiveIndex == index ? 'redTitleLine' :'titleLine'"></div>
-                    <nuxt-link :to="`/ev/detail/${item.id}/1`">
+                    <nuxt-link :to="`/pc/ev/detail/${item.id}/1`">
                       <p :class="removeTitleActive == true&&titleActiveIndex == index ? 'redColor' :'title'"
                         @mouseenter="titleActive(item)"
                         @mouseleave="removeTitleActiveFn()">
@@ -75,10 +75,10 @@
                 </el-main>
                 <el-footer class="todayFooter">
                   <div class="footerBox">
-                    <nuxt-link :to="`/Bloger/${item.authorId}/1`">
+                    <nuxt-link :to="`/pc/Bloger/${item.authorId}/1`">
                       <img :src="piectProfileUrl(item)"
                         class="userIcon"></nuxt-link>
-                    <nuxt-link :to="`/Bloger/${item.authorId}/1`">
+                    <nuxt-link :to="`/pc/Bloger/${item.authorId}/1`">
                       <span class="userName">{{item.author}}</span></nuxt-link>
                     <div class="todayDivider"></div>
                     <!-- <span class="classOneName">{{item.classOneName}}</span> -->
@@ -175,7 +175,7 @@
                   <span v-html="bannerMessageData.title"></span>
                 </el-header>
                 <el-main v-if="bannerMessageData.photoLinks&&bannerMessageData.photoLinks.length >=2 ">
-                  <bannerOfFeature :bannerData="bannerMessageData.photoLinks"></bannerOfFeature>
+                  <firstFeature :bannerData="bannerMessageData.photoLinks"></firstFeature>
                 </el-main>
                 <div class="oneItemBlock"
                   v-else>
@@ -216,7 +216,7 @@
                   <span v-html="bannerTopicData.title"></span>
                 </el-header>
                 <el-main v-if="bannerTopicData.photoLinks&&bannerTopicData.photoLinks.length >=2 ">
-                  <bannerOfFeature :bannerData="bannerTopicData.photoLinks"></bannerOfFeature>
+                  <secondFeature :bannerData="bannerTopicData.photoLinks"></secondFeature>
                 </el-main>
                 <div class="oneItemBlock"
                   v-else>
@@ -247,9 +247,6 @@
                   <strong class="bannerFeatureTitle">{{bannerTopicData.photoLinks == null ? '' :bannerTopicData.photoLinks[0].title}}</strong>
                 </div>
               </el-container>
-              <!-- 专栏遮罩层 -->
-              <div class="feature_titleWrap">
-              </div>
             </div>
             <div class="todayRank">
               <todayRankTab :model="path[0]" :rankWeekLists="rankWeekLists" :rankMonthLists="rankMonthLists"></todayRankTab>
@@ -268,7 +265,8 @@
 
 <script>
 import systemManage from '@/http/url'
-import bannerOfFeature from 'components/bannerOfFeature.vue'
+import firstFeature from '@/components/firstFeature.vue'
+import secondFeature from '@/components/secondFeature.vue'
 // 修改
 // import todayRankTab from './components/todayRankTab.vue'
 import todayRankTab from '@/components/rankTab.vue'
@@ -318,7 +316,8 @@ export default {
     }
   },
   components: {
-    bannerOfFeature,
+    firstFeature,
+    secondFeature,
     todayRankTab,
     pagination,
     Header,
@@ -1061,6 +1060,11 @@ body {
   bottom: 20px;
   left: 28px;
   z-index: 3;
+}
+.sources .firstBanner .el-main,
+.sources .secondBanner .el-main {
+  padding: 0;
+  padding-top: 20px;
 }
 .sources .rightSideContent .oneItemBlock .itemBlockImg {
   width: 320px;

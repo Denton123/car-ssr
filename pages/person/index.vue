@@ -51,8 +51,9 @@
                   @tab-click="handleClick">
                   <el-tab-pane label="我的文章"
                     name="person-index-myEssay-page">
-                    <nuxt-child/>
+                    <!-- <nuxt-child/> -->
                     <!--<router-view class="view"></router-view>-->
+                    <my-essay :listData="listData"></my-essay>
                   </el-tab-pane>
                   <!-- <el-tab-pane label="我的积分"
                     name="second">
@@ -99,7 +100,7 @@ import myEssay from '@/pages/person/index/myEssay/_page.vue'
 import personInfo from '@/pages/person/index/editInfo/index.vue'
 import resetPassword from '@/pages/person/index/resetPassword/index.vue'
 
-import { webUserSelectByPrimaryKey } from '@/http/api'
+import { webUserSelectByPrimaryKey, webMyEssay} from '@/http/api'
 import { $get, $post } from '@/http/ajax'
 import systemManage from '@/http/photoApi.js'
 
@@ -125,6 +126,15 @@ export default {
   },
   /* 预览图和视频地址拼接 */
   computed: {},
+  async asyncData () {
+    let listData = await $get(webMyEssay, {
+      limit: 12,
+      page: 1
+    })
+    return {
+      listData: listData.data.des ? listData.data.des : {}
+    }
+  },
   methods: {
     handleClick(tab, event) {
       console.log(tab, event)
@@ -187,8 +197,11 @@ export default {
   mounted() {
     this.getUserInfo()
     this.$nextTick(() => {this.createAd()})
-    console.log(this.activeName, 'activeName')
-    console.log(this.$route)
+    // console.log(this.activeName, 'activeName')
+    // console.log(this.$route)
+    console.log('==========')
+    console.log('==========')
+    console.log(this.listData)
     this.activeName = this.$route.name
     // let ad = document.getElementById('index_footer_ad')
     //   if (ad) {

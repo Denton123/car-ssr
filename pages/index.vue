@@ -107,6 +107,45 @@ export default {
     let dayList = await $get(webEssayGetDayRank, { pageNo: 1, size: 10 });
     // 月排行
     let monthList = await $get(webEssayGetMonthRank, { pageNo: 1, size: 10 });
+    newsObj.data.click = newsObj.data.click ? (newsObj.data.click.length > 4 ? newsObj.data.click.slice(0, 4) : newsObj.data.click) : []
+    newsList.data.forEach(v => {
+      v.classOneName = v.classOneName.toLowerCase();
+      if (v.classOneName.toLowerCase() == "news") {
+        v.classOneName = "今日车闻";
+      } else if (v.classOneName.toLowerCase() == "video") {
+        v.classOneName = "视频";
+      } else if (v.classOneName.toLowerCase() == "ev") {
+        v.classOneName = "新能源";
+      } else {
+        v.classOneName = "兴趣部落";
+      }
+    });
+    EvList.data.forEach(v => {
+      v.classOneName = v.classOneName.toLowerCase();
+      if (v.classOneName.toLowerCase() == "news") {
+        v.classOneName = "今日车闻";
+      } else if (v.classOneName.toLowerCase() == "video") {
+        v.classOneName = "视频";
+      } else if (v.classOneName.toLowerCase() == "ev") {
+        v.classOneName = "新能源";
+      } else {
+        v.classOneName = "兴趣部落";
+      }
+    });
+    if (Array.isArray(newsObj.data.hotTime)) {
+      newsObj.data.hotTime.forEach(v => {
+        v.classOneName = v.classOneName.toLowerCase();
+        if (v.classOneName.toLowerCase() == "news") {
+          v.classOneName = "今日车闻";
+        } else if (v.classOneName.toLowerCase() == "video") {
+          v.classOneName = "视频";
+        } else if (v.classOneName.toLowerCase() == "ev") {
+          v.classOneName = "新能源";
+        } else {
+          v.classOneName = "兴趣部落";
+        }
+      });
+    }
     return {
       weeklist: weeklist.data ? weeklist.data.essayEntities : [],
       // bigCourselData: bigCourselData.data ? bigCourselData.data : [],
@@ -146,9 +185,8 @@ export default {
     }
   },
   mounted() {
-    this.formatName(this.newsList)
-    this.formatName(this.EvList)
-    // this.formatName(this.hobbiesList)
+    // this.formatName(this.newsList)
+    // this.formatName(this.EvList)
     console.log('aaaaaa')
     console.log(this.newsObj)
   }

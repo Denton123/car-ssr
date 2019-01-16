@@ -8,10 +8,10 @@
     <div class="blogers-contain">
       <div class="tag"
         >
-        <nuxt-link to="/index"
+        <nuxt-link to="index"
           ><span>首页</span></nuxt-link>
         <span><img src="~static/picture/small_right_black.png"></span>
-        <nuxt-link to="/hobbies/1"
+        <nuxt-link to="/pc/hobbies/1"
           ><span>兴趣部落</span></nuxt-link>
         <span><img src="~static/picture/small_tag.png"></span>
         <span style="color:#BE001E;font-weight: 600" >热门博主</span>
@@ -23,7 +23,7 @@
           :key="index">
           <div class="blogger-list-left">
             <div class="bloggerList-top">
-              <nuxt-link :to="`/Bloger/${item.authorId}/1`"
+              <nuxt-link :to="`/pc/Bloger/${item.authorId}/1`"
                 style="color: black">
                   <span class="user_wrap" v-if="item.authorphoto !== ''&& item.authorphoto !== null"><img :src="concatImage(item.authorPhoto)"
                       :alt="`尖峰咖_${item.authorName}`"
@@ -60,7 +60,7 @@
           </div>
           <div class="blogger-middle-right">
             <div class="blogger-list-middle">
-              <nuxt-link :to="`/${item.arr}/${item.arr!== 'hobbies'?'detail':'hobbiesDetail'}/${item.id}/1`">
+              <nuxt-link :to="`/pc/${item.arr}/${item.arr!== 'hobbies'?'detail':'hobbiesDetail'}/${item.id}/1`">
                 <span>
                   <img :src="concatImage(item.cover)"
                        :alt="`尖峰咖_${item.title}`"
@@ -69,7 +69,7 @@
               </nuxt-link>
             </div>
             <div class="blogger-list-right">
-              <nuxt-link :to="`/${item.arr}/${item.arr!== 'hobbies'?'detail':'hobbiesDetail'}/${item.id}/1`">
+              <nuxt-link :to="`/pc/${item.arr}/${item.arr!== 'hobbies'?'detail':'hobbiesDetail'}/${item.id}/1`">
                 <span class="bloggerArticle-title" >
                   <span ><strong>{{item.title}}</strong></span>
                 </span>
@@ -77,13 +77,13 @@
               <div class="line-wrap-blogers">
                 <img src="~static/picture/line.png">
               </div>
-              <nuxt-link :to="`/${item.arr}/${item.arr!== 'hobbies'?'detail':'hobbiesDetail'}/${item.id}/1`">
+              <nuxt-link :to="`/pc/${item.arr}/${item.arr!== 'hobbies'?'detail':'hobbiesDetail'}/${item.id}/1`">
                 <span class="description-list">
                   <span class="digist">{{item.digest}}</span>
                 </span>
               </nuxt-link>
               <div class="bloggerList-right-bottom">
-                <nuxt-link :to="`/Bloger/${item.authorId}/1`"
+                <nuxt-link :to="`/pc/Bloger/${item.authorId}/1`"
                 >
                   <span class="right-bottom-wrap" v-if="item.authorphoto !== ''&& item.authorphoto !== null">
                     <img :src="concatImage(item.authorPhoto)"
@@ -139,43 +139,6 @@ import { webHobbiesInfo, webHobbiesGetClassList, webUserSelectByPrimaryKey } fro
 
 export default {
   name: 'Blogers',
-  metaInfo() {
-    return {
-      // 设置 title
-      title: `热门博主_${this.currentPage}页-尖峰咖`,
-      // 设置 meta
-      meta: [
-        {
-          name: 'keyWords',
-          content: this.metaWords
-        },
-        {
-          name: 'description',
-          content: this.metaDescription
-        },
-        {
-          name: 'mobile-anent',
-          content: 'url=http://'
-        },
-        {
-          name: 'applicable-device',
-          content: 'pc'
-        }
-      ],
-      // 设置 link
-      link: [
-        {
-          rel: 'asstes',
-          href: 'https://assets-cdn.github.com/'
-        },
-        {
-          rel: 'alternate',
-          media: 'handheld',
-          href: 'http://m.mgous.com'
-        }
-      ]
-    }
-  },
   data() {
     return {
       currentPage: 1,
@@ -184,7 +147,7 @@ export default {
       test: null,
       watched: [0, 1, 2, 3, 4, 5],
       watch: [],
-      bloggerLists: [],
+      // bloggerLists: [],
       tokenObj: null,
       // 页码的参数
       totalPage: 0,
@@ -203,6 +166,17 @@ export default {
     pagination
   },
   created() {},
+  async asyncData () {
+    let bloggerLists = await $get('/web/user/getBollgerRank?', 
+      {
+          pageNo: 1,
+          size: 18
+        },
+    )
+    return {
+      bloggerLists: bloggerLists.data ? bloggerLists.data : []
+    }
+  },
   mounted() {
     // 取token
     this.routePage = this.$route.params.page
@@ -226,7 +200,7 @@ export default {
       this.tokenObj = {}
     }
     // 路由分页
-    this.getBlogersList(this.routePage)
+    // this.getBlogersList(this.routePage)
     this.$refs.pagination.routLinkCurrentPage()
     // adv植入
     let adv = document.getElementById('blo-adv')

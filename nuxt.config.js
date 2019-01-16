@@ -27,7 +27,7 @@ module.exports = {
     link: [{
       rel: 'icon',
       type: 'image/x-icon',
-      href: '/favicon.ico'
+      href: '/pc/favicon.ico'
     }],
     script: [{
       src: 'http://dup.baidustatic.com/js/ds.js'
@@ -42,11 +42,14 @@ module.exports = {
     userToken: ''
   },
 
+  // router: {
+  //   middleware: ['getHost', 'baidu-statistics', 'setStore'],
+  //   base: '/pc'
+  // },
   router: {
+    // base: `/pc/`,
     middleware: ['getHost', 'baidu-statistics', 'setStore'],
-    // base: '/nuxt/'
   },
-
   /*
    ** Customize the progress-bar color
    ** https://zh.nuxtjs.org/api/configuration-loading/
@@ -191,6 +194,6 @@ module.exports = {
         }
       })
     },
-    publicPath: '/pc/'
+    // publicPath: '/pc/'
   }
 }

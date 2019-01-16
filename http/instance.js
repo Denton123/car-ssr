@@ -27,6 +27,9 @@ export const instance = axios.create({
 // 添加请求拦截器
 instance.interceptors.request.use(
   function(config) {
+    console.log(config)
+    const token = process.client ? getCookie('token') : '(config["X-Auth0-Token"] || null)'
+    config.headers["X-Auth0-Token"] = token
     // 在发送请求之前做些什么
     return config
   },
@@ -49,3 +52,13 @@ instance.interceptors.response.use(
     return Promise.reject(error)
   }
 )
+
+function getCookie(cname) {
+  let name = cname + "=";
+  let ca = document.cookie.split(";");
+  for (let i = 0; i < ca.length; i++) {
+    let c = ca[i].trim();
+    if (c.indexOf(name) === 0) return c.substring(name.length, c.length);
+  }
+  return "";
+}

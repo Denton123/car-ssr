@@ -115,7 +115,7 @@
             </div>
           </div>
           <div class="todayRank">
-            <todayRankTab></todayRankTab>
+            <todayRankTab :rankWeekLists="rankWeekLists" :rankMonthLists="rankMonthLists"></todayRankTab>
           </div>
         </div>
       </div>
@@ -181,30 +181,37 @@ export default {
   },
   // nuxt获取数据
   async asyncData ({params}) {
+    var leftSideResult
     if (params.type && params.type == 'w') {
-      let leftSideResult = await $get(webEssayGetWeekendRank, {
+      leftSideResult = await $get(webEssayGetWeekendRank, {
         pageNo: params.page,
         size: 10
       })
-      return {
-        leftSideResult: leftSideResult.data ? leftSideResult.data : []
-      }
     } else if (params.type && params.type == 'm') {
-      let leftSideResult = await $get(webEssayGetMonthRank, {
+      leftSideResult = await $get(webEssayGetMonthRank, {
         pageNo: params.page,
         size: 10
       })
-      return {
-        leftSideResult: leftSideResult.data ? leftSideResult.data : []
-      }
     } else {
-      let leftSideResult = await $get(webEssayGetDayRank, {
+      leftSideResult = await $get(webEssayGetDayRank, {
         pageNo: params.page,
         size: 10
       })
-      return {
-        leftSideResult: leftSideResult.data ? leftSideResult.data : []
-      }
+    }
+    // 周排行
+    let rankWeekLists = await $get(webEssayGetWeekendRank, {
+      pageNo: 1,
+      size: 10
+    })
+    // 月排行
+    let rankMonthLists = await $get(webEssayGetMonthRank, {
+      pageNo: 1,
+      size: 10
+    })
+    return {
+      leftSideResult: leftSideResult.data ? leftSideResult.data : [],
+      rankWeekLists: rankWeekLists.data.essayEntities ? rankWeekLists.data.essayEntities : [],
+      rankMonthLists: rankMonthLists.data.essayEntities ? rankMonthLists.data.essayEntities : [],
     }
   },
   methods: {
@@ -374,59 +381,7 @@ export default {
     }
   },
   beforeRouteEnter(to, from, next) {
-    // // 获取标签列表过来的信息
-    // if(sessionStorage && JSON.parse(sessionStorage.getItem('tagInfo'))){
-    //   var tagInfo = JSON.parse(sessionStorage.getItem('tagInfo'))
-    // }
-    // let tagInfo_title = tagInfo ? tagInfo.title : ''
-    // let tagInfo_id = tagInfo ? tagInfo.tagId : ''
-    // next(vm => {
-    //   // 保存在实例中的，关于tagList页跳转过来的信息
-    //   vm.tagName = tagInfo_title
-    //   vm.tagId = tagInfo_id
-    //   vm.crumbsData = [
-    //     { pathName: '首页', link: '/index' },
-    //     {
-    //       pathName:
-    //         from.meta.title &&
-    //         from.meta.title != undefined &&
-    //         from.meta.title != 'tag列表页'
-    //           ? from.meta.title
-    //           : vm.modelName == 'tag列表页'
-    //           ? vm.tagName
-    //           : vm.modelName,
-    //       link:
-    //         from.path != undefined && from.path != '/'
-    //           ? from.path
-    //           : vm.modelName == 'tag列表页'
-    //           ? `${vm.model[0]}/${vm.tagId}/1`
-    //           : `${vm.model[0]}/1`
-    //     },
-    //     {
-    //       pathName: vm.typeParamsName,
-    //       link: ''
-    //     }
-    //   ]
-    //   if (vm.model[0] == '/index') {
-    //     vm.crumbsData.shift()
-    //   }
-    //   if (vm.model[0] == '/search') {
-    //     vm.crumbsData.splice(1, 1)
-    //   }
-    //   // 通过 `vm` 访问组件实例
-    // })
-  },
-  mounted() {
-     // 获取标签列表过来的信息
-    if(sessionStorage && JSON.parse(sessionStorage.getItem('tagInfo'))){
-      var tagInfo = JSON.parse(sessionStorage.getItem('tagInfo'))
-    }
-    let tagInfo_title = tagInfo ? tagInfo.title : ''
-    let tagInfo_id = tagInfo ? tagInfo.tagId : ''
     next(vm => {
-      // 保存在实例中的，关于tagList页跳转过来的信息
-      vm.tagName = tagInfo_title
-      vm.tagId = tagInfo_id
       vm.crumbsData = [
         { pathName: '首页', link: '/index' },
         {
@@ -458,6 +413,19 @@ export default {
       }
       // 通过 `vm` 访问组件实例
     })
+  },
+  mounted() {
+    console.log(this.rankWeekLists, 'rankWeekLists')
+    // 获取标签列表过来的信息
+    if(sessionStorage.getItem('tagInfo') !=''&& sessionStorage.getItem('tagInfo') != null){
+      var tagInfo = JSON.parse(sessionStorage.getItem('tagInfo'))
+    }
+    let tagInfo_title = tagInfo ? tagInfo.title : ''
+    let tagInfo_id = tagInfo ? tagInfo.tagId : ''
+    // 保存在实例中的，关于tagList页跳转过来的信息
+    this.tagName = tagInfo_title
+    this.tagId = tagInfo_id
+
     this.typeParams = this.$route.params
     this.currentPage = this.$route.params.page
     // 获取路由数据中的参数
@@ -479,11 +447,11 @@ export default {
       )
       // 触发广告位方法
       // if (this.$route.params.type && this.$route.params.type == 'w') {
-        // let rankWeekDetail = await $get(webEssayGetWeekendRank, {
-        //   pageNo: this.$route.params.page,
-        //   size: 10
-        // })
-        // this.leftSideResult = rankWeekDetail.data
+      //   let rankWeekDetail = await $get(webEssayGetWeekendRank, {
+      //     pageNo: this.$route.params.page,
+      //     size: 10
+      //   })
+      //   this.leftSideResult = rankWeekDetail.data
       // } else if (this.$route.params.type && this.$route.params.type == 'm') {
       //   let rankMonthDetail = await $get(webEssayGetMonthRank, {
       //     pageNo: this.$route.params.page,
