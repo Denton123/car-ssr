@@ -419,8 +419,8 @@ export default {
       hostPointItems: _hostPointItems.data ? _hostPointItems.data : [],
       bloggerItems: bloggerItems.data ? bloggerItems.data : [],
       mockHobbyItems: _mockHobbyItems.data.list ? _mockHobbyItems.data.list : [],
-      totalPage: _mockHobbyItems.data.totalPage ? _mockHobbyItems.data.totalPage : '',
-      totalCount: _mockHobbyItems.data.totalCount ? _mockHobbyItems.data.totalCount : '',
+      totalPage: _mockHobbyItems.data.totalPage ? _mockHobbyItems.data.totalPage : 0,
+      totalCount: _mockHobbyItems.data.totalCount ? _mockHobbyItems.data.totalCount : 0,
       _mockHobbyItems: _mockHobbyItems.data ? _mockHobbyItems.data : {},
     }
   },

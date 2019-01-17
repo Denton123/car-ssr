@@ -33,17 +33,18 @@ export default {
   },
   methods: {
     publicRouter() {
-      if (this.userData.grade !== 2) {
-        this.$message('您当前还没有发表文章的权限')
-      } else {
+      // if (this.userData.grade !== 2) {
+      //   this.$message('您当前还没有发表文章的权限')
+      // } else {
         this.$router.push({
-          path: '/person/publishEssay'
+          name: 'person-index-publishEssay'
         })
-      }
+      // }
     },
     hobbiesRouter() {
+      console.log('您当前还没有发表文章的权限')
       this.$router.push({
-        path: '/person/publishEssay'
+        path: '/hobby/publishHobbies'
       })
     },
     getUserInfo() {

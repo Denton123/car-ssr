@@ -107,7 +107,7 @@
         <!-- 邮箱 -->
         <el-form-item prop="email"
           class="emailItem"
-          :rules="{type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur']}">
+          :rules="{type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change']}">
           <el-input v-model="editForm.email"
             placeholder="请输入您的邮箱"></el-input>
         </el-form-item>
@@ -324,9 +324,8 @@ export default {
     if (this.editForm.photo) {
       this.imageUrl = this.editForm.photo
     }
-    let selectEleFirst = $('.distpicker-address-wrapper select:first option:first')
-    let selectEleSecond = $('.distpicker-address-wrapper select:last option:first')
-    if (selectEleFirst.val() == '请选择省份' || selectEleSecond.val() == '请选择城市') {
+    let selectEle = $('.distpicker-address-wrapper select:first option:first')
+    if (selectEle.val() == '请选择省份') {
       $('.distpicker-address-wrapper select').css('color', '#babdc6')
     } else {
       $('.distpicker-address-wrapper select').css('color', 'black')
@@ -338,14 +337,8 @@ export default {
     },
     onChangeCity(data) {
       this.editForm.city = data.value
-      if (data.value == '请选择城市') {
-        $('.distpicker-address-wrapper select').css('color', '#babdc6')
-      } else {
-        $('.distpicker-address-wrapper select').css('color', 'black')
-      }
     },
     onChangeProvince(data) {
-      console.log(this.editForm.city)
       this.editForm.province = data.value
       console.log(data.value, '省份')
       if (data.value == '请选择省份') {
@@ -356,16 +349,23 @@ export default {
     },
     handleAvatarSuccess(res, file) {
       if (res.des === '上传成功') {
-        this.$message({
-          showClose: true,
-          message: '上传图片成功',
-          type: 'success'
-        })
+        // this.editForm.photo = this.imageUrl
+        console.log(res, 'this.imageUrl')
+        if (res.code == 0) {
+          this.$message({
+            showClose: true,
+            message: `${res.des}`,
+            type: 'success'
+          })
+        } else {
+          this.$message({
+            showClose: true,
+            message: `${res.des}`
+          })
+        }
         this.imageUrl = res.urls[0]
       }
-      console.log(this.imageUrl)
       this.editForm.photo = this.imageUrl
-      // this.imageUrl = URL.createObjectURL(res.urls[0])
     },
     beforeAvatarUpload(file) {
       const isLt2M = file.size / 1024 / 1024 < 2
@@ -422,7 +422,6 @@ export default {
     handleEdit(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          console.log('www')
           // let urlParam = new URLSearchParams()
           // urlParam.append('commentText', editor.innerHTML)
           // urlParam.append('hobbiesId', this.essayData.id)
@@ -436,11 +435,10 @@ export default {
                 type: 'success',
                 message: '修改成功'
               })
-              // setTimeout(() => {
-              //   this.$router.go({
-              //     path: '/person/myEssay/1'
-              //   })
-              // }, 1500)
+              this.$emit('getUserEmit')
+              setTimeout(() => {
+                this.$router.go(0)
+              }, 1000)
             } else if (res.data.code == 1) {
               this.$message({
                 message: `${res.data.des}`,
@@ -470,22 +468,22 @@ export default {
       ).then(res => {
         // console.log(res)
         if (res.data.code == 0) {
-          this.$message({
-            type: 'success',
-            message: '更改手机号码成功'
-          })
-          this.isShowPhone = false
-        } else if (res.data.code == 1) {
-          this.$message({
-            type: 'warning',
-            message: '更改手机号码失败'
-          })
-        } else if (res.data.code == 2) {
-          this.$message({
-            type: 'warning',
-            message: '登录失效，请重新登录'
-          })
-        }
+            this.$message({
+              type: 'success',
+              message: '更改手机号码成功'
+            })
+            this.isShowPhone = false
+          } else if (res.data.code == 1) {
+            this.$message({
+              type: 'warning',
+              message: `${res.data.des}`
+            })
+          } else if (res.data.code == 2) {
+            this.$message({
+              type: 'warning',
+              message: '登录失效，请重新登录'
+            })
+          }
       })
     },
     closeBtn() {

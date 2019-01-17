@@ -355,10 +355,9 @@
 
                 <a href="javascript:void(0);"
                   class="detail_user_msg_focus"
-                  @click="focusBlogger(essayData.userId)">
-                  <span class="detail_user_msg_focus_bg">{{isFollow}}</span>
-                  <span class="detail_user_msg_focus_side">
-                  </span>
+                  @click="focusBlogger(essayData.userId)"
+                  :class="isFollow=='已关注'? 'focusBg' : 'nofocusBg' ">
+                  <span>{{isFollow}}</span>
                 </a>
               </div>
               <div class="detail_user_othermsg">
@@ -883,7 +882,7 @@ export default {
           this.detailData.couldFollow &&
           this.detailData.couldFollow !== null
         ) {
-          this.isFollow = '取消关注'
+          this.isFollow = '已关注'
         } else {
           this.isFollow = '关注'
         }
@@ -1233,7 +1232,7 @@ export default {
             if (res.data.str === '请先登录!') {
               this.$message('请先登录')
             } else {
-              this.isFollow = '取消关注'
+              this.isFollow = '已关注'
               this.getArticleData()
               this.getUserInfo()
             }
@@ -1298,7 +1297,7 @@ export default {
           this.detailData.couldFollow &&
           this.detailData.couldFollow !== null
         ) {
-          this.isFollow = '取消关注'
+          this.isFollow = '已关注'
         } else {
           this.isFollow = '关注'
         }
@@ -2129,19 +2128,19 @@ export default {
   padding: 19px 0 16px 0;
 }
 .detail_user_msg_focus {
-  /* width: 70px; */
+  width: 70px;
   height: 32px;
   display: block;
-  /* background: url('../../../assets/detail/detail_focus.png'); */
+
   text-align: center;
   line-height: 32px;
-  color: #fff;
+  color: rgb(170, 170, 170);
   text-decoration: none;
   margin: 0 auto;
 }
-.detail_user_msg_focus:hover {
+/* .detail_user_msg_focus:hover {
   color: #fff;
-}
+} */
 .detail_user_msg_focus span {
   display: inline-block;
 }
@@ -2448,5 +2447,12 @@ export default {
 }
 .note-video-clip{
   width: 100% !important;
+}
+.focusBg {
+  background: url('~static/images/watch_wrap.png') no-repeat;
+}
+.nofocusBg {
+  background: url('~static/images/watch_red.png') no-repeat;
+  color: #fff;
 }
 </style>

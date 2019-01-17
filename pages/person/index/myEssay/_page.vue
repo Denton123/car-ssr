@@ -1,6 +1,6 @@
 <template>
   <div class="person_my_essay_list">
-    <my-title v-if="listData.list"
+    <my-title v-if="listData && listData.list"
       :num="listData.totalCount"></my-title>
     <div class="person_essay_list">
       <div class="person_essay_list_block"
@@ -101,7 +101,7 @@ export default {
       ).then(res => {
         console.log(res)
         this.listData = res.data.des
-        if (this.listData && this.listData.list) {
+        if (this.listData) {
             this.listData.list.forEach(v => {
           switch (v.state) {
             case 1:

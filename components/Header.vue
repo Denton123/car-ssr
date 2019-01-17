@@ -210,16 +210,13 @@ export default {
       // this.toAnotherRouter('resetPassword')
     },
     getUserInfo() {
+      console.log(this.tokenObj, 'hhhhhhhhh')
       if (this.tokenObj == null) {
         this.tokenObj = {}
       }
       $get(
         webUserSelectByPrimaryKey,
-        {},
-        {
-          'X-Auth0-Token':
-            this.cookie !== '' ? this.cookie : this.tokenObj.token
-        }
+        {}
       ).then(res => {
         console.log(res)
         if (res.data.code == 0) {
@@ -259,10 +256,6 @@ export default {
       $post(
         webLogout,
         {},
-        {
-          'X-Auth0-Token':
-            this.cookie !== '' ? this.cookie : this.tokenObj.token
-        }
       ).then(res => {
         // console.log(res)
         if (res.data.code == 0) {
@@ -325,6 +318,7 @@ export default {
       this.activeName = route.name
     }
     this.tokenObj = JSON.parse(localStorage.getItem('userMsg'))
+    console.log(this.tokenObj, 'tokenObj')
     if (this.tokenObj == null) {
       this.tokenObj = {}
     }
