@@ -134,6 +134,7 @@ export default {
   background-size: 84px 24px !important;
   color: #fff !important;
   line-height: 24px !important;
+  margin-top: -3px;
 }
 
 .aside_bar_index_block dl dt {

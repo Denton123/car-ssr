@@ -28,11 +28,11 @@
       </div>
       <div class="mainContent">
         <div class="leftSide">
-          <div :style="adverTop != null?`height:${adverTop}px`:''">
+          <!-- 切割出来的第一单位 -->
+          <div>
             <el-container class="todayContainer"
-              v-for="(item,index) in leftSideResult.EssayEntity"
-              :key="index"
-              :class="index == 2? 'backward': ''">
+              v-for="(item,index) in firstHalfData"
+              :key="index">
               <div class="todayAdviseWrap">
                 <el-main class="todayMain"
                   style="padding:0px">
@@ -46,15 +46,14 @@
                         @load="imgSeccessLoad()"
                         class="todayImg_class">
                     </nuxt-link>
-                    <div class="defaultBox"
+                    <!-- <div class="defaultBox"
                       v-if="imgLoadStatus == false&& index == imgLossIndex">
-                      <!-- 没图片或加载不出来，展示默认图片 -->
                       <nuxt-link :to="`/ev/detail/${item.id}/1`">
                         <img src="~static/common/default.png"
                           alt="尖峰咖"
                           width="160px">
                       </nuxt-link>
-                    </div>
+                    </div> -->
                   </div>
 
                   <div class="imgDesc">
@@ -125,8 +124,7 @@
             </el-container>
           </div>
           <!-- 中间文章广告位 -->
-          <div id="advertiseBox"
-            :style="this.leftSideResult.EssayEntity&&this.leftSideResult.EssayEntity.length <=2 ? `top:${(this.leftSideResult.EssayEntity.length) * 704}px`:''">
+          <div id="advertiseBox">
             <div id="imgBox"
               @mouseenter="adverTitleActiveFn()"
               @mouseleave="removeAdverTitleActiveFn()">
@@ -154,7 +152,101 @@
               <!-- <span class="detail">“Stay ahead”中文释义为“志在先端”，不仅意味着将在技术和产品上强化领先优势，更蕴含与消费者共同打造先端生活方式的寓意。通过开展Stay ahead品牌行动，东风本田不仅希望给新生代消费者带来科技、人性化的功能感受，更希望为他们带来个性、开创的情感魅力。</span> -->
             </div>
           </div>
+          <!-- 切割出来的第二单位 -->
+          <div>
+            <el-container class="todayContainer"
+              v-for="(item,index) in secondHalfData"
+              :key="index">
+              <div class="todayAdviseWrap">
+                <el-main class="todayMain"
+                  style="padding:0px">
+                  <div class="todayImg"
+                    @mouseenter="titleActive(item)"
+                    @mouseleave="removeTitleActiveFn()">
+                    <nuxt-link :to="`/ev/detail/${item.id}/1`">
+                      <img :src="piectImgUrl(item)"
+                        :alt="item.title"
+                        @error="imgLossLoad(item)"
+                        @load="imgSeccessLoad()"
+                        class="todayImg_class">
+                    </nuxt-link>
+                    <!-- <div class="defaultBox"
+                      v-if="imgLoadStatus == false&& index == imgLossIndex">
+                      <nuxt-link :to="`/ev/detail/${item.id}/1`">
+                        <img src="~static/common/default.png"
+                          alt="尖峰咖"
+                          width="160px">
+                      </nuxt-link>
+                    </div> -->
+                  </div>
 
+                  <div class="imgDesc">
+                    <div @mouseenter="titleActive(item)"
+                      @mouseleave="removeTitleActiveFn()"
+                      :class="removeTitleActive == true&& titleActiveIndex == index ? 'redTitleLine' :'titleLine'"></div>
+                    <nuxt-link :to="`/ev/detail/${item.id}/1`">
+                      <p :class="removeTitleActive == true&&titleActiveIndex == index ? 'redColor' :'title'"
+                        @mouseenter="titleActive(item)"
+                        @mouseleave="removeTitleActiveFn()">
+                        <strong>
+                          {{item.title}}
+                        </strong>
+                      </p>
+                    </nuxt-link>
+                    <span class="detail">{{item.digest}}</span>
+                  </div>
+                </el-main>
+                <el-footer class="todayFooter">
+                  <div class="footerBox">
+                    <nuxt-link :to="`/Bloger/${item.authorId}/1`">
+                      <img :src="piectProfileUrl(item)"
+                        class="userIcon"></nuxt-link>
+                    <nuxt-link :to="`/Bloger/${item.authorId}/1`">
+                      <span class="userName">{{item.author}}</span></nuxt-link>
+                    <div class="todayDivider"></div>
+                    <!-- <span class="classOneName">{{item.classOneName}}</span> -->
+                    <!-- 将类别全部改为能源 -->
+                    <span class="classOneName">新能源</span>
+                    <div class="todayResult">
+                      <div class="goodBox"
+                        @click="showGoodPercent(item)">
+                        <!-- 飘起 +1 特效 -->
+                        <i class="goodAnimation">
+                          <transition name="goodAdd">
+                            <p v-if="item.goodAddClass == true">+1</p>
+                          </transition>
+                        </i>
+                        <!-- 有token，可以点击 -->
+                        <i :class="item.showPercent ? 'goodPrecentBackground':'up'">
+                        </i>
+                        <!-- 没token , 提示 -->
+                        <!-- <i @click="haveNoToken()"
+                        :class="item.showPercent ? 'goodPrecentBackground':'up'"
+                        v-else></i> -->
+                        <span v-text="Math.round(item.goodPercent)+'%'"
+                          :class="item.showPercent ? 'showPrecent':''">
+                        </span>
+                      </div>
+                      <div class="badBox"
+                        @click="showBadPercent(item)">
+                        <!-- 有token，可以点击 -->
+                        <i :class="item.showPercent ? 'badPrecentBackground':'down'">
+                        </i>
+                        <!-- 没token , 提示 -->
+                        <!-- <i @click="haveNoToken()"
+                        :class="item.showPercent ? 'badPrecentBackground':'down'"
+                        v-else>
+                      </i> -->
+                        <span v-text="Math.round(item.badPercent)+'%'"
+                          :class="item.showPercent ? 'showPrecent':''">
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </el-footer>
+              </div>
+            </el-container>
+          </div>
           <div class="paginationShow"
             v-if="leftSideResult.EssayEntity&&leftSideResult.EssayEntity.length != 0">
             <pagination v-on:pageChange="newPage"
@@ -325,6 +417,8 @@ export default {
     BigCoursel
   },
   async asyncData ({params}) {
+    let bannerTopicData
+    let bannerMessageData
     let tabData = await $get(webTagGetRandomTagsByChannel, { id: '2' })
     let leftSideResult = await $get(
         webEssayGetEssayByChannel,
@@ -347,11 +441,25 @@ export default {
       pageNo: 1,
       size: 10
     })
+    // 专栏数据
+    let bannerResult = await $get(dsfFeatureGetRutureByChannel, {
+      channel: 4
+    })
+    let banner = bannerResult.data == null ? [] : bannerResult.data
+    banner.forEach((element, index) => {
+      if (index == 0) {
+        bannerMessageData = element
+      } else if (index == 1) {
+        bannerTopicData = element
+      }
+    })
     return {
       tabData: tabData.data ?  tabData.data : [],
       leftSideResult: leftSideResult.data ? leftSideResult.data : [],
       rankWeekLists: rankWeekLists.data.essayEntities ? rankWeekLists.data.essayEntities : [],
-      rankMonthLists: rankMonthLists.data.essayEntities ? rankMonthLists.data.essayEntities : []
+      rankMonthLists: rankMonthLists.data.essayEntities ? rankMonthLists.data.essayEntities : [],
+      bannerTopicData: bannerTopicData == null ? [] : bannerTopicData,
+      bannerMessageData: bannerMessageData == null ? [] : bannerMessageData
     }
   },
   methods: {
@@ -520,25 +628,6 @@ export default {
       // this.tabData = tab
       // this.leftSideResult = leftResult
       this.topBanner = topBigBannerData.data
-      // 以下是测试数据若不够多时，广告位的位置变化的代码：
-      // this.leftSideResult.EssayEntity.forEach((element, index) => {
-      //   if (index >= 1) {
-      //     this.leftSideResult.EssayEntity.splice(1)
-      //   }
-      // })
-      // 以下是测试若图片加载不出来时，显示默认图片
-      // this.leftSideResult.EssayEntity.forEach((element, index) => {
-      //   if (index == 1) {
-      //     element.photo = ''
-      //   }
-      // })
-      if (this.leftSideResult.EssayEntity.length <= 2) {
-        this.adverTop = (this.leftSideResult.EssayEntity.length + 1) * 704 - 88
-      } else {
-        //null代表的意思是容器不需要增加高度
-        this.adverTop = null
-      }
-
       this.leftSideResult.EssayEntity.forEach((element, index) => {
         // 自添加的4个属性
         this.$set(element, 'upSrc', '')
@@ -565,6 +654,14 @@ export default {
           element.showPercent = false
         }
       })
+      // 将文章数据切割成两块来展示，为了中间插入广告位
+      if (this.leftSideResult.EssayEntity.length >= 2) {
+        this.firstHalfData = this.leftSideResult.EssayEntity.slice(0, 2)
+        this.secondHalfData = this.leftSideResult.EssayEntity.slice(2)
+      } else {
+        this.firstHalfData = this.leftSideResult.EssayEntity
+        this.secondHalfData = []
+      }
     }
   },
 
@@ -576,25 +673,12 @@ export default {
       // 取cookie
       this.cookie = this.getCookie('token')
       if (this.cookie == '') {
-        this.tokenObj = JSON.parse(localStorage.getItem('userMsg'))
+        this.tokenObj =  JSON.parse(localStorage.getItem('userMsg')) &&  JSON.parse(localStorage.getItem('userMsg'))!='' ? JSON.parse(localStorage.getItem('userMsg')):'null'
       }
       if (this.tokenObj == null) {
         this.tokenObj = {}
       }
       this.getTotalData()
-      let bannerResult = await $get(dsfFeatureGetRutureByChannel, {
-        channel: 4
-      })
-
-      let banner = bannerResult.data == null ? [] : bannerResult.data
-      this.bannerResult = banner
-      banner.forEach((element, index) => {
-        if (index == 0) {
-          this.bannerMessageData = element
-        } else if (index == 1) {
-          this.bannerTopicData = element
-        }
-      })
     })
   },
   watch: {
@@ -603,7 +687,7 @@ export default {
         // 取cookie
         this.cookie = this.getCookie('token')
         if (this.cookie == '') {
-          this.tokenObj = JSON.parse(localStorage.getItem('userMsg'))
+          this.tokenObj = JSON.parse(localStorage.getItem('userMsg')) &&  JSON.parse(localStorage.getItem('userMsg'))!='' ? JSON.parse(localStorage.getItem('userMsg')):'null'
         }
         if (this.tokenObj == null) {
           this.tokenObj = {}
@@ -626,20 +710,6 @@ export default {
         // 判断是否为空
         let leftResult = leftSideResult.data == null ? [] : leftSideResult.data
         this.leftSideResult = leftResult
-
-        // 以下是测试数据若不够多时，广告位的位置变化的代码：
-        // this.leftSideResult.EssayEntity.forEach((element, index) => {
-        //   if (index >= 1) {
-        //     this.leftSideResult.EssayEntity.splice(1)
-        //   }
-        // })
-        if (this.leftSideResult.EssayEntity.length <= 2) {
-          this.adverTop =
-            (this.leftSideResult.EssayEntity.length + 1) * 704 - 88
-        } else {
-          //null代表的意思是容器不需要增加高度
-          this.adverTop = null
-        }
         this.leftSideResult.EssayEntity.forEach(element => {
           // 自添加的4个属性
           this.$set(element, 'upSrc', '')
@@ -663,6 +733,14 @@ export default {
             element.showPercent = false
           }
         })
+        // 将文章数据切割成两块来展示，为了中间插入广告位
+        if (this.leftSideResult.EssayEntity.length >= 2) {
+          this.firstHalfData = this.leftSideResult.EssayEntity.slice(0, 2)
+          this.secondHalfData = this.leftSideResult.EssayEntity.slice(2)
+        } else {
+          this.firstHalfData = this.leftSideResult.EssayEntity
+          this.secondHalfData = []
+        }
       }
     }
   }
@@ -769,9 +847,7 @@ body {
   position: relative;
 }
 .sources .leftSide #advertiseBox {
-  position: absolute;
   height: 586px;
-  top: 1416px;
 }
 .sources #advertiseBox #imgBox {
   width: 100%;
@@ -806,9 +882,17 @@ body {
 .sources .todayImg {
   overflow: hidden;
   width: 100%;
-  height: 450px;
-  background: #f6f6f6;
+  max-height: 450px;
+  background: url('~static/common/default.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #e7e7e7;
   position: relative;
+}
+.sources .todayImg a {
+  display: block;
+  width: 100%;
+  max-height: 450px;
 }
 /* .sources .defaultBox {
   overflow: hidden;
@@ -821,8 +905,6 @@ body {
 } */
 .sources .todayImg .todayImg_class {
   width: 100%;
-  position: absolute;
-  bottom: 0;
 }
 .sources .imgDesc {
   overflow: hidden;
@@ -969,18 +1051,18 @@ body {
   cursor: pointer;
 }
 .sources .todayResult .up {
-  background-image: url('/static/images/202.png');
+  background-image: url('~static/images/202.png');
 }
 .sources .todayResult .down {
   margin-left: -13px;
-  background-image: url('/static/images/211.png');
+  background-image: url('~static/images/211.png');
 }
 .sources .goodPrecentBackground {
-  background-image: url('/static/images/201.png');
+  background-image: url('~static/images/201.png');
 }
 .sources .badPrecentBackground {
   margin-left: -13px;
-  background-image: url('/static/images/21.png');
+  background-image: url('~static/images/21.png');
 }
 .sources .todayResult img {
   margin-top: -10px;

@@ -69,7 +69,7 @@
                       <img :src="piectProfileUrl(item)"
                         class="userIcon"></router-link>
                     <router-link :to="`/Bloger/${item.authorId}/1`">
-                      <span class="userName">{{item.name}}</span></router-link>
+                      <span class="userName">{{item.NAME || item.name}}</span></router-link>
                     <div class="todayDivider"></div>
                     <span class="label">{{item.label}}</span>
                   </div>
@@ -236,6 +236,9 @@ export default {
           break
         case '/video':
           this.modelName = '视频'
+          break
+        case '/hobbies':
+          this.modelName = '兴趣部落'
           break
         case '/tagList':
           this.modelName = 'tag列表页'
@@ -415,7 +418,6 @@ export default {
     })
   },
   mounted() {
-    console.log(this.rankWeekLists, 'rankWeekLists')
     // 获取标签列表过来的信息
     if(sessionStorage.getItem('tagInfo') !=''&& sessionStorage.getItem('tagInfo') != null){
       var tagInfo = JSON.parse(sessionStorage.getItem('tagInfo'))

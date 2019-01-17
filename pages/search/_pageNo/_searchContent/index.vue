@@ -164,6 +164,9 @@
     },
 
     mounted() {
+      if(this.$route.params.pageNo) {
+        this.pageObj.currenPage = this.$route.params.pageNo
+      }
       this.createAdPicture()
       this.searchContent = this.$route.params.searchContent
       this.search()
@@ -222,6 +225,7 @@
       },
       handleCurrentChange(val) {
         /* this.defaultParams.page = val */
+        this.pageObj.currenPage = val
         this.$router.push({
           path: `/search/${val}/${this.searchContent}`
         })
@@ -240,6 +244,8 @@
           if (res.data.code === '0') {
             this.tempContent = this.searchContent
             this.pageObj = res.data
+            this.pageObj.currPage = parseInt(this.defaultParams.pageNo)
+            console.log('pageObj', this.pageObj)
             this.eassyList = res.data.data
           } else if (res.data.code === 'tag') {
             let tagId = res.data.tagId
@@ -391,7 +397,7 @@
           line-height: 50px;
           vertical-align: middle;
           color: #fff;
-          background: url('/static/images/search_btn.png') no-repeat !important;
+          background: url('~static/images/search_btn.png') no-repeat !important;
         }
       }
       .search_des {
@@ -464,7 +470,7 @@
               vertical-align: top;
               width: 8px;
               height: 42px;
-              background: url('/static/images/tagList_nav.png') no-repeat center;
+              background: url('~static/images/tagList_nav.png') no-repeat center;
             }
             .redColor {
               color: #c63f4e;
@@ -648,7 +654,7 @@
                 margin-bottom: 30px;
                 height: 280px;
                 background-color: #e7e7e7;
-                background-image: url('/static/images/defaultLogo.png');
+                background-image: url('~static/images/defaultLogo.png');
                 background-repeat: no-repeat;
                 background-position: center;
                 img {
@@ -717,8 +723,8 @@
                   color: #fff;
                   line-height: 34px;
                   vertical-align: middle;
-                  background: url('/static/images/rank_bg.png') no-repeat center,
-                  url('/static/images/rank_bg_black.png') no-repeat 77% -15%;
+                  background: url('~static/images/rank_bg.png') no-repeat center,
+                  url('~static/images/rank_bg_black.png') no-repeat 77% -15%;
                 }
               }
               .moreRank {
@@ -758,7 +764,7 @@
         width: 100%;
         height: 200px;
         background-color: #e7e7e7;
-        background-image: url('/static/images/defaultLogo.png');
+        background-image: url('~static/images/defaultLogo.png');
         background-repeat: no-repeat;
         background-position: center;
         .ad_des {

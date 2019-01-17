@@ -37,7 +37,8 @@ export default {
     }
   },
   mounted() {
-    this.currentPage = parseInt(this.routePage)
+    // this.currentPage = parseInt(this.routePage)
+    // console.log(this.currentPage,'55555')
   },
   props: {
     routePage: {
@@ -127,6 +128,12 @@ export default {
       handler(newPage, oldPage) {
         // console.log('newPage' + newPage)
         this.$emit('pageChange', newPage)
+      }
+    },
+    // 因为是服务端渲染，所以要使用监控routePage的方法
+    routePage:{
+      handler(newRoutePage, oldRoutePage) {
+        this.currentPage = parseInt(newRoutePage)
       }
     }
   }
