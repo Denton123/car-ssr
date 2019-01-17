@@ -19,7 +19,7 @@
                  style="position: relative; cursor: pointer"
                  @click=" clickWatch()">
               <span style="color: white;position: absolute;left: 12px;top:5px;font-size: 14px;font-weight: 600"><strong>关注</strong></span>
-              <img src="/static/images/watch_red.png"
+              <img src="~static/images/watch_red.png"
                    style="width: 64px;height: 30px
                                 ">
             </div>
@@ -27,7 +27,7 @@
                  style="position: relative;cursor: pointer"
                  @click="cancelWatch()">
               <span style="color:#AAAAAA;position: absolute;left: 12px;top:6px;font-size: 12px;font-weight: 600"><strong>已关注</strong></span>
-              <img src="/static/images/watch_wrap.png"
+              <img src="~static/images/watch_wrap.png"
                    style="width: 70px;height: 30px
                                ">
             </div>
@@ -62,7 +62,7 @@
         <ul class="clearfix">
           <li v-for="(item, index) in blogerListData"
               :key="index">
-            <router-link :to="`/${item.title !== 'hobbies'? item.classLabel.toLowerCase() : 'hobbies'}/${item.title !== 'hobbies' ? 'detail' : 'hobbiesDetail'}/${item.id}/1`">
+            <nuxt-link :to="`/${item.title !== 'hobbies'? item.classLabel.toLowerCase() : 'hobbies'}/${item.title !== 'hobbies' ? 'detail' : 'hobbiesDetail'}/${item.id}/1`">
               <div class="bloger_list">
                 <div class="bloger_list_top">
                   <img :src="formatPic(item.photo)"
@@ -76,7 +76,7 @@
                   <p class="title_samall">{{ item.digest }}</p>
                 </div>
               </div>
-            </router-link>
+            </nuxt-link>
           </li>
         </ul>
         <pagination class="pagination"
@@ -128,6 +128,19 @@
         defaultImg: "this.src='/static/common/default.png'"
       }
     },
+    // nuxt异步获取数据
+    async asyncData({params}) {
+      let _blogerList = await $get(webBologerlist, {
+        bloggerId: params.id,
+        limit: '9',
+        page: params.page
+      })
+      return{
+        blogerData: _blogerList.data || [],
+        blogerListData: _blogerList.data.list || [],
+        blogerListDataSize:  _blogerList.data.totalCount || [],
+      }
+    },
     methods: {
       // 获取cookies
       getCookie(cname) {
@@ -152,7 +165,7 @@
         console.log(page + 'page')
         this.blogerList(page)
       },
-      // 获取信息列表
+      // // 获取信息列表
       async blogerList(page = 1) {
         let id = `${this.$route.params.id}`
         let res = await $get(webBologerlist, {
@@ -266,10 +279,10 @@
         this.tokenObj = {}
       }
       // 路由分页
-      this.blogerList(this.routePage)
+      // this.blogerList(this.routePage)
       this.$nextTick(async () => {
         this.getUserInfo()
-        this.blogerList()
+        // this.blogerList()
       })
     },
     components: {

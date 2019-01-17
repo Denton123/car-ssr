@@ -36,14 +36,12 @@ export default {
       if (this.userData.grade !== 2) {
         this.$message('您当前还没有发表文章的权限')
       } else {
-        this.$router.push({
-          path: '/person/publishEssay'
-        })
+        this.$router.push('/person/publishEssay')
       }
     },
     hobbiesRouter() {
       this.$router.push({
-        path: '/person/publishEssay'
+        path: '/hobby/publishHobbies'
       })
     },
     getUserInfo() {
