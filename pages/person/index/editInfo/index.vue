@@ -68,7 +68,7 @@
                 :src="formatPic(editForm.photo)"
                 alt="">
               <img v-else
-                src="~static/person/person_default.png">
+                src="/static/person/person_default.png">
             </div>
             <span>上传头像</span>
           </el-upload>
@@ -114,26 +114,28 @@
         <!-- 地址 -->
         <el-row>
           <el-col :span="10">
-        <el-form-item prop="province"
-          class="person_info_form_address">
-            <v-distpicker hide-area
-              @select="onSelected"
-              @province="onChangeProvince"
-              @city="onChangeCity"
-              :province="editForm.province"
-              :city="editForm.city"
-              :placeholders="addressPlaceholder"></v-distpicker>
-        </el-form-item>
+            <el-form-item prop="province"
+              class="person_info_form_address">
+              <v-distpicker hide-area
+                @select="onSelected"
+                @province="onChangeProvince"
+                @city="onChangeCity"
+                :province="editForm.province"
+                :city="editForm.city"
+                wrapper="gray"
+                :placeholders="addressPlaceholder"></v-distpicker>
+            </el-form-item>
           </el-col>
           <el-col :span="14">
-            <el-form-item prop="address" class="person_info_form_detailAddress">
+            <el-form-item prop="address"
+              class="person_info_form_detailAddress">
               <el-input v-model="editForm.address"
                 placeholder="请输入详细地址"></el-input>
             </el-form-item>
-              <span class="person_info_form_address_required person_info_form_required"><i>*</i>必填</span>
+            <span class="person_info_form_address_required person_info_form_required"><i>*</i>必填</span>
           </el-col>
         </el-row>
-        
+
         <!-- 职业 -->
         <el-form-item prop="profession">
           <el-select v-model="editForm.profession"
@@ -149,7 +151,8 @@
         <el-form-item>
           <el-button type="primary"
             @click="handleEdit('editForm')">保存</el-button>
-          <el-button @click="handleCancel" class="cancelBtn">取消</el-button>
+          <el-button @click="handleCancel"
+            class="cancelBtn">取消</el-button>
         </el-form-item>
 
       </el-form>
@@ -166,15 +169,15 @@ import {
 } from '@/http/api'
 import { $get, $post } from '@/http/ajax'
 import systemManage from '@/http/photoApi.js'
-import { setTimeout } from 'timers'
-import { callbackify } from 'util'
-import $ from 'jquery'
+// import { setTimeout } from 'timers'
+// import { callbackify } from 'util'
+// import $ from 'jquery'
 
 export default {
   name: 'personInfo',
-  // components: {
-  //   VDistpicker
-  // },
+  components: {
+    // VDistpicker
+  },
   data() {
     let state = false
     let checkPhoneValue = (rule, value, callback) => {
@@ -252,7 +255,7 @@ export default {
         verificationCode: [
           { required: true, message: '请输入短信验证码', trigger: 'blur' }
         ],
-        // email: [{ validator: checkEmailValue, trigger: 'blur' }]
+        // email: [{ validator: checkEmailValue, trigger: 'blur' }],
         // city: [
         //   {
         //     required: true,
@@ -260,13 +263,13 @@ export default {
         //     trigger: 'blur'
         //   }
         // ],
-        province: [
-          {
-            required: true,
-            validator: checkProvinceValue,
-            trigger: 'blur'
-          }
-        ],
+        // province: [
+        //   {
+        //     required: true,
+        //     validator: checkProvinceValue,
+        //     trigger: 'blur'
+        //   }
+        // ],
         address: [
           {
             required: true,
@@ -292,7 +295,7 @@ export default {
       uploadUrl: '',
       addressPlaceholder: {
         province: '请选择省份',
-        city: '请选择城市'
+        city: '请选择市级'
       }
     }
   },
@@ -306,15 +309,20 @@ export default {
     //   }
     // }
   },
-  
+
   mounted() {
+    console.log(window.user, 'user00000')
     this.uploadUrl =
       process.env.NODE_ENV === 'development'
-        ? 'http://123.207.11.165/api/sys/uploadFile'
+        ? 'http://www.jfcar.com.cn/api/sys/uploadFile'
         : `http://${window.location.host}/api/sys/uploadFile`
     this.cookie = this.getCookie('token')
     if (this.cookie == '') {
-      this.tokenObj = JSON.parse(localStorage.getItem('userMsg'))
+      this.tokenObj =
+        localStorage.getItem('userMsg') &&
+        JSON.parse(localStorage.getItem('userMsg')) !== ''
+          ? JSON.parse(localStorage.getItem('userMsg'))
+          : null
     }
     if (this.tokenObj == null) {
       this.tokenObj = {}
@@ -325,6 +333,8 @@ export default {
       this.imageUrl = this.editForm.photo
     }
     let selectEle = $('.distpicker-address-wrapper select:first option:first')
+    console.log(selectEle.val(), 'val')
+
     if (selectEle.val() == '请选择省份') {
       $('.distpicker-address-wrapper select').css('color', '#babdc6')
     } else {
@@ -337,6 +347,7 @@ export default {
     },
     onChangeCity(data) {
       this.editForm.city = data.value
+      // console.log(a)
     },
     onChangeProvince(data) {
       this.editForm.province = data.value
@@ -398,7 +409,7 @@ export default {
             that.isVf = false
           }
         }, 1000)
-        $get(smsSendMsgByRegister, this.editForm.phone).then(res => {
+        $get(smsSendMsgByRegister, { phone: this.editForm.phone }).then(res => {
           console.log(res.data)
           if (res.data) {
             this.$message({
@@ -455,19 +466,27 @@ export default {
       })
     },
     handlePhoneChange(code, phone) {
-      $get(
-        webUserUpdatePhone,
-        {
-          code: code,
-          phone: phone
-        },
-        {
-          'X-Auth0-Token':
-            this.cookie !== '' ? this.cookie : this.tokenObj.token
-        }
-      ).then(res => {
-        // console.log(res)
-        if (res.data.code == 0) {
+      if (
+        phone == '' ||
+        (phone.length > 0 && phone.trim().length == 0) ||
+        phone == null ||
+        phone == undefined
+      ) {
+        this.$message('手机号码不为空')
+      } else {
+        $get(
+          webUserUpdatePhone,
+          {
+            code: code,
+            phone: phone
+          },
+          {
+            'X-Auth0-Token':
+              this.cookie !== '' ? this.cookie : this.tokenObj.token
+          }
+        ).then(res => {
+          // console.log(res)
+          if (res.data.code == 0) {
             this.$message({
               type: 'success',
               message: '更改手机号码成功'
@@ -484,7 +503,8 @@ export default {
               message: '登录失效，请重新登录'
             })
           }
-      })
+        })
+      }
     },
     closeBtn() {
       this.isShowPhone = false
@@ -684,8 +704,8 @@ export default {
   z-index: 999999;
 }
 .phonePromptWrap {
-  width: 369px;
-  height: 191px;
+  width: 499px;
+  height: 297px;
   position: absolute;
   background: #ffff;
   z-index: 9999999;
@@ -736,6 +756,9 @@ export default {
 .person_info .emailItem .el-form-item__error {
   left: 405px;
 }
+.person_info .emailItem .el-form-item.is-success .el-input__inner {
+  border-color: #f5f7fa !important;
+}
 .person_info .el-input.is-active .el-input__inner,
 .el-input__inner:focus {
   border-color: #be001e;
@@ -779,20 +802,35 @@ export default {
   right: 22px;
   left: 0;
 }
-.person_info .cancelBtn span{
+.person_info .cancelBtn span {
   color: #000;
 }
 .person_info .person_info_form_address_required {
   right: 157px !important;
   top: 15px;
 }
-.person_info .person_info_form_detailAddress  {
+.person_info .person_info_form_detailAddress {
   width: 530px;
 }
 .person_info .person_info_form_detailAddress .el-input {
   width: 380px;
 }
-.person_info .phoneCancel span{
+.person_info .phoneCancel span {
   color: #000;
+}
+.distpicker-address-wrapper select option:nth-of-type(1) {
+  color: #aaa;
+}
+/* .distpicker-address-wrapper select:first-child {
+  color: #aaa !important;
+} */
+.el-message-box__wrapper {
+  z-index: 99999999999999;
+}
+.gray {
+  color: red !important;
+}
+.distpicker-address-gray {
+  color: red;
 }
 </style>
