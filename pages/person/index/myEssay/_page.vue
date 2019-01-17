@@ -36,7 +36,7 @@
         <!-- 编辑按钮 -->
         <div class="person_essay_list_block_desc_edit"
           v-if="item.state === '草稿'||item.state === '审核不通过'">
-          <nuxt-link :to="item.title == 'hobbies' ? `/editHobbies/${item.id}` : `/person/editEssay/${item.id}`">
+          <nuxt-link :to="item.title == 'hobbies' ? `/person/editHobbies/${item.id}` : `/person/editEssay/${item.id}`">
 
             <i class="el-icon-edit" />
           </nuxt-link>
@@ -127,7 +127,7 @@ export default {
           this.toLinkDetail = v.title !== 'hobbies' ? 'detail' : 'hobbiesDetail'
         })
         }
-        
+
       })
     },
     formatPic(item) {
