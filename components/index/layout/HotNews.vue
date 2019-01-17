@@ -39,7 +39,7 @@
             <ul>
               <li v-for="(item, index) in newsObj.click"
                 :key="index">
-                <a :href="`/pc/hots/detail/${item.id}/1`"
+                <a :href="`/hots/detail/${item.id}/1`"
                   class="item_title">{{item.title}}</a>
               </li>
             </ul>

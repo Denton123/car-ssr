@@ -11,7 +11,7 @@
         <nuxt-link to="index"
           ><span>首页</span></nuxt-link>
         <span><img src="~static/picture/small_right_black.png"></span>
-        <nuxt-link to="/pc/hobbies/1"
+        <nuxt-link to="/hobbies/1"
           ><span>兴趣部落</span></nuxt-link>
         <span><img src="~static/picture/small_tag.png"></span>
         <span style="color:#BE001E;font-weight: 600" >热门博主</span>
@@ -23,7 +23,7 @@
           :key="index">
           <div class="blogger-list-left">
             <div class="bloggerList-top">
-              <nuxt-link :to="`/pc/Bloger/${item.authorId}/1`"
+              <nuxt-link :to="`/Bloger/${item.authorId}/1`"
                 style="color: black">
                   <span class="user_wrap" v-if="item.authorphoto !== ''&& item.authorphoto !== null"><img :src="concatImage(item.authorPhoto)"
                       :alt="`尖峰咖_${item.authorName}`"
@@ -60,7 +60,7 @@
           </div>
           <div class="blogger-middle-right">
             <div class="blogger-list-middle">
-              <nuxt-link :to="`/pc/${item.arr}/${item.arr!== 'hobbies'?'detail':'hobbiesDetail'}/${item.id}/1`">
+              <nuxt-link :to="`/${item.arr}/${item.arr!== 'hobbies'?'detail':'hobbiesDetail'}/${item.id}/1`">
                 <span>
                   <img :src="concatImage(item.cover)"
                        :alt="`尖峰咖_${item.title}`"
@@ -69,7 +69,7 @@
               </nuxt-link>
             </div>
             <div class="blogger-list-right">
-              <nuxt-link :to="`/pc/${item.arr}/${item.arr!== 'hobbies'?'detail':'hobbiesDetail'}/${item.id}/1`">
+              <nuxt-link :to="`/${item.arr}/${item.arr!== 'hobbies'?'detail':'hobbiesDetail'}/${item.id}/1`">
                 <span class="bloggerArticle-title" >
                   <span ><strong>{{item.title}}</strong></span>
                 </span>
@@ -77,13 +77,13 @@
               <div class="line-wrap-blogers">
                 <img src="~static/picture/line.png">
               </div>
-              <nuxt-link :to="`/pc/${item.arr}/${item.arr!== 'hobbies'?'detail':'hobbiesDetail'}/${item.id}/1`">
+              <nuxt-link :to="`/${item.arr}/${item.arr!== 'hobbies'?'detail':'hobbiesDetail'}/${item.id}/1`">
                 <span class="description-list">
                   <span class="digist">{{item.digest}}</span>
                 </span>
               </nuxt-link>
               <div class="bloggerList-right-bottom">
-                <nuxt-link :to="`/pc/Bloger/${item.authorId}/1`"
+                <nuxt-link :to="`/Bloger/${item.authorId}/1`"
                 >
                   <span class="right-bottom-wrap" v-if="item.authorphoto !== ''&& item.authorphoto !== null">
                     <img :src="concatImage(item.authorPhoto)"

@@ -23,14 +23,14 @@
               height="76px"
               class="car_left">
           </a>
-          <a :href="item.linkurl">
+          <!-- <a :href="item.linkurl">
             <div class="video_carsouel_mark"
               v-if="carsouelFlag == 'video'">
               <div class="video_carsouel_mark_sign">
                 <div class="video_carsouel_mark_sign_arrow"></div>
               </div>
             </div>
-          </a>
+          </a> -->
 
         </div>
       </el-carousel-item>

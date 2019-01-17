@@ -324,6 +324,13 @@ export default {
     if (this.editForm.photo) {
       this.imageUrl = this.editForm.photo
     }
+    let selectEleFirst = $('.distpicker-address-wrapper select:first option:first')
+    let selectEleSecond = $('.distpicker-address-wrapper select:last option:first')
+    if (selectEleFirst.val() == '请选择省份' || selectEleSecond.val() == '请选择城市') {
+      $('.distpicker-address-wrapper select').css('color', '#babdc6')
+    } else {
+      $('.distpicker-address-wrapper select').css('color', 'black')
+    }
   },
   methods: {
     onSelected(data) {
@@ -331,11 +338,21 @@ export default {
     },
     onChangeCity(data) {
       this.editForm.city = data.value
-      // console.log(a)
+      if (data.value == '请选择城市') {
+        $('.distpicker-address-wrapper select').css('color', '#babdc6')
+      } else {
+        $('.distpicker-address-wrapper select').css('color', 'black')
+      }
     },
     onChangeProvince(data) {
+      console.log(this.editForm.city)
       this.editForm.province = data.value
-      // console.log(a)
+      console.log(data.value, '省份')
+      if (data.value == '请选择省份') {
+        $('.distpicker-address-wrapper select').css('color', '#babdc6')
+      } else {
+        $('.distpicker-address-wrapper select').css('color', 'black')
+      }
     },
     handleAvatarSuccess(res, file) {
       if (res.des === '上传成功') {

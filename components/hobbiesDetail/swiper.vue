@@ -1,19 +1,19 @@
 <template>
   <div class="wrap hobbiesDetailSwiper"
     style="position: relative;">
-    <div class="swiper-container gallery-top">
+    <swiper :options="galleryTop" ref="topSwiper">
       <div class="swiper-wrapper">
       </div>
-    </div>
+    </swiper>
     <div class="swiper-button-next"
       style="position:absolute;top:77.5%;left:47.3%;width: 51px;height: 77px;"></div>
     <div class="swiper-button-prev"
       style="background: url(~static/detail/left.png);position:absolute;top:77.5%;left:40%;width: 51px;height: 77px;"></div>
-    <div class="swiper-container gallery-thumbs"
-      style="margin-top: 50px;">
+    <swiper :options="galleryThumbs"
+      style="margin-top: 50px;" ref="thumbSwiper">
       <div class="swiper-wrapper">
       </div>
-    </div>
+    </swiper>
   </div>
 </template>
 
@@ -30,7 +30,26 @@ export default {
   data() {
     return {
       // num: '',
-      sliderData: []
+      sliderData: [],
+      galleryTop: {
+        spaceBetween: 10,
+        loop: true,
+        loopedSlides: 9, //looped slides should be the same
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev'
+        }
+      },
+      galleryThumbs: {
+        spaceBetween: 10,
+        slidesPerView: 9,
+        touchRatio: 0.2,
+        loop: true,
+        loopedSlides: 9, //looped slides should be the same
+        slideToClickedSlide: true,
+        slideActiveClass: 'normal-active',  
+        centeredSlides: true // 居中
+      }
     }
   },
   props: {
@@ -43,7 +62,7 @@ export default {
   computed: {},
   mounted() {
     this.$nextTick(() => {
-      console.log(this.$route)
+      // console.log(this.$route)
       $get(webHobbiesDetailInfo, { hobbiesId: this.$route.params.id}).then(res => {
         let photoList = res.data.result_data.hobbies.photoList
         if (photoList.length !== 0) {
@@ -51,7 +70,7 @@ export default {
           for (let i = 0; i < photoList.length; i++) {
             let imgUrl = this.formatphoto(photoList[i].photo)
             $('.swiper-wrapper').append(
-              `<div class="swiper-slide"><img src="${imgUrl}"></div>`
+              `<swiper-slide><img src="${imgUrl}"></swiper-slide>`
             )
             console.log('1122222222222')
           }
@@ -68,12 +87,12 @@ export default {
             })
             let galleryThumbs = new Swiper('.gallery-thumbs', {
               spaceBetween: 10,
-              slidesPerView: length,
+              slidesPerView: 9,
               touchRatio: 0.2,
               loop: true,
               loopedSlides: 9, //looped slides should be the same
               slideToClickedSlide: true,
-              slideActiveClass: 'normal-active',
+              slideActiveClass: 'normal-active',  
               centeredSlides: true // 居中
             })
             galleryTop.controller.control = galleryThumbs

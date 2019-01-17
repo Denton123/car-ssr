@@ -53,7 +53,7 @@
                     name="person-index-myEssay-page">
                     <!-- <nuxt-child/> -->
                     <!--<router-view class="view"></router-view>-->
-                    <my-essay :listData="listData"></my-essay>
+                    <my-essay></my-essay>
                   </el-tab-pane>
                   <!-- <el-tab-pane label="我的积分"
                     name="second">
@@ -126,15 +126,17 @@ export default {
   },
   /* 预览图和视频地址拼接 */
   computed: {},
-  async asyncData () {
-    let listData = await $get(webMyEssay, {
-      limit: 12,
-      page: 1
-    })
-    return {
-      listData: listData.data.des ? listData.data.des : {}
-    }
-  },
+  // async asyncData() {
+  //   let listData = await $get(webMyEssay, {
+  //     limit: 12,
+  //     page: 1
+  //   }, {
+  //     'X-Auth0-Token': '37029eac49d65817b0d7a627dcdf8d85'
+  //   })
+  //   return {
+  //     listData: listData.data ? listData.data : {}
+  //   }
+  // },
   methods: {
     handleClick(tab, event) {
       console.log(tab, event)

@@ -14,7 +14,7 @@
           <div v-for="(item, index) in tabData"
             :key="index"
             class="navWrap">
-            <nuxt-link :to="`/pc/tagList/${item.id}/1`">
+            <nuxt-link :to="`/tagList/${item.id}/1`">
               <li :class=" navTabActiveStatus == true&&navTabActiveIndex == index ? ['navActiveClass', 'active']: '' "
                 @mouseenter="navTabActive(item)"
                 @mouseleave="removeNavTabActive()">
@@ -47,28 +47,28 @@
                     <div class="defaultBox"
                       v-if="imgLoadStatus == false&&index == imgLossIndex">
                       <!-- 没图片或加载不出来，展示默认图片 -->
-                      <nuxt-link :to="`/pc/video/detail/${item.id}/1`">
+                      <nuxt-link :to="`/video/detail/${item.id}/1`">
                         <img src="~static/common/default.png"
                           alt="尖峰咖"
                           width="160px">
                       </nuxt-link>
                     </div>
-                    <div class="mask">
+                    <!-- <div class="mask">
                       <nuxt-link :to="`/pc/video/detail/${item.id}/1`"></nuxt-link>
-                    </div>
+                    </div> -->
                     <!-- 播放按钮 -->
-                    <nuxt-link :to="`/pc/video/detail/${item.id}/1`">
+                    <!-- <nuxt-link :to="`/pc/video/detail/${item.id}/1`">
                       <el-button class="videoBtn"
                         type="info"
                         icon="el-icon-caret-right"
                         circle></el-button>
-                    </nuxt-link>
+                    </nuxt-link> -->
                   </div>
                   <div class="imgDesc">
                     <div @mouseenter="titleActive(item)"
                       @mouseleave="removeTitleActiveFn()"
                       :class="removeTitleActive == true&& titleActiveIndex == index ? 'redTitleLine' :'titleLine'"></div>
-                    <nuxt-link :to="`/pc/video/detail/${item.id}/1`">
+                    <nuxt-link :to="`/video/detail/${item.id}/1`">
 
                       <p :class="removeTitleActive == true&&titleActiveIndex == index ? 'redColor' :'title'"
                         @mouseenter="titleActive(item)"
@@ -84,10 +84,10 @@
                 </el-main>
                 <el-footer class="todayFooter">
                   <div class="footerBox">
-                    <nuxt-link :to="`/pc/Bloger/${item.authorId}/1`">
+                    <nuxt-link :to="`/Bloger/${item.authorId}/1`">
                       <img :src="piectProfileUrl(item)"
                         class="userIcon"></nuxt-link>
-                    <nuxt-link :to="`/pc/Bloger/${item.authorId}/1`">
+                    <nuxt-link :to="`/Bloger/${item.authorId}/1`">
                       <span class="userName">{{item.author}}</span></nuxt-link>
                     <div class="todayDivider"></div>
                     <!-- <span class="classOneName">{{item.classOneName}}</span> -->

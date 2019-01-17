@@ -14,7 +14,7 @@
       :listData="tagOne"></tags>
     <!-- 今日车闻模块 -->
     <center id="cars"
-      href="/pc/news/1"
+      href="/news/1"
       :url="newsActiveUrl">
       <car-carsouel slot="carsouel"
         @change="changeBg"
@@ -41,7 +41,7 @@
     <!-- 新能源模块 -->
     <center-no-bg class="mt40"
       id="resources"
-      href="/pc/ev/1">
+      href="/ev/1">
       <car-carsouel slot="leftContent"
         :list="EvCourselData"></car-carsouel>
       <hot-tags slot="rightContent"
@@ -54,7 +54,7 @@
     <center title="兴趣部落"
       titleEn="hobbies"
       id="hobbies"
-      href="/pc/hobbies/1"
+      href="/hobbies/1"
       class="mt20"
       :url="hobbiesActiveUrl">
       <car-carsouel slot="carsouel"
@@ -89,7 +89,7 @@
       lwidth="953"
       rwidth="217"
       height="536"
-      href="/pc/video/1"
+      href="/video/1"
       title="视频"
       titleEn="video"
       id="videos">

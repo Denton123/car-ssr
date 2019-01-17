@@ -27,7 +27,7 @@ module.exports = {
     link: [{
       rel: 'icon',
       type: 'image/x-icon',
-      href: '/pc/favicon.ico'
+      href: '/favicon.ico'
     }],
     script: [{
       src: 'http://dup.baidustatic.com/js/ds.js'
@@ -194,6 +194,6 @@ module.exports = {
         }
       })
     },
-    // publicPath: '/pc/'
+    // publicPath: '/pc/pc/'
   }
 }

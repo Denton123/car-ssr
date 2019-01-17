@@ -11,7 +11,7 @@
             <span class="detail_title_class">首页</span>
           </nuxt-link>
           <i class="detail_title_arrow detail_title_arrow_black"></i>
-          <nuxt-link :to="`/pc/${titleModel}/1`">
+          <nuxt-link :to="`/${titleModel}/1`">
             <span class="detail_title_class">{{essayData.classOneName}}</span>
           </nuxt-link>
           <i class="detail_title_arrow detail_title_arrow_red"></i>
@@ -32,7 +32,7 @@
             v-if="essayData.hotTime !== null"></div>
           <!-- 用户信息 -->
           <div class="detail_content_user">
-            <nuxt-link :to="`/pc/Bloger/${essayData.userId}/1`"
+            <nuxt-link :to="`/Bloger/${essayData.userId}/1`"
               class="detail_content_user_avatar">
               <img v-if="essayData.userPhoto !== ''"
                 :src="formatPic(essayData.userPhoto)"
@@ -42,7 +42,7 @@
                 class="detail_content_userAvatar">
             </nuxt-link>
 
-            <nuxt-link :to="`/pc/Bloger/${essayData.userId}/1`">
+            <nuxt-link :to="`/Bloger/${essayData.userId}/1`">
               <span class="detail_content_userName">{{essayData.author}}</span>
             </nuxt-link>
             <span class="detail_content_user_desperate">|</span>
@@ -63,7 +63,7 @@
               <ul>
                 <div v-for="tab in tabList"
                   :key="tab.title">
-                  <nuxt-link :to="`/pc/tagList/${tab.id}/1`">
+                  <nuxt-link :to="`/tagList/${tab.id}/1`">
                     <li>
                       <span v-if="tab.title !== ''">{{tab.title}}</span>
                       <!-- 品牌 -->
@@ -156,7 +156,7 @@
               <li v-for="(item, index) in essaysWidthTag"
                 :key="index"
                 class="detail_content_article_block">
-                <nuxt-link :to="`/pc/${item.className.toLowerCase()}/${item.className.toLowerCase() !== 'hobbies' ? 'detail': 'hobbiesDetail'}/${item.id}/1`">
+                <nuxt-link :to="`/${item.className.toLowerCase()}/${item.className.toLowerCase() !== 'hobbies' ? 'detail': 'hobbiesDetail'}/${item.id}/1`">
                   <div style="width: 190px;height: 140px;">
                     <img v-if="item.photo !== ''"
                       :src="formatPic(item.cover)"
@@ -173,7 +173,7 @@
                   <h3 class="detail_content_article_block_title">{{item.title}}</h3>
 
                   <div class="detail_content_article_block_avatar_wrap">
-                    <nuxt-link :to="`/pc/Bloger/${item.authorId}/1`">
+                    <nuxt-link :to="`/Bloger/${item.authorId}/1`">
                       <img v-if="item.authorPhoto"
                         :src="formatPic(item.authorPhoto)"
                         class="detail_content_article_block_avatar">
@@ -182,7 +182,7 @@
                         class="detail_content_article_block_avatar">
                     </nuxt-link>
                   </div>
-                  <nuxt-link :to="`/pc/Bloger/${item.authorId}/1`">
+                  <nuxt-link :to="`/Bloger/${item.authorId}/1`">
                     <span class="detail_content_article_block_user">{{item.author}}</span>
                   </nuxt-link>
                   <span class="detail_content_article_block_desperate">|</span>
@@ -258,7 +258,7 @@
                 <div v-for="(list, index) in articleCommentData"
                   :key="index"
                   class="detail_comment_lists_content">
-                  <nuxt-link :to="`/pc/Bloger/${list.userId}/1`">
+                  <nuxt-link :to="`/Bloger/${list.userId}/1`">
                     <span class="detail_comment_lists_avatar">
                       <img :src="formatPic(list.userPhoto)"
                         v-if="list.userPhoto !== ''">
@@ -306,10 +306,10 @@
                       @click="showReply(list.id)"
                       v-if="couldReply && list.replyList.length === 0">回复</a>
                     <a href="javascript:void(0);"
-                      :class="goodCountChange > list.goodCount &&  list.id === likeIndex? 'detail_comment_lists_content_operate_like_handle':'detail_comment_lists_content_operate_like'"
+                      :class="list.goodBadLog == 1 ? 'detail_comment_lists_content_operate_like_handle':'detail_comment_lists_content_operate_like'"
                       @click="handleLike(list.id, list.goodCount)">
                       <span v-if="isShowDefault || list.id !== likeIndex || userCode === 2">{{list.goodCount}}</span>
-                      <span v-else-if="list.id === likeIndex">{{goodCountChange}}</span>
+                      <!-- <span v-else-if="list.id === likeIndex">{{goodCountChange}}</span> -->
                     </a>
                   </div>
                 </div>
@@ -338,7 +338,7 @@
             <span class="detail_user_bg_red"></span>
             <div class="detail_user_msgWrap">
               <div class="detail_user_msg">
-                <nuxt-link :to="user.id !== essayData.userId ? `/pc/Bloger/${essayData.userId}/1` : '/pc/person/myEssay/1'">
+                <nuxt-link :to="user.id !== essayData.userId ? `/Bloger/${essayData.userId}/1` : '/person/myEssay/1'">
                   <div class="detail_user_msg_avatar_wrap">
                     <img :src="formatPic(essayData.userPhoto)"
                       v-if="essayData.userPhoto">
@@ -347,7 +347,7 @@
                   </div>
                 </nuxt-link>
                 <span>
-                  <nuxt-link :to="user.id !== essayData.userId ? `/pc/Bloger/${essayData.userId}/1` : '/pc/person/myEssay/1'">
+                  <nuxt-link :to="user.id !== essayData.userId ? `/Bloger/${essayData.userId}/1` : '/person/myEssay/1'">
 
                     <span class="detail_user_msg_name">{{essayData.author}}</span>
                   </nuxt-link>
@@ -376,7 +376,7 @@
                     </a>
                   </li>
                   <li>
-                    <nuxt-link :to="`/pc/Bloger/${essayData.userId}/1`">
+                    <nuxt-link :to="`/Bloger/${essayData.userId}/1`">
                       <span>文章</span>
                       <span>{{userInfo.essayCount == null ? 0 : userInfo.essayCount}}</span>
                     </nuxt-link>
@@ -402,7 +402,7 @@
             <ul>
               <li v-for="(hot, index) in hotData"
                 :key="index">
-                <nuxt-link :to="`/pc/${hot.className}/${hot.className !== 'hobbies' ? 'detail' : 'hobbiesDetail' }/${hot.id}/1`">
+                <nuxt-link :to="`/${hot.className}/${hot.className !== 'hobbies' ? 'detail' : 'hobbiesDetail' }/${hot.id}/1`">
                   <div v-if="hot.cover !== ''">
                     <img :src="formatPic(hot.cover)">
                   </div>
@@ -442,7 +442,7 @@
               <li v-for="(random, index) in randomData"
                 :key="index">
 
-                <nuxt-link :to="`/pc/${random.className}/${random.className !== 'hobbies' ? 'detail' : 'hobbiesDetail'}/${random.id}/1`">
+                <nuxt-link :to="`/${random.className}/${random.className !== 'hobbies' ? 'detail' : 'hobbiesDetail'}/${random.id}/1`">
                   <div v-if="random.cover!==''">
                     <img :src="formatPic(random.cover)">
                   </div>
@@ -807,18 +807,12 @@ export default {
       var res = await $post(webEssayGoodLog, urlParam, {
         'X-Auth0-Token': this.cookie !== '' ? this.cookie : this.tokenObj.token
       })
-      this.isShowDefault = false
       if (res.data.result_data === null) {
         this.$message(res.data.result_msg)
-        // this.goodCountChange = res.data.result_msg
       } else {
-        // this.$message({
-        //   showClose: true,
-        //   message: '点赞成功',
-        //   type: 'success'
-        // })
-        this.goodCountChange = res.data.result_data
+        this.getCommentData()
       }
+      this.likeIndex = commentId
       this.likeIndex = commentId
     },
     // 新增评论
@@ -828,7 +822,14 @@ export default {
       }
       if (this.tokenObj.token !== undefined || this.cookie !== '') {
         let editor = document.getElementById('quill_editor')
-        if (editor.innerHTML !== '') {
+        if (editor.innerHTML == '' ||
+          (editor.innerHTML.length > 0 &&
+            editor.innerHTML.trim().length == 0) ||
+          editor.innerHTML == null ||
+          editor.innerHTML == undefined) {
+          this.$message('内容不为空')
+        } else {
+          // console.log('新增评论')
           let urlParam = new URLSearchParams()
           urlParam.append('commentText', editor.innerHTML)
           urlParam.append('essayId', this.essayData.id)
@@ -848,8 +849,6 @@ export default {
           } else if (res.data.result_data === null) {
             this.$message(res.data.result_msg)
           }
-        } else {
-          this.$message('内容不为空')
         }
       } else {
         this.$message('请先登录')

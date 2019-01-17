@@ -37,13 +37,13 @@ export default {
         this.$message('您当前还没有发表文章的权限')
       } else {
         this.$router.push({
-          name: 'publishEssay'
+          path: '/person/publishEssay'
         })
       }
     },
     hobbiesRouter() {
       this.$router.push({
-        name: 'publicHobbies'
+        path: '/person/publishEssay'
       })
     },
     getUserInfo() {

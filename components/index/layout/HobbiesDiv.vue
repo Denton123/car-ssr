@@ -33,8 +33,8 @@
             <span class="info_name">{{card.userName == '' ? '无': card.userName}}</span>
           </router-link>
         </div>
-        <div class="info_center"></div>
-        <div class="info_right">{{card.className == ''?'无': '兴趣部落'}}</div>
+        <!-- <div class="info_center"></div> -->
+        <!-- <div class="info_right">{{card.className == ''?'无': '兴趣部落'}}</div> -->
       </div>
       <div v-if="sContent== '1'"
         class="hobbies_content">

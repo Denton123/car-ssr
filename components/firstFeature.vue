@@ -161,6 +161,7 @@ export default {
 #firstFeature .feature .swiper-slide img {
   width: 320px;
   height: 180px;
+  object-fit: cover;
 }
 #firstFeature .feature_Wrap {
   position: absolute;

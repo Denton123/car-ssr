@@ -151,25 +151,25 @@ export default {
         {
           title: '今日车闻',
           id: 0,
-          to: '/pc/news/1',
+          to: '/news/1',
           name: 'news-page'
         },
         {
           title: '新能源',
           id: 1,
-          to: '/pc/ev/1',
+          to: '/ev/1',
           name: 'ev-page'
         },
         {
           title: '兴趣部落',
           id: 2,
-          to: '/pc/hobby/1',
+          to: '/hobby/1',
           name: 'hobby-page'
         },
         {
           title: '视频',
           id: 3,
-          to: '/pc/video/1',
+          to: '/video/1',
           name: 'video-page'
         }
       ],

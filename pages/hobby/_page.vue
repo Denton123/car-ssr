@@ -313,8 +313,8 @@ export default {
       tenId: 99,
       // 与页码有关的变量
       currentPage: 1,
-      totalPage: 0,
-      totalCount: 8,
+      // totalPage: 0,
+      // totalCount: 8,
       utils: utils,
       indexId: 0,
       isPaginationOn: 2,
@@ -392,35 +392,40 @@ export default {
     }
     console.log(userCookie, 'userCookie')
     let mockHobbyItems
+    let totalPage
+    let totalCount
     // 标签
     let tokenObj = '8f558bfd4dd5aa42898a394d8b1accc3'
-    let tagItems = await $get('/web/hobbies/gotohobbies', {}, {'X-Auth0-Token': userCookie})
+    let tagItems = await $get('/web/hobbies/gotohobbies', {})
     // // 周排行
     let _hostPointItems = await $get('/web/hobbies/hobbiesWeekRank?', {
         pageNo: 1,
         size: 10
-      }, {'X-Auth0-Token': userCookie})
+      })
 
     // 博主数据
     let bloggerItems =  await $get('/web/hobbies/getHotBloggers?', {
       pageNo: 1,
         pageSize: 10
-    }, {'X-Auth0-Token': userCookie})
-    // let mockHobbyItems = await $get('/web/hobbies/list?', {
-    //   limit: 12,
-    //   page: params.page,
-    //   order: 'desc',
-    //   sidx: 'h.create_time'
-    // }, {'X-Auth0-Token': null})
+    })
+    let _mockHobbyItems = await $get('/web/hobbies/list?', {
+      limit: 12,
+      page: params.page,
+      order: 'desc',
+      sidx: 'h.create_time'
+    })
     return {
       tagItems: tagItems.data ? tagItems.data.tagsShowList : [],
       hostPointItems: _hostPointItems.data ? _hostPointItems.data : [],
       bloggerItems: bloggerItems.data ? bloggerItems.data : [],
-      // mockHobbyItems: _mockHobbyItems.data.list ? _mockHobbyItems.data.list : [],
-      // _mockHobbyItems: _mockHobbyItems.data ? _mockHobbyItems.data : {},
+      mockHobbyItems: _mockHobbyItems.data.list ? _mockHobbyItems.data.list : [],
+      totalPage: _mockHobbyItems.data.totalPage ? _mockHobbyItems.data.totalPage : '',
+      totalCount: _mockHobbyItems.data.totalCount ? _mockHobbyItems.data.totalCount : '',
+      _mockHobbyItems: _mockHobbyItems.data ? _mockHobbyItems.data : {},
     }
   },
   mounted() {
+    console.log(this.totalPage, 'totalPage')
       if (
       localStorage.getItem('userMsg') !== '' &&
       localStorage.getItem('userMsg') !== null
@@ -474,16 +479,16 @@ export default {
       // this.hostPointItems = _hostPointItems.data
 
       // 获取初始hobbies列表的数据
-      let _mockHobbyItems = await $get('/web/hobbies/list?', {
-        limit: 12,
-        page: this.curPage,
-        // classfiy: this.hobbiesClassId,
-        order: 'desc',
-        sidx: this.sidxRecently
-      }, obj) // 初始化 传值 id,desc,h.create_time，页数 (还未实现)
-      this.totalPage = _mockHobbyItems.data.totalPage
-      this.totalCount = _mockHobbyItems.data.totalCount
-      this.mockHobbyItems = _mockHobbyItems.data.list
+      // let _mockHobbyItems = await $get('/web/hobbies/list?', {
+      //   limit: 12,
+      //   page: this.curPage,
+      //   // classfiy: this.hobbiesClassId,
+      //   order: 'desc',
+      //   sidx: this.sidxRecently
+      // }, obj) // 初始化 传值 id,desc,h.create_time，页数 (还未实现)
+      // this.totalPage = this._mockHobbyItems.totalPage
+      // this.totalCount = this._mockHobbyItems.totalCount
+      // this.mockHobbyItems = this._mockHobbyItems.list
       this.metaDescription = this.mockHobbyItems[0].description
       this.picCount = 0
       this.picTotal = 0
@@ -501,12 +506,12 @@ export default {
     })
     // this.$refs.pagination.routLinkCurrentPage(2)
     this.path = this.$route.path
-    // this.$nextTick(() => {
-    //   setTimeout(() => {
-    //     this.waterFlow('content-wrap', 'contain-hobby-wrap')
-    //     // this.routLinkCurrentPage(this.curPage)
-    //   }, 3000)
-    // })
+    this.$nextTick(() => {
+      setTimeout(() => {
+        this.waterFlow('content-wrap', 'contain-hobby-wrap')
+        // this.routLinkCurrentPage(this.curPage)
+      }, 1000)
+    })
     // 广告
     let adv = document.getElementById('advertisement')
     if (adv) {
@@ -933,9 +938,8 @@ export default {
       this.$router.push({
         path: `/hobbies/${page}`
       })
-      setTimeout(() => {
         this.waterFlow('content-wrap', 'contain-hobby-wrap')
-      }, 5000)
+
       this.getRecentlyHobbiesList(this.hobbiesClassId, page)
       this.currentPage = page
     }
