@@ -7,7 +7,7 @@
       <div class="tag_content_nav">
         <div class="tag_breadCrumb">
           <el-breadcrumb separator-class="el-icon-arrow-right">
-            <el-breadcrumb-item :to="{ path: preRouteObj.path }">{{preRouteObj.name}}</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: preRouteObj.path }">{{ preRouteObj.name}}</el-breadcrumb-item>
             <el-breadcrumb-item class="current">{{tagObj.title}}</el-breadcrumb-item>
           </el-breadcrumb>
         </div>
@@ -24,7 +24,7 @@
           </div> -->
           <div class="tag_des_content">
             <p class="tag_title">{{tagObj.title}}</p>
-            <p class="tag_description">{{tagObj.des}}</p>
+            <p class="tag_description" v-html="tagObj.des"></p>
           </div>
         </div>
       </div>
@@ -116,7 +116,7 @@
                   <ul>
                     <li v-for="(month, index) in MonthRank"
                       :key="index"
-                      @click="toArticleDetail(item.essayId)">
+                      @click="toArticleDetail(month.essayId)">
                       <p class="tag_p"><span :class="[isAddBg(index), 'normal']">{{index + 1}}</span> <span class="des">{{month.title}}</span></p>
                     </li>
                   </ul>
@@ -175,8 +175,8 @@ export default {
     this.createAdPicture()
     this._getWebTagDetail_()
     // this._getWebEassyList_()
-    this._getWeekendRank_()
-    this._getMonthRank_()
+    // this._getWeekendRank_()
+    // this._getMonthRank_()
   },
   data() {
     return {
@@ -199,18 +199,40 @@ export default {
     // 在渲染该组件的对应路由被 confirm 前调用
     // 不！能！获取组件实例 `this`
     // 因为当守卫执行前，组件实例还没被创建
-    /* console.log(to, from) */
+    let mypath = from.fullPath.slice(1)
+    let name = ''
     next(vm => {
-      console.log(to, from)
       /* 如果在当前页刷新，临时保存跳转过来的路由 */
       if (!from.name) {
         let myFrom = JSON.parse(sessionStorage.getItem('tagRoute'))
-        console.log(myFrom.fullPath)
-        vm.preRouteObj = { path: myFrom.fullPath, name: myFrom.meta.title }
+        mypath = myFrom.fullPath.slice(1)
+        if(!mypath || mypath.indexOf('search') === 0 ) {
+          name = '首页'
+        } else if(mypath.indexOf('news') === 0){
+          name = '今日车闻'
+        } else if(mypath.indexOf('ev') === 0){
+          name = '新能源'
+        }  else if(mypath.indexOf('hobby') === 0) {
+          name = '兴趣部落'
+        } else if (mypath.indexOf('video') === 0) {
+          name = '视频'
+        }
+        vm.preRouteObj = { path: myFrom.fullPath, name}
         vm.currentRouteObj = { path: to.fullPath, name: to.meta.title }
       } else {
+        if(!mypath || mypath.indexOf('search') === 0 ) {
+          name = '首页'
+        } else if(mypath.indexOf('news') === 0){
+          name = '今日车闻'
+        } else if(mypath.indexOf('ev') === 0){
+          name = '新能源'
+        }  else if(mypath.indexOf('hobby') === 0) {
+          name = '兴趣部落'
+        } else if (mypath.indexOf('video') === 0) {
+          name = '视频'
+        }
         sessionStorage.setItem('tagRoute', JSON.stringify(from))
-        vm.preRouteObj = { path: from.fullPath, name: from.meta.title }
+        vm.preRouteObj = { path: from.fullPath, name}
       }
       vm.currentRouteObj = { path: to.fullPath, name: to.meta.title }
     })
@@ -230,16 +252,29 @@ export default {
   },
   // nuxt异步获取数据
   async asyncData ({params}) {
+    let WeekendRank
+    let MonthRank
+    console.log('params', params)
     // let tagId = params.id
     // this.defaultParams.page = params.page
     let getWebEassyList = await $get(webTagAboutList, {
-      tagId: params.id,
-      page: params.page
+      tagId: params.tagId,
+      page: params.page,
+      limit: '6'
     })
-    console.log('tagList', getWebEassyList)
+    // 获取文章周排行榜
+    await $get(webEssayGetWeekendRank, { pageNo: '1', size: '10' }).then(res => {
+        WeekendRank = res.data.essayEntities
+    })
+    // 获取文章月排行榜
+    await $get(webEssayGetMonthRank, { pageNo: '1', size: '10' }).then(res => {
+        MonthRank = res.data.essayEntities
+    })
     return {
       pageObj : getWebEassyList.data,
-      eassyList : getWebEassyList.data.list
+      eassyList : getWebEassyList.data.list,
+      WeekendRank : WeekendRank,
+      MonthRank : MonthRank
     }
   },
   methods: {
@@ -285,13 +320,11 @@ export default {
     //   })
     // },
     changType() {
-      console.log(1)
       if (this.activeName === 'monthRank') {
         this.type = 'm'
       } else {
         this.type = 'w'
       }
-      console.log(this.type)
     },
     // 调到排行榜页
     toRank() {
@@ -324,17 +357,17 @@ export default {
       })
     },
     // 获取文章周和月排行榜
-    _getWeekendRank_() {
-      $get(webEssayGetWeekendRank, { pageNo: '1', size: '10' }).then(res => {
-        this.WeekendRank = res.data.essayEntities
-      })
-    },
+    // _getWeekendRank_() {
+    //   $get(webEssayGetWeekendRank, { pageNo: '1', size: '10' }).then(res => {
+    //     this.WeekendRank = res.data.essayEntities
+    //   })
+    // },
     // 获取文章周和月排行榜
-    _getMonthRank_() {
-      $get(webEssayGetMonthRank, { pageNo: '1', size: '10' }).then(res => {
-        this.MonthRank = res.data.essayEntities
-      })
-    },
+    // _getMonthRank_() {
+    //   $get(webEssayGetMonthRank, { pageNo: '1', size: '10' }).then(res => {
+    //     this.MonthRank = res.data.essayEntities
+    //   })
+    // },
     // 生成广告图片
     createAdPicture() {
       ;(window.slotbydup = window.slotbydup || []).push({
@@ -553,7 +586,7 @@ export default {
               .tag_title {
                 margin: 0 auto;
                 width: 328px;
-                height: 26px;
+                height: 28px;
                 font-size: 26px;
                 font-weight: 600;
                 color: rgba(18, 18, 18, 1);
@@ -723,7 +756,7 @@ export default {
                 }
                 span:first-child {
                   box-sizing: content-box;
-                  padding-left: 17px;
+                  padding-left: 18px;
                 }
                 &:hover {
                   color: #f00;

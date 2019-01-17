@@ -15,14 +15,13 @@
           <span></span>
         </div>
       </div>
-      <div class="tag">
+      <!-- <div class="hobbies-tag">
         <div class="tag-nav"
           v-for="(item, index) in tagItems"
           :key="index"
           :class="{ 'tagBorderOn': index === tagType}"
           @mouseenter="tagOn(index)"
           @mouseleave="tagOnDeline(index)">
-
           <nuxt-link :to="`/tagList/${item.id}/1`">
             <strong>{{item.title}}</strong>
             <span class="tag-nav--change"
@@ -32,6 +31,25 @@
             </span>
           </nuxt-link>
         </div>
+      </div> -->
+        <div class="hobbies-tag">
+        <span class="tag-nav"
+          v-for="(item, index) in tagItems"
+          :key="index"
+          :class="{ 'tagBorderOn': index === tagType}"
+          @mouseenter="tagOn(index)"
+          @mouseleave="tagOnDeline(index)">
+          <router-link :to="`/tagList/${item.id}/1`">
+            <span class="tag--box">
+              <strong>{{item.title}}</strong>
+            </span>
+            <span class="tag-nav--change"
+              v-show=" index === tagType">
+              <img src="/static/picture/tag_2.png"
+                class="tag_img">
+            </span>
+          </router-link>
+        </span>
       </div>
       <!--插件-->
       <!--<div class="nav-hobby">-->
@@ -785,7 +803,7 @@ export default {
         if (res.data.code === 0) {
           this.loginFlag = res.data.code
           this.$router.push({
-            path: `/publishHobbies`
+            path: `/hobby/publishHobbies`
           })
         } else {
           let x = window.confirm('您还未登录，请登录！')
@@ -936,7 +954,7 @@ export default {
     },
     pageChange(page) {
       this.$router.push({
-        path: `/hobbies/${page}`
+        path: `/hobby/${page}`
       })
         this.waterFlow('content-wrap', 'contain-hobby-wrap')
 
@@ -1005,33 +1023,37 @@ html {
   left: 533px;
   color: rgba(18, 18, 18, 1);
 }
-.contain-hobbies .tag {
+.contain-hobbies .hobbies-tag {
   min-height: 42px;
-  /*margin-top: 40px;*/
-
   text-align: center;
   clear: both;
   width: 1200px;
 }
 .contain-hobbies .tag-nav {
+  display: inline-block;
   box-sizing: border-box;
   position: relative;
   text-align: center;
   font-size: 14px;
   display: inline-block;
   margin-left: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   height: 42px;
   background: rgba(246, 246, 246, 1);
   border: 2px solid rgba(231, 231, 231, 1);
   color: rgba(42, 42, 42, 1);
-  padding-top: 10px;
-  padding-left:16px;
-  padding-right:16px;
+  /* padding-top: 10px; */
+  padding-left: 6px;
+  padding-right: 6px;
   vertical-align: top;
 }
+.tag--box {
+  display: inline-block;
+  height: 42px;
+  padding: 10px;
+}
 .tag-nav--change {
-  display:block;
+  display: block;
   text-align: right;
   overflow: hidden;
   text-overflow: ellipsis;

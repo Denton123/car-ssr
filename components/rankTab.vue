@@ -34,13 +34,15 @@
         </ul>
       </el-tab-pane>
     </el-tabs>
-    <router-link :to="`${model}/rankList/${activeName == 'first' ? 'w':'m'}/1`"
-      class="rankMore"
-      v-if="fullPath != '/w' || fullPath !='/m'">更多></router-link>
-    <router-link :to="`/index`"
-      class="rankMore"
-      @click.native="refresh"
-      v-if="fullPath == '/w' || fullPath =='/m'">更多></router-link>
+    <div v-if="fullPath != '/w' || fullPath !='/m' || fullPath != '/d'">
+      <nuxt-link :to="`${modelName}/rankList/${activeName == 'first' ? 'w':'m'}/1`"
+        class="rankMore">更多></nuxt-link>
+    </div>
+    <div v-else>
+      <router-link :to="``"
+        class="rankMore"
+        @click.native="refresh">更多></router-link>
+    </div>
   </div>
 </template>
 
@@ -56,7 +58,8 @@ export default {
       // rankWeekLists: [],
       // rankMonthLists: [],
       activeName: 'first',
-      fullPath: ''
+      fullPath: '',
+      modelName:''
     }
   },
   props: {
@@ -76,11 +79,20 @@ export default {
   },
   methods: {
     refresh: function() {
-      this.$router.go(0)
+        this.$router.push({
+        path: `${this.modelName}/rankList/${
+          this.activeName == 'first' ? 'w' : 'm'
+        }/1`
+      })
     }
+  },
+  created()
+  { 
+    // console.log(this.model,'model 666666666');
   },
   mounted() {
     let fullPath = this.$route.fullPath.match(/\/[a-z]{1}/gi)
+    this.modelName = this.$route.fullPath.match(/^\/[a-z]+/gi)[0]
     if (fullPath == null) {
       this.fullPath = []
     } else {

@@ -8,7 +8,7 @@
   dependencies:
     "@babel/highlight" "^7.0.0"
 
-"@babel/core@^7.1.6":
+"@babel/core@^7.1.2", "@babel/core@^7.1.6":
   version "7.2.2"
   resolved "http://registry.npm.taobao.org/@babel/core/download/@babel/core-7.2.2.tgz#07adba6dde27bb5ad8d8672f15fde3e08184a687"
   dependencies:
@@ -501,7 +501,7 @@
     core-js "^2.5.7"
     regenerator-runtime "^0.12.0"
 
-"@babel/preset-env@^7.1.6":
+"@babel/preset-env@^7.1.0", "@babel/preset-env@^7.1.6":
   version "7.2.3"
   resolved "http://registry.npm.taobao.org/@babel/preset-env/download/@babel/preset-env-7.2.3.tgz#948c8df4d4609c99c7e0130169f052ea6a7a8933"
   dependencies:
@@ -1335,6 +1335,16 @@ babel-helper-replace-supers@^6.24.1:
 babel-helper-vue-jsx-merge-props@^2.0.0, babel-helper-vue-jsx-merge-props@^2.0.3:
   version "2.0.3"
   resolved "http://registry.npm.taobao.org/babel-helper-vue-jsx-merge-props/download/babel-helper-vue-jsx-merge-props-2.0.3.tgz#22aebd3b33902328e513293a8e4992b384f9f1b6"
+
+babel-loader@^8.0.0-beta.0:
+  version "8.0.5"
+  resolved "https://registry.yarnpkg.com/babel-loader/-/babel-loader-8.0.5.tgz#225322d7509c2157655840bba52e46b6c2f2fe33"
+  integrity sha512-NTnHnVRd2JnRqPC0vW+iOQWU5pchDbYXsG2E6DMXEpMfUcQKclF9gmf3G3ZMhzG7IG9ji4coL0cm+FxeWxDpnw==
+  dependencies:
+    find-cache-dir "^2.0.0"
+    loader-utils "^1.0.2"
+    mkdirp "^0.5.1"
+    util.promisify "^1.0.0"
 
 babel-loader@^8.0.4:
   version "8.0.4"
@@ -2219,10 +2229,6 @@ code-point-at@^1.0.0:
 codemirror@^5.42.2:
   version "5.42.2"
   resolved "http://registry.npm.taobao.org/codemirror/download/codemirror-5.42.2.tgz#801ab715a7a7e1c7ed4162b78e9d8138b98de8f0"
-<<<<<<< HEAD
-  integrity sha1-gBq3Faen4cftQWK3jp2BOLmN6PA=
-=======
->>>>>>> 7300f9af0371f82742bb955be7d12b1976aeb7ac
 
 collection-visit@^1.0.0:
   version "1.0.0"
@@ -2554,7 +2560,7 @@ css-has-pseudo@^0.10.0:
     postcss "^7.0.6"
     postcss-selector-parser "^5.0.0-rc.4"
 
-css-loader@^1.0.1:
+css-loader@^1.0.0, css-loader@^1.0.1:
   version "1.0.1"
   resolved "http://registry.npm.taobao.org/css-loader/download/css-loader-1.0.1.tgz#6885bb5233b35ec47b006057da01cc640b6b79fe"
   dependencies:
@@ -4057,10 +4063,6 @@ isstream@~0.1.2:
 jquery@^3.3.1:
   version "3.3.1"
   resolved "http://registry.npm.taobao.org/jquery/download/jquery-3.3.1.tgz#958ce29e81c9790f31be7792df5d4d95fc57fbca"
-<<<<<<< HEAD
-  integrity sha1-lYzinoHJeQ8xvneS311NlfxX+8o=
-=======
->>>>>>> 7300f9af0371f82742bb955be7d12b1976aeb7ac
 
 js-levenshtein@^1.1.3:
   version "1.1.4"
@@ -6430,6 +6432,14 @@ strip-json-comments@~2.0.1:
   version "2.0.1"
   resolved "http://registry.npm.taobao.org/strip-json-comments/download/strip-json-comments-2.0.1.tgz#3c531942e908c2697c0ec344858c286c7ca0a60a"
 
+style-loader@^0.23.1:
+  version "0.23.1"
+  resolved "https://registry.yarnpkg.com/style-loader/-/style-loader-0.23.1.tgz#cb9154606f3e771ab6c4ab637026a1049174d925"
+  integrity sha512-XK+uv9kWwhZMZ1y7mysB+zoihsEj4wneFWAS5qoiLwzW0WzSqMrrsIy+a3zkQJq0ipFtBpX5W3MqyRIBF/WFGg==
+  dependencies:
+    loader-utils "^1.1.0"
+    schema-utils "^1.0.0"
+
 style-resources-loader@^1.2.1:
   version "1.2.1"
   resolved "http://registry.npm.taobao.org/style-resources-loader/download/style-resources-loader-1.2.1.tgz#7679d5dc2f27046b2fc2b83c1d5b6c1b8a9b820c"
@@ -6451,10 +6461,6 @@ stylehacks@^4.0.0:
 summernote@^0.8.11:
   version "0.8.11"
   resolved "http://registry.npm.taobao.org/summernote/download/summernote-0.8.11.tgz#89bb3472e75758359dbf1d7125cf1889c429f197"
-<<<<<<< HEAD
-  integrity sha1-ibs0cudXWDWdvx1xJc8YicQp8Zc=
-=======
->>>>>>> 7300f9af0371f82742bb955be7d12b1976aeb7ac
 
 supports-color@^2.0.0:
   version "2.0.0"
@@ -6907,6 +6913,23 @@ vue-awesome-swiper@^3.1.3:
     object-assign "^4.1.1"
     swiper "^4.0.7"
 
+vue-cropper@^0.4.8:
+  version "0.4.8"
+  resolved "https://registry.yarnpkg.com/vue-cropper/-/vue-cropper-0.4.8.tgz#9bd26a93335cded988d135d9f25575a61a9fb795"
+  integrity sha512-xS+23lhyZvTSExmsO3x14lXra5xmykEoAy6iyjLiXH+5l+koP3F+aP8EjJmT9hGOvT5b8fVu9nts9pHAeXb78w==
+  dependencies:
+    "@babel/core" "^7.1.2"
+    "@babel/plugin-transform-runtime" "^7.1.0"
+    "@babel/preset-env" "^7.1.0"
+    babel-loader "^8.0.0-beta.0"
+    babel-plugin-transform-runtime "^6.23.0"
+    babel-runtime "^6.26.0"
+    css-loader "^1.0.0"
+    style-loader "^0.23.1"
+    vue "^2.5.17"
+    vue-template-compiler "^2.5.17"
+    webpack "^4.20.2"
+
 vue-hot-reload-api@^2.3.0:
   version "2.3.1"
   resolved "http://registry.npm.taobao.org/vue-hot-reload-api/download/vue-hot-reload-api-2.3.1.tgz#b2d3d95402a811602380783ea4f566eb875569a2"
@@ -7050,6 +7073,36 @@ webpack-sources@^1.1.0, webpack-sources@^1.3.0:
   dependencies:
     source-list-map "^2.0.0"
     source-map "~0.6.1"
+
+webpack@^4.20.2:
+  version "4.28.4"
+  resolved "https://registry.yarnpkg.com/webpack/-/webpack-4.28.4.tgz#1ddae6c89887d7efb752adf0c3cd32b9b07eacd0"
+  integrity sha512-NxjD61WsK/a3JIdwWjtIpimmvE6UrRi3yG54/74Hk9rwNj5FPkA4DJCf1z4ByDWLkvZhTZE+P3C/eh6UD5lDcw==
+  dependencies:
+    "@webassemblyjs/ast" "1.7.11"
+    "@webassemblyjs/helper-module-context" "1.7.11"
+    "@webassemblyjs/wasm-edit" "1.7.11"
+    "@webassemblyjs/wasm-parser" "1.7.11"
+    acorn "^5.6.2"
+    acorn-dynamic-import "^3.0.0"
+    ajv "^6.1.0"
+    ajv-keywords "^3.1.0"
+    chrome-trace-event "^1.0.0"
+    enhanced-resolve "^4.1.0"
+    eslint-scope "^4.0.0"
+    json-parse-better-errors "^1.0.2"
+    loader-runner "^2.3.0"
+    loader-utils "^1.1.0"
+    memory-fs "~0.4.1"
+    micromatch "^3.1.8"
+    mkdirp "~0.5.0"
+    neo-async "^2.5.0"
+    node-libs-browser "^2.0.0"
+    schema-utils "^0.4.4"
+    tapable "^1.1.0"
+    terser-webpack-plugin "^1.1.0"
+    watchpack "^1.5.0"
+    webpack-sources "^1.3.0"
 
 webpack@^4.26.1:
   version "4.28.2"

@@ -272,7 +272,7 @@ export default {
 }
 
 .hot_news .item_title {
-  color: #888888;
+  color:black; 
   font-size: 16px;
   display: block;
   width: 100%;
