@@ -156,8 +156,8 @@
               <li v-for="(item, index) in essaysWidthTag"
                 :key="index"
                 class="detail_content_article_block">
-                <nuxt-link :to="`/${item.className.toLowerCase()}/${item.className.toLowerCase() !== 'hobbies' ? 'detail': 'hobbiesDetail'}/${item.id}/1`">
-                  <div style="width: 190px;height: 140px;">
+                <nuxt-link :to="`/${item.className}/${item.className.toLowerCase() !== 'hobbies' ? 'detail': 'hobbiesDetail'}/${item.id}/1`">
+                  <span style="width: 190px;height: 140px;display:inline-block;">
                     <img v-if="item.photo !== ''"
                       :src="formatPic(item.cover)"
                       class="detail_content_article_block_pic"
@@ -169,7 +169,7 @@
                       v-else>
                       <img src="~static/common/default.png" />
                     </span>
-                  </div>
+                  </span>
                   <h3 class="detail_content_article_block_title">{{item.title}}</h3>
 
                   <div class="detail_content_article_block_avatar_wrap">
@@ -392,7 +392,7 @@
           <div class="detail_more_title">
             <img src="~static/detail/detail_article.png">
             <h2>热门作品</h2>
-            <a :href="`Bloger/${essayData.userId}/1`"
+            <a :href="`/Bloger/${essayData.userId}/1`"
               class="detail_more_title_more">
               更多
             </a>
@@ -590,9 +590,6 @@ export default {
     }
   },
   async asyncData({params, context}) {
-    console.log('我是谁')
-    console.log(params, 'aaaaa')
-    console.log(context, 'aaaaa')
     let essayData
     // 文章评论
     let articleCommentData = await $get(webEssayEssayCommentList, {essayId: params.id,
@@ -606,9 +603,7 @@ export default {
     // 文章信息
     let detailData = await $get(webEssayDetailsInfo, {
       id: params.id
-    }, {
-          'X-Auth0-Token': null
-        })
+    })
     // 热门作品
     let hotData = await $get(webHobbiesDetailTopSix, {
       bloggerId: detailData.data.result_data.essay.userId
@@ -617,6 +612,19 @@ export default {
     let randomData = await $get(webHobbiesDetailRandomData, {
       bloggerId: detailData.data.result_data.essay.userId
     })
+    // essaysWidthTag.data.result_data.forEach(v => {
+    //   if (v.className.toLowerCase() == 'news') {
+    //     v.tag = '今日车闻'
+    //   } else if (v.className.toLowerCase() == 'video') {
+    //     v.tag = '视频'
+    //   } else if (v.className.toLowerCase() == 'hobbies') {
+    //     v.tag = '兴趣部落'
+    //   } else if (v.className.toLowerCase() == 'ev') {
+    //     v.tag = '新能源'
+    //   } else {
+    //     v.tag = '兴趣部落'
+    //   }
+    // })
       return {
         articleCommentData: articleCommentData.data ? articleCommentData.data.list : [],
         commentData: articleCommentData.data ? articleCommentData.data : [],
@@ -1201,15 +1209,11 @@ export default {
     },
     // 关注/取消关注博客
     async focusBlogger(id) {
-      console.log(this.essayData.id, 'this.essayData.id')
-      console.log(this.user.id, 'this.user.id')
-      console.log(this.essayData.userId, 'this.essayData.userId')
       // 没有登录
       if (this.tokenObj.token !== undefined || this.cookie !== '') {
         if (this.essayData.userId == this.user.id) {
           this.$message('用户不能关注自己')
         } else {
-          console.log('关注关注关注关注关注')
           let urlParam = new URLSearchParams()
           urlParam.append('bloggerId', `${id}`)
           if (this.detailData && this.detailData.couldFollow) {
@@ -1271,10 +1275,11 @@ export default {
             this.cookie !== '' ? this.cookie : this.tokenObj.token
         }
       ).then(res => {
+        console.log(res, 'res')
         if (res.data.code == 0) {
           this.user = res.data.des.user
           this.userCode = res.data.code
-          console.log(this.user)
+          console.log(this.userCode)
         }
       })
     },
@@ -1292,7 +1297,11 @@ export default {
             v.tag = '兴趣部落'
           }
         })
+        console.log('哈哈哈哈哈')
+        console.log(this.userCode)
       if (this.userCode !== 2) {
+        console.log(this.userCode, 'this.userCode')
+        console.log(this.detailData.couldFollow, 'couldFollow')
         if (
           this.detailData.couldFollow &&
           this.detailData.couldFollow !== null
@@ -1396,12 +1405,21 @@ export default {
       })
     }
   },
-  
+   beforeRouteEnter(to, from, next) {
+    next(vm => {
+      if (vm.userCode !== 2) {
+        if (vm.detailData.couldFollow && vm.detailData.couldFollow !== null) {
+          vm.isFollow = '已关注'
+        } else {
+          vm.isFollow = '关注'
+        }
+      } else {
+        vm.isFollow = '关注'
+      }
+    })
+  },
   mounted() {
-    console.log(this.$store.state)
-    console.log('==================')
-    console.log(this.essayData)
-    console.log('==================')
+    console.log(this.essaysWidthTag, 'detail')
     this.handleData()
     this.cookie = this.getCookie('token')
     if (this.cookie == '') {
@@ -1420,8 +1438,6 @@ export default {
       this.getUserInfo()
       // this.getDataTopSix()
       // this.getRandomData()
-    console.log(this.articleCommentData)
-    console.log('aaaaaaaaaaaaaaaaaaa')
       let ad = document.getElementById('advertisement')
       if (ad) {
         ;(window.slotbydup = window.slotbydup || []).push({

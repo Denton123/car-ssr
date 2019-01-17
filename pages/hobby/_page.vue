@@ -252,43 +252,6 @@ import BigCoursel from '@/components/BigCoursel'
 
 export default {
   name: 'hobby',
-  metaInfo() {
-    return {
-      // 设置 title
-      title: `兴趣部落_${this.currentPage}页-尖峰咖`,
-      // 设置 meta
-      meta: [
-        {
-          name: 'keyWords',
-          content: this.metaWords
-        },
-        {
-          name: 'description',
-          content: this.metaDescription
-        },
-        {
-          name: 'mobile-anent',
-          content: 'url=http://'
-        },
-        {
-          name: 'applicable-device',
-          content: 'pc'
-        }
-      ],
-      // 设置 link
-      link: [
-        {
-          rel: 'asstes',
-          href: 'https://assets-cdn.github.com/'
-        },
-        {
-          rel: 'alternate',
-          media: 'handheld',
-          href: 'http://m.mgous.com'
-        }
-      ]
-    }
-  },
   data() {
     return {
       loginFlag: null,
@@ -785,7 +748,7 @@ export default {
         if (res.data.code === 0) {
           this.loginFlag = res.data.code
           this.$router.push({
-            path: `/publishHobbies`
+            path: `/hobby/publishHobbies`
           })
         } else {
           let x = window.confirm('您还未登录，请登录！')
@@ -936,10 +899,10 @@ export default {
     },
     pageChange(page) {
       this.$router.push({
-        path: `/hobbies/${page}`
+        path: `/hobby/${page}`
       })
+      console.log(page, 'testpage')
         this.waterFlow('content-wrap', 'contain-hobby-wrap')
-
       this.getRecentlyHobbiesList(this.hobbiesClassId, page)
       this.currentPage = page
     }

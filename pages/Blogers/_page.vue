@@ -150,8 +150,8 @@ export default {
       // bloggerLists: [],
       tokenObj: null,
       // 页码的参数
-      totalPage: 0,
-      totalCount: 0,
+      // totalPage: 0,
+      // totalCount: 0,
       // 博主id
       bloggerId: null,
       cookie: null,
@@ -167,14 +167,29 @@ export default {
   },
   created() {},
   async asyncData () {
+    let totalPage
+    let totalCount
     let bloggerLists = await $get('/web/user/getBollgerRank?', 
       {
           pageNo: 1,
           size: 18
         },
     )
+    bloggerLists.data.userEntities.forEach(function(item) {
+      if (item.label === '视频') {
+        item.arr = 'video'
+      } else if (item.label === '今日车闻') {
+        item.arr = 'news'
+      } else if (item.label === '新能源') {
+        item.arr = 'ev'
+      } else {
+        item.arr = 'hobbies'
+      }
+    })
     return {
-      bloggerLists: bloggerLists.data ? bloggerLists.data : []
+      totalPage: bloggerLists.data ? bloggerLists.data.totalPageCount : 0,
+      totalCount: bloggerLists.data ? bloggerLists.data.totalBloggerCount : 0,
+      bloggerLists: bloggerLists.data ? bloggerLists.data : [],
     }
   },
   mounted() {
