@@ -332,10 +332,9 @@
                 </nuxt-link>
                 <a href="javascript:void(0);"
                   class="detail_user_msg_focus"
-                  @click="focusBlogger(essayData.userId)">
-                  <span class="detail_user_msg_focus_bg">{{isFollow}}</span>
-                  <span class="detail_user_msg_focus_side">
-                  </span>
+                  @click="focusBlogger(essayData.userId)" 
+                  :class="isFollow=='已关注'? 'focusBg' : 'nofocusBg' ">
+                  <span>{{isFollow}}</span>
                 </a>
               </div>
               <div class="detail_user_othermsg">
@@ -569,18 +568,18 @@ export default {
   async asyncData ({params, env, req }) {
     var userCookie = null
     if (req && req.headers) {
-      console.log(req.headers.cookie.split(';'), 'headers')
+      // console.log(req.headers.cookie.split(';'), 'headers')
       let reqHeaders = req.headers.cookie.split(';')
       let tokenArr
       reqHeaders.forEach(v => {
         if (v.indexOf('token') !== -1) {
           tokenArr = v.split('=')
-          console.log(tokenArr)
+          // console.log(tokenArr)
           userCookie = tokenArr[1]
         }
       })
     }
-    console.log(userCookie, 'aaaa')
+    // console.log(userCookie, 'aaaa')
     let essayData, commentData, articleCommentSize
     // 兴趣部落详情信息
     let hobbiesIdDetailData = await $get(webHobbiesDetailInfo, {
@@ -601,7 +600,7 @@ export default {
       page: 1
     })
     return {
-      essayData: hobbiesIdDetailData.data.result_data.hobbies ? hobbiesIdDetailData.data.result_data.hobbies : {},
+      essayData: hobbiesIdDetailData.data ? hobbiesIdDetailData.data.result_data.hobbies : {},
       hobbiesIdDetailData: hobbiesIdDetailData.data.result_data ? hobbiesIdDetailData.data.result_data : {},
       hotData: hotData.data.result_data ? hotData.data.result_data : [],
       randomData: randomData.data.result_data ? randomData.data.result_data : [],
@@ -859,7 +858,7 @@ export default {
           this.hobbiesIdDetailData.couldFollow &&
           this.hobbiesIdDetailData.couldFollow !== null
         ) {
-          this.isFollow = '取消关注'
+          this.isFollow = '已关注'
         } else {
           this.isFollow = '关注'
         }
@@ -1166,7 +1165,7 @@ export default {
             if (res.data.str === '请先登录!') {
               this.$message('请先登录')
             } else {
-              this.isFollow = '取消关注'
+              this.isFollow = '已关注'
               this.getArticleData()
             }
           }
@@ -1219,7 +1218,7 @@ export default {
           this.hobbiesIdDetailData.couldFollow &&
           this.hobbiesIdDetailData.couldFollow !== null
         ) {
-          this.isFollow = '取消关注'
+          this.isFollow = '已关注'
         } else {
           this.isFollow = '关注'
         }
@@ -1998,19 +1997,19 @@ detail_comment_form_input_operate_emoji:hover span {
   color: #be001e;
 }
 .detail_user_msg_focus {
-  /* width: 70px; */
+  width: 70px;
   height: 32px;
   display: block;
-  /* background: url('../../../assets/detail/detail_focus.png'); */
+
   text-align: center;
   line-height: 32px;
-  color: #fff;
+  color: rgb(170, 170, 170);
   text-decoration: none;
   margin: 0 auto;
 }
-.detail_user_msg_focus:hover {
+/* .detail_user_msg_focus:hover {
   color: #fff;
-}
+} */
 .detail_user_msg_focus span {
   display: inline-block;
 }
@@ -2293,5 +2292,11 @@ detail_comment_form_input_operate_emoji:hover span {
 #advertisement {
   margin-bottom: 30px;
 }
-
+.focusBg {
+  background: url('~static/images/watch_wrap.png') no-repeat;
+}
+.nofocusBg {
+  background: url('~static/images/watch_red.png') no-repeat;
+  color: #fff;
+}
 </style>

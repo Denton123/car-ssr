@@ -51,9 +51,9 @@
                   @tab-click="handleClick">
                   <el-tab-pane label="我的文章"
                     name="person-index-myEssay-page">
-                    <!-- <nuxt-child/> -->
+                     <nuxt-child/>
                     <!--<router-view class="view"></router-view>-->
-                    <my-essay></my-essay>
+                    <!--<my-essay></my-essay>-->
                   </el-tab-pane>
                   <!-- <el-tab-pane label="我的积分"
                     name="second">
@@ -215,6 +215,7 @@ export default {
     //     async: true
     //   })
     //   }
+    this.$router.push('/person/myEssay/1')
   },
   components: {
     Header,

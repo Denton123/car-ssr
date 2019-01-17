@@ -1,7 +1,7 @@
 <template>
   <div class="wrap hobbiesDetailSwiper"
     style="position: relative;">
-    <swiper :options="galleryTop" ref="topSwiper">
+    <swiper :options="galleryTop" ref="topSwiper"  class="swiper-container gallery-top">
       <div class="swiper-wrapper">
       </div>
     </swiper>
@@ -10,7 +10,7 @@
     <div class="swiper-button-prev"
       style="background: url(~static/detail/left.png);position:absolute;top:77.5%;left:40%;width: 51px;height: 77px;"></div>
     <swiper :options="galleryThumbs"
-      style="margin-top: 50px;" ref="thumbSwiper">
+      style="margin-top: 50px;" ref="thumbSwiper"  class="swiper-container gallery-thumbs">
       <div class="swiper-wrapper">
       </div>
     </swiper>
@@ -31,25 +31,8 @@ export default {
     return {
       // num: '',
       sliderData: [],
-      galleryTop: {
-        spaceBetween: 10,
-        loop: true,
-        loopedSlides: 9, //looped slides should be the same
-        navigation: {
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev'
-        }
-      },
-      galleryThumbs: {
-        spaceBetween: 10,
-        slidesPerView: 9,
-        touchRatio: 0.2,
-        loop: true,
-        loopedSlides: 9, //looped slides should be the same
-        slideToClickedSlide: true,
-        slideActiveClass: 'normal-active',  
-        centeredSlides: true // 居中
-      }
+      galleryTop: {},
+      galleryThumbs: {}
     }
   },
   props: {
@@ -61,7 +44,7 @@ export default {
   },
   computed: {},
   mounted() {
-    this.$nextTick(() => {
+    // this.$nextTick(() => {
       // console.log(this.$route)
       $get(webHobbiesDetailInfo, { hobbiesId: this.$route.params.id}).then(res => {
         let photoList = res.data.result_data.hobbies.photoList
@@ -70,13 +53,12 @@ export default {
           for (let i = 0; i < photoList.length; i++) {
             let imgUrl = this.formatphoto(photoList[i].photo)
             $('.swiper-wrapper').append(
-              `<swiper-slide><img src="${imgUrl}"></swiper-slide>`
+              `<swiper-slide class="swiper-slide"><img src="${imgUrl}"></swiper-slide>`
             )
-            console.log('1122222222222')
           }
-          var length = this.sliderData.length
-          if (length == 9) {
-            let galleryTop = new Swiper('.gallery-top', {
+          let sliderlength = this.sliderData.length
+          if (sliderlength == 9) {
+            this.galleryTop = {
               spaceBetween: 10,
               loop: true,
               loopedSlides: 9, //looped slides should be the same
@@ -84,8 +66,8 @@ export default {
                 nextEl: '.swiper-button-next',
                 prevEl: '.swiper-button-prev'
               }
-            })
-            let galleryThumbs = new Swiper('.gallery-thumbs', {
+            }
+            this.galleryThumbs = {
               spaceBetween: 10,
               slidesPerView: 9,
               touchRatio: 0.2,
@@ -94,19 +76,23 @@ export default {
               slideToClickedSlide: true,
               slideActiveClass: 'normal-active',  
               centeredSlides: true // 居中
-            })
-            galleryTop.controller.control = galleryThumbs
-            galleryThumbs.controller.control = galleryTop
-            galleryTop.init()
-            galleryThumbs.init()
+            }
+            this.$refs.topSwiper.swiper.controller.control = this.$refs.thumbSwiper.swiper
+            this.$refs.thumbSwiper.swiper.controller.control = this.$refs.topSwiper.swiper
+            setTimeout(() => {
+              this.$refs.topSwiper.swiper.init()
+            this.$refs.thumbSwiper.swiper.init()
+            }, 2000)
+            console.log(this.$refs.thumbSwiper.swiper, 'control')
+            console.log(this.$refs.topSwiper)
           } else {
-            var thumbsSwiper = new Swiper('.gallery-thumbs', {
+            this.galleryThumbs = {
               spaceBetween: 10,
               slideThumbActiveClass: 'thumb-active',
               touchRatio: 0,
               watchSlidesVisibility: true //防止不可点击
-            })
-            var thumbsTopSwiper = new Swiper('.gallery-top', {
+            }
+            this.galleryTop = {
               spaceBetween: 10,
               loop: length == 1 ? false : true,
               touchRatio: 0.5,
@@ -115,15 +101,22 @@ export default {
                 prevEl: '.swiper-button-prev'
               },
               thumbs: {
-                swiper: thumbsSwiper
+                swiper: this.$refs.thumbSwiper
               }
-            })
-            thumbsSwiper.init()
-            thumbsTopSwiper.init()
+            }
+            setTimeout(() => {
+              this.$refs.topSwiper.swiper.init()
+            this.$refs.thumbSwiper.swiper.init()
+            }, 2000)
+            // console.log(this.$refs.galleryThumbs.swiper)
+            
           }
         }
       })
-    })
+    // })
+    setTimeout(() => {
+      this.$refs.topSwiper.swiper.slideTo(3, 1000, false)
+    }, 2000)
   },
   methods: {
     formatphoto(item) {

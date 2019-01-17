@@ -27,8 +27,7 @@ export const instance = axios.create({
 // 添加请求拦截器
 instance.interceptors.request.use(
   function(config) {
-    console.log(config)
-    const token = process.client ? getCookie('token') : '(config["X-Auth0-Token"] || null)'
+    const token = process.client ? (getCookie('token') !=='' ? getCookie('token') : 'test') : '(config["X-Auth0-Token"] || null)'
     config.headers["X-Auth0-Token"] = token
     // 在发送请求之前做些什么
     return config

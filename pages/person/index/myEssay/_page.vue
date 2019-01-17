@@ -1,6 +1,6 @@
 <template>
   <div class="person_my_essay_list">
-    <my-title v-if="listData.list"
+    <my-title v-if="listData && listData.list"
       :num="listData.totalCount"></my-title>
     <div class="person_essay_list">
       <div class="person_essay_list_block"
@@ -36,7 +36,7 @@
         <!-- 编辑按钮 -->
         <div class="person_essay_list_block_desc_edit"
           v-if="item.state === '草稿'||item.state === '审核不通过'">
-          <nuxt-link :to="item.title == 'hobbies' ? `/editHobbies/${item.id}` : `/person/editEssay/${item.id}`">
+          <nuxt-link :to="item.title == 'hobbies' ? `/person/editHobbies/${item.id}` : `/person/editEssay/${item.id}`">
 
             <i class="el-icon-edit" />
           </nuxt-link>
@@ -101,7 +101,7 @@ export default {
       ).then(res => {
         console.log(res)
         this.listData = res.data.des
-        if (this.listData && this.listData.list) {
+        if (this.listData) {
             this.listData.list.forEach(v => {
           switch (v.state) {
             case 1:
@@ -127,7 +127,7 @@ export default {
           this.toLinkDetail = v.title !== 'hobbies' ? 'detail' : 'hobbiesDetail'
         })
         }
-        
+
       })
     },
     formatPic(item) {
