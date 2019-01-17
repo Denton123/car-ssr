@@ -174,7 +174,7 @@ export default {
   beforeMount() {
     this.createAdPicture()
     this._getWebTagDetail_()
-    this._getWebEassyList_()
+    // this._getWebEassyList_()
     this._getWeekendRank_()
     this._getMonthRank_()
   },
@@ -228,6 +228,20 @@ export default {
       })
     }
   },
+  // nuxt异步获取数据
+  async asyncData ({params}) {
+    // let tagId = params.id
+    // this.defaultParams.page = params.page
+    let getWebEassyList = await $get(webTagAboutList, {
+      tagId: params.id,
+      page: params.page
+    })
+    console.log('tagList', getWebEassyList)
+    return {
+      pageObj : getWebEassyList.data,
+      eassyList : getWebEassyList.data.list
+    }
+  },
   methods: {
     // 排名前三特殊背景
     isAddBg(i) {
@@ -255,21 +269,21 @@ export default {
         return ''
       }
     },
-    // 获取相关文章列表
-    _getWebEassyList_() {
-      let tagId = this.$route.params.tagId
-      /* console.log(this.$route.params.page) */
-      this.defaultParams.page = this.$route.params.page || '1'
-      $get(webTagAboutList, {
-        ...this.defaultParams,
-        tagId
-      }).then(res => {
-        /*  console.log(res.data) */
-        this.pageObj = res.data
-        this.eassyList = res.data.list
-        this.$forceUpdate()
-      })
-    },
+    // // 获取相关文章列表
+    // _getWebEassyList_() {
+    //   let tagId = this.$route.params.tagId
+    //   /* console.log(this.$route.params.page) */
+    //   this.defaultParams.page = this.$route.params.page || '1'
+    //   $get(webTagAboutList, {
+    //     ...this.defaultParams,
+    //     tagId
+    //   }).then(res => {
+    //     /*  console.log(res.data) */
+    //     this.pageObj = res.data
+    //     this.eassyList = res.data.list
+    //     this.$forceUpdate()
+    //   })
+    // },
     changType() {
       console.log(1)
       if (this.activeName === 'monthRank') {
@@ -362,7 +376,10 @@ export default {
   },
   watch: {
     // 如果路由有变化，会再次执行该方法
-    $route: '_getWebEassyList_'
+    // $route: '_getWebEassyList_'
+    $route(to, from) {
+      this.$router.go(0)
+    }
   },
   components: {
     Header,
