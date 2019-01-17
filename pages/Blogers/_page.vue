@@ -165,7 +165,23 @@ export default {
     Footer,
     pagination
   },
-  created() {},
+  created() {
+      this.bloggerLists.userEntities.forEach(function(item) {
+        if (item.label === '视频') {
+          item.arr = 'video'
+        } else if (item.label === '今日车闻') {
+          item.arr = 'news'
+        } else if (item.label === '新能源') {
+          item.arr = 'ev'
+        } else {
+          item.arr = 'hobbies'
+        }
+      })
+      this.metaDescription = this.bloggerLists.userEntities[0].digest && this.bloggerLists.userEntities[0].digest !=''? this.bloggerLists.userEntities[0].digest:''
+      // this.bloggerId = this.bloggerLists.userEntities.authorId
+      this.totalPage = this.bloggerLists.totalPageCount
+      this.totalCount = this.bloggerLists.totalBloggerCount
+  },
   async asyncData () {
     let bloggerLists = await $get('/web/user/getBollgerRank?', 
       {
@@ -186,7 +202,6 @@ export default {
       localStorage.getItem('userMsg') !== null
     ) {
       this.tokenObj = JSON.parse(localStorage.getItem('userMsg')).token
-      console.log('localstroge', this.tokenObj)
     } else if (this.cookie !== '') {
       this.cookie = this.getCookie('token')
       this.tokenObj = this.cookie
@@ -242,22 +257,8 @@ export default {
         obj
       )
       this.bloggerLists = itemL.data
-      this.bloggerLists.userEntities.forEach(function(item) {
-        if (item.label === '视频') {
-          item.arr = 'video'
-        } else if (item.label === '今日车闻') {
-          item.arr = 'news'
-        } else if (item.label === '新能源') {
-          item.arr = 'ev'
-        } else {
-          item.arr = 'hobbies'
-        }
-      })
-      console.log('this.bloggerLists', this.bloggerLists)
-      this.metaDescription = this.bloggerLists.userEntities[0].digest
-      // this.bloggerId = this.bloggerLists.userEntities.authorId
-      this.totalPage = this.bloggerLists.totalPageCount
-      this.totalCount = this.bloggerLists.totalBloggerCount
+
+
     },
 
     concatImage(item) {
@@ -272,9 +273,8 @@ export default {
           this.tokenObj
         }
       ).then(res => {
-        this.userName = res.data.des.user.account
-        this.userId = res.data.des.user.id
-        console.log('eeeeeee', this.userName)
+        // this.userName = res.data.des.user.account && res.data.des.user.account != '' ? res.data.des.user.account : ''
+        this.userId = res.data.des.user&& res.data.des.user!= '' ? res.data.des.user.id : ''
       })
     },
     async watchBloger() {
@@ -328,7 +328,7 @@ export default {
     },
     pageChange(page) {
       this.$router.push({
-        path: `/hobbies/blogers/${page}`
+        path: `/blogers/${page}`
       })
       this.currentPage = page
       this.getBlogersList(page)
