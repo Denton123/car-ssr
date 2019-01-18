@@ -6,14 +6,15 @@
       v-if="list && list.length > 1"
       @slideChange="change">
       <swiper-slide v-for="(item, index) in list"
-        :key="index">
+        :key="index"
+        >
         <div class="item">
           <a :href="item.linkurl"
             class="big_coursel_swiper_a"
             target="_blank">
             <img :src="concatImage(item.url)">
             <div class="cover"
-              v-if="activeIndex !== index"></div>
+              ></div>
           </a>
         </div>
       </swiper-slide>
