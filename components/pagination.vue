@@ -186,10 +186,11 @@ export default {
 
 /* 上下一页，鼠标移入移出的效果 */
 .pagination .prevBtn:hover,
+.pagination .number:hover,
 .pagination .nextBtn:hover {
-  background-color: #121212;
+  background-color: #121212 !important;
   box-shadow: 0px 3px 0px 0px #bd081e;
-  color: white;
+  color: white !important;
 }
 
 /* 禁用状态的样式 */

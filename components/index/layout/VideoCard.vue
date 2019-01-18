@@ -19,11 +19,11 @@
         </router-link>
       </dt>
       <router-link :to="`/video/detail/${item.id}/1`">
-        <div class="video_display_mark">
+        <!-- <div class="video_display_mark">
           <div class="video_display_mark_sign">
             <div class="video_display_mark_sign_arrow"></div>
           </div>
-        </div>
+        </div> -->
       </router-link>
 
     </dl>
@@ -123,18 +123,18 @@ export default {
   width: 216px;
   height: 122px;
 }
-.video_card_list .video_display_mark {
+/* .video_card_list .video_display_mark {
   position: absolute;
   top: 0;
   left: 0;
   background: rgba(0, 0, 0, 0.2);
   z-index: 99999;
-}
+} */
 .video_card_list .video_display img {
   width: 100%;
   height: 100%;
 }
-.video_card_list .video_display_mark_sign {
+/* .video_card_list .video_display_mark_sign {
   width: 44px;
   height: 44px;
   border: 1px solid #ffffff;
@@ -148,5 +148,5 @@ export default {
   border-bottom: 10px solid transparent;
   border-left: 14px solid #fff;
   margin: 12px auto;
-}
+} */
 </style>

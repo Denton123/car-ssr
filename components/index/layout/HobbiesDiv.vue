@@ -21,7 +21,7 @@
       <div class="info clearfix"
         v-if="sContent == '0'">
         <div class="info_left"
-          @click="$router.push(`/Bloger/${cardData.id}/1`)">
+          @click="$router.push(`/Bloger/${cardData.userId}/1`)">
           <span class="info_header">
             <img :src="formatPic(card.authorphoto) "
               alt="头像"
@@ -29,7 +29,7 @@
               width="100%"
               v-if="card.authorphoto != null">
           </span>
-          <router-link :to="`/Bloger/${card.id}/1`">
+          <router-link :to="`/Bloger/${card.userId}/1`">
             <span class="info_name">{{card.userName == '' ? '无': card.userName}}</span>
           </router-link>
         </div>

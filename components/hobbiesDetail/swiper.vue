@@ -1,15 +1,18 @@
 <template>
   <div class="wrap hobbiesDetailSwiper"
     style="position: relative;">
-    <swiper v-if="sliderData&& sliderData.length >= 1" :options="galleryTop" ref="topSwiper"  class="swiper-container gallery-top">
+    <!-- 如果是一张图片，充满整个容器 -->
+    <swiper v-if="sliderData&& sliderData.length >= 1" :options="galleryTop" ref="topSwiper"  class="swiper-container gallery-top"
+      :class="sliderData&& sliderData.length == 1 ? 'oneItemPhoto':''"
+      >
       <!-- <div class="swiper-wrapper">
       </div> -->
     </swiper>
-    <div class="swiper-button-next"
+    <!-- <div class="swiper-button-next"
       style="position:absolute;top:77.5%;left:47.3%;width: 51px;height: 77px;"></div>
     <div class="swiper-button-prev"
-      style="background: url(~static/detail/left.png);position:absolute;top:77.5%;left:40%;width: 51px;height: 77px;"></div>
-    <swiper  :options="galleryThumbs"
+      style="background: url(~static/detail/left.png);position:absolute;top:77.5%;left:40%;width: 51px;height: 77px;"></div> -->
+    <swiper v-if="sliderData&& sliderData.length > 1 " :options="galleryThumbs"
       style="margin-top: 50px;" ref="thumbSwiper"  class="swiper-container gallery-thumbs">
       <!-- <div class="swiper-wrapper">
       </div> -->
@@ -57,9 +60,9 @@ export default {
                 prevEl: '.swiper-button-prev'
               },
               init: false,  //延迟初始化
-              thumbs: {
-                swiper: this.$refs.thumbSwiper,
-              }
+              // thumbs: {
+              //   swiper: this.$refs.thumbSwiper,
+              // }
             },
     }
   },
@@ -71,8 +74,6 @@ export default {
   },
   computed: {},
   mounted() {
-    console.log(this.sliderData,'sliderData----->')
-    console.log(this.sliderData.length,'length----->')
       for (let i = 0; i < this.sliderData.length; i++) {
               let imgUrl = this.formatphoto(this.sliderData[i].photo)
               $('.swiper-wrapper').append(
@@ -122,7 +123,7 @@ export default {
 <style>
 .wrap {
   width: 700px;
-  height: 600px;
+  /* height: 600px; */
   position: relative;
 }
 .hobbiesDetailSwiper .swiper-container {
@@ -140,7 +141,7 @@ export default {
   width: 100%;
 }
 .hobbiesDetailSwiper .gallery-thumbs {
-  height: 20%;
+  height: auto;
   box-sizing: border-box;
   padding: 10px 0;
   margin-top: 50px;
@@ -157,6 +158,12 @@ export default {
   width: 100%;
   height: 100%;
   cursor: pointer;
+}
+.hobbiesDetailSwiper .gallery-top img {
+  object-fit: none;
+}
+.hobbiesDetailSwiper .oneItemPhoto .swiper-slide img{
+  object-fit: initial;
 }
 .hobbiesDetailSwiper .gallery-thumbs .swiper-slide {
   width: 68.88889px !important;

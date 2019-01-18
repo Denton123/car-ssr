@@ -140,10 +140,10 @@
                 alt="尖峰咖">
             </div>
             <!-- 播放按钮 -->
-            <el-button class="videoBtn"
+            <!-- <el-button class="videoBtn"
               type="info"
               icon="el-icon-caret-right"
-              circle></el-button>
+              circle></el-button> -->
             <!-- 暂时取消，等到拿到广告里的链接先 -->
             <!-- <div class="mask"
               @mouseenter="adverTitleActiveFn()"
@@ -531,7 +531,11 @@ export default {
       this.navTabActiveStatus = true
     },
     titleActive(item) {
-      this.titleActiveIndex = this.leftSideResult.EssayEntity.indexOf(item)
+      if( this.titleActiveIndex = this.firstHalfData.indexOf(item) >= 0 ){
+          this.titleActiveIndex = this.firstHalfData.indexOf(item) 
+      }else{
+          this.titleActiveIndex = this.secondHalfData.indexOf(item) 
+      }
       this.removeTitleActive = true
     },
     adverTitleActiveFn() {
@@ -1181,12 +1185,12 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  height: 18px;
+  height: 21px;
   font-size: 18px;
   font-weight: 500;
   color: rgba(255, 255, 255, 1);
   position: absolute;
-  bottom: 20px;
+  bottom: 16px;
   left: 28px;
   z-index: 3;
 }
