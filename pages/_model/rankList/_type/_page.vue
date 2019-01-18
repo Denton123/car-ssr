@@ -34,7 +34,7 @@
                 <div class="defaultBox"
                   v-if="imgLoadStatus == 'false' && index == imgLossIndex  ">
                   <router-link :to="`/rank/detail/${item.essayId}/1`">
-                    <img src="/static/common/default.png"
+                    <img src="~static/common/default.png"
                       alt="尖峰咖"
                       width="160px">
                   </router-link>
@@ -556,7 +556,7 @@ export default {
   overflow: hidden;
   width: 380px;
   background: #e7e7e7;
-  background-image: url('/static/common/default.png');
+  background-image: url('~static/common/default.png');
   background-position: center;
   background-repeat: no-repeat;
   height: 280px;
@@ -624,10 +624,10 @@ export default {
   font-weight: 600;
 }
 .rankDetail .rankNumTop {
-  background-image: url('/static/images/18.png');
+  background-image: url('~static/images/18.png');
 }
 .rankDetail .rankNumNormal {
-  background-image: url('/static/images/19.png');
+  background-image: url('~static/images/19.png');
 }
 .rankDetail .imgDesc .divider {
   width: 40px;
@@ -736,7 +736,7 @@ export default {
   width: 100%;
   height: 100%;
   background: #e7e7e7;
-  background-image: url('/static/common/default.png');
+  background-image: url('~static/common/default.png');
   background-position: center;
   background-repeat: no-repeat;
   margin-bottom: 30px;
