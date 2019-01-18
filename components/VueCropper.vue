@@ -16,22 +16,22 @@
         </div>
         <div class="cropper-content">
           <div class="cropper">
-            <vueCropper ref="cropper"
-              :img="option.img"
-              :outputSize="option.size"
-              :outputType="option.outputType"
-              :info="true"
-              :full="option.full"
-              :canMove="option.canMove"
-              :canMoveBox="option.canMoveBox"
-              :original="option.original"
-              :autoCrop="option.autoCrop"
-              :autoCropWidth="option.autoCropWidth"
-              :autoCropHeight="option.autoCropHeight"
-              :fixedBox="option.fixedBox"
-              @realTime="realTime"
-              @imgLoad="imgLoad">
-            </vueCropper>
+              <vueCropper ref="cropper"
+                          :img="option.img"
+                          :outputSize="option.size"
+                          :outputType="option.outputType"
+                          :info="true"
+                          :full="option.full"
+                          :canMove="option.canMove"
+                          :canMoveBox="option.canMoveBox"
+                          :original="option.original"
+                          :autoCrop="option.autoCrop"
+                          :autoCropWidth="option.autoCropWidth"
+                          :autoCropHeight="option.autoCropHeight"
+                          :fixedBox="option.fixedBox"
+                          @realTime="realTime"
+                          @imgLoad="imgLoad">
+              </vueCropper>
           </div>
           <div style="margin-left:20px;">
             <div class="show-preview"
@@ -48,27 +48,27 @@
           <el-row class="avatar-btns">
             <el-col :span="18">
               <el-button type="primary"
-                class="el-button el-button--primary"
-                title="放大"
-                @click="changeScale(1)">放大</el-button>
+                         class="el-button el-button--primary"
+                         title="放大"
+                         @click="changeScale(1)">放大</el-button>
               <el-button type="primary"
-                class="el-button el-button--primary"
-                title="缩小"
-                @click="changeScale(-1)">缩小</el-button>
+                         class="el-button el-button--primary"
+                         title="缩小"
+                         @click="changeScale(-1)">缩小</el-button>
               <el-button type="primary"
-                class="el-button el-button--primary"
-                title="左旋转"
-                @click="rotateLeft">↺</el-button>
+                         class="el-button el-button--primary"
+                         title="左旋转"
+                         @click="rotateLeft">↺</el-button>
               <el-button type="primary"
-                class="el-button el-button--primary"
-                title="右旋转"
-                @click="rotateRight">↻</el-button>
+                         class="el-button el-button--primary"
+                         title="右旋转"
+                         @click="rotateRight">↻</el-button>
             </el-col>
             <el-col :span="6">
               <input type="button"
-                class="btn btn-blue el-button el-button--primary"
-                value="确定"
-                @click="finish('blob')">
+                     class="btn btn-blue el-button el-button--primary"
+                     value="确定"
+                     @click="finish('blob')">
               <!--<button type="primary" class="el-button el-button&#45;&#45;primary" title="确定" @click="finish('blob')">确定</button>-->
             </el-col>
           </el-row>
@@ -85,10 +85,18 @@
 </template>
 
 <script>
+  // import Vue from 'vue'
 import until from '@/utils/until'
 import axios from 'axios'
 const url = until.commonFileUrl + until.apiPath + 'sys/uploadFile'
+// if(process.client) {
+//   vueCropper = require('vue-cropper')
+//   Vue.use(vueCropper.default)
+// }
 export default {
+  // components: {
+  //   vueCropper
+  // },
   watch: {
     clearMessage() {
       console.log(this.option.img)
@@ -222,6 +230,13 @@ export default {
       if (!/\.(gif|jpg|jpeg|png|bmp|GIF|JPG|PNG)$/.test(e.target.value)) {
         alert('图片类型必须是.gif,jpeg,jpg,png,bmp中的一种')
         return false
+      } else if (file.size / 1024 / 1024 > 5){
+        this.$message({
+          showClose: true,
+          message: '图片上传不能大于5M',
+          type: 'error'
+        })
+        return false
       }
       formData.append('file', file, _this.fileName)
       formData.append('moduleName', 'essay')
@@ -247,11 +262,13 @@ export default {
         })
       var reader = new FileReader()
       reader.onload = e => {
+        console.log(e)
         let data
         if (typeof e.target.result === 'object') {
           console.log(e.target.result)
           // 把Array Buffer转化为blob 如果是base64不需要
           data = window.URL.createObjectURL(new Blob([e.target.result]))
+          console.log(data)
         } else {
           data = e.target.result
           console.log(data)
@@ -268,6 +285,7 @@ export default {
       reader.readAsArrayBuffer(file)
     },
     imgLoad(msg) {
+      console.log('imgLoad')
       console.log(msg)
     }
   }

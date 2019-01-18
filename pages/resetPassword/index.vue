@@ -107,7 +107,7 @@ export default {
       }
     ]
   },
-  data() {
+    data() {
     let state = false
     let checkPhoneValue = (rule, value, callback) => {
       if (value.length !== 11) {
@@ -129,10 +129,8 @@ export default {
         return callback(new Error('请输入密码'))
       } else if (value.length < 6) {
         return callback(new Error('密码长度不小于6位'))
-      } else if (/[/.,]/g.test(value)) {
+      } else if (/[/.,\\!%()^,，_+=/`~?:;‘’“”"]/g.test(value)) {
         return callback(new Error('不能使用、/,等特殊符号'))
-      } else if (!/^[A-Za-z0-9]+$/g.test(value)) {
-        return callback(new Error('密码只能是数字和字母的组合'))
       } else {
         return callback()
       }
@@ -247,6 +245,10 @@ export default {
                     type: 'warning',
                     message: '一个小时只能接收三次验证码'
                   })
+                  clearInterval(that.func)
+                  that.vfDes = `发送验证码`
+                  that.isVf = false
+                  that.desTime = true
                 }
               })
               .catch(res => {
@@ -293,26 +295,24 @@ export default {
             } else {
               this.$message({
                 type: 'warning',
-                messag: '验证码错误'
+                message: '验证码错误'
               })
             }
           })
         } else {
-          this.$message({
-            type: 'warning',
-            messag: '发生错误'
-          })
           return false
         }
       })
     },
     resetPassWord() {
-      if (this.resetObj.password === this.resetObj.confirmPassword) {
+      if (
+        this.resetObj.password.length >= 6 &&
+        this.resetObj.password === this.resetObj.confirmPassword
+      ) {
         $get(webUserForgetAndReset, {
           phone: this.resetObj.phone,
           newPassword: this.resetObj.password
         }).then(res => {
-          console.log(res.data)
           if (res.data) {
             document.querySelector('.resetPass_region').style.display = 'none'
             document.querySelector('.backToLogin').style.display = 'block'
@@ -320,10 +320,14 @@ export default {
           }
         })
       } else {
-        this.$message({
-          type: 'warning',
-          message: '两次密码不一致'
-        })
+        if (this.resetObj.password.length < 6) {
+          return false
+        } else {
+          this.$message({
+            type: 'warning',
+            message: '两次密码不一致'
+          })
+        }
       }
     },
     calculateTime() {
@@ -367,7 +371,6 @@ export default {
   width: 380px;
 }
 .resetPassword_wrapper .content_form .title {
-  margin-top: 70px;
   height: 26px;
   font-size: 26px;
   letter-spacing: 5px;
@@ -494,13 +497,15 @@ export default {
   position: absolute;
   width: 132px;
   right: 21px;
-  top: -1px;
+  top: 0px;
   height: 52px;
   border: 1px solid rgba(0, 0, 0, 0);
   background: url('~static/images/hobby.jpg') no-repeat;
   color: rgba(254, 254, 254, 1);
 }
 .resetPassword_wrapper .content_form .vf_bg {
+  top: -1px;
+  right: 20px;
   background: url('~static/images/register_btn.png') no-repeat;
 }
 .resetPassword_wrapper .phoneTip {

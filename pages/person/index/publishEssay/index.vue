@@ -483,8 +483,11 @@
       },
       checkClick(formName) {
         this.articleForm.description = $('#summernote').summernote('code')
-        if(this.articleForm.description == '<p><br></p>' || this.articleForm.description == ''){
+         if(this.articleForm.description == '<p><br></p>' || this.articleForm.description == ''){
           this.$message.error('文章内容必须填写！')
+          return false
+        }else if(this.articleForm.fileList == [] || this.articleForm.photo == ''){
+          this.$message.error('请上传封面图片！')
           return false
         }
         this.$refs[formName].validate(valide => {
@@ -555,8 +558,11 @@
       },
       draftClick(formName) {
         this.articleForm.description = $('#summernote').summernote('code')
-        if(this.articleForm.description == '<p><br></p>' || this.articleForm.description == ''){
+         if(this.articleForm.description == '<p><br></p>' || this.articleForm.description == ''){
           this.$message.error('文章内容必须填写！')
+          return false
+        }else if(this.articleForm.fileList == [] || this.articleForm.photo == ''){
+          this.$message.error('请上传封面图片！')
           return false
         }
         this.$refs[formName].validate(valide => {

@@ -337,7 +337,7 @@
                 <a href="javascript:void(0);"
                   class="detail_user_msg_focus"
                   @click="focusBlogger(essayData.userId)">
-                  <span v-if="hobbiesIdDetailData.couldFollow !== null" class="focusBg">已关注</span>
+                  <span v-if="hobbiesIdDetailData.couldFollow !== null || isfocusBg" class="focusBg">已关注</span>
                   <span v-else class="nofocusBg">关注</span>
                 </a>
               </div>
@@ -1571,7 +1571,7 @@ height: 150px;
   /* font-family: SourceHanSansCN-Bold; */
   font-weight: bold;
   color: rgba(18, 18, 18, 1);
-  margin-top: 38px;
+  margin-top: 18px;
   /* margin-left: 25px; */
 }
 .detail_content_brand_desc p {
@@ -1580,6 +1580,7 @@ height: 150px;
   /* font-family: SourceHanSansCN-Normal; */
   font-weight: 400;
   color: rgba(91, 91, 91, 1);
+  line-height: 22px;
 }
 .detail_content_operate_share_title {
   font-size: 14px;

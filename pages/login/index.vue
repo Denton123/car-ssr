@@ -72,9 +72,24 @@ export default {
       fnc: null
     }
   },
+    beforeRouteEnter(to, from, next) {
+    // 在渲染该组件的对应路由被 confirm 前调用
+    // 不！能！获取组件实例 `this`
+    // 因为当守卫执行前，组件实例还没被创建
+  
+    next(vm => {
+      /* 如果在当前页刷新，临时使用跳转过来的路由 */
+      if(from.name) {
+        sessionStorage.setItem('login_from', JSON.stringify(from))
+      }
+    })
+    },
   beforeMount() {
     let obj = localStorage.getItem('userMsg')
-    let user = JSON.parse(obj)
+    let user = null
+    if (obj) {
+      user = JSON.parse(obj)
+    }
     if (this.$route.params.register && this.$route.params.register === '1') {
       this.loginObj.account = this.$route.params.account
       this.loginObj.password = this.$route.params.password
@@ -82,8 +97,7 @@ export default {
     }
     // 从重置密码页过来,清空localStorage
     if (this.$route.params.state === 0) {
-      // localStorage.setItem('userMsg', '')
-      localStorage.removeItem('userMsg');
+      localStorage.removeItem('userMsg')
     } else {
       if (user) {
         this.loginObj.account = user.account
@@ -119,7 +133,7 @@ export default {
       var expires = 'expires=' + d.toGMTString()
       document.cookie = cname + '=' + cvalue + '; ' + expires + '; path = / ;'
     },
-    _check_(valid, that) {
+        _check_(valid, that) {
       if (valid) {
         that.loading = true
         console.log(that.loading)
@@ -128,7 +142,7 @@ export default {
         urlParam.append('password', that.loginObj.password)
         $post(_webAccountLogin_, urlParam)
           .then(res => {
-            console.log(res.data, 'data')
+            console.log(res.data)
             if (res.data.des.token) {
               // 永久记住登陆状态，保存token，账号和密码
               if (that.loginObj.checked === true) {
@@ -138,24 +152,24 @@ export default {
                   checked: that.loginObj.checked,
                   ...res.data.des
                 })
+                
                 localStorage.setItem('userMsg', msg)
-                this.setCookie('user', res.data.des.token, 24*7)
-                axios.defaults.headers["X-Auth0-Token"] = res.data.des.token
-                // instance.interceptors.request.headers["X-Auth0-Token"] = res.data.des.token
-                // this.$store.state.userMsg = msg.token ? msg.token : null
-                console.log(this.$store.state.userMsg, 'user')
-                that.$router.push({
-                  path: '/'
-                })
+                 let temp = sessionStorage.getItem('login_from')
+                if(temp && temp.name !== 'resetPassword') {
+                  that.$router.push(JSON.parse(temp).fullPath)
+                } else {
+                  that.$router.push({ name: 'index' })
+                }          
               } else {
                 // 不记住登陆状态， 只保存token 1个小时
                 this.setCookie('token', res.data.des.token, 1 / 24)
-                // process.env.userToken = res.data.des.token
-                // this.$store.state.userMsg = res.data.des.token ? res.data.des.token : null
-                console.log(this.$store.state.userMsg, 'user')
-                that.$router.push({
-                  path: '/'
-                })
+                this.setCookie('userId', res.data.des.userId, 1 / 24)              
+                let temp = sessionStorage.getItem('login_from')
+                if(temp && temp.name !== 'resetPassword') {
+                  that.$router.push(JSON.parse(temp).fullPath)
+                } else {
+                   that.$router.push({ name: 'index' })
+                }               
               }
             } else {
               that.loading = false
@@ -198,8 +212,7 @@ export default {
   position: relative;
   width: 100%;
   height: 700px;
-  background: url('~static/images/bg.png') no-repeat;
-  background-size: 100% 100%;
+  background: url('~static/images/loginBackground.png') no-repeat;
 }
 .login-wrapper .content {
   position: absolute;

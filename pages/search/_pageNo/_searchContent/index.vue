@@ -5,12 +5,12 @@
     </div>
     <div class="search_content">
       <div class="search_input_nav">
-        <el-input v-model="searchContent"></el-input><button class="search_btn"
+        <el-input v-model="tempContent"></el-input><button class="search_btn"
                                                              @click="search">搜索</button>
       </div>
       <div class="search_main_content">
         <div class="search_main_nav">
-          <p class="search_title"><i class="img"></i>搜索<span class="redColor">“{{tempContent}}”</span>的结果</p>
+          <p class="search_title"><i class="img"></i>搜索<span class="redColor">“{{searchContent}}”</span>的结果</p>
         </div>
         <div class="search_list">
           <div class="search_list_left">
@@ -169,6 +169,7 @@
       }
     defaultParams.pageNo = content.params.pageNo || '1'
     let searchContent = content.params.searchContent
+    console.log(searchContent)
     return{
       defaultParams,
       searchContent
@@ -190,7 +191,6 @@
         MonthRank: [],
         preRouteObj: {},
         currentRouteObj: {},
-        searchContent: '',
         tempContent: '',
         type: 'w'
       }
@@ -201,6 +201,7 @@
       // 因为当守卫执行前，组件实例还没被创建
       console.log(to, from)
       next(vm => {
+        vm.searchContent = to.params.searchContent
         vm.preRouteObj = { path: from.fullPath, name: from.meta.title }
         vm.currentRouteObj = { path: to.fullPath, name: to.meta.title }
       })
@@ -240,7 +241,7 @@
       // 执行搜索方法
       search() {
         this.$router.push({
-          path: `/search/1/${this.searchContent}`
+          path: `/search/1/${this.tempContent}`
         })
       },
       getEssaylist() {
@@ -251,6 +252,7 @@
           })
           return 
         }
+         this.tempContent = this.searchContent
         //先判断是不是同一次内容
         if(sessionStorage.getItem('search_condition')) {
         let firstcondition = JSON.parse(sessionStorage.getItem('search_condition'))

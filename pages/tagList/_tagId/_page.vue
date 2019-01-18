@@ -56,7 +56,7 @@
                     <div class="avatar"
                       @click.stop.prevent="toBloger(eassy.userId)"><img :src="eassy.userPhoto"
                         alt="用户头像"><span class="name">{{eassy.userName}}</span><span class="tag_line">|</span></div>
-                    <div class="channel">{{eassy.className == '萌宠' ? '兴趣部落' : eassy.className}}</div>
+                    <div class="channel">{{eassy.className}}</div>
                     <div class="time"
                       v-text="formatData(eassy.create_time)"></div>
                   </div>
@@ -198,7 +198,7 @@ export default {
   beforeMount() {
     this.createAdPicture()
     this._getWebTagDetail_()
-    let preRouteSearContent = sessionStorage.getItem('tagRoute').searchContent
+    let preRouteSearContent = sessionStorage.getItem('tagRoute') ? sessionStorage.getItem('tagRoute').searchContent : ''
     if(this.searchContent === preRouteSearContent) {
       let name = ''
       let myFrom = JSON.parse(sessionStorage.getItem('tagRoute'))
@@ -216,7 +216,6 @@ export default {
         }
         this.preRouteObj = { path: myFrom.fullPath, name}
     }
-    console.log('easssy,',this.eassyListUrl)
   },
   data() {
     return {
@@ -355,7 +354,7 @@ export default {
     // 跳转到兴趣部落文章详情 或 文章
     toArticleOrHobbiesDetail(eassy) {
       if (eassy.title === 'hobbies') {
-        this.$router.push({ path: `/hobbies/hobbiesDetail/${eassy.id}/1` })
+        this.$router.push({ path: `/tagList/hobbiesDetail/${eassy.id}/1` })
       } else {
         this.toArticleDetail(eassy.id)
       }
@@ -513,7 +512,8 @@ export default {
         .tag_description {
           margin-top: 30px;
           padding-left: 4px;
-          padding-right: 45px;
+          padding-right: 25px;
+          box-sizing: border-box;
           width: 990px;
           font-size: 14px;
           font-weight: 400;

@@ -314,7 +314,7 @@ export default {
     console.log(window.user, 'user00000')
     this.uploadUrl =
       process.env.NODE_ENV === 'development'
-        ? 'http://www.jfcar.com.cn/api/sys/uploadFile'
+        ? 'http://165.qiweioa.cn/api/sys/uploadFile'
         : `http://${window.location.host}/api/sys/uploadFile`
     this.cookie = this.getCookie('token')
     if (this.cookie == '') {
@@ -452,9 +452,9 @@ export default {
                 message: '修改成功'
               })
               this.$emit('getUserEmit')
-              // setTimeout(() => {
-              //   this.$router.go(0)
-              // }, 1000)
+              setTimeout(() => {
+                this.$router.go(0)
+              }, 1000)
             } else if (res.data.code == 1) {
               this.$message({
                 message: `${res.data.des}`,
