@@ -18,12 +18,9 @@
 </template>
 
 <script>
-// import Swiper from 'swiper'
-// import 'swiper/dist/css/swiper.min.css'
 import systemManage from '@/http/photoApi.js'
 import { $get, $post } from '@/http/ajax'
 import { webHobbiesDetailInfo } from '@/http/api'
-// import $ from 'jquery'
 
 export default {
   name: 'test',

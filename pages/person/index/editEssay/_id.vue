@@ -802,7 +802,7 @@ export default {
     width: 130px;
     height: 130px;
     border-radius: 50%;
-    background: #fff;
+    // background: #fff;
     margin: 30px auto 15px;
   }
   .person_head img {
@@ -816,18 +816,18 @@ export default {
     margin-bottom: 12px;
   }
   .person_approve {
-    width: 80px;
-    height: 30px;
-    line-height: 30px;
-    text-align: center;
-    margin-left: 10px;
-    -webkit-transform: skew(10deg);
-    -moz-transform: skew(10deg);
-    -o-transform: skew(10deg);
-    background: #be001e;
-    font-size: 14px;
-    color: #fff;
-    font-style: italic;
+     width: 80px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  margin-left: 10px;
+  /* -webkit-transform: skew(10deg);
+  -moz-transform: skew(10deg);
+  -o-transform: skew(10deg); */
+  background: url('~static/person/validator.png');
+  font-size: 14px;
+  color: #fff;
+  /* font-style: italic; */
   }
   .person_msg {
     width: 60%;

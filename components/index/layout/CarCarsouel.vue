@@ -11,7 +11,7 @@
           </div>
           <a :href="item.linkurl"
             class="car_carsouel_a">
-            <img :src="formatPic(item.url) "
+            <img :src="item.url "
               :alt="item.title"
               width="100%"
               height="100%">
