@@ -561,7 +561,7 @@ export default {
             essayId: articleId,
             type: Dtype
           },
-          { 'X-Auth0-Token': this.tokenObj.token }
+          { 'X-Auth0-Token': this.cookie != '' ? this.cookie : this.tokenObj.token }
         )
         item.goodPercent = `${todayResultData.data.goodPercent}`
         item.badPercent = `${todayResultData.data.badPercent}`

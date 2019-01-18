@@ -468,7 +468,8 @@ export default {
                   // 无token 调转到登录页
                   let that = this
                   setTimeout(function() {
-                    localStorage.setItem('userMsg', '')
+                    // localStorage.setItem('userMsg', '')
+                    localStorage.removeItem('userMsg');
                     that.$router.push({
                       name: 'login'
                     })

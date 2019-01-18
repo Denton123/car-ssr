@@ -136,6 +136,7 @@ import pagination from '@/components/pagination.vue'
 import Header from '@/components/Header.vue'
 import Footer from '@/components/Footer.vue'
 import { $get } from '@/http/ajax.js'
+// import Utils from 'utils/utils'
 
 import {
   dsfFeatureGetRutureByChannel,
@@ -186,7 +187,8 @@ export default {
       leftSideResult = await $get(webEssayGetWeekendRank, {
         pageNo: params.page,
         size: 10
-      })
+      }
+      )
     } else if (params.type && params.type == 'm') {
       leftSideResult = await $get(webEssayGetMonthRank, {
         pageNo: params.page,
@@ -387,7 +389,7 @@ export default {
   beforeRouteEnter(to, from, next) {
     next(vm => {
       vm.crumbsData = [
-        { pathName: '首页', link: '/index' },
+        { pathName: '首页', link: '/' },
         {
           pathName:
             from.meta.title &&
@@ -448,9 +450,11 @@ export default {
     let pathName
     if(rankCrumbsFromStronge[2].pathName == '周排行'){
        pathName = 'w'
-    }else if(rankCrumbsFromStronge[2].pathName == '月排行'){
+    }
+    else if(rankCrumbsFromStronge[2].pathName == '月排行'){
        pathName = 'm'
-    }else{
+    }
+    else{
        pathName = 'd'
     }
     if(this.typeParams.type != pathName){

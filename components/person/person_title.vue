@@ -23,7 +23,7 @@
 import { webUserSelectByPrimaryKey } from '@/http/api'
 import { $get } from '@/http/ajax'
 export default {
-  name: 'title',
+  name: 'myTitle',
   data() {
     return {
       userData: {}

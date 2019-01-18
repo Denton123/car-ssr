@@ -38,7 +38,6 @@ export default {
   },
   mounted() {
     // this.currentPage = parseInt(this.routePage)
-    // console.log(this.currentPage,'55555')
   },
   props: {
     routePage: {
