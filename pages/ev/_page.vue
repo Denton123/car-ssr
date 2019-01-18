@@ -391,6 +391,8 @@ export default {
       topBanner: [],
       bannerMessageData: {},
       bannerTopicData: {},
+      firstHalfData:[],
+      secondHalfData:[],
       // leftSideResult: [],
       navTabActiveStatus: false,
       navTabActiveIndex: '',
@@ -511,7 +513,11 @@ export default {
       this.navTabActiveStatus = true
     },
     titleActive(item) {
-      this.titleActiveIndex = this.leftSideResult.EssayEntity.indexOf(item)
+      if( this.titleActiveIndex = this.firstHalfData.indexOf(item) >= 0 ){
+          this.titleActiveIndex = this.firstHalfData.indexOf(item) 
+      }else{
+          this.titleActiveIndex = this.secondHalfData.indexOf(item) 
+      }
       this.removeTitleActive = true
     },
     adverTitleActiveFn() {

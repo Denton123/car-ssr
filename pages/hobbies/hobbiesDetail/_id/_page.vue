@@ -41,7 +41,9 @@
             <slider-show :sliderData="sliderData"></slider-show>
             <div class="detail_content_introduction"
               v-html="essayData.description"
-              v-if="essayData.description != null"></div>
+              v-if="essayData.description != null"
+              style="margin-top:10px"
+              ></div>
           </div>
           <!-- 标签 -->
           <div class="detail_content_tab"

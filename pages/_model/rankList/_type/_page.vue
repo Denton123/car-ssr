@@ -261,6 +261,7 @@ export default {
       }
     },
     pageChangeGetData(newPage, oldPage) {
+      console.log(newPage,'00000  ===> newPage')
       this.$router.push({
         path: `${this.model}/rankList/${this.typeParams.type}/${newPage}`
       })
@@ -414,6 +415,7 @@ export default {
       if (vm.model[0] == '/search') {
         vm.crumbsData.splice(1, 1)
       }
+      sessionStorage.setItem('rankCrumbs',JSON.stringify(vm.crumbsData))
       // 通过 `vm` 访问组件实例
     })
   },
@@ -435,6 +437,28 @@ export default {
     // 获取路由中model的值，再提取出其中的模块来源
     this.getRouterMessage(this.model[0], this.typeParams.type)
     // 获取路由中的重要信息，并设置全局变量用于面包屑以及meta
+
+
+    // 以下假如是在排行列表中的排行点击更多的话，就执行：
+    if( sessionStorage.getItem('rankCrumbs')&&  sessionStorage.getItem('rankCrumbs') !=''){
+      if(JSON.parse(sessionStorage.getItem('rankCrumbs'))){
+          var rankCrumbsFromStronge = JSON.parse(sessionStorage.getItem('rankCrumbs'))
+      }
+    }
+    let pathName
+    if(rankCrumbsFromStronge[2].pathName == '周排行'){
+       pathName = 'w'
+    }else if(rankCrumbsFromStronge[2].pathName == '月排行'){
+       pathName = 'm'
+    }else{
+       pathName = 'd'
+    }
+    if(this.typeParams.type != pathName){
+      rankCrumbsFromStronge[2].pathName = this.typeParamsName
+    }
+    // 要是下一页，就取事先保存在sessionStorage里面的crumbs显示
+    this.crumbsData = rankCrumbsFromStronge
+
     this.$nextTick(async () => {
       this.getAdvertise('adverImgBox', '5993946')
       this.getRightSideAdver(

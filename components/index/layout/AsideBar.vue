@@ -12,7 +12,7 @@
               <a :href="barListId[index]">
                 <dt :class="{'dt_active': activeIndex == index}"></dt>
                 <dd :class="{'dd_active': activeIndex == index}">
-                  {{item}}
+                  <span>{{item}}</span>
                 </dd>
               </a>
             </div>
@@ -111,7 +111,7 @@ export default {
 }
 
 .aside_bar_index_block dl dd {
-  text-align: center !important;
+  text-align: left !important;
   color: #999999 !important;
   vertical-align: top !important;
   float: right;
@@ -135,6 +135,9 @@ export default {
   color: #fff !important;
   line-height: 24px !important;
   margin-top: -3px;
+}
+.aside_bar_index_block dl span{
+  margin-left: 24px;
 }
 
 .aside_bar_index_block dl dt {

@@ -21,7 +21,7 @@ export const instance = axios.create({
   // baseURL: 'http://172.20.13.180:8080/',
   // baseURL: 'http://10.10.0.184:8080/',
   // baseURL: 'http://www.jfcar.com.cn/api/',
-  baseURL: 'http://165.qiweioa.cn/api',
+  baseURL: 'http://165.qiweioa.cn/api/',
   timeout: 60000
 })
 

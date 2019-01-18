@@ -521,7 +521,11 @@ export default {
       this.navTabActiveStatus = true
     },
     titleActive(item) {
-      this.titleActiveIndex = this.leftSideResult.EssayEntity.indexOf(item)
+      if( this.titleActiveIndex = this.firstHalfData.indexOf(item) >= 0 ){
+          this.titleActiveIndex = this.firstHalfData.indexOf(item) 
+      }else{
+          this.titleActiveIndex = this.secondHalfData.indexOf(item) 
+      }
       this.removeTitleActive = true
     },
     adverTitleActiveFn() {
@@ -680,7 +684,6 @@ export default {
     //     this.bannerTopicData = element
     //   }
     // })
-
     this.path = this.$route.path.match(/^\/[a-z]+/gi)
     this.model = this.$route.fullPath.match(/^\/[a-z]+/gi)
     this.currentPage = this.$route.params.page
