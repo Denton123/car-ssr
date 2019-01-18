@@ -38,8 +38,7 @@
           <div class="detail_content_desc">
             <!-- <img src="../../assets/detail/logo.png" class="detail_content_desc_pic"> -->
             <!-- <slider-show :sliderData="essayData.photoList == null ? []: essayData.photoList"></slider-show> -->
-            <slider-show :imgArray="picList"
-              :hobbiesId="hobbiesid"></slider-show>
+            <slider-show :sliderData="sliderData"></slider-show>
             <div class="detail_content_introduction"
               v-html="essayData.description"
               v-if="essayData.description != null"></div>
@@ -492,6 +491,8 @@ export default {
   },
   data() {
     return {
+      // 兴趣部落详情顶部轮播图数据
+      sliderData:[],
       // 评论总数据
       // commentData: {},
       // 兴趣部落详情ID数据
@@ -567,6 +568,11 @@ export default {
     }
   },
   async asyncData ({params, env, req }) {
+    let photoList
+    // 获取兴趣部落轮播图数据
+    $get(webHobbiesDetailInfo, { hobbiesId: params.id}).then(res =>{
+        photoList = res.data.result_data.hobbies.photoList
+    })
     var userCookie = null
     if (req && req.headers) {
       // console.log(req.headers.cookie.split(';'), 'headers')
@@ -601,6 +607,7 @@ export default {
       page: 1
     })
     return {
+      sliderData : photoList,
       essayData: hobbiesIdDetailData.data ? hobbiesIdDetailData.data.result_data.hobbies : {},
       hobbiesIdDetailData: hobbiesIdDetailData.data.result_data ? hobbiesIdDetailData.data.result_data : {},
       hotData: hotData.data.result_data ? hotData.data.result_data : [],
