@@ -7,7 +7,8 @@
           <div class="person_head">
             <img v-if="userData.blogger.photo"
                  :src="formatPic(userData.blogger.photo)"
-                 alt="" :onerror="defaultImg">
+                 alt=""
+                 :onerror="defaultImg">
           </div>
           <div class="person_name">
             {{userData.blogger.loginName}}
@@ -67,25 +68,31 @@
                 <div class="bloger_list_top">
                   <img :src="formatPic(item.photo)"
                        alt="">
-                  <div class="bloger_mark" v-if="item.title == 'hobbies'">兴趣部落</div>
-                  <div class="bloger_mark" v-else>{{item.className}}</div>
+                  <div class="bloger_mark"
+                       v-if="item.title == 'hobbies'">兴趣部落</div>
+                  <div class="bloger_mark"
+                       v-else>{{item.className}}</div>
                 </div>
                 <div class="bloger_list_bottom">
-                  <p class="title_big" v-if="item.title == 'hobbies'">兴趣部落</p>
-                  <p class="title_big" v-else>{{item.title}}</p>
+                  <p class="title_big"
+                     v-if="item.title == 'hobbies'">兴趣部落</p>
+                  <p class="title_big"
+                     v-else>{{item.title}}</p>
                   <p class="title_samall">{{ item.digest }}</p>
                 </div>
               </div>
             </nuxt-link>
           </li>
         </ul>
-        <pagination class="pagination"
-                    v-if="blogerListData && blogerListData.length > 0"
+      </div>
+      <div class="hobbies-pagination">
+        <pagination v-if="blogerListData && blogerListData !== 0"
                     @pageChange="pageChange"
+                    :totalPage="blogerData.totalPage"
                     :totalCount="blogerData.totalCount"
-                    :pageSise="2"
+                    :pageSize= '9'
                     :toTop="{x:0, y: 400}"
-                    :totalPage="blogerData.totalPage" />
+                    ref="pagination"></pagination>
       </div>
       <div class="advertise_wrapper">
         <div id="other_footer_id"></div>
@@ -98,23 +105,39 @@
 <script>
   import Header from '@/components/Header'
   import Footer from '@/components/Footer'
-  import Pagination from '@/components/pagination.vue'
+  import pagination from '@/components/pagination.vue'
   import { $get, $post } from '@/http/ajax'
   import {
     webBologerlist,
     webUserSelectByPrimaryKey,
     webUserBloggerItem
   } from '@/http/api'
-
   import systemManage from '@/http/photoApi.js'
   export default {
     name: 'Bloger',
+    metaInfo: {
+      // 设置 title
+      title: '博主主页',
+      // 设置 meta
+      meta: [
+        {
+          name: 'keyWords',
+          content: 'vue '
+        }
+      ],
+      // 设置 link
+      link: [
+        {
+          rel: 'asstes',
+          href: 'https://assets-cdn.github.com/'
+        }
+      ]
+    },
     data() {
       return {
-        bloggerId: '1',
-        blogerListDataSize: '0',
-        blogerData: [],
-        blogerListData: [],
+        blogerListDataSize: '',
+        blogerData: {},
+        blogerListData: {},
         userData: {
           blogger: {
             photo: '',
@@ -125,7 +148,8 @@
           fansCount: '',
           totalIntegral: ''
         },
-        defaultImg: "this.src='/static/common/default.png'"
+        userId: null,
+        defaultImg: "this.src='~static/common/default.png'"
       }
     },
     // nuxt异步获取数据
@@ -135,12 +159,12 @@
         limit: '9',
         page: params.page
       })
-      return{
-        blogerData: _blogerList.data || [],
-        blogerListData: _blogerList.data.list || [],
-        blogerListDataSize:  _blogerList.data.totalCount || [],
+      return {
+        blogerData: _blogerList.data,
+        totalCount: _blogerList.data.totalCount ? _blogerList.data.totalCount : 0,
+        totalPage: _blogerList.data.totalPage ? _blogerList.data.totalPage : 0,
+        blogerListData: _blogerList.data.list,
       }
-
     },
     methods: {
       // 获取cookies
@@ -166,20 +190,34 @@
         console.log(page + 'page')
         this.blogerList(page)
       },
-      // // 获取信息列表
-      async blogerList(page = 1) {
+      // 获取信息列表
+      blogerList(page = 1) {
         let id = `${this.$route.params.id}`
-        let res = await $get(webBologerlist, {
+       $get(webBologerlist, {
           bloggerId: id,
           limit: '9',
           page: page
-        })
-        this.blogerListData = res.data.list
-        console.log(this.blogerListData)
-        this.blogerData = res.data
-        this.blogerListDataSize = res.data.totalCount
+        }).then(res=> {
+         console.log(res)
+         this.blogerListData = res.data.list
+         this.blogerData = res.data
+         console.log('列表', this.blogerData.totalPage)
+         this.blogerListDataSize = res.data.totalCount
+         this.$forceUpdate()
+       })
       },
-      // 获取个人中心userId
+      // 获取博主信息
+      getUserInfo() {
+        let tokenObj = {
+          'X-Auth0-Token': this.cookie !== '' ? this.cookie : this.tokenObj.token
+        }
+        let id = `${this.$route.params.id}`
+        $get(webUserBloggerItem, { bloggerId: id }, tokenObj).then(res => {
+          this.userData = res.data
+          this.editForm = this.userData.user
+        })
+      },
+      // 获取个人中心
       getUse() {
         let tokenObj = {
           'X-Auth0-Token': this.cookie !== '' ? this.cookie : this.tokenObj.token
@@ -188,18 +226,6 @@
           console.log(res)
           this.userName = res.data.des.user.account
           this.userId = res.data.des.user.id
-        })
-      },
-      // 获取个人中心
-      getUserInfo() {
-        let tokenObj = {
-          'X-Auth0-Token': this.cookie !== '' ? this.cookie : this.tokenObj.token
-        }
-        let id = `${this.$route.params.id}`
-        $get(webUserBloggerItem, { bloggerId: id }, tokenObj).then(res => {
-          this.userData = res.data
-          console.log(this.userData)
-          this.editForm = this.userData.user
         })
       },
       async watchBloger() {
@@ -229,10 +255,10 @@
         }
       },
       clickWatch() {
-        console.log('boglerid',this.$route.params.id,'userid', this.userId);
         let id = `${this.$route.params.id}`
         this.bloggerId = id
         if (this.userId && this.userId !== this.bloggerId) {
+          let button = document.getElementsByClassName('watch')[0]
           this.watchBloger()
         } else if (!this.userId) {
           this.$message('请先登录')
@@ -281,16 +307,20 @@
     },
     mounted() {
       this.createAd()
+      // this.routePage = this.$route.params.page
+      // this.currentPage = this.$route.params.page
       // 取token
       this.cookie = this.getCookie('token')
-      this.routePage = this.$route.params.page
-      this.currentPage = this.$route.params.page
-      if (this.cookie === '') {
-        this.tokenObj = JSON.parse(localStorage.getItem('userMsg'))
+      if (this.cookie == '') {
+        this.tokenObj =
+          localStorage.getItem('userMsg') &&
+          JSON.parse(localStorage.getItem('userMsg')) !== ''
+            ? JSON.parse(localStorage.getItem('userMsg'))
+            : null
       }
-      // if (localStorage.getItem('userMsg')) {
-      //   this.tokenObj = JSON.parse(localStorage.getItem('userMsg'))
-      // }
+      if (this.tokenObj == null) {
+        this.tokenObj = {}
+      }
       // 获取token
       // console.log('token', this.tokenObj)
       if (this.tokenObj === null) {
@@ -307,7 +337,7 @@
     components: {
       Header,
       Footer,
-      Pagination
+      pagination
     }
   }
 </script>
@@ -352,6 +382,14 @@
     background: url('~static/images/person_head.png') no-repeat;
     background-size: 100% 100%;
   }
+  @media screen and (max-width: 1366px) {
+    .person_theme {
+      width: 100%;
+      height: 400px;
+      background: url('~static/images/person_person_head_min.jpg') no-repeat;
+      background-size: 100% 100%;
+    }
+  }
   .person_container {
     width: 100%;
     height: 100%;
@@ -369,7 +407,7 @@
     width: 130px;
     height: 130px;
     border-radius: 50%;
-    background: #fff;
+    // background: #fff;
     margin: 30px auto 15px;
   }
   .person_head img {
@@ -389,13 +427,13 @@
     line-height: 30px;
     text-align: center;
     margin-left: 10px;
-    -webkit-transform: skew(10deg);
-    -moz-transform: skew(10deg);
-    -o-transform: skew(10deg);
-    background: #be001e;
+    // -webkit-transform: skew(10deg);
+    // -moz-transform: skew(10deg);
+    // -o-transform: skew(10deg);
+    // background: #be001e;
     font-size: 14px;
     color: #fff;
-    font-style: italic;
+    // font-style: italic;
   }
   .person_msg {
     width: 60%;

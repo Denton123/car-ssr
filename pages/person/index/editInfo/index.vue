@@ -348,6 +348,11 @@ export default {
     onChangeCity(data) {
       this.editForm.city = data.value
       // console.log(a)
+      if (data.value == '请选择市级') {
+        $('.distpicker-address-wrapper select').css('color', '#babdc6')
+      } else {
+        $('.distpicker-address-wrapper select').css('color', 'black')
+      }
     },
     onChangeProvince(data) {
       this.editForm.province = data.value

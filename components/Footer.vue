@@ -15,9 +15,9 @@
 
         <div class="footer_friend_link">
           <div class="footer_logo">
-            <router-link to="/">
+            <!-- <router-link to="/"> -->
               <img src="~static/footer/logo.png">
-            </router-link>
+            <!-- </router-link> -->
           </div>
           <div class="footer_link">
             <a class="footer_copyright footer_mb">联系我们：180 1170 3706</a>

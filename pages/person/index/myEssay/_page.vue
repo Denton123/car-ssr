@@ -258,7 +258,7 @@ export default {
   height: 30px;
 }
 .person_my_essay_list .person_essay_list_block_titleDesc span {
-  width: 70px;
+  width: 62px;
   height: 30px;
   display: inline-block;
   background: url('~static/person/state_red.png') no-repeat;
@@ -266,6 +266,7 @@ export default {
   text-align: center;
   font-size: 14px;
   color: #fff;
+  padding-right: 20px;
 }
 .person_my_essay_list .person_essay_list_block_titleDesc:hover {
   /* border-left: 3px solid #be001e; */
