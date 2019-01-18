@@ -81,11 +81,14 @@ export default {
               )
       }
       setTimeout(() => {
-        this.$refs.topSwiper.swiper.init()
-        this.$refs.thumbSwiper.swiper.init()
+       this.$refs.topSwiper && this.$refs.topSwiper.swiper.init()
+       this.$refs.thumbSwiper && this.$refs.thumbSwiper.swiper.init()
       }, 0)
-      this.$refs.topSwiper.swiper.controller.control = this.$refs.thumbSwiper.swiper
-      this.$refs.thumbSwiper.swiper.controller.control = this.$refs.topSwiper.swiper
+      if( this.$refs.topSwiper && this.$refs.thumbSwiper){
+        this.$refs.topSwiper.swiper.controller.control = this.$refs.thumbSwiper.swiper
+        this.$refs.thumbSwiper.swiper.controller.control = this.$refs.topSwiper.swiper
+      }
+
     // this.$nextTick(() => {
       // console.log(this.$route)
       // $get(webHobbiesDetailInfo, { hobbiesId: this.$route.params.id}).then(res => {
@@ -137,7 +140,7 @@ export default {
   background-position: center;
 }
 .hobbiesDetailSwiper .gallery-top {
-  height: 80%;
+  /* height: 80%; */
   width: 100%;
 }
 .hobbiesDetailSwiper .gallery-thumbs {
@@ -158,7 +161,7 @@ export default {
   width: 100%;
   height: 100%;
   cursor: pointer;
-  object-fit: contain;
+  /* object-fit: contain; */
 }
 .hobbiesDetailSwiper .gallery-top img {
   object-fit: none;

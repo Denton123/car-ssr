@@ -440,7 +440,6 @@ export default {
     this.getRouterMessage(this.model[0], this.typeParams.type)
     // 获取路由中的重要信息，并设置全局变量用于面包屑以及meta
 
-
     // 以下假如是在排行列表中的排行点击更多的话，就执行：
     if( sessionStorage.getItem('rankCrumbs')&&  sessionStorage.getItem('rankCrumbs') !=''){
       if(JSON.parse(sessionStorage.getItem('rankCrumbs'))){
@@ -448,17 +447,17 @@ export default {
       }
     }
     let pathName
-    if(rankCrumbsFromStronge[2].pathName == '周排行'){
+    if(rankCrumbsFromStronge && rankCrumbsFromStronge.length == 2 ? rankCrumbsFromStronge[1].pathName == '周排行' : rankCrumbsFromStronge[2].pathName == '周排行'){
        pathName = 'w'
     }
-    else if(rankCrumbsFromStronge[2].pathName == '月排行'){
+    else if(rankCrumbsFromStronge && rankCrumbsFromStronge.length == 2 ? rankCrumbsFromStronge[1].pathName == '月排行' : rankCrumbsFromStronge[2].pathName == '月排行'){
        pathName = 'm'
     }
     else{
        pathName = 'd'
     }
     if(this.typeParams.type != pathName){
-      rankCrumbsFromStronge[2].pathName = this.typeParamsName
+        rankCrumbsFromStronge && rankCrumbsFromStronge.length == 2 ? rankCrumbsFromStronge[1].pathName = this.typeParamsName : rankCrumbsFromStronge[2].pathName = this.typeParamsName
     }
     // 要是下一页，就取事先保存在sessionStorage里面的crumbs显示
     this.crumbsData = rankCrumbsFromStronge

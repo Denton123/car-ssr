@@ -133,12 +133,15 @@ export default {
       return systemManage.getApi(item)
     },
     pageChange(page) {
-      console.log(this.$route.params.page,'-------------------------11111')
-      // this.currentPage = this.$route.params.page
-      this.getArticle(page)
+      console.log(this.$route,'-------------------------11111')
+      console.log('page=========================>>>',page)
+      this.currentPage = page
+      console.log('currentPage=========================>>>',this.currentPage)
+
       this.$router.push({
         path: `/person/myEssay/${page}`
       })
+      this.getArticle(page)
     },
     // 获取cookie
     getCookie(cname) {
@@ -154,12 +157,20 @@ export default {
   },
   mounted() {
     // console.log(this.listData.list)
-    this.currentPage = this.$route.params.page
-    console.log('55555555555555555555555555555555')
-    console.log('------------------------- currentPage',this.currentPage)
+    // this.currentPage = this.$route.params.page
+    console.log('55555555555555555555555555555555',this.currentPage)
     this.getArticle()
-    
-  }
+  },
+  // watch : {
+  //   currentPage: {
+  //     handler(newPage, oldPage) {
+  //       console.log('newPage  aaaaaaaaaaaaaaaaaaaaaaa ' + newPage)
+  //       this.$router.push({
+  //         path: `/person/myEssay/${newPage}`
+  //       })
+  //     }
+  //   }
+  // }
 }
 </script>
 <style>
