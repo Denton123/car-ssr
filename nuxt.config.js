@@ -10,7 +10,7 @@ module.exports = {
    ** Headers of the page
    */
   head: {
-    title: '尖峰咖',
+    title: '尖锋咖',
     meta: [{
         charset: 'utf-8'
       },
