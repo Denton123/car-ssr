@@ -85,22 +85,22 @@ export default {
       //   } else {
       //     this.newsObj.click = []
       //   }
-        if (Array.isArray(this.newsObj.hotTime)) {
-          this.newsObj.hotTime.forEach(v => {
-            v.classOneName = v.classOneName.toLowerCase()
-            if (v.classOneName.toLowerCase() == 'news') {
-              v.classOneName = '今日车闻'
-            } else if (v.classOneName.toLowerCase() == 'video') {
-              v.classOneName = '视频'
-            } else if (v.classOneName.toLowerCase() == 'ev') {
-              v.classOneName = '新能源'
-            } else {
-              v.classOneName = '兴趣部落'
-            }
-          })
-        } else {
-          this.newsObj.hotTime = []
-        }
+        // if (Array.isArray(this.newsObj.hotTime)) {
+        //   this.newsObj.hotTime.forEach(v => {
+        //     v.classOneName = v.classOneName.toLowerCase()
+        //     if (v.classOneName.toLowerCase() == 'news') {
+        //       v.classOneName = '今日车闻'
+        //     } else if (v.classOneName.toLowerCase() == 'video') {
+        //       v.classOneName = '视频'
+        //     } else if (v.classOneName.toLowerCase() == 'ev') {
+        //       v.classOneName = '新能源'
+        //     } else {
+        //       v.classOneName = '兴趣部落'
+        //     }
+        //   })
+        // } else {
+        //   this.newsObj.hotTime = []
+        // }
     })
   },
   methods: {

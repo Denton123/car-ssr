@@ -15,7 +15,7 @@
 
         <div class="footer_friend_link">
           <div class="footer_logo">
-            <router-link to="/index">
+            <router-link to="/">
               <img src="~static/footer/logo.png">
             </router-link>
           </div>
@@ -72,7 +72,7 @@ export default {
         {
           title: '首页',
           id: 0,
-          toLink: '/index'
+          toLink: '/'
         },
         {
           title: '今日车闻',
@@ -92,7 +92,7 @@ export default {
         {
           title: '兴趣部落',
           id: 3,
-          toLink: '/hobbies/1'
+          toLink: '/hobby/1'
         }
       ]
     }

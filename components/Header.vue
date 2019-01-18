@@ -303,7 +303,7 @@ export default {
       } else {
         this.$message('请先实名验证身份证')
         setTimeout(() => {
-          this.toAnotherRouter('editInfo')
+          this.toAnotherRouter('person-index-editInfo')
         }, 1500)
       }
     },
@@ -521,7 +521,7 @@ export default {
   width: 300px;
   height: 42px;
   position: absolute;
-  right: -23px;
+  right: -4px;
   top: -24px;
 }
 .car_header_banner_search_input input {

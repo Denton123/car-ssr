@@ -60,7 +60,7 @@ const getToken = function () {
   return ''
 }
 const b_getToken = function(req = {}) {
-  if (req.headers) {
+  if (req.headers && req.headers.cookie) {
     var req_Cookies = req.headers.cookie.split("; ")
     let tokens = ''
     req_Cookies.forEach(v => {

@@ -16,22 +16,22 @@
         </div>
         <div class="cropper-content">
           <div class="cropper">
-              <vueCropper ref="cropper"
-                          :img="option.img"
-                          :outputSize="option.size"
-                          :outputType="option.outputType"
-                          :info="true"
-                          :full="option.full"
-                          :canMove="option.canMove"
-                          :canMoveBox="option.canMoveBox"
-                          :original="option.original"
-                          :autoCrop="option.autoCrop"
-                          :autoCropWidth="option.autoCropWidth"
-                          :autoCropHeight="option.autoCropHeight"
-                          :fixedBox="option.fixedBox"
-                          @realTime="realTime"
-                          @imgLoad="imgLoad">
-              </vueCropper>
+            <vueCropper ref="cropper"
+              :img="option.img"
+              :outputSize="option.size"
+              :outputType="option.outputType"
+              :info="true"
+              :full="option.full"
+              :canMove="option.canMove"
+              :canMoveBox="option.canMoveBox"
+              :original="option.original"
+              :autoCrop="option.autoCrop"
+              :autoCropWidth="option.autoCropWidth"
+              :autoCropHeight="option.autoCropHeight"
+              :fixedBox="option.fixedBox"
+              @realTime="realTime"
+              @imgLoad="imgLoad">
+            </vueCropper>
           </div>
           <div style="margin-left:20px;">
             <div class="show-preview"
@@ -47,22 +47,22 @@
         <div class="cropper-opera">
           <el-row class="avatar-btns">
             <el-col :span="18">
-              <button type="primary"
+              <el-button type="primary"
                 class="el-button el-button--primary"
                 title="放大"
-                @click="changeScale(1)">放大</button>
-              <button type="primary"
+                @click="changeScale(1)">放大</el-button>
+              <el-button type="primary"
                 class="el-button el-button--primary"
                 title="缩小"
-                @click="changeScale(-1)">缩小</button>
-              <button type="primary"
+                @click="changeScale(-1)">缩小</el-button>
+              <el-button type="primary"
                 class="el-button el-button--primary"
                 title="左旋转"
-                @click="rotateLeft">↺</button>
-              <button type="primary"
+                @click="rotateLeft">↺</el-button>
+              <el-button type="primary"
                 class="el-button el-button--primary"
                 title="右旋转"
-                @click="rotateRight">↻</button>
+                @click="rotateRight">↻</el-button>
             </el-col>
             <el-col :span="6">
               <input type="button"
@@ -88,14 +88,7 @@
 import until from '@/utils/until'
 import axios from 'axios'
 const url = until.commonFileUrl + until.apiPath + 'sys/uploadFile'
-// if(process.client) {
-//   vueCropper = require('vue-cropper')
-//   Vue.use(vueCropper.default)
-// }
 export default {
-  // components: {
-  //   vueCropper
-  // },
   watch: {
     clearMessage() {
       console.log(this.option.img)
@@ -254,13 +247,11 @@ export default {
         })
       var reader = new FileReader()
       reader.onload = e => {
-        console.log(e)
         let data
         if (typeof e.target.result === 'object') {
           console.log(e.target.result)
           // 把Array Buffer转化为blob 如果是base64不需要
           data = window.URL.createObjectURL(new Blob([e.target.result]))
-          console.log(data)
         } else {
           data = e.target.result
           console.log(data)
@@ -277,7 +268,6 @@ export default {
       reader.readAsArrayBuffer(file)
     },
     imgLoad(msg) {
-      console.log('imgLoad')
       console.log(msg)
     }
   }

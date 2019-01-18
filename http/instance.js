@@ -27,18 +27,25 @@ export const instance = axios.create({
 
 // 添加请求拦截器
 instance.interceptors.request.use(
+  // function(config) {
+  //   let localUser
+  //   if (process.client) {
+  //     localUser = localStorage.getItem('userMsg') && JSON.parse(localStorage.getItem('userMsg')) !== '' ? JSON.parse(localStorage.getItem('userMsg')).token : ''
+  //   }
+  //   console.log(localUser, 'localUser')
+  //     const token = process.client ? (getCookie('token') !== '' ? getCookie('token') : localUser) : ''
+  //     config.headers["X-Auth0-Token"] = token
+  //   // 在发送请求之前做些什么
+  //   return config
+  // },
   function(config) {
     let localUser
-    if (process.client) {
-      localUser = localStorage.getItem('userMsg') && JSON.parse(localStorage.getItem('userMsg')) !== '' ? JSON.parse(localStorage.getItem('userMsg')).token : ''
-    }
-    console.log(localUser, 'localUser')
-      const token = process.client ? (getCookie('token') !== '' ? getCookie('token') : localUser) : ''
+      let cookie = config.headers['X-Auth0-Token'] || ''
+      const token = process.client ? (getCookie('token') !== '' ? getCookie('token') : getCookie('user')) : cookie
       config.headers["X-Auth0-Token"] = token
     // 在发送请求之前做些什么
     return config
   },
-
   function(error) {
     // 对请求错误做些什么
     return Promise.reject(error)

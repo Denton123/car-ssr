@@ -18,13 +18,13 @@
           {{item.title}}
         </router-link>
       </dt>
-      <router-link :to="`/video/detail/${item.id}/1`">
+      <!-- <router-link :to="`/video/detail/${item.id}/1`">
         <div class="video_display_mark">
           <div class="video_display_mark_sign">
             <div class="video_display_mark_sign_arrow"></div>
           </div>
         </div>
-      </router-link>
+      </router-link> -->
 
     </dl>
   </div>

@@ -5,6 +5,7 @@
     <div class="detail_content_article_title_operate">
       <a href="javascript:;"
         class="publishEssay"
+        v-if="userData.grade == 2"
         @click="publicRouter">
         <span class="detail_content_article_title_operate_plus">+</span>
         <span>发文章</span>
@@ -47,7 +48,13 @@ export default {
     },
     getUserInfo() {
       let cookie = this.getCookie('token')
-      let tokenObj = JSON.parse(localStorage.getItem('userMsg'))
+      let tokenObj = localStorage.getItem('userMsg') &&
+      JSON.parse(localStorage.getItem('userMsg')) !== ''
+        ? JSON.parse(localStorage.getItem('userMsg'))
+        : null
+      if (tokenObj == null) {
+        tokenObj = {}
+      }
       if (tokenObj == null) {
         tokenObj = {}
       }

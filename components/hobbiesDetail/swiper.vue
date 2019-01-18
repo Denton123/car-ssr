@@ -157,6 +157,7 @@ export default {
   width: 100%;
   height: 100%;
   cursor: pointer;
+  object-fit: contain;
 }
 .hobbiesDetailSwiper .gallery-thumbs .swiper-slide {
   width: 68.88889px !important;

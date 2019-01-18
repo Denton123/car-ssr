@@ -3,15 +3,15 @@
     <swiper :options="swiperOption"
       :ref="id"
       class="big_coursel_swiper"
-      v-if="listData && listData.length > 1"
+      v-if="list && list.length > 1"
       @slideChange="change">
-      <swiper-slide v-for="(item, index) in listData"
+      <swiper-slide v-for="(item, index) in list"
         :key="index">
         <div class="item">
           <a :href="item.linkurl"
             class="big_coursel_swiper_a"
             target="_blank">
-            <img :src="item.url">
+            <img :src="concatImage(item.url)">
             <div class="cover"
               v-if="activeIndex !== index"></div>
           </a>
@@ -65,6 +65,7 @@
 </template>
 <script>
 import utils from "@/http/url";
+import systemManage from "@/http/photoApi"
 export default {
   name: "BigCoursel",
   props: {
@@ -115,7 +116,21 @@ export default {
       return this.realIndex;
     }
   },
+  watch: {
+
+    // 因为是服务端渲染，所以要使用监控routePage的方法
+    list:{
+      handler(newRoutePage, oldRoutePage) {
+        console.log('3214231----------------------',this.list)
+        // console.log('3214231--',this.realIndex)
+        //
+        // this.realIndex = this.$refs[this.id].swiper.realIndex;
+        this.title = this.list[0].title;
+      }
+    }
+  },
   mounted() {
+    // console.log(this.list, 'list')
     // this.$nextTick(() => {
     //   this.mySwiper = this.$refs[this.id].swiper
     // })
@@ -126,6 +141,9 @@ export default {
     // }, 100)
   },
   methods: {
+        concatImage(item) {
+      return systemManage.getApi(item)
+    },
     // 轮播改变
     change() {
       this.realIndex = this.$refs[this.id].swiper.realIndex; // 获取当前轮播图下标
