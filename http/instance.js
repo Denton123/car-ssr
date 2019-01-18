@@ -28,8 +28,13 @@ export const instance = axios.create({
 // 添加请求拦截器
 instance.interceptors.request.use(
   function(config) {
-    const token = process.client ? (getCookie('token') !=='' ? getCookie('token') : 'test') : '(config["X-Auth0-Token"] || null)'
-    config.headers["X-Auth0-Token"] = token
+    let localUser
+    if (process.client) {
+      localUser = localStorage.getItem('userMsg') && JSON.parse(localStorage.getItem('userMsg')) !== '' ? JSON.parse(localStorage.getItem('userMsg')).token : ''
+    }
+    console.log(localUser, 'localUser')
+      const token = process.client ? (getCookie('token') !== '' ? getCookie('token') : localUser) : ''
+      config.headers["X-Auth0-Token"] = token
     // 在发送请求之前做些什么
     return config
   },

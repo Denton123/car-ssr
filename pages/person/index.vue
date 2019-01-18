@@ -199,23 +199,8 @@ export default {
   mounted() {
     this.getUserInfo()
     this.$nextTick(() => {this.createAd()})
-    // console.log(this.activeName, 'activeName')
-    // console.log(this.$route)
-    console.log('==========')
-    console.log('==========')
-    console.log(this.listData)
     this.activeName = this.$route.name
-    // let ad = document.getElementById('index_footer_ad')
-    //   if (ad) {
-    //     ;(window.slotbydup = window.slotbydup || []).push({
-    //     id: '5993946',
-    //     container: 'index_footer_ad',
-    //     size: '1200,200',
-    //     display: 'inlay-fix',
-    //     async: true
-    //   })
-    //   }
-    this.$router.push('/person/myEssay/1')
+    // this.$router.push('/person/myEssay/1')
   },
   components: {
     Header,
@@ -245,10 +230,18 @@ export default {
   background: url('~static/images/person_head.png') no-repeat;
   /* background-size: 100% 100%; */
 }
+@media screen and (max-width: 1366px) {
+  .person_theme {
+    width: 100%;
+    height: 400px;
+    background: url('~static/images/person_person_head_min.jpg') no-repeat;
+    background-size: 100% 100%;
+  }
+}
 .person_container {
   width: 100%;
   height: 100%;
-  background: #f6f6f6;
+  /* background: #f6f6f6; */
 }
 .person_wrap {
   width: 1200px;
@@ -262,7 +255,7 @@ export default {
   width: 130px;
   height: 130px;
   border-radius: 50%;
-  background: #fff;
+  /* background: #fff; */
   margin: 30px auto 15px;
   overflow: hidden;
   /* border: 4px solid rgba(246, 246, 246, 1); */
@@ -278,18 +271,18 @@ export default {
   margin-bottom: 12px;
 }
 .person_approve {
-  width: 80px;
+   width: 80px;
   height: 30px;
   line-height: 30px;
   text-align: center;
   margin-left: 10px;
-  -webkit-transform: skew(10deg);
+  /* -webkit-transform: skew(10deg);
   -moz-transform: skew(10deg);
-  -o-transform: skew(10deg);
+  -o-transform: skew(10deg); */
   background: url('~static/person/validator.png');
   font-size: 14px;
   color: #fff;
-  font-style: italic;
+  /* font-style: italic; */
 }
 .person_msg {
   width: 60%;
@@ -428,9 +421,10 @@ export default {
   height: 51px !important;
   line-height: 51px;
   color: #121212;
-  font-weight: bold;
+  font-weight: 500;
   padding-left: 18px;
   text-align: center;
+  font-size: 18px;
 }
 
 .title_nav .el-tabs__header {
@@ -509,5 +503,8 @@ export default {
 }
 .title_nav .el-tabs--top .el-tabs__item.is-top:nth-child(2) {
   padding-left: 18px;
+}
+#person .el-tabs--top .el-tabs__item.is-top:last-child {
+  padding-right: 23px;
 }
 </style>

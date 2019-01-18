@@ -20,11 +20,13 @@
             </router-link>
           </div>
           <div class="footer_link">
+            <a class="footer_copyright footer_mb">联系我们：180 1170 3706</a>
             <span>友情链接：</span>
-            <a class="footer_link_ad">广汽丰田网</a>
-            <a class="footer_link_ad">广汽传祺网站</a>
-            <a class="footer_copyright"
-              href="javascript:void(0);">Copyright © www.AxureUX.com, All Rights Reserved.</a>
+            <a class="footer_link_ad" href="http://trumpchi.gacmotor.com" target="_blank">广汽传祺</a>
+            <a class="footer_link_ad" href="http://www.ftms.com.cn" target="_blank">广汽丰田网</a>
+            <a class="footer_link_ad" href="http://www.gmmc.com.cn" target="_blank">广汽三菱</a>
+            <a class="footer_link_ad" href="http://www.acura.com.cn" target="_blank">广汽讴歌</a>
+            <a class="footer_copyright" href="http://www.jfcar.com.cn" target="_blank">Copyright © http://www.jfcar.com.cn</a>
             <a class="footer_copyright">粤ICP备18159865号</a>
           </div>
         </div>
@@ -143,6 +145,9 @@ export default {
   padding: 0;
   /*padding-left: 41px;*/
 }
+.footer_mb{
+  margin-bottom: 10px;
+}
 .footer_logo {
   display: inline-block;
   /*border: 1px dashed #fff;*/
@@ -155,7 +160,7 @@ export default {
   text-align: left;
   margin-left: 40px;
   height: 72px;
-  margin-top: 10px;
+  margin-top: -22px;
 }
 
 .footer_link_ad {

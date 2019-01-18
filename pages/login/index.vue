@@ -138,6 +138,7 @@ export default {
                   ...res.data.des
                 })
                 localStorage.setItem('userMsg', msg)
+                // this.setCookie('user', res.data.des.token, 1 / 24)
                 axios.defaults.headers["X-Auth0-Token"] = res.data.des.token
                 // instance.interceptors.request.headers["X-Auth0-Token"] = res.data.des.token
                 // this.$store.state.userMsg = msg.token ? msg.token : null

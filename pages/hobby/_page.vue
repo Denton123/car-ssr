@@ -45,7 +45,7 @@
             </span>
             <span class="tag-nav--change"
               v-show=" index === tagType">
-              <img src="/static/picture/tag_2.png"
+              <img src="~static/picture/tag_2.png"
                 class="tag_img">
             </span>
           </router-link>
@@ -144,7 +144,7 @@
                                       :src="piecImgUrl(mockHobbyItem)"
                                  >
                             </span>
-                            <span style="display: inline-block" v-else>
+                            <span style="display: inline-block;float:left" v-else>
                                   <img class="detail-container-left-img" src="~static/picture/icon_head.png">
                             </span>
                               <span class="detail-container-left-text">{{mockHobbyItem.userName}}</span>

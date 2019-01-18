@@ -17,8 +17,8 @@ console.log('-------------')
 
 // let commonUrl = process.env.commonUrl
 // let commonFileUrl = process.env.commonFileUrl
-let commonUrl = 'http://www.jfcar.com.cn/image/'
-let commonFileUrl ='http://www.jfcar.com.cn/'
+let commonUrl = 'http://165.qiweioa.cn/image/'
+let commonFileUrl ='http://165.qiweioa.cn/'
 
 
 //  * 12.28新增线上服务器ip
@@ -59,7 +59,21 @@ const getToken = function () {
   // 运行到这里，说明用户没登录或者cookie已过期
   return ''
 }
+const b_getToken = function(req = {}) {
+  if (req.headers) {
+    var req_Cookies = req.headers.cookie.split("; ")
+    let tokens = ''
+    req_Cookies.forEach(v => {
+      if (v.indexOf("token=")>=0) {
+        tokens = v
+      }
+    })
+    return tokens.split('=')[1]
+  } else {
+    return ''
+  }
 
+}
 export default {
   apiPath,
   apiDigital,
@@ -68,5 +82,6 @@ export default {
   apiSchedule,
   commonUrl,
   commonFileUrl,
-  getToken
+  getToken,
+  b_getToken
 }

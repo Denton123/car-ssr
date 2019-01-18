@@ -66,11 +66,11 @@
           </div>
           <!-- 品牌 -->
           <div class="detail_content_brand"
-            v-if="tabList">
+            v-if="brandDetail">
             <div class="detail_content_brand_photo"
-              v-if="brandDetail.photo !== ''">
+              v-if="brandDetail.url !== ''">
               <img class="detail_content_brand_logo"
-                :src="brandDetail.photo">
+                :src="formatPic(brandDetail.url)">
             </div>
             <div class="detail_content_brand_photo_default"
               v-else>
@@ -95,7 +95,7 @@
                     class="detail_content_operate_share_type_wechat">
                     <!-- <img src="../../../assets/detail/detail_wechat.png"> -->
                   </li>
-                  <li @click="shareWeibo(essayData.title, essayData.photo)"
+                  <li @click="shareWeibo(essayData.description, essayData.photoList[0].photo)"
                     class="detail_content_operate_share_type_weibo">
                     <!-- <img src="../../../assets/detail/detail_weibo.png"> -->
                   </li>
@@ -333,9 +333,9 @@
                 </nuxt-link>
                 <a href="javascript:void(0);"
                   class="detail_user_msg_focus"
-                  @click="focusBlogger(essayData.userId)" 
-                  :class="isFollow=='已关注'? 'focusBg' : 'nofocusBg' ">
-                  <span>{{isFollow}}</span>
+                  @click="focusBlogger(essayData.userId)">
+                  <span v-if="hobbiesIdDetailData.couldFollow !== null" class="focusBg">已关注</span>
+                  <span v-else class="nofocusBg">关注</span>
                 </a>
               </div>
               <div class="detail_user_othermsg">
@@ -565,7 +565,8 @@ export default {
         photo: ''
       },
       userCode: 2,
-      // hobbiesDetailData: {}
+      // hobbiesDetailData: {},
+      isfocusBg: false
     }
   },
   async asyncData ({params, env, req }) {
@@ -777,7 +778,7 @@ export default {
         this.replyText = ''
         // console.log(this.isShowReply)
         this.listIndex = -1
-        await this.getCommentData()
+        await this.getCommentData(this.currentPage)
       }
     },
     // 点赞
@@ -794,7 +795,7 @@ export default {
       if (res.data.result_data === null) {
         this.$message(res.data.result_msg)
       } else {
-        this.getCommentData()
+        this.getCommentData(this.currentPage)
         console.log(count, 'goodCountChange')
       }
       this.likeIndex = commentId
@@ -828,7 +829,7 @@ export default {
               message: '新增评论成功',
               type: 'success'
             })
-            this.getCommentData()
+            this.getCommentData(this.currentPage)
           } else if (res.data.result_data === null) {
             this.$message(res.data.result_msg)
           }
@@ -1100,7 +1101,7 @@ export default {
     // 分享到qq
     shareQQ(title, pic) {
       let params = {
-        url: 'http://test.qicheyitiao.com', // 获取URL，可加上来自分享到QQ标识，方便统计
+        url: `${window.location.href}`, // 获取URL，可加上来自分享到QQ标识，方便统计
         desc: '来自游客的分享', // 分享理由(风格应模拟用户对话),支持多分享语随机展现（使用|分隔）
         title: title, // 分享标题(可选)
         // summary: '', // 分享描述(可选)
@@ -1118,14 +1119,15 @@ export default {
     // 分享到微信
     shareWechat() {
       window.open(
-        'http://zixuephp.net/inc/qrcode_img.php?url=http://zixuephp.net/article-1.html'
+        `http://zixuephp.net/inc/qrcode_img.php?url=${window.location.href}`
       )
     },
     // 分享到微博
     shareWeibo(title, pic) {
-      // console.log(title)
+      console.log(title, 'title')
+      console.log(this.formatPic(pic), 'pic')
       var params = {
-        url: 'http://test.qicheyitiao.com',
+        url: `${window.location.href}`,
         type: '3',
         count: '1', // 是否显示分享数，1显示(可选),
         appkey: 'QQ分享', // 您申请的应用appkey,显示分享来源(可选),
@@ -1162,7 +1164,7 @@ export default {
               'X-Auth0-Token':
                 this.cookie !== '' ? this.cookie : this.tokenObj.token
             })
-            this.isFollow = '关注'
+            this.isfocusBg = false
             this.getArticleData()
             // console.log(this.hobbiesIdDetailData.couldFollow)
           } else {
@@ -1174,7 +1176,7 @@ export default {
             if (res.data.str === '请先登录!') {
               this.$message('请先登录')
             } else {
-              this.isFollow = '已关注'
+              this.isfocusBg = true
               this.getArticleData()
             }
           }
@@ -1222,18 +1224,18 @@ export default {
     },
     handleData () {
       // 判断是否可以关注
-      if (this.userCode !== 2) {
-        if (
-          this.hobbiesIdDetailData.couldFollow &&
-          this.hobbiesIdDetailData.couldFollow !== null
-        ) {
-          this.isFollow = '已关注'
-        } else {
-          this.isFollow = '关注'
-        }
-      } else {
-        this.isFollow = '关注'
-      }
+      // if (this.userCode !== 2) {
+      //   if (
+      //     this.hobbiesIdDetailData.couldFollow &&
+      //     this.hobbiesIdDetailData.couldFollow !== null
+      //   ) {
+      //     this.isFollow = '已关注'
+      //   } else {
+      //     this.isFollow = '关注'
+      //   }
+      // } else {
+      //   this.isFollow = '关注'
+      // }
       if (this.essayData.tagList.length > 0) {
         this.tabList = this.hobbiesIdDetailData.hobbies.tagList
         this.tabList.forEach(list => {
@@ -1324,9 +1326,6 @@ export default {
   },
   mounted() {
     this.handleData()
-    console.log('aaaaaaaaaaaaaaaaaa')
-    // console.log(process.env.userToken)
-    console.log('aaaaaaaaaaaaaaaaaa')
     this.$nextTick(async() => {
     this.cookie = this.getCookie('token')
     if (this.cookie == '') {
@@ -1335,11 +1334,11 @@ export default {
     if (this.tokenObj == null) {
       this.tokenObj = {}
     }
-    console.log(this.$route)
     this.currentPage = this.$route.params.page
     this.hobbiesid = `${this.$route.params.id}`
     console.log(this.hobbiesid, 'this.hobbiesid')
     // this.getArticleData()
+    console.log(this.currentPage,'currentPage')
     this.getCommentData(this.currentPage)
     this.getDataWithTag()
     this.getLoginUserInfo()
@@ -1528,9 +1527,10 @@ export default {
   margin-right: 0;
 }
 .detail_content_brand {
-  height: 150px;
+height: 150px;
   border: 1px solid rgba(228, 228, 228, 1);
   margin-bottom: 20px;
+  display: flex;
 }
 .detail_content_brand_logo {
   width: 140px;
@@ -1544,13 +1544,13 @@ export default {
   /*padding: 38px 43px 32px 0;*/
 }
 .detail_content_brand_desc h3 {
-  margin-bottom: 18px;
+ margin-bottom: 18px;
   font-size: 24px;
   /* font-family: SourceHanSansCN-Bold; */
   font-weight: bold;
   color: rgba(18, 18, 18, 1);
   margin-top: 38px;
-  margin-left: 25px;
+  /* margin-left: 25px; */
 }
 .detail_content_brand_desc p {
   height: 38px;
@@ -2294,17 +2294,26 @@ detail_comment_form_input_operate_emoji:hover span {
   background: #e7e7e7;
   width: 140px;
   height: 105px;
-  display: table-cell;
+  display: inline-block;
   vertical-align: middle;
   text-align: center;
+  margin: 23px 25px 22px 0;
+}
+.detail_content_brand_photo_default img {
+  width: 100%;
+  height: 100%;
 }
 #advertisement {
   margin-bottom: 30px;
 }
 .focusBg {
+  width: 70px;
+  height: 32px;
   background: url('~static/images/watch_wrap.png') no-repeat;
 }
 .nofocusBg {
+  width: 70px;
+  height: 32px;
   background: url('~static/images/watch_red.png') no-repeat;
   color: #fff;
 }

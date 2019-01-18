@@ -106,8 +106,7 @@
         </el-form-item>
         <!-- 邮箱 -->
         <el-form-item prop="email"
-          class="emailItem"
-          :rules="{type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change']}">
+          class="emailItem">
           <el-input v-model="editForm.email"
             placeholder="请输入您的邮箱"></el-input>
         </el-form-item>
@@ -169,6 +168,7 @@ import {
 } from '@/http/api'
 import { $get, $post } from '@/http/ajax'
 import systemManage from '@/http/photoApi.js'
+import { timeout } from 'q';
 // import { setTimeout } from 'timers'
 // import { callbackify } from 'util'
 // import $ from 'jquery'
@@ -447,9 +447,9 @@ export default {
                 message: '修改成功'
               })
               this.$emit('getUserEmit')
-              setTimeout(() => {
-                this.$router.go(0)
-              }, 1000)
+              // setTimeout(() => {
+              //   this.$router.go(0)
+              // }, 1000)
             } else if (res.data.code == 1) {
               this.$message({
                 message: `${res.data.des}`,
@@ -508,6 +508,7 @@ export default {
     },
     closeBtn() {
       this.isShowPhone = false
+      this.getUserInfo()
     },
     formatPic(item) {
       return systemManage.getApi(item)
@@ -704,8 +705,8 @@ export default {
   z-index: 999999;
 }
 .phonePromptWrap {
-  width: 499px;
-  height: 297px;
+  width:401px;
+  height: 191px;
   position: absolute;
   background: #ffff;
   z-index: 9999999;

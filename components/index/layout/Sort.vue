@@ -85,7 +85,7 @@ export default {
 }
 
 .sorts .sorts-container .sorts-list ul li {
-  padding-top: 8px;
+  padding-top: 7px;
   width: 100%;
   cursor: pointer;
   font-size: 0px;
@@ -104,7 +104,8 @@ export default {
   font-size: 12px;
   width: 27px;
   height: 24px;
-  padding-left: 6px;
+  padding-left: 7px;
+  padding-top: 2px;
 }
 .sorts .sorts-container .sorts-list ul li:hover {
   color: #be001e;

@@ -759,7 +759,8 @@
     height: 50px !important;
     line-height: 51px;
     color: #121212;
-    font-weight: bold;
+    font-weight: 500;
+    font-size: 18px;
   }
   .hobby_container .el-tabs__item.is-active {
     width: 120px;

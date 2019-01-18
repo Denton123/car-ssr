@@ -10,7 +10,7 @@ module.exports = {
    ** Headers of the page
    */
   head: {
-    title: pkg.name,
+    title: '尖锋咖',
     meta: [{
         charset: 'utf-8'
       },
@@ -81,6 +81,7 @@ module.exports = {
       src: '@/plugins/v-distpicker',
       ssr: false
     },
+    '@/plugins/vue-cropper',
     '@/plugins/vue-swiper',
   ],
 
