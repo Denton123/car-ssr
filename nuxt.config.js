@@ -81,6 +81,7 @@ module.exports = {
       src: '@/plugins/v-distpicker',
       ssr: false
     },
+    '@/plugins/vue-cropper',
     '@/plugins/vue-swiper',
   ],
 
