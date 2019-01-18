@@ -124,10 +124,8 @@ export default {
         return callback(new Error('请输入密码'))
       } else if (value.length < 6) {
         return callback(new Error('密码长度不小于6位'))
-      } else if (/[/.,\\!%()^,，‘’“”"]/g.test(value)) {
+      } else if (/[/.,\\!%()^,，_+=/`~?:;‘’“”"]/g.test(value)) {
         return callback(new Error('密码中存在、/,等特殊符号'))
-      } else if (!/^[A-Za-z0-9]+$/g.test(value)) {
-        return callback(new Error('密码只能是数字和字母的组合'))
       } else {
         return callback()
       }
@@ -221,6 +219,9 @@ export default {
   },
   methods: {
     registerAccount(formName) {
+      if(this.registerObj.password.length < 6) {
+        return 
+      }
       this.registerObj.loginName = this.registerObj.account
       this.$refs[formName].validate(valid => {
         if (valid && this.passwordFlag) {
@@ -431,6 +432,7 @@ export default {
   position: relative;
   width: 245px !important;
 }
+
 .register_wrapper .content_form .vf_btn {
   position: absolute;
   right: 18px;
@@ -438,6 +440,7 @@ export default {
   width: 140px;
   height: 100%;
   border-left: none;
+  border-top-left-radius: 10%;
   background: url('~static/images/hobby.jpg') no-repeat;
   font-size: 18px;
   font-weight: 500;

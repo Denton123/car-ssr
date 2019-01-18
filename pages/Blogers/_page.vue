@@ -136,6 +136,7 @@ import pagination from '@/components/pagination.vue'
 import Footer from '@/components/Footer.vue'
 import Header from '@/components/Header.vue'
 import { webHobbiesInfo, webHobbiesGetClassList, webUserSelectByPrimaryKey } from '@/http/api'
+import Utils from '@/utils/until'
 
 export default {
   name: 'Blogers',
@@ -182,14 +183,18 @@ export default {
       this.totalPage = this.bloggerLists.totalPageCount
       this.totalCount = this.bloggerLists.totalBloggerCount
   },
-  async asyncData () {
+  async asyncData (req) {
+    let token = Utils.b_getToken(req)
     let totalPage
     let totalCount
     let bloggerLists = await $get('/web/user/getBollgerRank?', 
       {
-          pageNo: 1,
-          size: 18
-        },
+        pageNo: 1,
+        size: 18
+      },
+      {
+        'X-Auth0-Token': token
+      }
     )
     bloggerLists.data.userEntities.forEach(function(item) {
       if (item.label === '视频') {
@@ -305,6 +310,7 @@ export default {
       })
     },
     clickWatch(item, index) {
+      console.log(this.bloggerLists.login, 'login')
       if (this.userId !== item.authorId) {
         let button = document.getElementsByClassName('watch')[0]
         this.bloggerId = item.authorId

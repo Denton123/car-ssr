@@ -1685,7 +1685,7 @@ export default {
 .detail_content_brand_logo {
   width: 140px;
   height: 105px;
-  margin: 23px 25px 22px 0;
+  /* margin: 23px 25px 22px 0; */
   display: inline-block;
   vertical-align: middle;
 }
@@ -1699,7 +1699,7 @@ export default {
   /* font-family: SourceHanSansCN-Bold; */
   font-weight: bold;
   color: rgba(18, 18, 18, 1);
-  margin-top: 38px;
+  margin-top: 18px;
   /* margin-left: 25px; */
 }
 .detail_content_brand_desc p {
@@ -1707,6 +1707,7 @@ export default {
   font-size: 14px;
   /* font-family: SourceHanSansCN-Normal; */
   font-weight: 400;
+  line-height: 22px;
   color: rgba(91, 91, 91, 1);
 }
 .detail_content_operate_share_title {

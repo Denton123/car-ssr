@@ -152,7 +152,7 @@ export default {
         this.isShowNewError = false
         this.TwiceError = '新密码不能和原密码一致，请重新输入新密码！'
         this.passwordFlag = false
-      } else if (this.resetForm.newPassword.length < 6 ||  this.resetForm.repeatPassword.length < 6) {
+      } else if (this.resetForm.newPassword.length < 6 ) {
         this.$message({
           type: 'warning',
           message: '密码不小于6个字符'
