@@ -156,7 +156,7 @@
               <li v-for="(item, index) in essaysWidthTag"
                 :key="index"
                 class="detail_content_article_block">
-                <nuxt-link :to="`/${item.className}/${item.className.toLowerCase() !== 'hobbies' ? 'detail': 'hobbiesDetail'}/${item.id}/1`">
+                <nuxt-link :to="`/${item.className.toLowerCase()}/${item.className.toLowerCase() !== 'hobbies' ? 'detail': 'hobbiesDetail'}/${item.id}/1`">
                   <span style="width: 190px;height: 140px;display:inline-block;">
                     <img v-if="item.photo !== ''"
                       :src="formatPic(item.cover)"
@@ -171,7 +171,7 @@
                     </span>
                   </span>
                   <h3 class="detail_content_article_block_title">{{item.title}}</h3>
-
+                </nuxt-link>
                   <div class="detail_content_article_block_avatar_wrap">
                     <nuxt-link :to="`/Bloger/${item.authorId}/1`">
                       <img v-if="item.authorPhoto"
@@ -185,9 +185,12 @@
                   <nuxt-link :to="`/Bloger/${item.authorId}/1`">
                     <span class="detail_content_article_block_user">{{item.author}}</span>
                   </nuxt-link>
+                  
                   <span class="detail_content_article_block_desperate">|</span>
+                  
+                  <nuxt-link :to="`/${item.className.toLowerCase()}/${item.className.toLowerCase() !== 'hobbies' ? 'detail': 'hobbiesDetail'}/${item.id}/1`">
                   <span class="detail_content_article_block_desc">{{item.tag}}</span>
-                </nuxt-link>
+                  </nuxt-link>
               </li>
             </ul>
           </div>
@@ -604,7 +607,9 @@ export default {
     // 相关文章信息
     let essaysWidthTag = await $get(webEssayDetailTag, {
         essayId: params.id
-      })
+      }, {
+      'X-Auth0-Token': token
+    })
     // 文章信息
     let detailData = await $get(webEssayDetailsInfo, {
       id: params.id
@@ -619,26 +624,25 @@ export default {
     let randomData = await $get(webHobbiesDetailRandomData, {
       bloggerId: detailData.data.result_data.essay.userId
     })
-  
-    // essaysWidthTag.data.result_data.forEach(v => {
-    //   if (v.className.toLowerCase() == 'news') {
-    //     v.tag = '今日车闻'
-    //   } else if (v.className.toLowerCase() == 'video') {
-    //     v.tag = '视频'
-    //   } else if (v.className.toLowerCase() == 'hobbies') {
-    //     v.tag = '兴趣部落'
-    //   } else if (v.className.toLowerCase() == 'ev') {
-    //     v.tag = '新能源'
-    //   } else {
-    //     v.tag = '兴趣部落'
-    //   }
-    // })
-
+    essaysWidthTag = essaysWidthTag.data.result_data == null ? [] : essaysWidthTag.data.result_data
+      essaysWidthTag.forEach(v => {
+      if (v.className.toLowerCase() == 'news') {
+        v.tag = '今日车闻'
+      } else if (v.className.toLowerCase() == 'video') {
+        v.tag = '视频'
+      } else if (v.className.toLowerCase() == 'hobbies') {
+        v.tag = '兴趣部落'
+      } else if (v.className.toLowerCase() == 'ev') {
+        v.tag = '新能源'
+      } else {
+        v.tag = '兴趣部落'
+      }
+    }) 
       return {
         articleCommentData: articleCommentData.data ? articleCommentData.data.list : [],
         commentData: articleCommentData.data ? articleCommentData.data : [],
         articleCommentSize: articleCommentData.data.totalCount ? articleCommentData.data.totalCount : '',
-        essaysWidthTag: essaysWidthTag.data.result_data ? essaysWidthTag.data.result_data : [],
+        essaysWidthTag: essaysWidthTag ? essaysWidthTag : [],
         // isFollow: detailData.data.result_data.couldFollow && detailData.data.result_data.couldFollow !== null ? '已关注': '关注',
         essayData: detailData.data.result_data.essay ? detailData.data.result_data.essay : {},
         detailData: detailData.data.result_data ? detailData.data.result_data : {},
@@ -1284,19 +1288,19 @@ export default {
       })
     },
     handleData() {
-      this.essaysWidthTag.forEach(v => {
-          if (v.className.toLowerCase() == 'news') {
-            v.tag = '今日车闻'
-          } else if (v.className.toLowerCase() == 'video') {
-            v.tag = '视频'
-          } else if (v.className.toLowerCase() == 'hobbies') {
-            v.tag = '兴趣部落'
-          } else if (v.className.toLowerCase() == 'ev') {
-            v.tag = '新能源'
-          } else {
-            v.tag = '兴趣部落'
-          }
-        })
+      // this.essaysWidthTag.forEach(v => {
+      //     if (v.className.toLowerCase() == 'news') {
+      //       v.tag = '今日车闻'
+      //     } else if (v.className.toLowerCase() == 'video') {
+      //       v.tag = '视频'
+      //     } else if (v.className.toLowerCase() == 'hobbies') {
+      //       v.tag = '兴趣部落'
+      //     } else if (v.className.toLowerCase() == 'ev') {
+      //       v.tag = '新能源'
+      //     } else {
+      //       v.tag = '兴趣部落'
+      //     }
+      //   })
         console.log('哈哈哈哈哈')
         console.log(this.userCode)
       // if (this.userCode !== 2) {
@@ -2438,6 +2442,7 @@ export default {
   width: 140px;
   height: 105px;
   display: inline-block;
+margin: 23px 25px 22px 0;
 }
 .detail_user_msg_name:hover {
   color: #be001e;

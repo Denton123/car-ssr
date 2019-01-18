@@ -66,7 +66,7 @@
           </div>
           <!-- 品牌 -->
           <div class="detail_content_brand"
-            v-if="brandDetail.url !== undefined">
+            v-if="brandDetail">
             <div class="detail_content_brand_photo"
               v-if="brandDetail.url !== ''">
               <img class="detail_content_brand_logo"
@@ -126,7 +126,7 @@
 
         <!-- 相关文章 -->
         <div class="detail_content_article"
-          v-if="essaysWidthTag !== null">
+          v-if="essaysWidthTag && essaysWidthTag.length !== 0 ">
           <div class="detail_content_article_title">
             <img src="~static/detail/detail_article.png">
             <h2>相关文章</h2>
@@ -149,7 +149,9 @@
                     v-else>
                     <img src="~static/common/default.png" />
                   </span>
+
                   <h3 class="detail_content_article_block_title">{{item.title}}</h3>
+                </nuxt-link>
                   <div class="detail_content_article_block_avatar_wrap">
                     <nuxt-link :to="`/Bloger/${item.authorId}/1`">
                       <img v-if="item.authorPhoto"
@@ -164,8 +166,9 @@
                     <span class="detail_content_article_block_user">{{item.author}}</span>
                   </nuxt-link>
                   <span class="detail_content_article_block_desperate">|</span>
+                  <nuxt-link :to="`/${item.className.toLowerCase()}/${item.className.toLowerCase() !== 'hobbies' ? 'detail': 'hobbiesDetail'}/${item.id}/1`">
                   <span class="detail_content_article_block_desc">{{item.tag}}</span>
-                </nuxt-link>
+                  </nuxt-link>
               </li>
             </ul>
           </div>
@@ -418,7 +421,7 @@
               <li v-for="(random, index) in randomData"
                 :key="index">
                 <nuxt-link :to="`/${random.className}/${random.className !== 'hobbies' ? 'detail' : 'hobbiesDetail'}/${random.id}/1`"
-                  @click.native="flushCom(hot.id)">
+                  @click.native="flushCom(random.id)">
                   <span v-if="random.cover!==''">
                     <img :src="formatPic(random.cover)">
                   </span>
@@ -509,7 +512,7 @@ export default {
       // 文章数据
       // essayData: {},
       // 相关文章数据
-      essaysWidthTag: {},
+      // essaysWidthTag: {},
       // 标签数据
       tabList: [],
       // 回复文本
@@ -574,6 +577,8 @@ export default {
   async asyncData ({params, env, req }) {
     let token = Utils.b_getToken(req)
     let photoList
+    let tabList
+    let brandDetail
     // 获取兴趣部落轮播图数据
     $get(webHobbiesDetailInfo, { hobbiesId: params.id}).then(res =>{
         photoList = res.data.result_data.hobbies.photoList
@@ -600,6 +605,29 @@ export default {
       limit: '10',
       page: 1
     })
+    let essaysWidthTag = await $get(webHobbiesDetailTag, {
+        hobbiesId: params.id,
+    })
+    essaysWidthTag = essaysWidthTag.data.result_data == null ? [] : essaysWidthTag.data.result_data
+    essaysWidthTag.forEach(v => {
+      if (v.className.toLowerCase() == 'news') {
+        v.tag = '今日车闻'
+      } else if (v.className.toLowerCase() == 'video') {
+        v.tag = '视频'
+      } else if (v.className.toLowerCase() == 'hobbies') {
+        v.tag = '兴趣部落'
+      } else if (v.className.toLowerCase() == 'ev') {
+        v.tag = '新能源'
+      } else {
+        v.tag = '兴趣部落'
+      }
+    })
+    tabList = hobbiesIdDetailData.data.result_data.hobbies.tagList == [] ?  [] : hobbiesIdDetailData.data.result_data.hobbies.tagList
+    tabList.forEach(list => {
+      if (list.isShow === 1) {
+        brandDetail = list
+      }
+    })
     return {
       sliderData : photoList,
       essayData: hobbiesIdDetailData.data ? hobbiesIdDetailData.data.result_data.hobbies : {},
@@ -609,6 +637,9 @@ export default {
       commentData: articleCommentData.data ? articleCommentData.data : {},
       articleCommentSize: articleCommentData.data ? articleCommentData.data.totalCount : '',
       articleCommentData: articleCommentData.data.list ? articleCommentData.data.list : [],
+      essaysWidthTag: essaysWidthTag ? essaysWidthTag : [],
+      tabList: tabList ? tabList : [],
+      brandDetail: brandDetail ? brandDetail : null
     }
   },
   methods: {
@@ -873,7 +904,6 @@ export default {
           if (list.isShow === 1) {
             this.brandDetail = list
           }
-          // console.log(this.brandDetail)
         })
       } else {
         this.tabList = null
@@ -1228,17 +1258,17 @@ export default {
       // } else {
       //   this.isFollow = '关注'
       // }
-      if (this.essayData.tagList.length > 0) {
-        this.tabList = this.hobbiesIdDetailData.hobbies.tagList
-        this.tabList.forEach(list => {
-          if (list.isShow === 1) {
-            this.brandDetail = list
-          }
-          // console.log(this.brandDetail)
-        })
-      } else {
-        this.tabList = null
-      }
+      // if (this.essayData.tagList.length > 0) {
+      //   this.tabList = this.hobbiesIdDetailData.hobbies.tagList
+      //   this.tabList.forEach(list => {
+      //     if (list.isShow === 1) {
+      //       this.brandDetail = list
+      //     }
+      //     // console.log(this.brandDetail)
+      //   })
+      // } else {
+      //   this.tabList = null
+      // }
 
       if (
         this.hobbiesIdDetailData.hobbiesLogEntity !== null
@@ -1332,7 +1362,7 @@ export default {
     // this.getArticleData()
     console.log(this.currentPage,'currentPage')
     this.getCommentData(this.currentPage)
-    this.getDataWithTag()
+    // this.getDataWithTag()
     this.getLoginUserInfo()
     this.commentBtn =
       this.tokenObj.token !== undefined || this.cookie !== '' ? '评论' : '登录'
@@ -1527,7 +1557,7 @@ height: 150px;
 .detail_content_brand_logo {
   width: 140px;
   height: 105px;
-  margin: 23px 25px 22px 0;
+  /* margin: 23px 25px 22px 0; */
   display: inline-block;
   vertical-align: middle;
 }
@@ -2281,6 +2311,7 @@ detail_comment_form_input_operate_emoji:hover span {
   width: 140px;
   height: 105px;
   display: inline-block;
+  margin: 23px 25px 22px 0;
 }
 .detail_content_brand_photo_default {
   background: #e7e7e7;

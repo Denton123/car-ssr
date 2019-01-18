@@ -25,7 +25,9 @@
             <span>不能使用\、,等特殊符号</span>
           </div>
           <span class="repeatPasswordError"
-            v-if="isShowNewError">{{newError}}</span>
+            v-if="isShowTwiceError" style="right: -306px;">{{TwiceError}}</span>
+          <span class="repeatPasswordError"
+          v-if="isShowNewError">{{newError}}</span>
         </el-form-item>
         <el-form-item class="repeatPasswordItem">
           <el-input v-model="resetForm.repeatPassword"
@@ -41,7 +43,7 @@
         <el-form-item>
           <el-button type="primary"
             @click="onSubmit('resetForm')">保存</el-button>
-          <el-button>取消</el-button>
+          <el-button @click="cancel()">取消</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -62,7 +64,9 @@ export default {
       isShowErrorTip: false,
       passwordTip: '',
       isShowNewError: false,
-      newError: ''
+      newError: '',
+      isShowTwiceError: false,
+      TwiceError: ''
     }
   },
   computed: {
@@ -93,6 +97,7 @@ export default {
   },
   methods: {
     onSubmit(formName) {
+      console.log(this.passwordFlag, 'passwordFlag')
       this.$refs[formName].validate(valid => {
         if (valid && this.passwordFlag) {
           $get(webUserChangePassword, this.resetForm, {
@@ -123,6 +128,9 @@ export default {
         }
       })
     },
+    cancel() {
+      this.resetForm = {}
+    },
     warningTip() {
       if (this.resetForm.newPassword !== this.resetForm.repeatPassword) {
         this.$message({
@@ -132,8 +140,6 @@ export default {
         this.isShowErrorTip = true
         this.passwordTip = '两次密码输入不一致'
         this.passwordFlag = false
-      } else {
-        this.passwordFlag = true
       }
     },
     warnSameTip() {
@@ -142,25 +148,29 @@ export default {
           type: 'warning',
           message: '新密码不能和原密码一致，请重新输入新密码！'
         })
-        this.isShowNewError = true
-        this.newError = '新密码不能和原密码一致，请重新输入新密码！'
+        this.isShowTwiceError = true
+        this.isShowNewError = false
+        this.TwiceError = '新密码不能和原密码一致，请重新输入新密码！'
         this.passwordFlag = false
-      } else if (this.resetForm.newPassword.length < 6) {
+      } else if (this.resetForm.newPassword.length < 6 ||  this.resetForm.repeatPassword.length < 6) {
         this.$message({
           type: 'warning',
           message: '密码不小于6个字符'
         })
+        this.isShowTwiceError = false
         this.isShowNewError = true
         this.newError = '密码不小于6个字符'
         this.passwordFlag = false
+        console.log(this.passwordFlag, 'this.passwordFlag')
       } else if (
-        /[`~!@#$%^&*_+<>{}\/'[\]]/im.test(this.resetForm.newPassword) ||
-        /[`~!@#$%^&*_+<>{}\/'[\]]/im.test(this.resetForm.repeatPassword)
+        /[`~!#$%^&*_+<>{}\/'[\]]/im.test(this.resetForm.newPassword) ||
+        /[`~!#$%^&*_+<>{}\/'[\]]/im.test(this.resetForm.repeatPassword)
       ) {
         this.$message({
           type: 'warning',
           message: '密码存在特殊字符'
         })
+        this.isShowTwiceError = false
         this.isShowNewError = true
         this.newError = '密码存在特殊字符'
         this.passwordFlag = false
@@ -295,7 +305,7 @@ export default {
   color: #be001e;
   font-size: 14px;
   position: absolute;
-  right: -146px;
+  right: -137px;
   top: 6px;
 }
 </style>
