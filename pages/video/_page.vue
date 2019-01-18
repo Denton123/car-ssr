@@ -473,6 +473,9 @@ export default {
         bannerTopicData = element
       }
     })
+    if (tabData.data && tabData.data.length >= 11) {
+      tabData.data.splice(11)
+    }
     return {
       tabData: tabData.data ? tabData.data : [],
       leftSideResult: leftSideResult.data ? leftSideResult.data : [],
@@ -638,9 +641,6 @@ export default {
       //   },
       //   obj
       // )
-      if (this.tabData.length >= 11) {
-        this.tabData.splice(11)
-      }
       // 判断是否为空
       // let leftResult = leftSideResult.data == null ? [] : leftSideResult.data
       // let tab = tabResult.data == null ? [] : tabResult.data

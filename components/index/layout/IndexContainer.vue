@@ -54,7 +54,7 @@
     <center title="兴趣部落"
       titleEn="hobbies"
       id="hobbies"
-      href="/hobbies/1"
+      href="/hobby/1"
       class="mt20"
       :url="hobbiesActiveUrl">
       <car-carsouel slot="carsouel"
