@@ -112,6 +112,7 @@ export default {
     },
 
     activeIndex: function() {
+      console.log(this.realIndex,'0000000000000000000')
       // this.title = this.list[this.realIndex].title;
       return this.realIndex;
     }
@@ -121,7 +122,6 @@ export default {
     // 因为是服务端渲染，所以要使用监控routePage的方法
     list:{
       handler(newRoutePage, oldRoutePage) {
-        console.log('3214231----------------------',this.list)
         // console.log('3214231--',this.realIndex)
         //
         // this.realIndex = this.$refs[this.id].swiper.realIndex;
@@ -147,7 +147,6 @@ export default {
     // 轮播改变
     change() {
       this.realIndex = this.$refs[this.id].swiper.realIndex; // 获取当前轮播图下标
-      // console.log(this.realIndex)
       this.title = this.list[this.realIndex].title;
     },
 
@@ -259,7 +258,9 @@ export default {
   font-size: 30px;
   transform: translateX(-50%);
 }
-
+.big_container .swiper-slide-active .cover{
+  display: none;
+}
 .big_container .controll {
   position: absolute;
   bottom: 2px;
