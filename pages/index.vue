@@ -132,20 +132,20 @@ export default {
         v.classOneName = "兴趣部落";
       }
     });
-    if (Array.isArray(newsObj.data.hotTime)) {
+    // if (Array.isArray(newsObj.data.hotTime)) {
       newsObj.data.hotTime.forEach(v => {
         v.classOneName = v.classOneName.toLowerCase();
-        if (v.classOneName.toLowerCase() == "news") {
+        if (v.classOneName == "news") {
           v.classOneName = "今日车闻";
-        } else if (v.classOneName.toLowerCase() == "video") {
+        } else if (v.classOneName == "video") {
           v.classOneName = "视频";
-        } else if (v.classOneName.toLowerCase() == "ev") {
+        } else if (v.classOneName == "ev") {
           v.classOneName = "新能源";
         } else {
           v.classOneName = "兴趣部落";
         }
       });
-    }
+    // }
     return {
       weeklist: weeklist.data ? weeklist.data.essayEntities : [],
       // bigCourselData: bigCourselData.data ? bigCourselData.data : [],

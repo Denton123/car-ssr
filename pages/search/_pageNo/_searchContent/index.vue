@@ -143,7 +143,6 @@
   } from '@/http/api'
   export default {
     name: 'search',
-
     metaInfo: {
       // 设置 title
       title: 'search列表',
@@ -162,14 +161,22 @@
         }
       ]
     },
-
-    mounted() {
-      if(this.$route.params.pageNo) {
-        this.pageObj.currenPage = this.$route.params.pageNo
+     asyncData(content) {
+       /* 默认参数 */
+    let defaultParams = {
+        pageSize: '6',
+        pageNo: '1'
       }
+    defaultParams.pageNo = content.params.pageNo || '1'
+    let searchContent = content.params.searchContent
+    return{
+      defaultParams,
+      searchContent
+    }
+  },
+    mounted() {
       this.createAdPicture()
-      this.searchContent = this.$route.params.searchContent
-      this.search()
+      this.getEssaylist()
       this._getWeekendRank_()
       this._getMonthRank_()
     },
@@ -177,18 +184,14 @@
       return {
         activeName: 'weekRank',
         searchObj: {},
-        pageObj: {},
         eassyList: [],
+        pageObj:{},
         WeekendRank: [],
         MonthRank: [],
         preRouteObj: {},
         currentRouteObj: {},
         searchContent: '',
         tempContent: '',
-        defaultParams: {
-          pageSize: '6',
-          pageNo: '1'
-        },
         type: 'w'
       }
     },
@@ -236,7 +239,37 @@
       },
       // 执行搜索方法
       search() {
-        this.defaultParams.pageNo = this.$route.params.pageNo || '1'
+        this.$router.push({
+          path: `/search/1/${this.searchContent}`
+        })
+      },
+      getEssaylist() {
+        let sameAspre = false
+        if(!this.searchContent) {
+          this.$message({
+            message: '请输入搜索内容'
+          })
+          return 
+        }
+        //先判断是不是同一次内容
+        if(sessionStorage.getItem('search_condition')) {
+        let firstcondition = JSON.parse(sessionStorage.getItem('search_condition'))
+          if( firstcondition.pageSize == this.defaultParams.pageSize &&
+            firstcondition.pageNo == this.defaultParams.pageNo &&
+            firstcondition.searchContent == this.searchContent) {
+              sameAspre = true
+            } else {
+              sameAspre = false
+            }
+        }
+        // 每次搜索都临时保存搜索内容
+        if(!sameAspre) {
+          let search_condition = {
+            searchContent:this.searchContent,
+            ...this.defaultParams
+            }
+          sessionStorage.setItem('search_condition',JSON.stringify(search_condition))
+        }
         $get(webSearch, {
           keyWords: this.searchContent,
           ...this.defaultParams
@@ -245,7 +278,6 @@
             this.tempContent = this.searchContent
             this.pageObj = res.data
             this.pageObj.currPage = parseInt(this.defaultParams.pageNo)
-            console.log('pageObj', this.pageObj)
             this.eassyList = res.data.data
           } else if (res.data.code === 'tag') {
             let tagId = res.data.tagId
@@ -839,6 +871,11 @@
         background: rgba(255, 255, 255, 1) !important;
         box-shadow: 0px 3px 0px 0px rgb(228, 228, 228, 1) !important;
         &.active {
+          background: #000 !important;
+          box-shadow: 0px 3px 0px 0px rgb(180, 32, 32) !important;
+        }
+        &:hover {
+          color: #fff!important;
           background: #000 !important;
           box-shadow: 0px 3px 0px 0px rgb(180, 32, 32) !important;
         }

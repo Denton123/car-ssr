@@ -483,6 +483,10 @@
       },
       checkClick(formName) {
         this.articleForm.description = $('#summernote').summernote('code')
+        if(this.articleForm.description == '<p><br></p>' || this.articleForm.description == ''){
+          this.$message.error('文章内容必须填写！')
+          return false
+        }
         this.$refs[formName].validate(valide => {
           if (valide) {
             this.$confirm('此操作将新建文章发布, 是否继续?', '提示', {
@@ -514,12 +518,9 @@
                     this.$refs[formName].resetFields()
                     this.isText = false
                     // 调转到个人中心文章首页
-                    let that = this
-                    setTimeout(function() {
-                      that.$router.push({
-                        name: 'myEssay'
-                      })
-                    }, 500)
+                    this.$router.push({
+                      path: '/person/myEssay/1'
+                    })
                     this.$forceUpdate()
                   } else if (response.data.code === 2) {
                     this.$message({
@@ -554,6 +555,10 @@
       },
       draftClick(formName) {
         this.articleForm.description = $('#summernote').summernote('code')
+        if(this.articleForm.description == '<p><br></p>' || this.articleForm.description == ''){
+          this.$message.error('文章内容必须填写！')
+          return false
+        }
         this.$refs[formName].validate(valide => {
           if (valide) {
             this.$confirm('此操作将新建文章保存为草稿, 是否继续?', '提示', {
@@ -584,12 +589,9 @@
                     this.$refs[formName].resetFields()
                     this.isText = false
                     // 调转到个人中心文章首页
-                    let that = this
-                    setTimeout(function() {
-                      that.$router.push({
-                        name: 'myEssay'
-                      })
-                    }, 500)
+                    this.$router.push({
+                      path: '/person/myEssay/1'
+                    })
                     this.$forceUpdate()
                   } else if (response.data.code === 2) {
                     this.$message({

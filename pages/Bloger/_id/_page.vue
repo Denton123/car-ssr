@@ -140,6 +140,7 @@
         blogerListData: _blogerList.data.list || [],
         blogerListDataSize:  _blogerList.data.totalCount || [],
       }
+
     },
     methods: {
       // 获取cookies
@@ -177,6 +178,17 @@
         console.log(this.blogerListData)
         this.blogerData = res.data
         this.blogerListDataSize = res.data.totalCount
+      },
+      // 获取个人中心userId
+      getUse() {
+        let tokenObj = {
+          'X-Auth0-Token': this.cookie !== '' ? this.cookie : this.tokenObj.token
+        }
+        $get(webUserSelectByPrimaryKey, {}, tokenObj).then(res => {
+          console.log(res)
+          this.userName = res.data.des.user.account
+          this.userId = res.data.des.user.id
+        })
       },
       // 获取个人中心
       getUserInfo() {
@@ -217,10 +229,16 @@
         }
       },
       clickWatch() {
-        let button = document.getElementsByClassName('watch')[0]
+        console.log('boglerid',this.$route.params.id,'userid', this.userId);
         let id = `${this.$route.params.id}`
         this.bloggerId = id
-        this.watchBloger()
+        if (this.userId && this.userId !== this.bloggerId) {
+          this.watchBloger()
+        } else if (!this.userId) {
+          this.$message('请先登录')
+        } else {
+          this.$message('用户不能关注自己')
+        }
       },
       async cancelWatch() {
         let id = `${this.$route.params.id}`
@@ -279,10 +297,11 @@
         this.tokenObj = {}
       }
       // 路由分页
-      // this.blogerList(this.routePage)
+      this.blogerList(this.routePage)
       this.$nextTick(async () => {
+        this.getUse()
         this.getUserInfo()
-        // this.blogerList()
+        this.blogerList()
       })
     },
     components: {
@@ -333,14 +352,6 @@
     background: url('~static/images/person_head.png') no-repeat;
     background-size: 100% 100%;
   }
-  @media screen and (max-width: 1366px) {
-  .person_theme {
-    width: 100%;
-    height: 400px;
-    background: url('~static/images/person_person_head_min.jpg') no-repeat;
-    background-size: 100% 100%;
-  }
-}
   .person_container {
     width: 100%;
     height: 100%;
@@ -358,7 +369,7 @@
     width: 130px;
     height: 130px;
     border-radius: 50%;
-    // background: #fff;
+    background: #fff;
     margin: 30px auto 15px;
   }
   .person_head img {
@@ -373,18 +384,18 @@
     margin-bottom: 12px;
   }
   .person_approve {
-     width: 80px;
-  height: 30px;
-  line-height: 30px;
-  text-align: center;
-  margin-left: 10px;
-  /* -webkit-transform: skew(10deg);
-  -moz-transform: skew(10deg);
-  -o-transform: skew(10deg); */
-  background: url('~static/person/validator.png');
-  font-size: 14px;
-  color: #fff;
-  /* font-style: italic; */
+    width: 80px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    margin-left: 10px;
+    -webkit-transform: skew(10deg);
+    -moz-transform: skew(10deg);
+    -o-transform: skew(10deg);
+    background: #be001e;
+    font-size: 14px;
+    color: #fff;
+    font-style: italic;
   }
   .person_msg {
     width: 60%;

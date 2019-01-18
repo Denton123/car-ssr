@@ -216,9 +216,9 @@ export default {
   line-height: 26px;
   padding: 0 5px;
   background: url('~static/person/tag_bg.png') no-repeat;
-  text-align: left;
+  text-align: center;
   background-size: 100% 100%;
-  padding-left: 10px;
+  padding-left: 1px;
 }
 .person_my_essay_list .person_essay_list_block_title {
 }

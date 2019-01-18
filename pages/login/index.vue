@@ -25,7 +25,7 @@
             </el-form-item>
             <el-form-item prop="checked">
               <div class="loginMemory">
-                <el-checkbox v-model="loginObj.checked">记住用户登录状态</el-checkbox>
+                <el-checkbox v-model="loginObj.checked">自动登录</el-checkbox>
               </div>
               <el-button v-loading="loading"
                 @click="login('form')"
@@ -138,19 +138,23 @@ export default {
                   ...res.data.des
                 })
                 localStorage.setItem('userMsg', msg)
-                // this.setCookie('user', res.data.des.token, 1 / 24)
+                this.setCookie('user', res.data.des.token, 24*7)
                 axios.defaults.headers["X-Auth0-Token"] = res.data.des.token
                 // instance.interceptors.request.headers["X-Auth0-Token"] = res.data.des.token
                 // this.$store.state.userMsg = msg.token ? msg.token : null
                 console.log(this.$store.state.userMsg, 'user')
-                that.$router.push({ name: 'index' })
+                that.$router.push({
+                  path: '/'
+                })
               } else {
                 // 不记住登陆状态， 只保存token 1个小时
                 this.setCookie('token', res.data.des.token, 1 / 24)
                 // process.env.userToken = res.data.des.token
                 // this.$store.state.userMsg = res.data.des.token ? res.data.des.token : null
                 console.log(this.$store.state.userMsg, 'user')
-                that.$router.push({ name: 'index' })
+                that.$router.push({
+                  path: '/'
+                })
               }
             } else {
               that.loading = false
@@ -193,7 +197,7 @@ export default {
   position: relative;
   width: 100%;
   height: 700px;
-  background: url('~static/images/loginBackground.png') no-repeat;
+  background: url('~static/images/bg.png') no-repeat;
 }
 .login-wrapper .content {
   position: absolute;

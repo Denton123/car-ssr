@@ -68,7 +68,7 @@
                 :src="formatPic(editForm.photo)"
                 alt="">
               <img v-else
-                src="/static/person/person_default.png">
+                src="~static/person/person_default.png">
             </div>
             <span>上传头像</span>
           </el-upload>

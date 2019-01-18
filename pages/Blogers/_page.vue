@@ -8,10 +8,10 @@
     <div class="blogers-contain">
       <div class="tag"
         >
-        <nuxt-link to="index"
+        <nuxt-link to="/"
           ><span>首页</span></nuxt-link>
         <span><img src="~static/picture/small_right_black.png"></span>
-        <nuxt-link to="/hobbies/1"
+        <nuxt-link to="/hobby/1"
           ><span>兴趣部落</span></nuxt-link>
         <span><img src="~static/picture/small_tag.png"></span>
         <span style="color:#BE001E;font-weight: 600" >热门博主</span>

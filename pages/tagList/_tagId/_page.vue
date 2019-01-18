@@ -56,7 +56,7 @@
                     <div class="avatar"
                       @click.stop.prevent="toBloger(eassy.userId)"><img :src="eassy.userPhoto"
                         alt="用户头像"><span class="name">{{eassy.userName}}</span><span class="tag_line">|</span></div>
-                    <div class="channel">{{eassy.className}}</div>
+                    <div class="channel">{{eassy.className == '萌宠' ? '兴趣部落' : eassy.className}}</div>
                     <div class="time"
                       v-text="formatData(eassy.create_time)"></div>
                   </div>
@@ -71,7 +71,7 @@
               prev-text="上一页"
               next-text="下一页"
               :page-count="pageObj.totalPage"
-              :page-size="6"
+              :page-size="pageObj.pageSize"
               :total="pageObj.totalCount">
             </el-pagination>
           </div>
@@ -152,7 +152,6 @@ import {
 } from '@/http/api'
 export default {
   name: 'tagList',
-
   metaInfo: {
     // 设置 title
     title: 'tag列表页',
@@ -171,12 +170,53 @@ export default {
       }
     ]
   },
+    // nuxt异步获取数据
+  async asyncData ({params}) {
+    let WeekendRank = null
+    let MonthRank = null
+    let getWebEassyList = await $get(webTagAboutList, {
+      tagId: params.tagId,
+      page: params.page,
+      limit: '6'
+    })
+    // 获取文章周排行榜
+    await $get(webEssayGetWeekendRank, { pageNo: '1', size: '10' }).then(res => {
+        WeekendRank = res.data.essayEntities
+    })
+    // 获取文章月排行榜
+    await $get(webEssayGetMonthRank, { pageNo: '1', size: '10' }).then(res => {
+        MonthRank = res.data.essayEntities
+    })
+    return {
+      pageObj : getWebEassyList.data,
+      eassyList : getWebEassyList.data.list,
+      WeekendRank : WeekendRank,
+      MonthRank : MonthRank,
+      searchContent: params.searchContent // 暴露当前搜索的tagId
+    }
+  },
   beforeMount() {
     this.createAdPicture()
     this._getWebTagDetail_()
-    // this._getWebEassyList_()
-    // this._getWeekendRank_()
-    // this._getMonthRank_()
+    let preRouteSearContent = sessionStorage.getItem('tagRoute').searchContent
+    if(this.searchContent === preRouteSearContent) {
+      let name = ''
+      let myFrom = JSON.parse(sessionStorage.getItem('tagRoute'))
+      let mypath = myFrom.mypath
+        if(!mypath || mypath.indexOf('search') === 0 ) {
+          name = '首页'
+        } else if(mypath.indexOf('news') === 0){
+          name = '今日车闻'
+        } else if(mypath.indexOf('ev') === 0){
+          name = '新能源'
+        }  else if(mypath.indexOf('hobby') === 0) {
+          name = '兴趣部落'
+        } else if (mypath.indexOf('video') === 0) {
+          name = '视频'
+        }
+        this.preRouteObj = { path: myFrom.fullPath, name}
+    }
+    console.log('easssy,',this.eassyListUrl)
   },
   data() {
     return {
@@ -202,7 +242,7 @@ export default {
     let mypath = from.fullPath.slice(1)
     let name = ''
     next(vm => {
-      /* 如果在当前页刷新，临时保存跳转过来的路由 */
+      /* 如果在当前页刷新，临时使用跳转过来的路由 */
       if (!from.name) {
         let myFrom = JSON.parse(sessionStorage.getItem('tagRoute'))
         mypath = myFrom.fullPath.slice(1)
@@ -231,7 +271,7 @@ export default {
         } else if (mypath.indexOf('video') === 0) {
           name = '视频'
         }
-        sessionStorage.setItem('tagRoute', JSON.stringify(from))
+        sessionStorage.setItem('tagRoute', JSON.stringify({...from, searchContent:from.params.searchContent, mypath}))
         vm.preRouteObj = { path: from.fullPath, name}
       }
       vm.currentRouteObj = { path: to.fullPath, name: to.meta.title }
@@ -248,33 +288,6 @@ export default {
         item.userPhoto = systemManage.getApi(item.userPhoto)
         return item
       })
-    }
-  },
-  // nuxt异步获取数据
-  async asyncData ({params}) {
-    let WeekendRank
-    let MonthRank
-    console.log('params', params)
-    // let tagId = params.id
-    // this.defaultParams.page = params.page
-    let getWebEassyList = await $get(webTagAboutList, {
-      tagId: params.tagId,
-      page: params.page,
-      limit: '6'
-    })
-    // 获取文章周排行榜
-    await $get(webEssayGetWeekendRank, { pageNo: '1', size: '10' }).then(res => {
-        WeekendRank = res.data.essayEntities
-    })
-    // 获取文章月排行榜
-    await $get(webEssayGetMonthRank, { pageNo: '1', size: '10' }).then(res => {
-        MonthRank = res.data.essayEntities
-    })
-    return {
-      pageObj : getWebEassyList.data,
-      eassyList : getWebEassyList.data.list,
-      WeekendRank : WeekendRank,
-      MonthRank : MonthRank
     }
   },
   methods: {
@@ -342,7 +355,7 @@ export default {
     // 跳转到兴趣部落文章详情 或 文章
     toArticleOrHobbiesDetail(eassy) {
       if (eassy.title === 'hobbies') {
-        this.$router.push({ path: `/tagList/hobbiesDetail/${eassy.id}/1` })
+        this.$router.push({ path: `/hobbies/hobbiesDetail/${eassy.id}/1` })
       } else {
         this.toArticleDetail(eassy.id)
       }
@@ -891,6 +904,11 @@ export default {
       background: rgba(255, 255, 255, 1) !important;
       box-shadow: 0px 3px 0px 0px rgb(228, 228, 228, 1) !important;
       &.active {
+        background: #000 !important;
+        box-shadow: 0px 3px 0px 0px rgb(180, 32, 32) !important;
+      }
+      &:hover {
+        color: #fff!important;
         background: #000 !important;
         box-shadow: 0px 3px 0px 0px rgb(180, 32, 32) !important;
       }

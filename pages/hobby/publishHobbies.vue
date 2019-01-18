@@ -220,10 +220,10 @@ export default {
           type: 'error'
         })
         return false
-      } else if (file.size > 2 * 1024 * 1024) {
+      } else if (file.size > 5 * 1024 * 1024) {
         this.$message({
           showClose: true,
-          message: '文件大小上限为2M',
+          message: '文件大小上限为5M',
           type: 'error'
         })
         return false
@@ -369,12 +369,9 @@ export default {
                   this.hobbyForm.photoList = []
                   this.$refs[formName].resetFields()
                   // 调转到个人中心文章首页
-                  let that = this
-                  setTimeout(function() {
-                    that.$router.push({
-                      name: 'publishHobbies'
-                    })
-                  }, 500)
+                  this.$router.push({
+                    path: '/person/myEssay/1'
+                  })
                   this.$forceUpdate()
                 } else if (response.data.code === 2) {
                   this.$message({
@@ -459,17 +456,14 @@ export default {
                   this.hobbyForm.photoList = []
                   this.resetForm(formName)
                   // 调转到个人中心文章首页
-                  let that = this
-                  setTimeout(function() {
-                    that.$router.push({
-                      name: 'index'
-                    })
-                  }, 500)
+                  this.$router.push({
+                    path: '/person/myEssay/1'
+                  })
                   this.$forceUpdate()
                 } else if (response.data.code === 2) {
                   this.$message({
                     type: 'warning',
-                    message: response.data.des
+                    message: response.data.msg
                   })
                   // 无token 调转到登录页
                   let that = this
@@ -746,8 +740,7 @@ export default {
   height: 50px !important;
   line-height: 51px;
   color: #121212;
-  font-weight: 500;
-  font-size: 18px;
+  font-weight: bold;
 }
 .hobby_container .el-tabs__item.is-active {
   width: 120px;

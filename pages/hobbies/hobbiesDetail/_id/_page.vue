@@ -45,7 +45,7 @@
           </div>
           <!-- 标签 -->
           <div class="detail_content_tab"
-            v-if="tabList && tabList.length > 1">
+            v-if="tabList && tabList.length !== 0">
             <span class="detail_content_tab_title">标签</span>
             <div class="detail_content_tab_list">
               <ul>
@@ -64,7 +64,7 @@
           </div>
           <!-- 品牌 -->
           <div class="detail_content_brand"
-            v-if="brandDetail">
+            v-if="brandDetail.url !== undefined">
             <div class="detail_content_brand_photo"
               v-if="brandDetail.url !== ''">
               <img class="detail_content_brand_logo"
@@ -479,6 +479,8 @@ import Pagination from '@/components/pagination.vue'
 
 import systemManage from '@/http/photoApi.js'
 
+import Utils from '@/utils/until'
+
 export default {
   name: 'Detail',
   components: {
@@ -568,29 +570,19 @@ export default {
     }
   },
   async asyncData ({params, env, req }) {
+    let token = Utils.b_getToken(req)
     let photoList
     // 获取兴趣部落轮播图数据
     $get(webHobbiesDetailInfo, { hobbiesId: params.id}).then(res =>{
         photoList = res.data.result_data.hobbies.photoList
     })
-    var userCookie = null
-    if (req && req.headers) {
-      // console.log(req.headers.cookie.split(';'), 'headers')
-      let reqHeaders = req.headers.cookie.split(';')
-      let tokenArr
-      reqHeaders.forEach(v => {
-        if (v.indexOf('token') !== -1) {
-          tokenArr = v.split('=')
-          // console.log(tokenArr)
-          userCookie = tokenArr[1]
-        }
-      })
-    }
     // console.log(userCookie, 'aaaa')
     let essayData, commentData, articleCommentSize
     // 兴趣部落详情信息
     let hobbiesIdDetailData = await $get(webHobbiesDetailInfo, {
       hobbiesId: params.id
+    }, {
+      'X-Auth0-Token': token
     })
     // 热门信息
     let hotData = await $get(webHobbiesDetailTopSix, {

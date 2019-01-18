@@ -94,7 +94,7 @@ export default {
   methods: {
     onSubmit(formName) {
       this.$refs[formName].validate(valid => {
-        if (valid && this.passwordFlag && this.resetForm.oldPassword !== '' && this.resetForm.repeatPassword !== '' && this.resetForm.repeatPassword !== '') {
+        if (valid && this.passwordFlag) {
           $get(webUserChangePassword, this.resetForm, {
             'X-Auth0-Token':
               this.cookie !== '' ? this.cookie : this.tokenObj.token
@@ -120,8 +120,6 @@ export default {
               })
             }
           })
-        } else {
-          this.$message('密码不为空')
         }
       })
     },

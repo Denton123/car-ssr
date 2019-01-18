@@ -57,7 +57,7 @@
           </div>
           <!-- 标签 -->
           <div class="detail_content_tab"
-            v-if="tabList">
+            v-if="tabList.length !== 0">
             <span class="detail_content_tab_title">标签</span>
             <div class="detail_content_tab_list">
               <ul>
@@ -76,7 +76,7 @@
           </div>
           <!-- 品牌 -->
           <div class="detail_content_brand"
-            v-if="brandDetail">
+            v-if="brandDetail.url !== undefined">
             <div class="detail_content_brand_photo"
               v-if="brandDetail.url !== ''">
               <img class="detail_content_brand_logo"
@@ -357,7 +357,7 @@
                   class="detail_user_msg_focus"
                   @click="focusBlogger(essayData.userId)"
                   >
-                  <span v-if="detailData.couldFollow !== null || isfocusBg" class="focusBg">已关注</span>
+                  <span v-if="detailData.couldFollow || isfocusBg" class="focusBg">已关注</span>
                   <span v-else class="nofocusBg">关注</span>
                 </a>
               </div>
@@ -500,6 +500,7 @@ import Pagination from '@/components/pagination.vue'
 import { instance } from '@/http/instance'
 
 import systemManage from '@/http/photoApi.js'
+import Utils from '@/utils/until'
 
 // 二维码
 // import QRCode from 'qrcodejs2'
@@ -591,7 +592,8 @@ export default {
       isfocusBg: false
     }
   },
-  async asyncData({params, context}) {
+  async asyncData({params, context, req}) {
+    let token = Utils.b_getToken(req)
     let essayData
     let isFollow
     // 文章评论
@@ -606,6 +608,8 @@ export default {
     // 文章信息
     let detailData = await $get(webEssayDetailsInfo, {
       id: params.id
+    }, {
+      'X-Auth0-Token': token
     })
     // 热门作品
     let hotData = await $get(webHobbiesDetailTopSix, {
@@ -629,6 +633,7 @@ export default {
     //     v.tag = '兴趣部落'
     //   }
     // })
+
       return {
         articleCommentData: articleCommentData.data ? articleCommentData.data.list : [],
         commentData: articleCommentData.data ? articleCommentData.data : [],
@@ -1399,21 +1404,22 @@ export default {
       })
     }
   },
-   beforeRouteEnter(to, from, next) {
-    next(vm => {
-      if (vm.userCode !== 2) {
-        if (vm.detailData.couldFollow && vm.detailData.couldFollow !== null) {
-          vm.isFollow = '已关注'
-        } else {
-          vm.isFollow = '关注'
-        }
-      } else {
-        vm.isFollow = '关注'
-      }
-    })
-  },
+  //  beforeRouteEnter(to, from, next) {
+  //   next(vm => {
+  //     if (vm.userCode !== 2) {
+  //       if (vm.detailData.couldFollow && vm.detailData.couldFollow !== null) {
+  //         vm.isFollow = '已关注'
+  //       } else {
+  //         vm.isFollow = '关注'
+  //       }
+  //     } else {
+  //       vm.isFollow = '关注'
+  //     }
+  //   })
+  // },
   mounted() {
-    console.log(this.essaysWidthTag, 'detail')
+    console.log('----------------------------')
+    console.log(this.brandDetail.url, 'detail======================')
     this.handleData()
     this.cookie = this.getCookie('token')
     if (this.cookie == '') {

@@ -383,12 +383,9 @@
                     this.hobbyForm.photoList = []
                     this.$refs[formName].resetFields()
                     // 调转到个人中心文章首页
-                    let that = this
-                    setTimeout(function() {
-                      that.$router.push({
-                        name: 'myEssay'
-                      })
-                    }, 500)
+                    this.$router.push({
+                      path: '/person/myEssay/1'
+                    })
                     this.$forceUpdate()
                   } else if (response.data.code === 2) {
                     this.$message({
@@ -473,12 +470,9 @@
                     this.hobbyForm.photoList = []
                     this.resetForm(formName)
                     // 调转到个人中心文章首页
-                    let that = this
-                    setTimeout(function() {
-                      that.$router.push({
-                        name: 'myEssay'
-                      })
-                    }, 500)
+                    this.$router.push({
+                      path: '/person/myEssay/1'
+                    })
                     this.$forceUpdate()
                   } else if (response.data.code === 2) {
                     this.$message({
@@ -759,8 +753,7 @@
     height: 50px !important;
     line-height: 51px;
     color: #121212;
-    font-weight: 500;
-    font-size: 18px;
+    font-weight: bold;
   }
   .hobby_container .el-tabs__item.is-active {
     width: 120px;
