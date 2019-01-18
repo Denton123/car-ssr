@@ -991,6 +991,7 @@ html {
   text-align: center;
   clear: both;
   width: 1200px;
+  background: #f6f6f6;
 }
 .contain-hobbies .tag-nav {
   display: inline-block;

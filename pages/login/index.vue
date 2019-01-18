@@ -82,7 +82,8 @@ export default {
     }
     // 从重置密码页过来,清空localStorage
     if (this.$route.params.state === 0) {
-      localStorage.setItem('userMsg', '')
+      // localStorage.setItem('userMsg', '')
+      localStorage.removeItem('userMsg');
     } else {
       if (user) {
         this.loginObj.account = user.account

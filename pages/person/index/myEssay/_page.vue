@@ -84,7 +84,7 @@ export default {
   },
   methods: {
     getArticle(page = 1) {
-      let tokenObj = JSON.parse(localStorage.getItem('userMsg'))
+      let tokenObj = JSON.parse(localStorage.getItem('userMsg')) && JSON.parse(localStorage.getItem('userMsg')) != ''? JSON.parse(localStorage.getItem('userMsg')):''
       if (tokenObj == null) {
         tokenObj = {}
       }
@@ -99,10 +99,9 @@ export default {
           'X-Auth0-Token': cookie !== '' ? cookie : tokenObj.token
         }
       ).then(res => {
-        console.log(res)
         this.listData = res.data.des
-        if (this.listData) {
-            this.listData.list.forEach(v => {
+        if (this.listData && this.listData.list != '') {
+          this.listData.list.forEach(v => {
           switch (v.state) {
             case 1:
               v.state = '草稿'
@@ -134,11 +133,12 @@ export default {
       return systemManage.getApi(item)
     },
     pageChange(page) {
-      // console.log(page, 'page')
+      console.log(this.$route.params.page,'-------------------------11111')
+      // this.currentPage = this.$route.params.page
+      this.getArticle(page)
       this.$router.push({
         path: `/person/myEssay/${page}`
       })
-      this.getArticle(page)
     },
     // 获取cookie
     getCookie(cname) {
@@ -154,8 +154,11 @@ export default {
   },
   mounted() {
     // console.log(this.listData.list)
-    this.getArticle()
     this.currentPage = this.$route.params.page
+    console.log('55555555555555555555555555555555')
+    console.log('------------------------- currentPage',this.currentPage)
+    this.getArticle()
+    
   }
 }
 </script>
