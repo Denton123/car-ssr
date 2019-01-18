@@ -133,10 +133,10 @@ export default {
       return systemManage.getApi(item)
     },
     pageChange(page) {
-      console.log(this.$route,'-------------------------11111')
-      console.log('page=========================>>>',page)
+      // console.log(this.$route,'-------------------------11111')
+      // console.log('page=========================>>>',page)
       this.currentPage = page
-      console.log('currentPage=========================>>>',this.currentPage)
+      // console.log('currentPage=========================>>>',this.currentPage)
 
       this.$router.push({
         path: `/person/myEssay/${page}`
@@ -158,7 +158,7 @@ export default {
   mounted() {
     // console.log(this.listData.list)
     // this.currentPage = this.$route.params.page
-    console.log('55555555555555555555555555555555',this.currentPage)
+    // console.log('55555555555555555555555555555555',this.currentPage)
     this.getArticle()
   },
   // watch : {

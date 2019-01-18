@@ -149,7 +149,7 @@
           totalIntegral: ''
         },
         userId: null,
-        defaultImg: "this.src='~static/common/default.png'"
+        defaultImg: "this.src='~static/person/person_default.png'"
       }
     },
     // nuxt异步获取数据
@@ -406,6 +406,8 @@
   .person_head {
     width: 130px;
     height: 130px;
+    background: url("~static/person/person_default.png") no-repeat;
+    background-size: 100% 100%;
     border-radius: 50%;
     // background: #fff;
     margin: 30px auto 15px;
