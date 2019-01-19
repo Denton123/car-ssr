@@ -3,7 +3,6 @@
     style="position: relative;">
     <!-- 如果是一张图片，充满整个容器 -->
     <swiper v-if="sliderData&& sliderData.length >= 1" :options="galleryTop" ref="topSwiper"  class="swiper-container gallery-top"
-      :class="sliderData&& sliderData.length == 1 ? 'oneItemPhoto':''"
       >
       <!-- <div class="swiper-wrapper">
       </div> -->
@@ -37,6 +36,7 @@ export default {
     return {
       // num: '',
       galleryThumbs: {
+              notNextTick: true,
               slidesPerView: 'auto',
               slideActiveClass:'normal-active',
               spaceBetween:10,
@@ -49,12 +49,14 @@ export default {
               init: false,  //延迟初始化
       },
       galleryTop: {        
-              // notNextTick: true,
+              notNextTick: true,
               spaceBetween: 10,
               loop: this.sliderData && this.sliderData.length == 9 ? true : false,
               // loop:true,
               loopedSlides:this.sliderData && this.sliderData.length,
               slidesPerView: 1,
+              observer:true,
+              observeParents:true,
               navigation: {
                 nextEl: '.swiper-button-next',
                 prevEl: '.swiper-button-prev'
@@ -80,7 +82,11 @@ export default {
       for (let i = 0; i < this.sliderData.length; i++) {
           let imgUrl = this.formatphoto(this.sliderData[i].photo)
         // 不知为何，这里会重复执行两次，所以下面的append会执行两次，就会出现double数量的图片，因此加上了判断
-          if($('.swiper-wrapper')[1].childElementCount < this.sliderData.length){
+          if($('.swiper-wrapper')[1] && $('.swiper-wrapper')[1].childElementCount < this.sliderData.length){  //多张图片的情况
+              $('.swiper-wrapper').append(
+                `<swiper-slide class="swiper-slide"><img src="${imgUrl}"></swiper-slide>`
+              )
+          }else if(!$('.swiper-wrapper')[1] && $('.swiper-wrapper')[0].childElementCount < this.sliderData.length){ //一张图片的情况
               $('.swiper-wrapper').append(
                 `<swiper-slide class="swiper-slide"><img src="${imgUrl}"></swiper-slide>`
               )
@@ -166,14 +172,11 @@ export default {
   width: 100%;
   height: 100%;
   cursor: pointer;
-  /* object-fit: contain; */
 }
 .hobbiesDetailSwiper .gallery-top img {
-  object-fit: none;
+  object-fit: contain;
 }
-.hobbiesDetailSwiper .oneItemPhoto .swiper-slide img{
-  object-fit: initial;
-}
+
 .hobbiesDetailSwiper .gallery-thumbs .swiper-slide {
   width: 68.88889px !important;
 }

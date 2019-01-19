@@ -12,7 +12,6 @@
           <div class="detail_content_title">
 
           </div>
-          <!-- <div class="detail_content_hot"></div> -->
           <!-- 用户信息 -->
           <div class="detail_content_user" style="background: url('~static/header/nav_upload.png');">
             <nuxt-link :to="`/Bloger/${essayData.userId}/1`"
@@ -629,7 +628,7 @@ export default {
       }
     })
     return {
-      sliderData : photoList,
+      sliderData : photoList != '' ? photoList:[],
       essayData: hobbiesIdDetailData.data ? hobbiesIdDetailData.data.result_data.hobbies : {},
       hobbiesIdDetailData: hobbiesIdDetailData.data.result_data ? hobbiesIdDetailData.data.result_data : {},
       hotData: hotData.data.result_data ? hotData.data.result_data : [],

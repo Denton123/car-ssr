@@ -1223,6 +1223,7 @@ html {
 .get-hobby-image {
   border-bottom: #BE001E;
   display: inline-block;
+  object-fit: cover;
   margin: 0 10px 10px 0;
 }
 .get-hobby-image.oneImage {
