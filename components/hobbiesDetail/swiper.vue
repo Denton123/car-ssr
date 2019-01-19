@@ -44,8 +44,8 @@ export default {
               slideToClickedSlide:true,
               centeredSlides:true,
               loopedSlides:this.sliderData && this.sliderData.length,
-              // observer:true,
-              // observeParents:true,
+              observer:true,
+              observeParents:true,
               init: false,  //延迟初始化
       },
       galleryTop: {        
@@ -59,6 +59,8 @@ export default {
                 nextEl: '.swiper-button-next',
                 prevEl: '.swiper-button-prev'
               },
+              observer:true,
+              observeParents:true,
               init: false,  //延迟初始化
               // thumbs: {
               //   swiper: this.$refs.thumbSwiper,
@@ -72,18 +74,21 @@ export default {
       required: true
     }
   },
-  computed: {},
+  computed: {
+  },
   mounted() {
       for (let i = 0; i < this.sliderData.length; i++) {
-              let imgUrl = this.formatphoto(this.sliderData[i].photo)
+          let imgUrl = this.formatphoto(this.sliderData[i].photo)
+        // 不知为何，这里会重复执行两次，所以下面的append会执行两次，就会出现double数量的图片，因此加上了判断
+          if($('.swiper-wrapper')[1].childElementCount < this.sliderData.length){
               $('.swiper-wrapper').append(
                 `<swiper-slide class="swiper-slide"><img src="${imgUrl}"></swiper-slide>`
               )
+          }
       }
-      setTimeout(() => {
        this.$refs.topSwiper && this.$refs.topSwiper.swiper.init()
        this.$refs.thumbSwiper && this.$refs.thumbSwiper.swiper.init()
-      }, 0)
+
       if( this.$refs.topSwiper && this.$refs.thumbSwiper){
         this.$refs.topSwiper.swiper.controller.control = this.$refs.thumbSwiper.swiper
         this.$refs.thumbSwiper.swiper.controller.control = this.$refs.topSwiper.swiper

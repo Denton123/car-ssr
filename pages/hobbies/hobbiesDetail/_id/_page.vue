@@ -574,7 +574,7 @@ export default {
       isfocusBg: false
     }
   },
-  async asyncData ({params, env, req }) {
+  async asyncData ({params, req }) {
     let token = Utils.b_getToken(req)
     let photoList
     let tabList

@@ -183,7 +183,7 @@ export default {
       this.totalPage = this.bloggerLists.totalPageCount
       this.totalCount = this.bloggerLists.totalBloggerCount
   },
-  async asyncData (req) {
+  async asyncData ({req}) {
     let token = Utils.b_getToken(req)
     let totalPage
     let totalCount
