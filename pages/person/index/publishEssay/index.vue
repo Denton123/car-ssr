@@ -253,7 +253,6 @@
         clearMessage: true
       }
     },
-    created() {},
     /* 预览图和视频地址拼接 */
     computed: {
       piectImgUrl() {
