@@ -50,7 +50,7 @@
       :pageSize="9"
       :totalPage="listData.totalPage"
       :routePage='`${currentPage}`'
-      :toTop="{x: 0, y: 514}" />
+      :toTop="{x: 0, y: 1200}" />
   </div>
 </template>
 <script>
@@ -132,20 +132,25 @@ export default {
     formatPic(item) {
       return systemManage.getApi(item)
     },
-    pageChange(page) {
-      // console.log(this.$route,'-------------------------11111')
-      // console.log('page=========================>>>',page)
+    // newPageAAA(){
+    //   console.log('监听到了！！！！！！')
+    //   this.currentPage = this.$route.params.page
+    // },
+    pageChange : function(page) {
       this.currentPage = page
-      // console.log('currentPage=========================>>>',this.currentPage)
-
       this.$router.push({
         path: `/person/myEssay/${page}`
       })
       this.getArticle(page)
+      // this.$router.push({
+      //     path: `/person/myEssay/${page}`
+      // })
+      // this.$router.push({
+      //   path: `/person/myEssay/${page}`
+      // })
     },
     // 获取cookie
     getCookie(cname) {
-      // console.log(cname, 'cookie')
       var name = cname + '='
       var ca = document.cookie.split(';')
       for (var i = 0; i < ca.length; i++) {
@@ -157,19 +162,15 @@ export default {
   },
   mounted() {
     // console.log(this.listData.list)
-    // this.currentPage = this.$route.params.page
-    // console.log('55555555555555555555555555555555',this.currentPage)
-    this.getArticle()
+    this.currentPage = this.$route.params.page
+    this.getArticle(this.currentPage)
   },
   // watch : {
   //   currentPage: {
-  //     handler(newPage, oldPage) {
-  //       console.log('newPage  aaaaaaaaaaaaaaaaaaaaaaa ' + newPage)
-  //       this.$router.push({
-  //         path: `/person/myEssay/${newPage}`
-  //       })
+  //    async handler(newPage, oldPage) {
   //     }
-  //   }
+  //   },
+  //   '$route' : 'newPageAAA'
   // }
 }
 </script>

@@ -138,7 +138,6 @@ export default {
   // },
   methods: {
     handleClick(tab, event) {
-      console.log(tab, event)
       this.activeName = tab.name
       let tabArray = tab.name.split('-')
       if (tabArray[2] === 'myEssay') {
