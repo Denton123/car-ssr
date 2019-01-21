@@ -39,11 +39,13 @@
                   <div class="todayImg"
                     @mouseenter="titleActive(item)"
                     @mouseleave="removeTitleActiveFn()">
+                    <nuxt-link :to="`/video/detail/${item.id}/1`">
                     <img :src="piectImgUrl(item)"
                       :alt="item.title"
                       @error="imgLossLoad(item)"
                       @load="imgSeccessLoad()"
                       class="todayImg_class">
+                    </nuxt-link>
                     <!-- <div class="defaultBox"
                       v-if="imgLoadStatus == false&&index == imgLossIndex">
                       <nuxt-link :to="`/video/detail/${item.id}/1`">
@@ -179,11 +181,13 @@
                   <div class="todayImg"
                     @mouseenter="titleActive(item)"
                     @mouseleave="removeTitleActiveFn()">
+                    <nuxt-link :to="`/video/detail/${item.id}/1`">
                     <img :src="piectImgUrl(item)"
                       :alt="item.title"
                       @error="imgLossLoad(item)"
                       @load="imgSeccessLoad()"
                       class="todayImg_class">
+                    </nuxt-link>
                     <!-- <div class="defaultBox"
                       v-if="imgLoadStatus == false&&index == imgLossIndex">
                       <nuxt-link :to="`/video/detail/${item.id}/1`">
@@ -1236,7 +1240,7 @@ body {
 }
 .car_video .todayRank {
   position: relative;
-  width: 100%;
+  /* width: 100%; */
   padding: 18px 0px 0px 31px;
 }
 

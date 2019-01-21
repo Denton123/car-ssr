@@ -146,6 +146,7 @@ import {
   webEssayGetMonthRank,
   webEssayGetDayRank
 } from '@/http/api.js'
+import { race } from 'q';
 
 export default {
   name: 'rankDetail',
@@ -439,23 +440,26 @@ export default {
     // 获取路由中model的值，再提取出其中的模块来源
     this.getRouterMessage(this.model[0], this.typeParams.type)
     // 获取路由中的重要信息，并设置全局变量用于面包屑以及meta
-
+    let rankCrumbsFromStronge
     // 以下假如是在排行列表中的排行点击更多的话，就执行：
     if( sessionStorage.getItem('rankCrumbs')&&  sessionStorage.getItem('rankCrumbs') !=''){
       if(JSON.parse(sessionStorage.getItem('rankCrumbs'))){
-          var rankCrumbsFromStronge = JSON.parse(sessionStorage.getItem('rankCrumbs'))
+         rankCrumbsFromStronge = JSON.parse(sessionStorage.getItem('rankCrumbs'))
       }
+    } else {
+      rankCrumbsFromStronge = this.$route.params.type
     }
     let pathName
-    if(rankCrumbsFromStronge && rankCrumbsFromStronge.length == 2 ? rankCrumbsFromStronge[1].pathName == '周排行' : rankCrumbsFromStronge[2].pathName == '周排行'){
-       pathName = 'w'
-    }
-    else if(rankCrumbsFromStronge && rankCrumbsFromStronge.length == 2 ? rankCrumbsFromStronge[1].pathName == '月排行' : rankCrumbsFromStronge[2].pathName == '月排行'){
-       pathName = 'm'
-    }
-    else{
-       pathName = 'd'
-    }
+    // if(rankCrumbsFromStronge && rankCrumbsFromStronge.length == 2 ? rankCrumbsFromStronge[1].pathName == '周排行' : rankCrumbsFromStronge[2].pathName == '周排行'){
+    //    pathName = 'w'
+    // }
+    // else if(rankCrumbsFromStronge && rankCrumbsFromStronge.length == 2 ? rankCrumbsFromStronge[1].pathName == '月排行' : rankCrumbsFromStronge[2].pathName == '月排行'){
+    //    pathName = 'm'
+    // }
+    // else{
+    //    pathName = 'd'
+    // }
+    pathName = rankCrumbsFromStronge
     if(this.typeParams.type != pathName){
         rankCrumbsFromStronge && rankCrumbsFromStronge.length == 2 ? rankCrumbsFromStronge[1].pathName = this.typeParamsName : rankCrumbsFromStronge[2].pathName = this.typeParamsName
     }

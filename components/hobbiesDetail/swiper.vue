@@ -2,20 +2,29 @@
   <div class="wrap hobbiesDetailSwiper"
     style="position: relative;">
     <!-- 如果是一张图片，充满整个容器 -->
-    <swiper v-if="sliderData&& sliderData.length >= 1" :options="galleryTop" ref="topSwiper"  class="swiper-container gallery-top"
-      >
-      <!-- <div class="swiper-wrapper">
-      </div> -->
-    </swiper>
+     <!-- <swiper v-if="sliderData&& sliderData.length >= 1" :options="galleryTop" ref="topSwiper"  class="swiper-container gallery-top"> 
+    </swiper> -->
     <!-- <div class="swiper-button-next"
       style="position:absolute;top:77.5%;left:47.3%;width: 51px;height: 77px;"></div>
     <div class="swiper-button-prev"
       style="background: url(~static/detail/left.png);position:absolute;top:77.5%;left:40%;width: 51px;height: 77px;"></div> -->
-    <swiper v-if="sliderData&& sliderData.length > 1 " :options="galleryThumbs"
-      style="margin-top: 50px;" ref="thumbSwiper"  class="swiper-container gallery-thumbs">
-      <!-- <div class="swiper-wrapper">
-      </div> -->
-    </swiper>
+     <!-- <swiper v-if="sliderData&& sliderData.length > 1 " :options="galleryThumbs"  style="margin-top: 50px;" ref="thumbSwiper"  class="swiper-container gallery-thumbs"> -->
+    <!-- </swiper>  -->
+    <div v-swiper:mySwiper="galleryTop" v-if="sliderData&& sliderData.length >= 1" ref="topSwiper"   class="swiper-container gallery-top">
+      <div class="swiper-wrapper">
+          <div class="swiper-slide" v-for="(item, key) in sliderData" :key="key">
+            <img :src="formatphoto(item.photo)">
+          </div>
+      </div>
+    </div>
+
+    <div v-if="sliderData&& sliderData.length > 1 "  v-swiper:mySwiper2="galleryThumbs" style="margin-top: 50px;" ref="thumbSwiper"  class="swiper-container gallery-thumbs">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide" v-for="(item, key) in sliderData" :key="key">
+          <img :src="formatphoto(item.photo)">
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -79,26 +88,38 @@ export default {
   computed: {
   },
   mounted() {
-      for (let i = 0; i < this.sliderData.length; i++) {
-          let imgUrl = this.formatphoto(this.sliderData[i].photo)
+      // for (let i = 0; i < this.sliderData.length; i++) {
+          // let imgUrl = this.formatphoto(this.sliderData[i].photo)
         // 不知为何，这里会重复执行两次，所以下面的append会执行两次，就会出现double数量的图片，因此加上了判断
-          if($('.swiper-wrapper')[1] && $('.swiper-wrapper')[1].childElementCount < this.sliderData.length){  //多张图片的情况
-              $('.swiper-wrapper').append(
-                `<swiper-slide class="swiper-slide"><img src="${imgUrl}"></swiper-slide>`
-              )
-          }else if(!$('.swiper-wrapper')[1] && $('.swiper-wrapper')[0].childElementCount < this.sliderData.length){ //一张图片的情况
-              $('.swiper-wrapper').append(
-                `<swiper-slide class="swiper-slide"><img src="${imgUrl}"></swiper-slide>`
-              )
-          }
-      }
-       this.$refs.topSwiper && this.$refs.topSwiper.swiper.init()
-       this.$refs.thumbSwiper && this.$refs.thumbSwiper.swiper.init()
+      //     if($('.swiper-wrapper')[1] && $('.swiper-wrapper')[1].childElementCount < this.sliderData.length){  //多张图片的情况
+      //         $('.swiper-wrapper').append(
+      //           `<swiper-slide class="swiper-slide"><img src="${imgUrl}"></swiper-slide>`
+      //         )
+      //     }else if(!$('.swiper-wrapper')[1] && $('.swiper-wrapper')[0].childElementCount < this.sliderData.length){ //一张图片的情况
+      //         $('.swiper-wrapper').append(
+      //           `<swiper-slide class="swiper-slide"><img src="${imgUrl}"></swiper-slide>`
+      //         )
+      //     }
+      // }
+                    // $('.swiper-wrapper').append(
+                // `<swiper-slide class="swiper-slide"><img src="${imgUrl}"></swiper-slide>`
+              // )
+      // }
+      //  this.$refs.topSwiper && this.$refs.topSwiper.swiper.init()
+      //  this.$refs.thumbSwiper && this.$refs.thumbSwiper.swiper.init()
 
-      if( this.$refs.topSwiper && this.$refs.thumbSwiper){
-        this.$refs.topSwiper.swiper.controller.control = this.$refs.thumbSwiper.swiper
-        this.$refs.thumbSwiper.swiper.controller.control = this.$refs.topSwiper.swiper
+      // if( this.$refs.topSwiper && this.$refs.thumbSwiper){
+      //   this.$refs.topSwiper.swiper.controller.control = this.$refs.thumbSwiper.swiper
+      //   this.$refs.thumbSwiper.swiper.controller.control = this.$refs.topSwiper.swiper
+      // }
+      this.mySwiper && this.mySwiper.init()
+       this.mySwiper2 && this.mySwiper2.init()
+
+      if( this.mySwiper && this.mySwiper2){
+        this.mySwiper.controller.control = this.mySwiper2
+        this.mySwiper2.controller.control = this.mySwiper
       }
+
 
     // this.$nextTick(() => {
       // console.log(this.$route)

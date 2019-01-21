@@ -766,6 +766,10 @@ export default {
 .hobby_tip {
   background: #f6f6f6;
 }
+// 预览的样式问题
+.el-dialog__wrapper .imgSize{
+  width: 100%;
+}
 /* 限制上传视频名字宽度 */
 .hobby_container .el-upload-list {
   width: 58%;

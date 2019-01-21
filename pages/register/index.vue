@@ -25,14 +25,16 @@
             <el-input class="input"
               type="hidden"
               placeholder="请输入昵称"
-              v-model="registerObj.account"></el-input>
+              v-model="registerObj.account"
+              ></el-input>
           </el-form-item>
           <el-form-item prop="password">
             <el-input class="input"
               minlength="6"
               placeholder="设置不低于六位数的密码"
               type="password"
-              v-model="registerObj.password"></el-input>
+              v-model="registerObj.password"
+              ></el-input>
             <div class="tangle"><span :class="['tangleColor', passwordStrong]"></span><span :class="['tangleColor', passwordStrong]"></span><span :class="['tangleColor', passwordStrong]"></span><span>不能使用\、,等特殊符号</span></div>
           </el-form-item>
           <el-form-item prop="confirmPassword">
@@ -41,7 +43,7 @@
               type="password"
               placeholder="再次输入确认密码"
               v-model="registerObj.confirmPassword"
-              @blur="warningTip"></el-input>
+              @blur="warningTip(registerObj.confirmPassword)"></el-input>
           </el-form-item>
           <el-form-item prop="phone">
             <el-input class="input"
@@ -126,6 +128,8 @@ export default {
         return callback(new Error('密码长度不小于6位'))
       } else if (/[/.,\\!%()^,，_+=/`~?:;‘’“”"]/g.test(value)) {
         return callback(new Error('密码中存在、/,等特殊符号'))
+      } else if (/\s/g.test(value)) {
+        return callback(new Error('密码不能有空格'))
       } else {
         return callback()
       }
@@ -137,7 +141,9 @@ export default {
         const reg = /[^[A-Za-z]/
         if (reg.test(value)) {
           return callback(new Error('账号只能为英文'))
-        } else {
+        } else if (/\s/g.test(value)) {
+        return callback(new Error('密码不能有空格'))
+      }  else {
           callback()
         }
       }
@@ -251,7 +257,7 @@ export default {
         }
       })
     },
-    warningTip() {
+    warningTip(str) {
       if (this.registerObj.password !== this.registerObj.confirmPassword) {
         this.$message({
           type: 'warning',

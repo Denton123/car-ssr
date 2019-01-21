@@ -97,7 +97,7 @@ export default {
   },
   methods: {
     onSubmit(formName) {
-      console.log(this.passwordFlag, 'passwordFlag')
+      console.log('newWord',this.resetForm.newPassword,'confirmWord', this.resetForm.repeatPassword,this.passwordFlag, 'passwordFlag')
       this.$refs[formName].validate(valid => {
         if (valid && this.passwordFlag) {
           $get(webUserChangePassword, this.resetForm, {

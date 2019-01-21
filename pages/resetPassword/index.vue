@@ -118,7 +118,7 @@ export default {
         if (reg.test(value)) {
           this.state = false
           return callback(new Error('请输入正确的手机号'))
-        } else {
+        }else {
           this.state = true
           callback()
         }
@@ -131,6 +131,8 @@ export default {
         return callback(new Error('密码长度不小于6位'))
       } else if (/[/.,\\!%()^,，_+=/`~?:;‘’“”"]/g.test(value)) {
         return callback(new Error('不能使用、/,等特殊符号'))
+      } else if (/\s/g.test(value)) {
+        return callback(new Error('密码不能有空格'))
       } else {
         return callback()
       }

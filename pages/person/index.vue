@@ -46,23 +46,13 @@
             <div class="person_bg">
               <div class="my_person_mask"></div>
               <div class="title_nav">
+                <no-ssr>
                 <el-tabs v-model="activeName"
                   @tab-click="handleClick">
                   <el-tab-pane label="我的文章"
                     name="person-index-myEssay-page">
                      <nuxt-child/>
-                    <!--<router-view class="view"></router-view>-->
-                    <!--<my-essay></my-essay>-->
                   </el-tab-pane>
-                  <!-- <el-tab-pane label="我的积分"
-                    name="second">
-                  </el-tab-pane> -->
-                  <!-- 我的粉丝 -->
-                  <!-- <el-tab-pane label="我的粉丝"
-                    name="third">我的粉丝</el-tab-pane>
-                  <el-tab-pane label="我的关注"
-                    name="fourth">我的关注</el-tab-pane> -->
-
                   <el-tab-pane label="个人信息"
                     name="person-index-editInfo">
                     <person-info></person-info>
@@ -72,15 +62,13 @@
                     <reset-password></reset-password>
                   </el-tab-pane>
                 </el-tabs>
+                  </no-ssr>
                 <div class="advertise_wrapper">
-                  <!--   <a href="javascript: void (0);">
-                    <img src="~static/images/ad_image.png"
-                      alt="">
-                  </a> -->
                   <no-ssr>
                   <div id="index_footer_ad"></div>
                   </no-ssr>
                 </div>
+             
               </div>
               <Footer></Footer>
             </div>
