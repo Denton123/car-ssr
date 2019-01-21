@@ -29,7 +29,7 @@
             </h1>
           </div>
           <div class="detail_content_hot"
-            v-if="essayData.hotTime !== null"></div>
+            v-if="essayData.hotTime != null"></div>
           <!-- 用户信息 -->
           <div class="detail_content_user">
             <nuxt-link :to="`/Bloger/${essayData.userId}/1`"
@@ -1113,12 +1113,14 @@ export default {
           model = 'news'
           break
       }
+      let id= this.$route.params.id
       this.$router.push({
-        path: `/${this.$route.params.model}/detail/${this.essayid}/${page}`
+        path: `/${model}/detail/${id}/2`
       })
-      // console.log(page + 'page')
-      this.getCommentData(page)
+      console.log(id + 'page---------------------------------', this.$route.params)
+      
       this.currentPage = page
+      this.getCommentData(page)
     },
     // 加油
     async handleUp() {
@@ -1441,7 +1443,7 @@ export default {
   //   })
   // },
   mounted() {
-    console.log('----------------------------')
+    console.log('---------------------------dd-',this.essayData)
     console.log(this.brandDetail.url, 'detail======================')
     this.handleData()
     this.cookie = this.getCookie('token')

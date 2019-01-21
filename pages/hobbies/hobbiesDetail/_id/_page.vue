@@ -10,7 +10,14 @@
         <!-- 文章内容 -->
         <div class="detail_content">
           <div class="detail_content_title">
-
+                <!-- <div class="detail_content_title">
+                <h1 class="detail_content_name">
+                  <span class="detail_content_origin">{{essayType}}</span>
+                  {{essayData.title}}
+                </h1>
+              </div>
+              <div class="detail_content_hot"
+                v-if="essayData.hotTime !== null"></div> -->
           </div>
           <!-- 用户信息 -->
           <div class="detail_content_user" style="background: url('~static/header/nav_upload.png');">
@@ -643,7 +650,6 @@ export default {
   },
   created(){
       console.log('dddddd', this.hobbiesIdDetailData)
-
   },
     computed: {
     solveCommentList() {
@@ -854,15 +860,31 @@ export default {
       if (this.tokenObj == null) {
         this.tokenObj = {}
       }
+      let editor = document.getElementById('quill_editor')
       if (this.cookie !== '' || this.tokenObj.token !== undefined) {
         let editor = document.getElementById('quill_editor')
-        if ( editor.innerText.trim().length == 0 ||!editor.innerHTML|| editor.innerHTML == '' ||
-          (editor.innerHTML.length > 0 &&
+      }
+      var regRule = /\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDE4F]/g; 
+
+      // &nbsp;转义为空格的方法：
+      function nbsp2Space(str) {
+        var arrEntities = {'nbsp' : ' '};
+        return str.replace(/&(nbsp);/ig, function(all, t){
+          return arrEntities[t]})
+      }
+        // editor.innerText.trim().
+        editor.innerHTML =  nbsp2Space(editor.innerHTML)
+        if ( !editor.innerHTML || editor.innerHTML == '' ||
+          (
             editor.innerHTML.trim().length == 0) ||
           editor.innerHTML == null ||
           editor.innerHTML == undefined) {
           this.$message('内容不为空')
-        } else {
+        } else if(editor.innerHTML || editor.innerHTML != '' ||
+          (
+            editor.innerHTML.trim().length != 0) ||
+          editor.innerHTML != null ||
+          editor.innerHTML != undefined) {
           let urlParam = new URLSearchParams()
           urlParam.append('commentText', editor.innerHTML)
           urlParam.append('hobbiesId', this.hobbiesid)
@@ -881,8 +903,7 @@ export default {
           } else if (res.data.result_data === null) {
             this.$message(res.data.result_msg)
           }
-        }
-      } else {
+        } else {
         this.$message('请先登录')
         this.$router.push('/login')
       }
@@ -1404,6 +1425,7 @@ export default {
     $route(to, from) {
       this.$router.go(0)
     }
+
   }
 }
 </script>
