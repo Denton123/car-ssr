@@ -100,7 +100,7 @@ export default {
         }
       ).then(res => {
         this.listData = res.data.des
-        if (this.listData && this.listData.list != '') {
+        if (this.listData && this.listData.list.length != 0) {
           this.listData.list.forEach(v => {
           switch (v.state) {
             case 1:

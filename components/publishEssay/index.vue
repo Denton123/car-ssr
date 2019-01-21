@@ -110,9 +110,9 @@
                          title="封面裁图"
                          width="68%"
                          @close='closeDialog'>
-                <vue-cropper @cropper-after="cropperSuccessAfter"
+                <vueCropper @cropper-after="cropperSuccessAfter"
                              @cropper-before="cropperSuccessBefore"
-                             :clearMessage="clearMessage"></vue-cropper>
+                             :clearMessage="clearMessage"></vueCropper>
               </el-dialog>
               <div class="picture_mark"
                    v-show="isText">
@@ -650,64 +650,89 @@
     mounted() {
       this.$nextTick(async () => {
         this.getArticleType()
-      })
-      /* 富文本相关 */
-      var myVideoBtn = function(context) {
-        var ui = $.summernote.ui
-        // create button
-        var button = ui.button({
-          contents:
-            '<i class="note-icon-video"/><input title="视频" onchange="uploadVideo()" type="file" id="videoInput" accept="video/mp4" style="opacity: 0; filter:Alpha(opacity=0);width:20px;height: 20px;margin-left: -20px;position:absolute;">' // 这个是展示在富文本顶部的操作图标，这个rich-video-icon是自己写的
-          // tooltip: '' //todo 这个视频提示报错，未知原因
-          // click: function() {// 点击按钮触发事件，这边不需要用到
-          // context.invoke('editor.insertText', 'xxx')
-          // }
-        })
-        return button.render() // return button as jquery object
-      }
-      $('#summernote').summernote({
-        lang: 'zh-CN',
-        placeholder: '请输入内容',
-        height: 600,
-        width: 800,
-        htmlMode: true,
-        dialogsInBody: false,
-        toolbar: [
-          ['style', ['bold', 'italic', 'underline', 'clear']],
-          ['fontsize', ['fontsize']],
-          ['fontname', ['fontname']],
-          ['color', ['color']],
-          ['para', ['ul', 'ol', 'paragraph']],
-          ['insert', ['link', 'picture', 'video']],
-          ['mybutton', ['myVideo']]
-        ],
-        fontSizes: ['8', '9', '10', '11', '12', '14', '18', '24', '36'],
-        fontNames: [
-          'Arial',
-          'Arial Black',
-          'Comic Sans MS',
-          'Courier New',
-          'Helvetica Neue',
-          'Helvetica',
-          'Impact',
-          'Lucida Grande',
-          'Tahoma',
-          'Times New Roman',
-          'Verdana'
-        ],
-        buttons: {
-          myVideo: myVideoBtn
-        },
-        popover: {
-          air: [['color', ['color']], ['font', ['bold', 'underline', 'clear']]]
-        },
-        callbacks: {
-          onImageUpload: function(files) {
-            console.log(files[0])
+        setTimeout(() => {
+                      /* 富文本相关 */
+          var myVideoBtn = function(context) {
+            var ui = $.summernote.ui
+            // create button
+            var button = ui.button({
+              contents:
+                '<i class="note-icon-video"/><input title="视频" onchange="uploadVideo()" type="file" id="videoInput" accept="video/mp4" style="opacity: 0; filter:Alpha(opacity=0);width:20px;height: 20px;margin-left: -20px;position:absolute;">' // 这个是展示在富文本顶部的操作图标，这个rich-video-icon是自己写的
+              // tooltip: '' //todo 这个视频提示报错，未知原因
+              // click: function() {// 点击按钮触发事件，这边不需要用到
+              // context.invoke('editor.insertText', 'xxx')
+              // }
+            })
+            return button.render() // return button as jquery object
+          }
+          $('#summernote').summernote({
+            lang: 'zh-CN',
+            placeholder: '请输入内容',
+            height: 600,
+            width: 800,
+            htmlMode: true,
+            dialogsInBody: false,
+            toolbar: [
+              ['style', ['bold', 'italic', 'underline', 'clear']],
+              ['fontsize', ['fontsize']],
+              ['fontname', ['fontname']],
+              ['color', ['color']],
+              ['para', ['ul', 'ol', 'paragraph']],
+              ['insert', ['link', 'picture', 'video']],
+              ['mybutton', ['myVideo']]
+            ],
+            fontSizes: ['8', '9', '10', '11', '12', '14', '18', '24', '36'],
+            fontNames: [
+              'Arial',
+              'Arial Black',
+              'Comic Sans MS',
+              'Courier New',
+              'Helvetica Neue',
+              'Helvetica',
+              'Impact',
+              'Lucida Grande',
+              'Tahoma',
+              'Times New Roman',
+              'Verdana'
+            ],
+            buttons: {
+              myVideo: myVideoBtn
+            },
+            popover: {
+              air: [['color', ['color']], ['font', ['bold', 'underline', 'clear']]]
+            },
+            callbacks: {
+              onImageUpload: function(files) {
+                console.log(files[0])
+                let formData = new FormData()
+                formData.append('file', files[0])
+                formData.append('moduleName', 'essay')
+                console.log(formData)
+                axios
+                  .post(url, formData, {
+                    contentType: false,
+                    processData: false,
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+                  })
+                  .then(response => {
+                    var res = response.data
+                    if (res.code === 0) {
+                      console.log(systemManage.getApi(res.urls[0]))
+                      $('#summernote').summernote(
+                        'insertImage',
+                        systemManage.getApi(res.urls[0])
+                      )
+                    }
+                  })
+              }
+            }
+          })
+          window.uploadVideo = function() {
+            // vm.showLoading = true // 因ship上传比较耗时，所以加了个loading提示
             let formData = new FormData()
-            formData.append('file', files[0])
+            console.log($('#videoInput')[0].files[0])
+            formData.append('file', $('#videoInput')[0].files[0])
             formData.append('moduleName', 'essay')
-            console.log(formData)
             axios
               .post(url, formData, {
                 contentType: false,
@@ -718,46 +743,24 @@
                 var res = response.data
                 if (res.code === 0) {
                   console.log(systemManage.getApi(res.urls[0]))
-                  $('#summernote').summernote(
-                    'insertImage',
-                    systemManage.getApi(res.urls[0])
-                  )
+                  var node = document.createElement('div') // 创建节点，用于包裹视频，再加这一层是方便调视频样式
+                  node.innerHTML =
+                    '<video controls="controls" style="max-width:100%;" src="' +
+                    systemManage.getApi(res.urls[0]) +
+                    '" />'
+                  node.cssText = 'width:100%;text-aligen:center;'
+                  $('#summernote').summernote('insertNode', node) // 插入视频
                 }
               })
           }
-        }
+        })
       })
-      window.uploadVideo = function() {
-        // vm.showLoading = true // 因ship上传比较耗时，所以加了个loading提示
-        let formData = new FormData()
-        console.log($('#videoInput')[0].files[0])
-        formData.append('file', $('#videoInput')[0].files[0])
-        formData.append('moduleName', 'essay')
-        axios
-          .post(url, formData, {
-            contentType: false,
-            processData: false,
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-          })
-          .then(response => {
-            var res = response.data
-            if (res.code === 0) {
-              console.log(systemManage.getApi(res.urls[0]))
-              var node = document.createElement('div') // 创建节点，用于包裹视频，再加这一层是方便调视频样式
-              node.innerHTML =
-                '<video controls="controls" style="max-width:100%;" src="' +
-                systemManage.getApi(res.urls[0]) +
-                '" />'
-              node.cssText = 'width:100%;text-aligen:center;'
-              $('#summernote').summernote('insertNode', node) // 插入视频
-            }
-          })
-      }
+     
     },
     components: {
       Header,
       Footer,
-      'vue-cropper': VueCropper
+      'vueCropper': VueCropper
     }
   }
 </script>
