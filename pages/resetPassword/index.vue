@@ -344,7 +344,7 @@ export default {
     },
     loginPage() {
       this.$router.push({ name: 'login', params: { state: 0 } })
-    }
+    },
   },
   components: {
     Header,

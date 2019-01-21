@@ -258,7 +258,7 @@
               </div>
 
               <div class="detail_comment_lists">
-                <div v-for="(list, index) in articleCommentData"
+                <div v-for="(list, index) in solveCommentList"
                   :key="index"
                   class="detail_comment_lists_content">
                   <nuxt-link :to="`/Bloger/${list.userId}/1`">
@@ -650,6 +650,19 @@ export default {
         randomData: randomData.data.result_data ? randomData.data.result_data : []
       }
   },
+    computed: {
+    solveCommentList() {
+    let result = this.articleCommentData.map(item => {
+      item.commentText = item.commentText.replace(/(&amp;nbsp;)/g, ' ')
+      item.replyList = item.replyList.map(innerItem => {
+        innerItem.commentText = innerItem.commentText.replace(/(&amp;nbsp;)/g, ' ')
+        return innerItem
+      })
+      return item
+      })
+      return result
+    }
+  },
   methods: {
     getArticle() {
       // ajax.$get('/dsf/feature/list').then(res => {
@@ -796,27 +809,33 @@ export default {
     },
     // 新增回复评论
     async handleReply(essayId, replyId, content) {
-      let urlParam = new URLSearchParams()
-      urlParam.append('beRepliedId', replyId)
-      urlParam.append('essayId', essayId)
-      urlParam.append('replyCommentText', content)
-      if (content !== '') {
-        let res = await $post(webEssayReplyEssayComment, urlParam)
-        // console.log(res)
-        if (res.data.result_code === 1) {
-          this.replyText = ''
-          this.$message({
-            showClose: true,
-            message: '新增回复成功',
-            type: 'success'
-          })
-          // console.log(this.isShowReply)
-          this.listIndex = -1
-          this.getCommentData(this.currentPage)
+                    if ( content.trim().length == 0 ||!content|| content == '' ||
+          (content > 0 &&
+            content.trim().length == 0) ||
+          content == null ||
+          content == undefined) {
+          this.$message('内容不为空')
+        } else {
+            let urlParam = new URLSearchParams()
+            urlParam.append('beRepliedId', replyId)
+            urlParam.append('essayId', essayId)
+            urlParam.append('replyCommentText', content)
+            if (content !== '') {
+              let res = await $post(webEssayReplyEssayComment, urlParam)
+              // console.log(res)
+              if (res.data.result_code === 1) {
+                this.replyText = ''
+                this.$message({
+                  showClose: true,
+                  message: '新增回复成功',
+                  type: 'success'
+                })
+                // console.log(this.isShowReply)
+                this.listIndex = -1
+                this.getCommentData(this.currentPage)
+              }
+            } 
         }
-      } else {
-        this.$message('内容不为空')
-      }
     },
     // 点赞
     async handleLike(commentId, count) {
@@ -843,7 +862,7 @@ export default {
       }
       if (this.tokenObj.token !== undefined || this.cookie !== '') {
         let editor = document.getElementById('quill_editor')
-        if (editor.innerHTML == '' ||
+        if (editor.innerText.trim().length ==0||editor.innerHTML == '' ||
           (editor.innerHTML.length > 0 &&
             editor.innerHTML.trim().length == 0) ||
           editor.innerHTML == null ||
@@ -1095,7 +1114,7 @@ export default {
           break
       }
       this.$router.push({
-        path: `/${model}/detail/${this.essayid}/${page}`
+        path: `/${this.$route.params.model}/detail/${this.essayid}/${page}`
       })
       // console.log(page + 'page')
       this.getCommentData(page)
