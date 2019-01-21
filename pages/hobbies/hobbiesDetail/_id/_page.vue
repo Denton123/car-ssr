@@ -43,7 +43,7 @@
           </div>
           <div class="detail_content_desc">
             <!-- <img src="../../assets/detail/logo.png" class="detail_content_desc_pic"> -->
-            <!-- <slider-show :sliderData="essayData.photoList == null ? []: essayData.photoList"></slider-show> -->
+            <slider-show :sliderData="essayData.photoList == null ? []: essayData.photoList"></slider-show>
             <!-- <slider-show :sliderData="sliderData"></slider-show> -->
             <div class="detail_content_introduction"
               v-html="essayData.description"
