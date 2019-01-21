@@ -137,11 +137,13 @@ export default {
     //   this.currentPage = this.$route.params.page
     // },
     pageChange : function(page) {
-      this.currentPage = page
       this.$router.push({
         path: `/person/myEssay/${page}`
       })
-      this.getArticle(page)
+      setTimeout(()=>{
+        this.currentPage = this.$route.params.page
+        this.getArticle(page)
+      })
       // this.$router.push({
       //     path: `/person/myEssay/${page}`
       // })

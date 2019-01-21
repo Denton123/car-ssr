@@ -46,6 +46,7 @@
             <div class="person_bg">
               <div class="my_person_mask"></div>
               <div class="title_nav">
+                <no-ssr>
                 <el-tabs v-model="activeName"
                   @tab-click="handleClick">
                   <el-tab-pane label="我的文章"
@@ -72,6 +73,7 @@
                     <reset-password></reset-password>
                   </el-tab-pane>
                 </el-tabs>
+                </no-ssr>
                 <div class="advertise_wrapper">
                   <!--   <a href="javascript: void (0);">
                     <img src="~static/images/ad_image.png"

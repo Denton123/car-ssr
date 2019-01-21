@@ -37,7 +37,7 @@
           <div class="detail_content_desc">
             <!-- <img src="../../assets/detail/logo.png" class="detail_content_desc_pic"> -->
             <!-- <slider-show :sliderData="essayData.photoList == null ? []: essayData.photoList"></slider-show> -->
-            <slider-show :sliderData="sliderData"></slider-show>
+            <!-- <slider-show :sliderData="sliderData"></slider-show> -->
             <div class="detail_content_introduction"
               v-html="essayData.description"
               v-if="essayData.description != null"
@@ -580,7 +580,7 @@ export default {
     let brandDetail
     // 获取兴趣部落轮播图数据
     $get(webHobbiesDetailInfo, { hobbiesId: params.id}).then(res =>{
-        photoList = res.data.result_data.hobbies.photoList
+        photoList = res.data.result_data && res.data.result_data != '' ? res.data.result_data.hobbies.photoList : []
     })
     // console.log(userCookie, 'aaaa')
     let essayData, commentData, articleCommentSize
@@ -907,7 +907,6 @@ export default {
       } else {
         this.tabList = null
       }
-
       if (
         this.hobbiesIdDetailData.hobbiesLogEntity !== null
       ) {
@@ -1357,9 +1356,7 @@ export default {
     }
     this.currentPage = this.$route.params.page
     this.hobbiesid = `${this.$route.params.id}`
-    console.log(this.hobbiesid, 'this.hobbiesid')
     // this.getArticleData()
-    console.log(this.currentPage,'currentPage')
     this.getCommentData(this.currentPage)
     // this.getDataWithTag()
     this.getLoginUserInfo()
@@ -1376,7 +1373,6 @@ export default {
       })
     }
       })
-   
   },
   watch: {
     $route(to, from) {

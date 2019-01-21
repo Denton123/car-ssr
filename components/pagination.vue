@@ -37,7 +37,7 @@ export default {
     }
   },
   mounted() {
-    // this.currentPage = parseInt(this.routePage)
+    this.currentPage = parseInt(this.routePage)
   },
   props: {
     routePage: {
