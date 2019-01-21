@@ -51,8 +51,7 @@
                   @tab-click="handleClick">
                   <el-tab-pane label="我的文章"
                     name="person-index-myEssay-page">
-                     <nuxt-child v-if="ispersonmyEssay" :key="'ispersonmyEssay1'"/>
-                     <publish-essay-component v-else :key="'ispersonmyEssay2'"></publish-essay-component>
+                     <nuxt-child />
                   </el-tab-pane>
                   <el-tab-pane label="个人信息"
                     name="person-index-editInfo">
@@ -69,7 +68,6 @@
                   <div id="index_footer_ad"></div>
                   </no-ssr>
                 </div>
-             
               </div>
               <Footer></Footer>
             </div>
@@ -91,7 +89,6 @@ import resetPassword from '@/pages/person/index/resetPassword/index.vue'
 import { webUserSelectByPrimaryKey, webMyEssay} from '@/http/api'
 import { $get, $post } from '@/http/ajax'
 import systemManage from '@/http/photoApi.js'
-import publishEssayComponent from '@/components/publishEssay/index.vue'
 // const serverUrl = utils.commonUrl
 // const url = serverUrl + utils.apiPath + 'sys/uploadFile'
 export default {
@@ -110,7 +107,6 @@ export default {
         totalIntegral: ''
       },
       editForm: {},
-      ispersonmyEssay: true
     }
   },
   /* 预览图和视频地址拼接 */
@@ -185,9 +181,7 @@ export default {
     }
   },
   mounted() {
-    if (this.$route.query && this.$route.query.public === 'public') {
-        this.ispersonmyEssay = false
-    }
+ 
     this.getUserInfo()
     this.$nextTick(() => {this.createAd()})
     this.activeName = this.$route.name
@@ -198,8 +192,7 @@ export default {
     Footer,
     myEssay,
     personInfo,
-    resetPassword,
-    publishEssayComponent
+    resetPassword
   }
 }
 </script>

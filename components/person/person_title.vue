@@ -37,8 +37,7 @@ export default {
       // if (this.userData.grade !== 2) {
       //   this.$message('您当前还没有发表文章的权限')
       // } else {
-        this.$router.push({ path: this.$route.path, query: { public: 'public' } }) 
-        window.location.reload()
+        this.$router.push({ path: '/person/publishEssay'}) 
       // }
     },
     hobbiesRouter() {
