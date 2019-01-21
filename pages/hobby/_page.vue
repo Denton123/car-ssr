@@ -774,11 +774,12 @@ export default {
             path: `/hobby/publishHobbies`
           })
         } else {
-          let x = window.confirm('您还未登录，请登录！')
-          if (x === true) {
-            this.$router.push({ path: `/login` })
+           this.$message('您还未登录，请登录！')
+          // let x = window.confirm('您还未登录，请登录！')
+          // if (x === true) {
+          //   this.$router.push({ path: `/login` })
             // window.location.href = 'http://165.qiweioa.cn/login/'
-          }
+          // }
         }
       })
       // console.log('ssefef')

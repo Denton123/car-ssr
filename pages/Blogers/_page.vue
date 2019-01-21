@@ -318,12 +318,13 @@ export default {
         let button = document.getElementsByClassName('watch')[0]
         this.bloggerId = item.authorId
         if (this.bloggerLists.login === false) {
+          this.$message('您还未登录，请登录！')
           // console.log('hhh', this.bloggerId)
-          let x = window.confirm('您还未登录，请登录！')
-          if (x === true) {
-            this.$router.push({ path: `/login` })
+          // let x = window.confirm('您还未登录，请登录！')
+          // if (x === true) {
+          //   this.$router.push({ path: `/login` })
             // window.location.href = 'http://165.qiweioa.cn/login/'
-          }
+          // }
         } else {
           item.follow = true
           this.watchBloger()
