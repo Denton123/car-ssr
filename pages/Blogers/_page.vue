@@ -25,11 +25,11 @@
             <div class="bloggerList-top">
               <nuxt-link :to="`/Bloger/${item.authorId}/1`"
                 style="color: black">
-                  <span class="user_wrap" v-if="item.authorphoto !== ''&& item.authorphoto !== null"><img :src="concatImage(item.authorPhoto)"
+                  <span class="user_wrap" v-if="item.authorPhoto !== ''&& item.authorPhoto !== null"><img :src="concatImage(item.authorPhoto)"
                       :alt="`尖峰咖_${item.authorName}`"
                       ></span>
                   <span class="user_wrap" v-else>
-                    <img src="~static/picture/icon_head.png" :alt="`尖峰咖_${item.authorName}`">
+                    <img src="~static/picture/person_default.png" :alt="`尖峰咖_${item.authorName}`">
                   </span>
                   <strong><span class="authorName">{{item.authorName}}</span></strong>
               </nuxt-link>
@@ -85,7 +85,7 @@
               <div class="bloggerList-right-bottom">
                 <nuxt-link :to="`/Bloger/${item.authorId}/1`"
                 >
-                  <span class="right-bottom-wrap" v-if="item.authorphoto !== ''&& item.authorphoto !== null">
+                  <span class="right-bottom-wrap" v-if="item.authorPhoto !== ''&& item.authorPhoto !== null">
                     <img :src="concatImage(item.authorPhoto)"
                          :alt="`尖峰咖_${item.authorName}`"
                     >
@@ -117,6 +117,7 @@
           :totalPage="totalPage"
           :totalCount="totalCount"
           :toTop={y:0}
+          :pageSize=18
           ref="pagination"></pagination>
       </div>
       <div id="blo-adv"
@@ -167,6 +168,8 @@ export default {
     pagination
   },
   created() {
+    console.log('sss', this.totalPage)
+    console.log('sss', this.totalCount)
       this.bloggerLists.userEntities.forEach(function(item) {
         if (item.label === '视频') {
           item.arr = 'video'
@@ -180,8 +183,8 @@ export default {
       })
       this.metaDescription = this.bloggerLists.userEntities[0].digest && this.bloggerLists.userEntities[0].digest !=''? this.bloggerLists.userEntities[0].digest:''
       // this.bloggerId = this.bloggerLists.userEntities.authorId
-      this.totalPage = this.bloggerLists.totalPageCount
-      this.totalCount = this.bloggerLists.totalBloggerCount
+      // this.totalPage = this.bloggerLists.totalPageCount
+      // this.totalCount = this.bloggerLists.totalBloggerCount
   },
   async asyncData ({req}) {
     let token = Utils.b_getToken(req)
@@ -315,12 +318,13 @@ export default {
         let button = document.getElementsByClassName('watch')[0]
         this.bloggerId = item.authorId
         if (this.bloggerLists.login === false) {
+          this.$message('您还未登录，请登录！')
           // console.log('hhh', this.bloggerId)
-          let x = window.confirm('您还未登录，请登录！')
-          if (x === true) {
-            this.$router.push({ path: `/login` })
+          // let x = window.confirm('您还未登录，请登录！')
+          // if (x === true) {
+          //   this.$router.push({ path: `/login` })
             // window.location.href = 'http://165.qiweioa.cn/login/'
-          }
+          // }
         } else {
           item.follow = true
           this.watchBloger()

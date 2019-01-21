@@ -37,7 +37,7 @@
           <div class="detail_content_desc">
             <!-- <img src="../../assets/detail/logo.png" class="detail_content_desc_pic"> -->
             <!-- <slider-show :sliderData="essayData.photoList == null ? []: essayData.photoList"></slider-show> -->
-            <slider-show :sliderData="sliderData"></slider-show>
+            <!-- <slider-show :sliderData="sliderData"></slider-show> -->
             <div class="detail_content_introduction"
               v-html="essayData.description"
               v-if="essayData.description != null"
@@ -236,7 +236,7 @@
               </div>
 
               <div class="detail_comment_lists">
-                <div v-for="(list, index) in articleCommentData"
+                <div v-for="(list, index) in solveCommentList"
                   :key="index"
                   class="detail_comment_lists_content">
                   <nuxt-link :to="`/Bloger/${list.userId}/1`">
@@ -336,7 +336,7 @@
                 <a href="javascript:void(0);"
                   class="detail_user_msg_focus"
                   @click="focusBlogger(essayData.userId)">
-                  <span v-if="hobbiesIdDetailData.couldFollow !== null || isfocusBg" class="focusBg">已关注</span>
+                  <span v-if="hobbiesIdDetailData.couldFollow && hobbiesIdDetailData.couldFollow !== null || isfocusBg" class="focusBg">已关注</span>
                   <span v-else class="nofocusBg">关注</span>
                 </a>
               </div>
@@ -580,7 +580,7 @@ export default {
     let brandDetail
     // 获取兴趣部落轮播图数据
     $get(webHobbiesDetailInfo, { hobbiesId: params.id}).then(res =>{
-        photoList = res.data.result_data.hobbies.photoList
+        photoList = res.data.result_data && res.data.result_data != '' ? res.data.result_data.hobbies.photoList : []
     })
     // console.log(userCookie, 'aaaa')
     let essayData, commentData, articleCommentSize
@@ -640,6 +640,24 @@ export default {
       tabList: tabList ? tabList : [],
       brandDetail: brandDetail ? brandDetail : null
     }
+  },
+  created(){
+      console.log('dddddd', this.hobbiesIdDetailData)
+
+  },
+    computed: {
+    solveCommentList() {
+    let result = this.articleCommentData.map(item => {
+      item.commentText = item.commentText.replace(/(&amp;nbsp;)/g, ' ')
+      item.replyList = item.replyList.map(innerItem => {
+        innerItem.commentText = innerItem.commentText.replace(/(&amp;nbsp;)/g, ' ')
+        return innerItem
+      })
+      return item
+      })
+      return result
+    }
+    
   },
   methods: {
     getArticle() {
@@ -790,18 +808,27 @@ export default {
     },
     // 回复评论
     async handleReply(essayId, replyId, content) {
-      // console.log('test')
-      let urlParam = new URLSearchParams()
-      urlParam.append('beRepliedCommentId', replyId)
-      urlParam.append('hobbiesId', essayId)
-      urlParam.append('replyCommentText', content)
-      let res = await $post(webHobbiesDetailReplyComment, urlParam)
-      if (res.data.result_code === 1) {
-        this.replyText = ''
-        // console.log(this.isShowReply)
-        this.listIndex = -1
-        await this.getCommentData(this.currentPage)
-      }
+      console.log('test--------------', content)
+              if ( !content|| content == '' ||
+          (content.length > 0 &&
+            content.trim().length == 0) ||
+          content == null ||
+          content == undefined) {
+          this.$message('内容不为空')
+        } else {
+          let urlParam = new URLSearchParams()
+          urlParam.append('beRepliedCommentId', replyId)
+          urlParam.append('hobbiesId', essayId)
+          urlParam.append('replyCommentText', content)
+          let res = await $post(webHobbiesDetailReplyComment, urlParam)
+          if (res.data.result_code === 1) {
+            this.replyText = ''
+            // console.log(this.isShowReply)
+            this.listIndex = -1
+            await this.getCommentData(this.currentPage)
+          }
+            }
+
     },
     // 点赞
     async handleLike(commentId, count) {
@@ -829,13 +856,12 @@ export default {
       }
       if (this.cookie !== '' || this.tokenObj.token !== undefined) {
         let editor = document.getElementById('quill_editor')
-        if (editor.innerHTML == '' ||
+        if ( editor.innerText.trim().length == 0 ||!editor.innerHTML|| editor.innerHTML == '' ||
           (editor.innerHTML.length > 0 &&
             editor.innerHTML.trim().length == 0) ||
           editor.innerHTML == null ||
           editor.innerHTML == undefined) {
-            this.$message('内容不为空')
-          
+          this.$message('内容不为空')
         } else {
           let urlParam = new URLSearchParams()
           urlParam.append('commentText', editor.innerHTML)
@@ -907,7 +933,6 @@ export default {
       } else {
         this.tabList = null
       }
-
       if (
         this.hobbiesIdDetailData.hobbiesLogEntity !== null
       ) {
@@ -1357,9 +1382,7 @@ export default {
     }
     this.currentPage = this.$route.params.page
     this.hobbiesid = `${this.$route.params.id}`
-    console.log(this.hobbiesid, 'this.hobbiesid')
     // this.getArticleData()
-    console.log(this.currentPage,'currentPage')
     this.getCommentData(this.currentPage)
     // this.getDataWithTag()
     this.getLoginUserInfo()
@@ -1376,7 +1399,6 @@ export default {
       })
     }
       })
-   
   },
   watch: {
     $route(to, from) {

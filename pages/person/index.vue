@@ -62,7 +62,7 @@
                     <reset-password></reset-password>
                   </el-tab-pane>
                 </el-tabs>
-                  </no-ssr>
+                </no-ssr>
                 <div class="advertise_wrapper">
                   <no-ssr>
                   <div id="index_footer_ad"></div>
@@ -126,7 +126,6 @@ export default {
   // },
   methods: {
     handleClick(tab, event) {
-      console.log(tab, event)
       this.activeName = tab.name
       let tabArray = tab.name.split('-')
       if (tabArray[2] === 'myEssay') {

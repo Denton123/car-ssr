@@ -142,6 +142,7 @@ export default {
 .footer_code ul {
   list-style: none;
   margin: 0;
+  display: inline-block;
   padding: 0;
   /*padding-left: 41px;*/
 }
@@ -224,6 +225,7 @@ export default {
 }
 .footer_phone_code img {
   width: 100%;
+  display: inline-block;
   height: 100%;
 }
 .footer_copyright:hover {

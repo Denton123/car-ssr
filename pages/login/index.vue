@@ -79,7 +79,6 @@ export default {
   
     next(vm => {
       /* 如果在当前页刷新，临时使用跳转过来的路由 */
-      console.log('from.name',from.name)
       if(from.name) {
         sessionStorage.setItem('login_from', JSON.stringify(from))
       }

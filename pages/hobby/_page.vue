@@ -190,8 +190,13 @@
               :key="index"
               v-show="bloggerItem.name !== null && bloggerItem.name !== ''">
               <nuxt-link :to="`/Bloger/${bloggerItem.id}/1`">
-                <img class="avatar-blogger"
+                <img 
+                    v-if="bloggerItem.photo !== ''&& bloggerItem.photo !== null"
+                    class="avatar-blogger"
                   :src="piectImg(bloggerItem)">
+                <img v-else 
+                    class="avatar-blogger"
+                    src="~static/picture/person_default.png" >
                 <span class="name-blogger">{{bloggerItem.name}}</span>
               </nuxt-link>
             </div>
@@ -769,11 +774,12 @@ export default {
             path: `/hobby/publishHobbies`
           })
         } else {
-          let x = window.confirm('您还未登录，请登录！')
-          if (x === true) {
-            this.$router.push({ path: `/login` })
+           this.$message('您还未登录，请登录！')
+          // let x = window.confirm('您还未登录，请登录！')
+          // if (x === true) {
+          //   this.$router.push({ path: `/login` })
             // window.location.href = 'http://165.qiweioa.cn/login/'
-          }
+          // }
         }
       })
       // console.log('ssefef')
@@ -1401,8 +1407,8 @@ html {
 /*}*/
 .detail-container-left-text {
   float: left;
-  margin-top: 2px;
-  margin-left: 8px;
+  margin-top: 5px;
+  margin-left: 10px;
   font-size: 14px;
   font-weight: 300;
   color: rgba(177, 177, 177, 1);
