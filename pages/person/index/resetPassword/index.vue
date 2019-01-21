@@ -97,8 +97,9 @@ export default {
   },
   methods: {
     onSubmit(formName) {
+
       this.warnSameTip()
-      console.log(this.passwordFlag, 'passwordFlag')
+
       this.$refs[formName].validate(valid => {
         if (valid && this.passwordFlag) {
           $get(webUserChangePassword, this.resetForm, {

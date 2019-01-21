@@ -1,6 +1,6 @@
 <template>
   <div class="big_container">
-    <swiper :options="swiperOption"
+    <!-- <swiper :options="swiperOption"
       :ref="id"
       class="big_coursel_swiper"
       v-if="list && list.length > 1"
@@ -24,7 +24,31 @@
       <div class="swiper-button-next swiper-button-white"
         slot="button-next"
         @click="next"></div>
-    </swiper>
+    </swiper> -->
+
+    <!-- ssr写法： -->
+    <div v-swiper:mySwiper100="swiperOption" v-if="list && list.length > 1"  class="big_coursel_swiper">
+      <div class="swiper-wrapper">
+          <div class="swiper-slide" v-for="(item, key) in list" :key="key">
+            <div class="item">
+          <a :href="item.linkurl"
+            class="big_coursel_swiper_a"
+            target="_blank">
+            <img :src="concatImage(item.url)">
+            <div class="cover"
+              ></div>
+          </a>
+        </div>
+          </div>
+      </div>
+      <div class="swiper-button-prev swiper-button-white"
+        slot="button-prev"
+        @click="prev"></div>
+      <div class="swiper-button-next swiper-button-white"
+        slot="button-next"
+        @click="next"></div>
+
+    </div>
     <!-- <div v-swiper:mySwiper="swiperOption"
       :ref="id"
       class="big_coursel_swiper"
@@ -84,17 +108,23 @@ export default {
   //   swiperSlide
   // },
   data() {
+    var _this = this
     return {
       title: "", // 标题
       swiperOption: {
         slidesPerView: "auto",
         centeredSlides: true,
         autoplay: true,
-        loop: true
-        // navigation: {
-        //   nextEl: '.swiper-button-next',
-        //   prevEl: '.swiper-button-prev'
-        // }
+        loop: true,
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev'
+        },
+        on: {
+          'slideChange': function() {
+              _this.b_change()
+          }
+        }
       }, // 轮播配置对象
       realIndex: 0, // 当前轮播下标
       mySwiper: null
@@ -113,7 +143,6 @@ export default {
     },
 
     activeIndex: function() {
-      console.log(this.realIndex,'0000000000000000000')
       // this.title = this.list[this.realIndex].title;
       return this.realIndex;
     }
@@ -128,6 +157,7 @@ export default {
         // this.realIndex = this.$refs[this.id].swiper.realIndex;
         this.title = this.list[0].title;
       }
+      
     }
   },
   mounted() {
@@ -140,6 +170,10 @@ export default {
     //     ...this.swiperOption
     //   })
     // }, 100)
+    // console.log(this.mySwiper.slideChange)
+        if(this.mySwiper100){
+          this.mySwiper100.init()
+        }
   },
   methods: {
         concatImage(item) {
@@ -150,35 +184,41 @@ export default {
       this.realIndex = this.$refs[this.id].swiper.realIndex; // 获取当前轮播图下标
       this.title = this.list[this.realIndex].title;
     },
-
+   // 轮播改变
+    b_change() {
+      if (this.mySwiper100) {
+      this.realIndex = this.mySwiper100.realIndex; // 获取当前轮播图下标
+      this.title = typeof this.list[this.realIndex] == 'object' ? this.list[this.realIndex].title : ''
+      }
+      
+    },
     // 向左滑动
     prev() {
-      if (this.mySwiper == null) {
-        this.mySwiper = this.$refs[this.id].swiper;
-      }
       // if (this.activeIndex !== 0) {
       //   this.mySwiper.slideTo(this.activeIndex - 1)
       // } else {
       //   this.mySwiper.slideTo(this.listData.length - 1)
       // }
       // this.$refs[this.id].swiper.autoplay = true
-      this.mySwiper.slidePrev();
-      this.mySwiper.autoplay.start();
+      this.mySwiper100.loop = false;
+      this.mySwiper100.slidePrev();
+      this.mySwiper100.autoplay.start();
+       this.mySwiper100.loop = true;
     },
 
     // 向右滑动
     next() {
-      if (this.mySwiper == null) {
-        this.mySwiper = this.$refs[this.id].swiper;
-      }
       // if (this.activeIndex < this.listData.length - 1) {
       //   this.mySwiper.slideTo(this.activeIndex + 1)
       // } else {
       //   this.mySwiper.slideTo(0)
       // }
       // this.$refs[this.id].swiper.autoplay = true
-      this.mySwiper.slideNext();
-      this.mySwiper.autoplay.start();
+
+        this.mySwiper100.loop = false;
+      this.mySwiper100.slideNext();
+      this.mySwiper100.autoplay.start();
+       this.mySwiper100.loop = true;
     }
   }
 };

@@ -1210,7 +1210,7 @@ line-height:125px; */
 }
 .todayNew .todayRank {
   position: relative;
-  width: 100%;
+  /* width: 100%; */
   padding: 18px 0px 0px 31px;
 }
 

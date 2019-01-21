@@ -11,7 +11,8 @@
             <el-breadcrumb-item class="current">{{tagObj.title}}</el-breadcrumb-item>
           </el-breadcrumb>
         </div>
-        <div class="tag_des" v-if="tagObj.url && tagObj.des">
+        <div class="tag_des"
+          v-if="tagObj.url && tagObj.des">
           <div class="tag_des_img">
             <img v-if="tagObj.url"
               :src="titleUrl"
@@ -24,7 +25,8 @@
           </div> -->
           <div class="tag_des_content">
             <p class="tag_title">{{tagObj.title}}</p>
-            <p class="tag_description" v-html="tagObj.des"></p>
+            <p class="tag_description"
+              v-html="tagObj.des"></p>
           </div>
         </div>
       </div>
@@ -56,7 +58,7 @@
                     <div class="avatar"
                       @click.stop.prevent="toBloger(eassy.userId)"><img :src="eassy.userPhoto"
                         alt="用户头像"><span class="name">{{eassy.userName}}</span><span class="tag_line">|</span></div>
-                    <div class="channel">{{eassy.className}}</div>
+                    <div class="channel">{{className(eassy.className)}}</div>
                     <div class="time"
                       v-text="formatData(eassy.create_time)"></div>
                   </div>
@@ -139,87 +141,93 @@
   </div>
 </template>
 <script>
-import Header from '@/components/Header.vue'
-import Footer from '@/components/Footer.vue'
-import { $get, $post } from '@/http/ajax'
-import systemManage from '@/http/url'
+import Header from "@/components/Header.vue";
+import Footer from "@/components/Footer.vue";
+import { $get, $post } from "@/http/ajax";
+import systemManage from "@/http/url";
 import {
   webTagGetTagDetail,
   webEssayList,
   webTagAboutList,
   webEssayGetWeekendRank,
   webEssayGetMonthRank
-} from '@/http/api'
+} from "@/http/api";
 export default {
-  name: 'tagList',
+  name: "tagList",
   metaInfo: {
     // 设置 title
-    title: 'tag列表页',
+    title: "tag列表页",
     // 设置 meta
     meta: [
       {
-        name: 'keyWords',
-        content: 'vue '
+        name: "keyWords",
+        content: "vue "
       }
     ],
     // 设置 link
     link: [
       {
-        rel: 'asstes',
-        href: 'https://assets-cdn.github.com/'
+        rel: "asstes",
+        href: "https://assets-cdn.github.com/"
       }
     ]
   },
-    // nuxt异步获取数据
-  async asyncData ({params}) {
-    let WeekendRank = null
-    let MonthRank = null
+  // nuxt异步获取数据
+  async asyncData({ params }) {
+    let WeekendRank = null;
+    let MonthRank = null;
     let getWebEassyList = await $get(webTagAboutList, {
       tagId: params.tagId,
       page: params.page,
-      limit: '6'
-    })
+      limit: "6"
+    });
     // 获取文章周排行榜
-    await $get(webEssayGetWeekendRank, { pageNo: '1', size: '10' }).then(res => {
-        WeekendRank = res.data.essayEntities
-    })
+    await $get(webEssayGetWeekendRank, { pageNo: "1", size: "10" }).then(
+      res => {
+        WeekendRank = res.data.essayEntities;
+      }
+    );
     // 获取文章月排行榜
-    await $get(webEssayGetMonthRank, { pageNo: '1', size: '10' }).then(res => {
-        MonthRank = res.data.essayEntities
-    })
+    await $get(webEssayGetMonthRank, { pageNo: "1", size: "10" }).then(res => {
+      MonthRank = res.data.essayEntities;
+    });
     return {
-      pageObj : getWebEassyList.data,
-      eassyList : getWebEassyList.data.list,
-      WeekendRank : WeekendRank,
-      MonthRank : MonthRank,
+      pageObj: getWebEassyList.data,
+      eassyList: getWebEassyList.data.list,
+      WeekendRank: WeekendRank,
+      MonthRank: MonthRank,
       searchContent: params.searchContent // 暴露当前搜索的tagId
-    }
+    };
   },
   beforeMount() {
-    this.createAdPicture()
-    this._getWebTagDetail_()
-    let preRouteSearContent = sessionStorage.getItem('tagRoute') ? sessionStorage.getItem('tagRoute').searchContent : ''
-    if(this.searchContent === preRouteSearContent) {
-      let name = ''
-      let myFrom = JSON.parse(sessionStorage.getItem('tagRoute'))
-      let mypath = myFrom.mypath
-        if(!mypath || mypath.indexOf('search') === 0 ) {
-          name = '首页'
-        } else if(mypath.indexOf('news') === 0){
-          name = '今日车闻'
-        } else if(mypath.indexOf('ev') === 0){
-          name = '新能源'
-        }  else if(mypath.indexOf('hobby') === 0) {
-          name = '兴趣部落'
-        } else if (mypath.indexOf('video') === 0) {
-          name = '视频'
-        }
-        this.preRouteObj = { path: myFrom.fullPath, name}
+    this.createAdPicture();
+    this._getWebTagDetail_();
+    let preRouteSearContent = sessionStorage.getItem("tagRoute")
+      ? sessionStorage.getItem("tagRoute").searchContent
+      : "";
+    if (this.searchContent === preRouteSearContent) {
+      let name = "";
+      let myFrom = JSON.parse(sessionStorage.getItem("tagRoute"));
+      let mypath = myFrom.mypath;
+      if (!mypath || mypath.indexOf("search") || mypath.indexOf("hots") === 0) {
+        name = "首页";
+      } else if (mypath.indexOf("news") === 0) {
+        name = "今日车闻";
+      } else if (mypath.indexOf("ev") === 0) {
+        name = "新能源";
+      } else if (mypath.indexOf("hobby") === 0) {
+        name = "兴趣部落";
+      } else if (mypath.indexOf("video") === 0) {
+        name = "视频";
+      } else if (mypath.indexOf("sorts") === 0) {
+        name = "排行榜";
+      }
+      this.preRouteObj = { path: myFrom.fullPath, name };
     }
   },
   data() {
     return {
-      activeName: 'weekRank',
+      activeName: "weekRank",
       tagObj: {},
       pageObj: {},
       eassyList: [],
@@ -228,92 +236,119 @@ export default {
       preRouteObj: {},
       currentRouteObj: {},
       defaultParams: {
-        limit: '6',
-        page: '1'
+        limit: "6",
+        page: "1"
       },
-      type: 'w'
-    }
+      type: "w"
+    };
   },
   beforeRouteEnter(to, from, next) {
     // 在渲染该组件的对应路由被 confirm 前调用
     // 不！能！获取组件实例 `this`
     // 因为当守卫执行前，组件实例还没被创建
-    let mypath = from.fullPath.slice(1)
-    let name = ''
+    console.log("tagGrom", from);
+    let mypath = from.fullPath.slice(1);
+    let name = "";
     next(vm => {
       /* 如果在当前页刷新，临时使用跳转过来的路由 */
       if (!from.name) {
-        let myFrom = JSON.parse(sessionStorage.getItem('tagRoute'))
-        mypath = myFrom.fullPath.slice(1)
-        if(!mypath || mypath.indexOf('search') === 0 ) {
-          name = '首页'
-        } else if(mypath.indexOf('news') === 0){
-          name = '今日车闻'
-        } else if(mypath.indexOf('ev') === 0){
-          name = '新能源'
-        }  else if(mypath.indexOf('hobby') === 0) {
-          name = '兴趣部落'
-        } else if (mypath.indexOf('video') === 0) {
-          name = '视频'
+        let myFrom = JSON.parse(sessionStorage.getItem("tagRoute"));
+        mypath = myFrom.fullPath.slice(1);
+        if (!mypath || mypath.indexOf("search") === 0) {
+          name = "首页";
+        } else if (mypath.indexOf("news") === 0) {
+          name = "今日车闻";
+        } else if (mypath.indexOf("ev") === 0) {
+          name = "新能源";
+        } else if (mypath.indexOf("hobby") === 0) {
+          name = "兴趣部落";
+        } else if (mypath.indexOf("video") === 0) {
+          name = "视频";
+        } else if (mypath.indexOf("sorts") === 0) {
+          name = "排行榜";
         }
-        vm.preRouteObj = { path: myFrom.fullPath, name}
-        vm.currentRouteObj = { path: to.fullPath, name: to.meta.title }
+        vm.preRouteObj = { path: myFrom.fullPath, name };
+        vm.currentRouteObj = { path: to.fullPath, name: to.meta.title };
       } else {
-        if(!mypath || mypath.indexOf('search') === 0 ) {
-          name = '首页'
-        } else if(mypath.indexOf('news') === 0){
-          name = '今日车闻'
-        } else if(mypath.indexOf('ev') === 0){
-          name = '新能源'
-        }  else if(mypath.indexOf('hobby') === 0) {
-          name = '兴趣部落'
-        } else if (mypath.indexOf('video') === 0) {
-          name = '视频'
+        if (
+          !mypath ||
+          mypath.indexOf("search") === 0 ||
+          mypath.indexOf("hots") === 0 ||
+          !sessionStorage.getItem(
+            "tagRoute" && from.name === "tagList-tagId-page"
+          )
+        ) {
+          name = "首页";
+        } else if (mypath.indexOf("news") === 0) {
+          name = "今日车闻";
+        } else if (mypath.indexOf("ev") === 0) {
+          name = "新能源";
+        } else if (mypath.indexOf("hobby") === 0) {
+          name = "兴趣部落";
+        } else if (mypath.indexOf("video") === 0) {
+          name = "视频";
+        } else if (mypath.indexOf("sorts") === 0) {
+          name = "排行榜";
         }
-        sessionStorage.setItem('tagRoute', JSON.stringify({...from, searchContent:from.params.searchContent, mypath}))
-        vm.preRouteObj = { path: from.fullPath, name}
+        sessionStorage.setItem(
+          "tagRoute",
+          JSON.stringify({
+            ...from,
+            searchContent: from.params.searchContent,
+            mypath
+          })
+        );
+        vm.preRouteObj = { path: from.fullPath, name };
       }
-      vm.currentRouteObj = { path: to.fullPath, name: to.meta.title }
-    })
+      vm.currentRouteObj = { path: to.fullPath, name: to.meta.title };
+    });
   },
   computed: {
     // 拼接list里面的头像的地址
     titleUrl() {
-      return systemManage.getApi(this.tagObj.url)
+      return systemManage.getApi(this.tagObj.url);
     },
     eassyListUrl() {
       return this.eassyList.map(item => {
-        item.photo = systemManage.getApi(item.photo)
-        item.userPhoto = systemManage.getApi(item.userPhoto)
-        return item
-      })
+        item.photo = systemManage.getApi(item.photo);
+        item.userPhoto = systemManage.getApi(item.userPhoto);
+        return item;
+      });
     }
   },
   methods: {
     // 排名前三特殊背景
     isAddBg(i) {
       if (i < 3) {
-        return 'tag_special'
+        return "tag_special";
       } else {
-        return ''
+        return "";
+      }
+    },
+    // 处理所属模块
+    className(name) {
+      if (name !== "新能源" && name !== "视频" && name !== "今日车闻" && name) {
+        return "兴趣部落";
+      } else {
+        return name;
       }
     },
     // 调到博主主页
     toBloger(id) {
-      this.$router.push(`/Bloger/${id}/1`)
+      this.$router.push(`/Bloger/${id}/1`);
     },
     handleCurrentChange(val) {
-      let id = this.$route.params.tagId
-      this.defaultParams.page = val
+      let id = this.$route.params.tagId;
+      this.defaultParams.page = val;
       /* this._getWebEassyList_(id) */
-      this.$router.push({ path: `/tagList/${id}/${val}` })
+      this.$router.push({ path: `/tagList/${id}/${val}` });
     },
     formatData(time) {
       if (time) {
-        time = time.toString()
-        return time.substring(0, 10)
+        time = time.toString();
+        return time.substring(0, 10);
       } else {
-        return ''
+        return "";
       }
     },
     // // 获取相关文章列表
@@ -332,10 +367,10 @@ export default {
     //   })
     // },
     changType() {
-      if (this.activeName === 'monthRank') {
-        this.type = 'm'
+      if (this.activeName === "monthRank") {
+        this.type = "m";
       } else {
-        this.type = 'w'
+        this.type = "w";
       }
     },
     // 调到排行榜页
@@ -343,30 +378,30 @@ export default {
       let tagInfo = JSON.stringify({
         tagId: this.$route.params.tagId,
         title: this.tagObj.title
-      })
-      sessionStorage.setItem('tagInfo', tagInfo)
-      this.$router.push({ path: `/tagList/rankList/${this.type}/1` })
+      });
+      sessionStorage.setItem("tagInfo", tagInfo);
+      this.$router.push({ path: `/tagList/rankList/${this.type}/1` });
     },
     // 跳转到文章详情页
     toArticleDetail(essayId, type) {
-      this.$router.push({ path: `/tagList/detail/${essayId}/1` })
+      this.$router.push({ path: `/tagList/detail/${essayId}/1` });
     },
     // 跳转到兴趣部落文章详情 或 文章
     toArticleOrHobbiesDetail(eassy) {
-      if (eassy.title === 'hobbies') {
-        this.$router.push({ path: `/tagList/hobbiesDetail/${eassy.id}/1` })
+      if (eassy.title === "hobbies") {
+        this.$router.push({ path: `/hobbies/hobbiesDetail/${eassy.id}/1` });
       } else {
-        this.toArticleDetail(eassy.id)
+        this.toArticleDetail(eassy.id);
       }
     },
     // 获取tag详情
     _getWebTagDetail_() {
-      let id = this.$route.params.tagId
+      let id = this.$route.params.tagId;
       $get(webTagGetTagDetail, {
         id
       }).then(res => {
-        this.tagObj = res.data
-      })
+        this.tagObj = res.data;
+      });
     },
     // 获取文章周和月排行榜
     // _getWeekendRank_() {
@@ -382,55 +417,55 @@ export default {
     // },
     // 生成广告图片
     createAdPicture() {
-      ;(window.slotbydup = window.slotbydup || []).push({
-        id: '5993947',
-        container: 'search_ad_1',
-        size: '380,280',
-        display: 'inlay-fix',
+      (window.slotbydup = window.slotbydup || []).push({
+        id: "5993947",
+        container: "search_ad_1",
+        size: "380,280",
+        display: "inlay-fix",
         async: true
-      })
-      ;(window.slotbydup = window.slotbydup || []).push({
-        id: '5993948',
-        container: 'tag_ad_2',
-        size: '380,280',
-        display: 'inlay-fix',
+      });
+      (window.slotbydup = window.slotbydup || []).push({
+        id: "5993948",
+        container: "tag_ad_2",
+        size: "380,280",
+        display: "inlay-fix",
         async: true
-      })
-      ;(window.slotbydup = window.slotbydup || []).push({
-        id: '5993949',
-        container: 'tag_ad_3',
-        size: '380,280',
-        display: 'inlay-fix',
+      });
+      (window.slotbydup = window.slotbydup || []).push({
+        id: "5993949",
+        container: "tag_ad_3",
+        size: "380,280",
+        display: "inlay-fix",
         async: true
-      })
-      ;(window.slotbydup = window.slotbydup || []).push({
-        id: '5993950',
-        container: 'tag_ad_4',
-        size: '380,280',
-        display: 'inlay-fix',
+      });
+      (window.slotbydup = window.slotbydup || []).push({
+        id: "5993950",
+        container: "tag_ad_4",
+        size: "380,280",
+        display: "inlay-fix",
         async: true
-      })
-      ;(window.slotbydup = window.slotbydup || []).push({
-        id: '5993946',
-        container: 'other_long_ad',
-        size: '1200,200',
-        display: 'inlay-fix',
+      });
+      (window.slotbydup = window.slotbydup || []).push({
+        id: "5993946",
+        container: "other_long_ad",
+        size: "1200,200",
+        display: "inlay-fix",
         async: true
-      })
+      });
     }
   },
   watch: {
     // 如果路由有变化，会再次执行该方法
     // $route: '_getWebEassyList_'
     $route(to, from) {
-      this.$router.go(0)
+      this.$router.go(0);
     }
   },
   components: {
     Header,
     Footer
   }
-}
+};
 </script >
 <style lang="less">
 .tag_wrapper {
@@ -453,12 +488,12 @@ export default {
       }
       .el-breadcrumb__separator:last-child {
         &::before {
-          content: '';
+          content: "";
           display: inline-block;
           padding: 0 10px;
           width: 6px;
           height: 8px;
-          background: url('~static/images/small_right_black.png') no-repeat
+          background: url("~static/images/small_right_black.png") no-repeat
             center;
         }
       }
@@ -472,7 +507,7 @@ export default {
       box-sizing: border-box;
       background: #fff;
       &:after {
-        content: '';
+        content: "";
         display: block;
         clear: both;
       }
@@ -486,7 +521,7 @@ export default {
           width: 100%;
           height: 100%;
         }
-        background-image: url('~static/images/defaultLogo.png');
+        background-image: url("~static/images/defaultLogo.png");
         background-repeat: no-repeat;
         background-position: center;
       }
@@ -543,7 +578,7 @@ export default {
             vertical-align: top;
             width: 8px;
             height: 42px;
-            background: url('~static/images/tagList_nav.png') no-repeat center;
+            background: url("~static/images/tagList_nav.png") no-repeat center;
           }
           .redColor {
             color: #c63f4e;
@@ -553,7 +588,7 @@ export default {
       .tag_list {
         position: relative;
         &:after {
-          content: '';
+          content: "";
           display: block;
           clear: both;
         }
@@ -666,8 +701,8 @@ export default {
                 vertical-align: top;
                 cursor: pointer;
                 &::after {
-                  content: '';
-                  display: 'block';
+                  content: "";
+                  display: "block";
                   clear: both;
                 }
                 img {
@@ -720,7 +755,7 @@ export default {
               margin-bottom: 30px;
               height: 280px;
               background-color: #e7e7e7;
-              background-image: url('~static/images/defaultLogo.png');
+              background-image: url("~static/images/defaultLogo.png");
               background-repeat: no-repeat;
               background-position: center;
               img {
@@ -789,8 +824,8 @@ export default {
                 color: #fff;
                 line-height: 34px;
                 vertical-align: middle;
-                background: url('~static/images/rank_bg.png') no-repeat center,
-                  url('~static/images/rank_bg_black.png') no-repeat 77% -15%;
+                background: url("~static/images/rank_bg.png") no-repeat center,
+                  url("~static/images/rank_bg_black.png") no-repeat 77% -15%;
               }
             }
             .moreRank {
@@ -830,7 +865,7 @@ export default {
       width: 100%;
       height: 200px;
       background-color: #e7e7e7;
-      background-image: url('~static/images/defaultLogo.png');
+      background-image: url("~static/images/defaultLogo.png");
       background-repeat: no-repeat;
       background-position: center;
       .ad_des {
@@ -873,7 +908,7 @@ export default {
     height: 6px;
     top: 110%;
     margin-left: -8px;
-    background: url('~static/images/tag_scroll.png') no-repeat !important;
+    background: url("~static/images/tag_scroll.png") no-repeat !important;
   }
   .btn-prev,
   .btn-next {
@@ -908,7 +943,7 @@ export default {
         box-shadow: 0px 3px 0px 0px rgb(180, 32, 32) !important;
       }
       &:hover {
-        color: #fff!important;
+        color: #fff !important;
         background: #000 !important;
         box-shadow: 0px 3px 0px 0px rgb(180, 32, 32) !important;
       }
