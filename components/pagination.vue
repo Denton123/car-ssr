@@ -125,7 +125,6 @@ export default {
   watch: {
     currentPage: {
       handler(newPage, oldPage) {
-        // console.log('newPage' + newPage)
         this.$emit('pageChange', newPage)
       }
     },
