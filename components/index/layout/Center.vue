@@ -115,7 +115,9 @@ export default {
   width: 193px;
   color: #fff;
 }
-
+.center-bg .center-header .heaader-container p{
+  margin: 0 !important
+}
 .center-bg .center-header .header {
   font-size: 0px;
   text-align: center;

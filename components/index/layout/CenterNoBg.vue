@@ -97,7 +97,7 @@ export default {
 .center_no_bg .center_no_bg_container .no_bg_header {
   font-size: 0px;
   text-align: center;
-  padding-right: 15px;
+  padding-right: 7px;
   color: black;
 }
 
