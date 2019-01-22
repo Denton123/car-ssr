@@ -1173,12 +1173,16 @@ line-height:125px; */
   z-index: 3;
 }
 .todayNew .bannerFeatureTitle {
-  height: 18px;
+  width: 200px;
+  height: 22px;
   font-size: 18px;
   font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   color: rgba(255, 255, 255, 1);
   position: absolute;
-  bottom: 20px;
+  bottom: 15px;
   left: 28px;
   z-index: 3;
 }

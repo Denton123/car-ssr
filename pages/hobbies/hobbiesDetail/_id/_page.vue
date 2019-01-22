@@ -5,6 +5,20 @@
     <index-header />
     <div class="detail_container">
       <!-- 标题 -->
+      <div class="detail_title">
+        <h2>
+          <nuxt-link to="/">
+            <span>首页</span>
+          </nuxt-link>
+          <i class="detail_title_arrow detail_title_arrow_red"></i>
+          <!-- <nuxt-link :to="`/${titleModel}/1`"> -->
+          <!-- <nuxt-link :to="`/hobby/1`"> -->
+            <span style="color:#be001e">兴趣部落详情</span>
+          <!-- </nuxt-link> -->
+          <!-- <i class="detail_title_arrow detail_title_arrow_red"></i>
+          <span>{{essayData.title}}</span> -->
+        </h2>
+      </div>
 
       <div class="hobbiesdetail_left">
         <!-- 文章内容 -->
@@ -497,6 +511,8 @@ export default {
   },
   data() {
     return {
+      // 面包屑
+      titleModel:'',
       // 兴趣部落详情顶部轮播图数据
       sliderData:[],
       // 评论总数据
@@ -807,8 +823,14 @@ export default {
     },
     // 回复评论
     async handleReply(essayId, replyId, content) {
-      console.log('test--------------', content)
-              if ( !content|| content == '' ||
+    // &nbsp;转义为空格的方法：
+    function nbsp2Space(str) {
+          var arrEntities = {'nbsp' : ' '};
+          return str.replace(/&(nbsp);/ig, function(all, t){
+          return arrEntities[t]})
+      }
+      content =  nbsp2Space(content)
+      if ( !content|| content == '' ||
           (content.length > 0 &&
             content.trim().length == 0) ||
           content == null ||
@@ -826,8 +848,7 @@ export default {
             this.listIndex = -1
             await this.getCommentData(this.currentPage)
           }
-            }
-
+      }
     },
     // 点赞
     async handleLike(commentId, count) {
@@ -857,7 +878,6 @@ export default {
       if (this.cookie !== '' || this.tokenObj.token !== undefined) {
         let editor = document.getElementById('quill_editor')
       }
-      var regRule = /\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDE4F]/g; 
 
       // &nbsp;转义为空格的方法：
       function nbsp2Space(str) {
@@ -865,7 +885,8 @@ export default {
         return str.replace(/&(nbsp);/ig, function(all, t){
           return arrEntities[t]})
       }
-        // editor.innerText.trim().
+
+      if(this.tokenObj.token !== undefined || this.cookie !== ''){
         editor.innerHTML =  nbsp2Space(editor.innerHTML)
         if ( !editor.innerHTML || editor.innerHTML == '' ||
           (
@@ -873,11 +894,7 @@ export default {
           editor.innerHTML == null ||
           editor.innerHTML == undefined) {
           this.$message('内容不为空')
-        } else if(editor.innerHTML || editor.innerHTML != '' ||
-          (
-            editor.innerHTML.trim().length != 0) ||
-          editor.innerHTML != null ||
-          editor.innerHTML != undefined) {
+        } else {
           let urlParam = new URLSearchParams()
           urlParam.append('commentText', editor.innerHTML)
           urlParam.append('hobbiesId', this.hobbiesid)
@@ -896,7 +913,8 @@ export default {
           } else if (res.data.result_data === null) {
             this.$message(res.data.result_msg)
           }
-        } else {
+        }
+      } else {
         this.$message('请先登录')
         this.$router.push('/login')
       }
@@ -936,6 +954,20 @@ export default {
         }
       } else {
         this.isFollow = '关注'
+      }
+      switch (this.essayData.classOneName) {
+        case '今日车闻':
+          this.titleModel = 'news'
+          break
+        case '兴趣部落':
+          this.titleModel = 'hobbies'
+          break
+        case '新能源':
+          this.titleModel = 'ev'
+          break
+        case '视频':
+          this.titleModel = 'video'
+          break
       }
       if (this.essayData.tagList.length > 0) {
         this.tabList = this.hobbiesIdDetailData.hobbies.tagList
@@ -1206,8 +1238,6 @@ export default {
     },
     // 关注/取消关注博客
     async focusBlogger(id) {
-      console.log(this.essayData.id, 'this.essayData.id')
-      console.log(this.user.id, 'this.user.id')
       // console.log(this.cookie, 'this.cookie')
       if (this.tokenObj.token !== undefined || this.cookie !== '') {
         if (this.essayData.userId == this.user.id) {
@@ -1307,7 +1337,22 @@ export default {
       // } else {
       //   this.tabList = null
       // }
+      console.log(this.essayData,'==================<<<<9999999')
 
+      switch (this.essayData.classOneName) {
+        case '今日车闻':
+          this.titleModel = 'news'
+          break
+        case '兴趣部落':
+          this.titleModel = 'hobbies'
+          break
+        case '新能源':
+          this.titleModel = 'ev'
+          break
+        case '视频':
+          this.titleModel = 'video'
+          break
+      }
       if (
         this.hobbiesIdDetailData.hobbiesLogEntity !== null
       ) {
@@ -1436,12 +1481,27 @@ export default {
 }
 /*头部*/
 .detail_title {
-  /*height: 74px;*/
+  height: 74px;
   font-size: 14px;
   font-weight: 400;
   color: rgba(18, 18, 18, 1);
   line-height: 24px;
   /*border: 1px solid;*/
+}
+.detail_title h2 {
+  font-size: 14px;
+  /* font-family: SourceHanSansCN-Normal; */
+  font-weight: 400;
+  color: rgba(18, 18, 18, 1);
+  line-height: 74px;
+}
+
+.detail_title h2 span {
+  /* color: rgba(190, 0, 30, 1); */
+  color: #000 ;
+  font-weight: 400;
+  font-size: 14px;
+  /* font-family: SourceHanSansCN-Normal; */
 }
 .detail_title_arrow {
   width: 6px;
@@ -1450,13 +1510,19 @@ export default {
   background: url('~assets/detail/detail_title_arrow.png');
   margin: 0 16px;
 }
+.detail_title_arrow_black {
+  background: url('~static/detail/detail_title_arrow.png');
+}
+.detail_title_arrow_red {
+  background: url('~static/detail/detail_title_arrow_red.png');
+}
 /*左侧*/
 .hobbiesdetail_left {
   width: 790px;
   /*display: inline-block;*/
   float: left;
   /*border: 1px solid;*/
-  margin-top: 74px;
+  /* margin-top: 74px; */
 }
 .detail_content {
   background: #fff;
@@ -2015,7 +2081,7 @@ detail_comment_form_input_operate_emoji:hover span {
   width: 380px;
   float: right;
   /*border: 1px solid red;*/
-  margin-top: 74px;
+  /* margin-top: 74px; */
 }
 .detail_user_wrap {
   width: 380px;
