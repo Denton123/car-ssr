@@ -85,7 +85,8 @@ export default {
     })
     },
   beforeMount() {
-    let obj = localStorage.getItem('userMsg')
+    let obj =localStorage.getItem('userMsg') &&
+      JSON.parse(localStorage.getItem('userMsg')) !== '' ? localStorage.getItem('userMsg') : ''
     let user = null
     if (obj) {
       user = JSON.parse(obj)
@@ -152,7 +153,7 @@ export default {
                   ...res.data.des
                 })               
                 localStorage.setItem('userMsg', msg)
-                let temp = sessionStorage.getItem('login_from')
+                let temp =sessionStorage.getItem('login_from') && sessionStorage.getItem('login_from') != '' ? sessionStorage.getItem('login_from') :''
                 if(temp) {
                   temp = JSON.parse(temp)
                 }else {
@@ -168,7 +169,7 @@ export default {
                 // 不记住登陆状态， 只保存token 1个小时
                 this.setCookie('token', res.data.des.token, 1 / 24)
                 this.setCookie('userId', res.data.des.userId, 1 / 24)              
-                let temp = sessionStorage.getItem('login_from')
+                let temp =sessionStorage.getItem('login_from') && sessionStorage.getItem('login_from') != '' ? sessionStorage.getItem('login_from') : ''
                 if(temp) {
                   temp = JSON.parse(temp)
                 }else {

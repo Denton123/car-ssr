@@ -754,7 +754,8 @@ export default {
         localStorage.getItem('userMsg') !== '' &&
         localStorage.getItem('userMsg') !== null
       ) {
-        this.tokenObj = JSON.parse(localStorage.getItem('userMsg')).token
+        this.tokenObj =localStorage.getItem('userMsg') &&
+      JSON.parse(localStorage.getItem('userMsg')).token !== '' ? JSON.parse(localStorage.getItem('userMsg')).token :''
       } else if (this.cookie !== '') {
         this.cookie = this.getCookie('token')
         this.tokenObj = this.cookie
