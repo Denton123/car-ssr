@@ -102,7 +102,7 @@
               </div>
               <el-dialog :visible.sync="showCropper"
                          title="封面裁图"
-                         width="68%"
+                         class="dialog-content"
                          @close='closeDialog'>
                 <vue-cropper @cropper-after="cropperSuccessAfter"
                              @cropper-before="cropperSuccessBefore"
@@ -250,7 +250,7 @@
         dialogVisible: false,
         avatarUrl2: null,
         showCropper: false,
-        isCropper: true,
+        isCropper: false,
         isText: false,
         url: null,
         clearMessage: true
@@ -346,7 +346,7 @@
         this.articleForm.cover = data
         this.showCropper = false
         document.querySelector('.el-upload').style.display = 'none'
-        this.isCropper = true
+        this.isCropper = false
         this.isText = true
       },
       cropperSuccessBefore(data) {
@@ -382,24 +382,27 @@
         }
       },
       handleRemove(file, fileList) {
-        this.$confirm('是否移除原图和截图?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        })
-          .then(() => {
-            this.articleForm.fileList = []
-            this.isCropper = true
-            this.isText = false
-            document.querySelector('.el-upload').style.display = 'inline-block'
-          })
-          .catch(() => {
-            this.$message({
-              type: 'info',
-              message: '已取消操作'
-            })
-          })
+        // this.$confirm('是否移除原图和截图?', '提示', {
+        //   confirmButtonText: '确定',
+        //   cancelButtonText: '取消',
+        //   type: 'warning'
+        // })
+        //   .then(() => {
+        //     this.articleForm.fileList = []
+        //     this.isCropper = true
+        //     this.isText = false
+        //     document.querySelector('.el-upload').style.display = 'inline-block'
+        //   })
+        //   .catch(() => {
+        //     this.$message({
+        //       type: 'info',
+        //       message: '已取消操作'
+        //     })
+        //   })
         this.articleForm.fileList = []
+        this.isCropper = true
+        this.isText = false
+        document.querySelector('.el-upload').style.display = 'inline-block'
       },
       handlePictureCardPreview(file) {
         // 新上传
@@ -1100,5 +1103,44 @@
   .person_container .person_btn.draft {
     color: #000;
     background: url('~static/images/person_draft.png') no-repeat !important;
+  }
+  // 修改预览的样式
+  .el-dialog__body{
+    .imgSize{
+      width: 100%;
+    }
+  }
+  .dialog-content {
+    .el-dialog {
+      width: 98%;
+    }
+  }
+  @media screen and (min-width: 1366px) {
+    .dialog-content {
+      .el-dialog {
+        width: 92% !important;
+      }
+    }
+  }
+  @media screen and (min-width: 1440px) {
+    .dialog-content {
+      .el-dialog {
+        width: 85% !important;
+      }
+    }
+  }
+  @media screen and (min-width: 1680px) {
+    .dialog-content {
+      .el-dialog {
+        width: 70% !important;
+      }
+    }
+  }
+  @media screen and (min-width: 1920px) {
+    .dialog-content {
+      .el-dialog {
+        width: 68% !important;
+      }
+    }
   }
 </style>

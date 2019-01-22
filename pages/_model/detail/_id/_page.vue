@@ -1137,7 +1137,9 @@ export default {
         path: `/${model}/detail/${id}/${page}`
       })
       this.currentPage = page
-      this.getCommentData(page)
+      setTimeout(()=>{
+        this.getCommentData(page)
+      })
     },
     // 加油
     async handleUp() {

@@ -1049,6 +1049,12 @@
     color: #000;
     background: url('~static/images/person_draft.png') no-repeat !important;
   }
+  // 修改预览的样式
+  .el-dialog__body{
+    .imgSize{
+      width: 100%;
+    }
+  }
    .dialog-content {
     .el-dialog {
       width: 98%;

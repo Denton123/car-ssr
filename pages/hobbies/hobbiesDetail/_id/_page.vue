@@ -1122,7 +1122,6 @@ export default {
       this.articleCommentSize = articleComment.data.totalCount
     },
     pageChange(page) {
-      // console.log(page + '页数')
       this.$router.push({
         path: `/hobbies/hobbiesDetail/${this.hobbiesid}/${page}`
       })
@@ -1463,7 +1462,6 @@ export default {
     $route(to, from) {
       this.$router.go(0)
     }
-
   }
 }
 </script>

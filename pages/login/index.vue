@@ -223,6 +223,7 @@ export default {
   width: 100%;
   height: 700px;
   background: url('~static/images/loginBackground.png') no-repeat;
+  background-position: center;
 }
 .login-wrapper .content {
   position: absolute;
