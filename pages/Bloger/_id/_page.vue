@@ -92,6 +92,7 @@
                     :totalCount="blogerData.totalCount"
                     :pageSize= '9'
                     :toTop="{x:0, y: 400}"
+                    :routePage='`${currentPage}`'
                     ref="pagination"></pagination>
       </div>
       <div class="advertise_wrapper">
@@ -138,6 +139,7 @@
         blogerListDataSize: '',
         blogerData: {},
         blogerListData: {},
+        currentPage:1,
         userData: {
           blogger: {
             photo: '',
@@ -187,8 +189,13 @@
       },
       // 页码
       pageChange(page) {
-        console.log(page + 'page')
+      let id = `${this.$route.params.id}`
+      this.$router.push({
+        path: `/Bloger/${id}/${page}`
+      })
+      setTimeout(()=>{
         this.blogerList(page)
+      },0)
       },
       // 获取信息列表
       blogerList(page = 1) {
@@ -198,10 +205,8 @@
           limit: '9',
           page: page
         }).then(res=> {
-         console.log(res)
          this.blogerListData = res.data.list
          this.blogerData = res.data
-         console.log('列表', this.blogerData.totalPage)
          this.blogerListDataSize = res.data.totalCount
          this.$forceUpdate()
        })
@@ -223,7 +228,6 @@
           'X-Auth0-Token': this.cookie !== '' ? this.cookie : this.tokenObj.token
         }
         $get(webUserSelectByPrimaryKey, {}, tokenObj).then(res => {
-          console.log(res)
           this.userName = res.data.des.user.account
           this.userId = res.data.des.user.id
         })
@@ -308,7 +312,7 @@
     mounted() {
       this.createAd()
       // this.routePage = this.$route.params.page
-      // this.currentPage = this.$route.params.page
+      this.currentPage = this.$route.params.page
       // 取token
       this.cookie = this.getCookie('token')
       if (this.cookie == '') {
@@ -327,7 +331,7 @@
         this.tokenObj = {}
       }
       // 路由分页
-      this.blogerList(this.routePage)
+      // this.blogerList(this.routePage)
       this.$nextTick(async () => {
         this.getUse()
         this.getUserInfo()

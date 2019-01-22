@@ -327,7 +327,6 @@ export default {
       this.tokenObj = {}
     }
     this.getUserInfo()
-    // console.log(this.editForm)
     if (this.editForm.photo) {
       this.imageUrl = this.editForm.photo
     }
