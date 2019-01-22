@@ -10,14 +10,7 @@
         <!-- 文章内容 -->
         <div class="detail_content">
           <div class="detail_content_title">
-                <!-- <div class="detail_content_title">
-                <h1 class="detail_content_name">
-                  <span class="detail_content_origin">{{essayType}}</span>
-                  {{essayData.title}}
-                </h1>
-              </div>
-              <div class="detail_content_hot"
-                v-if="essayData.hotTime !== null"></div> -->
+                
           </div>
           <!-- 用户信息 -->
           <div class="detail_content_user" style="background: url('~static/header/nav_upload.png');">
