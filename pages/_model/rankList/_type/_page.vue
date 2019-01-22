@@ -7,7 +7,7 @@
           :class="index == (crumbsData.length-1)?'active':''"
           v-for="(item,index) in crumbsData"
           :key="index">
-          <router-link :to="item.link">{{item.pathName}}</router-link>
+          <nuxt-link :to="item.link">{{item.pathName}}</nuxt-link>
           <i class="crumbsIcon"
             :class="index == (crumbsData.length-2) ? 'crumbsRedIcon' :''"
             v-if="index != (crumbsData.length-1)">
@@ -24,20 +24,20 @@
               <div class="todayImg"
                 @mouseenter="titleActive(item)"
                 @mouseleave="removeTitleActiveFn()">
-                <router-link :to="`/rank/detail/${item.essayId}/1`">
+                <nuxt-link :to="`/rank/detail/${item.essayId}/1`">
                   <img :src="piectImgUrl(item)"
                     :alt="item.title"
                     @error="imgLossLoad(index)"
                     @load="imgSeccessLoad()"
                     class="todayImg_class">
-                </router-link>
+                </nuxt-link>
                 <div class="defaultBox"
                   v-if="imgLoadStatus == 'false' && index == imgLossIndex  ">
-                  <router-link :to="`/rank/detail/${item.essayId}/1`">
+                  <nuxt-link :to="`/rank/detail/${item.essayId}/1`">
                     <img src="~static/common/default.png"
                       alt="尖峰咖"
                       width="160px">
-                  </router-link>
+                  </nuxt-link>
                 </div>
                 <div class="rankNum"
                   :class="index == 0 || index == 1 || index == 2 ? 'rankNumTop':'rankNumNormal'"
@@ -51,10 +51,10 @@
                   :class="removeTitleActive == true&&titleActiveIndex == index ? 'redColor' :'title'"
                   @mouseenter="titleActive(item)"
                   @mouseleave="removeTitleActiveFn()">
-                  <router-link :to="`/rank/detail/${item.essayId}/1`">
+                  <nuxt-link :to="`/rank/detail/${item.essayId}/1`">
                     <strong :class="removeTitleActive == true&&titleActiveIndex == index ? 'redColor' :'title'">
                       {{item.title}}
-                    </strong></router-link>
+                    </strong></nuxt-link>
                 </span>
 
                 <div class="divider">
@@ -65,11 +65,11 @@
                 <span class="detail">{{item.digest}}</span>
                 <div class="footerBox">
                   <div class="messageBox">
-                    <router-link :to="`/Bloger/${item.authorId}/1`">
+                    <nuxt-link :to="`/Bloger/${item.authorId}/1`">
                       <img :src="piectProfileUrl(item)"
-                        class="userIcon"></router-link>
-                    <router-link :to="`/Bloger/${item.authorId}/1`">
-                      <span class="userName">{{item.NAME || item.name}}</span></router-link>
+                        class="userIcon"></nuxt-link>
+                    <nuxt-link :to="`/Bloger/${item.authorId}/1`">
+                      <span class="userName">{{item.NAME || item.name}}</span></nuxt-link>
                     <div class="todayDivider"></div>
                     <span class="label">{{item.label}}</span>
                   </div>
@@ -387,7 +387,7 @@ export default {
       }
     }
   },
-  beforeRouteEnter(to, from, next) {
+  beforeRouteEnter(to,from, next) {
     next(vm => {
       vm.crumbsData = [
         { pathName: '首页', link: '/' },

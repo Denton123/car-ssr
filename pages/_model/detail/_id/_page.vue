@@ -809,7 +809,14 @@ export default {
     },
     // 新增回复评论
     async handleReply(essayId, replyId, content) {
-                    if ( content.trim().length == 0 ||!content|| content == '' ||
+      // &nbsp;转义为空格的方法：
+        function nbsp2Space(str) {
+            var arrEntities = {'nbsp' : ' '};
+            return str.replace(/&(nbsp);/ig, function(all, t){
+            return arrEntities[t]})
+        }
+        content =  nbsp2Space(content)
+        if ( !content|| content == '' ||
           (content > 0 &&
             content.trim().length == 0) ||
           content == null ||
@@ -860,10 +867,21 @@ export default {
       if (this.tokenObj == null) {
         this.tokenObj = {}
       }
-      if (this.tokenObj.token !== undefined || this.cookie !== '') {
+      let editor = document.getElementById('quill_editor')
+      if (this.cookie !== '' || this.tokenObj.token !== undefined) {
         let editor = document.getElementById('quill_editor')
-        if (editor.innerText.trim().length ==0||editor.innerHTML == '' ||
-          (editor.innerHTML.length > 0 &&
+      }
+      // &nbsp;转义为空格的方法：
+      function nbsp2Space(str) {
+          var arrEntities = {'nbsp' : ' '};
+          return str.replace(/&(nbsp);/ig, function(all, t){
+          return arrEntities[t]})
+      }
+      if(this.tokenObj.token !== undefined || this.cookie !== ''){
+          editor.innerHTML =  nbsp2Space(editor.innerHTML)
+      }
+      if (this.tokenObj.token !== undefined || this.cookie !== '') {
+        if (editor.innerHTML == '' || (editor.innerHTML.length > 0 &&
             editor.innerHTML.trim().length == 0) ||
           editor.innerHTML == null ||
           editor.innerHTML == undefined) {
@@ -897,7 +915,8 @@ export default {
     },
     // 获取文章数据
     async getArticleData() {
-      this.tokenObj = JSON.parse(localStorage.getItem('userMsg'))
+      this.tokenObj = localStorage.getItem('userMsg') &&
+      JSON.parse(localStorage.getItem('userMsg')) !== '' ? JSON.parse(localStorage.getItem('userMsg')) : ''
       if (this.tokenObj == null) {
         this.tokenObj = {}
       }
@@ -1115,10 +1134,8 @@ export default {
       }
       let id= this.$route.params.id
       this.$router.push({
-        path: `/${model}/detail/${id}/2`
+        path: `/${model}/detail/${id}/${page}`
       })
-      console.log(id + 'page---------------------------------', this.$route.params)
-      
       this.currentPage = page
       this.getCommentData(page)
     },
@@ -1322,8 +1339,6 @@ export default {
       //       v.tag = '兴趣部落'
       //     }
       //   })
-        console.log('哈哈哈哈哈')
-        console.log(this.userCode)
       // if (this.userCode !== 2) {
       //   console.log(this.userCode, 'this.userCode')
       //   console.log(this.detailData.couldFollow, 'couldFollow')
@@ -1338,6 +1353,8 @@ export default {
       // } else {
       //   this.isFollow = '关注'
       // }
+      console.log(this.essayData,'==================<<<<1111111111111')
+
       switch (this.essayData.classOneName) {
         case '今日车闻':
           this.titleModel = 'news'
@@ -1448,7 +1465,8 @@ export default {
     this.handleData()
     this.cookie = this.getCookie('token')
     if (this.cookie == '') {
-      this.tokenObj = JSON.parse(localStorage.getItem('userMsg'))
+      this.tokenObj =localStorage.getItem('userMsg') &&
+      JSON.parse(localStorage.getItem('userMsg')) !== '' ? JSON.parse(localStorage.getItem('userMsg')) : ''
     }
     if (this.tokenObj == null) {
       this.tokenObj = {}

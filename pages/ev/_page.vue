@@ -1141,12 +1141,16 @@ body {
   z-index: 3;
 }
 .sources .bannerFeatureTitle {
-  height: 18px;
+  width: 200px;
+  height: 22px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   font-size: 18px;
   font-weight: 500;
   color: rgba(255, 255, 255, 1);
   position: absolute;
-  bottom: 20px;
+  bottom: 15px;
   left: 28px;
   z-index: 3;
 }

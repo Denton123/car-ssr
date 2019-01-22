@@ -498,7 +498,7 @@
             })
               .then(() => {
                 let token = ''
-                if (localStorage.getItem('userMsg')) {
+                if (localStorage.getItem('userMsg') && JSON.parse(localStorage.getItem('userMsg')).token != '') {
                   token = JSON.parse(localStorage.getItem('userMsg')).token
                 } else {
                   token = this.getCookie('token')
@@ -573,7 +573,7 @@
             })
               .then(() => {
                 let token = ''
-                if (localStorage.getItem('userMsg')) {
+                if (localStorage.getItem('userMsg') && JSON.parse(localStorage.getItem('userMsg')).token != '') {
                   token = JSON.parse(localStorage.getItem('userMsg')).token
                 } else {
                   token = this.getCookie('token')

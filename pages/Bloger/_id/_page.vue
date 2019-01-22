@@ -5,18 +5,18 @@
       <div class="person_theme">
         <div class="person_wrap">
           <div class="person_head">
-            <img v-if="userData.blogger.photo"
-                 :src="formatPic(userData.blogger.photo)"
+            <img v-if="userData.blogger && userData.blogger.photo"
+                 :src="formatPic(userData.blogger && userData.blogger.photo)"
                  alt=""
                  :onerror="defaultImg">
           </div>
           <div class="person_name">
-            {{userData.blogger.loginName}}
+            {{userData.blogger && userData.blogger.loginName}}
           </div>
           <div class="bloggerList-watch"
                style="margin-top: -4px;
                              position:relative">
-            <div v-if=" userData.blogger.fllowornot === false || userData.blogger.fllowornot ===undefined"
+            <div v-if=" userData.blogger&&userData.blogger.fllowornot === false || userData.blogger && userData.blogger.fllowornot ===undefined"
                  style="position: relative; cursor: pointer"
                  @click=" clickWatch()">
               <span style="color: white;position: absolute;left: 12px;top:5px;font-size: 14px;font-weight: 600"><strong>关注</strong></span>
@@ -66,7 +66,7 @@
             <nuxt-link :to="`/${item.title !== 'hobbies'? item.classLabel.toLowerCase() : 'hobbies'}/${item.title !== 'hobbies' ? 'detail' : 'hobbiesDetail'}/${item.id}/1`">
               <div class="bloger_list">
                 <div class="bloger_list_top">
-                  <img :src="formatPic(item.photo)"
+                  <img :src="formatPic(item.photo && item.photo)"
                        alt="">
                   <div class="bloger_mark"
                        v-if="item.title == 'hobbies'">兴趣部落</div>

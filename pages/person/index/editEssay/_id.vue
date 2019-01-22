@@ -260,7 +260,7 @@
       if (this.$route.params.id) {
         this.id = this.$route.params.id
       } else {
-        this.id = sessionStorage.getItem('eassyId')
+        this.id = sessionStorage.getItem('eassyId') &&  sessionStorage.getItem('eassyId') != '' ? sessionStorage.getItem('eassyId') : ''
       }
     },
     /* 预览图和视频地址拼接 */
@@ -676,7 +676,7 @@
         localStorage.getItem('userMsg') !== '' &&
         localStorage.getItem('userMsg') !== null
       ) {
-        this.tokenObj = localStorage.getItem('userMsg')
+        this.tokenObj = localStorage.getItem('userMsg') &&  JSON.parse(localStorage.getItem('userMsg')).token != ''
           ? JSON.parse(localStorage.getItem('userMsg')).token
           : null
         console.log('localstroge', this.tokenObj)
