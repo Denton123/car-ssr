@@ -108,7 +108,7 @@
               </div>
               <el-dialog :visible.sync="showCropper"
                          title="封面裁图"
-                         width="68%"
+                         class="dialog-content"
                          @close='closeDialog'>
                 <vueCropper @cropper-after="cropperSuccessAfter"
                              @cropper-before="cropperSuccessBefore"
@@ -1048,5 +1048,38 @@
   .person_container .person_btn.draft {
     color: #000;
     background: url('~static/images/person_draft.png') no-repeat !important;
+  }
+   .dialog-content {
+    .el-dialog {
+      width: 98%;
+    }
+  }
+  @media screen and (min-width: 1366px) {
+    .dialog-content {
+      .el-dialog {
+        width: 92% !important;
+      }
+    }
+  }
+  @media screen and (min-width: 1440px) {
+    .dialog-content {
+      .el-dialog {
+        width: 85% !important;
+      }
+    }
+  }
+  @media screen and (min-width: 1680px) {
+    .dialog-content {
+      .el-dialog {
+        width: 70% !important;
+      }
+    }
+  }
+  @media screen and (min-width: 1920px) {
+    .dialog-content {
+      .el-dialog {
+        width: 68% !important;
+      }
+    }
   }
 </style>

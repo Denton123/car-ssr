@@ -227,8 +227,8 @@ export default {
       // 上传图片
       var file = e.target.files[0]
       _this.fileName = file.name
-      if (!/\.(gif|jpg|jpeg|png|bmp|GIF|JPG|PNG)$/.test(e.target.value)) {
-        alert('图片类型必须是.gif,jpeg,jpg,png,bmp中的一种')
+      if (!/\.(jpg|jpeg|png|bmp|GIF|JPG|PNG)$/.test(e.target.value)) {
+        alert('图片类型必须是jpeg,jpg,png,bmp中的一种')
         return false
       } else if (file.size / 1024 / 1024 > 5){
         this.$message({
@@ -350,8 +350,8 @@ export default {
   justify-content: flex-end;
   -webkit-justify-content: flex-end;
   .cropper {
-    width: 790px;
-    height: 450px;
+    width: 735px;
+    height: 420px;
   }
   .show-preview {
     flex: 1;
