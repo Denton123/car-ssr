@@ -2,7 +2,7 @@ const path = require('path')
 const webpack = require('webpack')
 const merge = require('webpack-merge')
 const pkg = require('./package')
-
+const routerconfig = ''
 module.exports = {
   mode: 'universal',
 
@@ -27,7 +27,7 @@ module.exports = {
     link: [{
       rel: 'icon',
       type: 'image/x-icon',
-      href: '/favicon.ico'
+      href: `${routerconfig}/favicon.ico`
     }],
     script: [{
       src: 'http://dup.baidustatic.com/js/ds.js'
@@ -47,7 +47,7 @@ module.exports = {
   //   base: '/pc'
   // },
   router: {
-    // base: `/pc/`,
+    base: `${routerconfig}/`,
     middleware: ['getHost', 'baidu-statistics', 'setStore'],
   },
   /*
