@@ -265,31 +265,30 @@ export default {
       }
     },
     pageChangeGetData(newPage, oldPage) {
-      console.log(newPage,'00000  ===> newPage')
       this.$router.push({
         path: `${this.model}/rankList/${this.typeParams.type}/${newPage}`
       })
-      this.$nextTick(async () => {
-        if (this.$route.params.type && this.$route.params.type == 'w') {
-          let rankWeekDetail = await $get(webEssayGetWeekendRank, {
-            pageNo: newPage,
-            size: 10
-          })
-          this.leftSideResult = rankWeekDetail.data
-        } else if (this.$route.params.type && this.$route.params.type == 'm') {
-          let rankMonthDetail = await $get(webEssayGetMonthRank, {
-            pageNo: newPage,
-            size: 10
-          })
-          this.leftSideResult = rankMonthDetail.data
-        } else {
-          let rankDayDetail = await $get(webEssayGetDayRank, {
-            pageNo: newPage,
-            size: 10
-          })
-          this.leftSideResult = rankDayDetail.data
-        }
-      })
+      // this.$nextTick(async () => {
+      //   if (this.$route.params.type && this.$route.params.type == 'w') {
+      //     let rankWeekDetail = await $get(webEssayGetWeekendRank, {
+      //       pageNo: newPage,
+      //       size: 10
+      //     })
+      //     this.leftSideResult = rankWeekDetail.data
+      //   } else if (this.$route.params.type && this.$route.params.type == 'm') {
+      //     let rankMonthDetail = await $get(webEssayGetMonthRank, {
+      //       pageNo: newPage,
+      //       size: 10
+      //     })
+      //     this.leftSideResult = rankMonthDetail.data
+      //   } else {
+      //     let rankDayDetail = await $get(webEssayGetDayRank, {
+      //       pageNo: newPage,
+      //       size: 10
+      //     })
+      //     this.leftSideResult = rankDayDetail.data
+      //   }
+      // })
     },
     piectImgUrl(item) {
       return systemManage.getApi(item.cover)
