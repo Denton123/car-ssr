@@ -153,14 +153,14 @@ export default {
                   ...res.data.des
                 })               
                 localStorage.setItem('userMsg', msg)
-                let temp =sessionStorage.getItem('login_from') && sessionStorage.getItem('login_from') != '' ? sessionStorage.getItem('login_from') :''
+                let temp =sessionStorage.getItem('login_from') && sessionStorage.getItem('login_from') != '' ? sessionStorage.getItem('login_from') : ''
                 if(temp) {
                   temp = JSON.parse(temp)
                 }else {
                   temp = ''
                 }
                 if(temp !== null && temp.name !== 'resetPassword' && temp.name !== 'register') {
-                  that.$router.push(JSON.parse(temp).fullPath)
+                  that.$router.push(temp.fullPath)
                 } else {
                   that.$router.push({ name: 'index' })
                 }          

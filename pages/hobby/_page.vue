@@ -141,11 +141,12 @@
                         <nuxt-link :to="`/Bloger/${mockHobbyItem.userId}/1`">
                             <span style="display: inline-block;float:left" v-if="mockHobbyItem.authorphoto !== ''&&mockHobbyItem.authorphoto !== null">
                                  <img class="detail-container-left-img"
+                                       :alt="`${mockHobbyItem.userName}`" 
                                       :src="piecImgUrl(mockHobbyItem)"
                                  >
                             </span>
                             <span style="display: inline-block;float:left" v-else>
-                                  <img class="detail-container-left-img" src="~static/picture/icon_head.png">
+                                  <img :alt="`${mockHobbyItem.userName}`" class="detail-container-left-img" src="~static/picture/icon_head.png">
                             </span>
                               <span class="detail-container-left-text">{{mockHobbyItem.userName}}</span>
                         </nuxt-link>
@@ -193,9 +194,11 @@
                 <img 
                     v-if="bloggerItem.photo !== ''&& bloggerItem.photo !== null"
                     class="avatar-blogger"
+                    :alt="`${bloggerItem.name}`"
                   :src="piectImg(bloggerItem)">
                 <img v-else 
                     class="avatar-blogger"
+                    :alt="`${bloggerItem.name}`"
                     src="~static/picture/person_default.png" >
                 <span class="name-blogger">{{bloggerItem.name}}</span>
               </nuxt-link>

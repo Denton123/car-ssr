@@ -123,14 +123,19 @@ export default {
     }
     let checkPasswordValue = (rule, value, callback) => {
       if (!value) {
+        this.flag = false
         return callback(new Error('请输入密码'))
       } else if (value.length < 6) {
+        this.flag = false
         return callback(new Error('密码长度不小于6位'))
       } else if (/[/.,\\!%()^,，_+=/`~?:;‘’“”"]/g.test(value)) {
+        this.flag = false
         return callback(new Error('密码中存在、/,等特殊符号'))
       } else if (/\s/g.test(value)) {
+        this.flag = false
         return callback(new Error('密码不能有空格'))
       } else {
+        this.flag = true
         return callback()
       }
     }
@@ -187,7 +192,8 @@ export default {
       isVf: false,
       desTime: true,
       Time: null,
-      func: null
+      func: null,
+      flag: false // 判定，密码是否满足条件
     }
   },
   computed: {
@@ -225,7 +231,7 @@ export default {
   },
   methods: {
     registerAccount(formName) {
-      if(this.registerObj.password.length < 6) {
+      if(this.registerObj.password.length < 6 || !this.flag) {
         return 
       }
       this.registerObj.loginName = this.registerObj.account
@@ -288,16 +294,27 @@ export default {
         }, 1000)
         $get(smsSendMsgByRegister, { phone: this.registerObj.phone }).then(
           res => {
-            if (res.data) {
-              this.$message({
-                type: 'success',
-                message: '验证发送成功'
-              })
+              if(res.data) {
+                if(res.data.result) {
+                  this.$message({
+                    type: 'success',
+                    message: res.data.des
+                    })
+                } else {
+                    this.$message({
+                    type: 'warning',
+                    message: res.data.des
+                  })
+                }
             } else {
               this.$message({
                 type: 'warning',
                 message: '一小时内只能发送三次验证码'
               })
+              clearInterval(that.func)
+              that.vfDes = `发送验证码`
+              that.isVf = false
+              that.desTime = true
             }
           }
         )

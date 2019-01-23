@@ -124,16 +124,21 @@ export default {
         }
       }
     }
-    let checkPasswordValue = (rule, value, callback) => {
+      let checkPasswordValue = (rule, value, callback) => {
       if (!value) {
+        this.flag = false
         return callback(new Error('请输入密码'))
       } else if (value.length < 6) {
+        this.flag = false
         return callback(new Error('密码长度不小于6位'))
-      } else if (/[/.,\\!%()^,，_+=/`~?:;‘’“”"]/g.test(value)) {
+      } else if (/[/.,\\!%()^,，_+=/`~~?:;‘’“”"]/g.test(value)) {
+        this.flag = false
         return callback(new Error('不能使用、/,等特殊符号'))
       } else if (/\s/g.test(value)) {
+        this.flag = false
         return callback(new Error('密码不能有空格'))
       } else {
+        this.flag = true
         return callback()
       }
     }
@@ -142,7 +147,8 @@ export default {
         phone: '',
         identify: '',
         password: '',
-        confirmPassword: ''
+        confirmPassword: '',
+        flag: false
       },
       /* verificationCode: '',
         confirmPassword: '', */
@@ -203,6 +209,7 @@ export default {
         return ''
       }
     },
+    // 按钮样式
     btnDisableContral() {
       if (this.state && this.desTime) {
         return false
@@ -237,20 +244,18 @@ export default {
             }, 1000)
             $get(smsUserSendMsgUpdateByPwd, { phone: this.resetObj.phone })
               .then(res => {
-                if (res.data) {
-                  this.$message({
-                    type: 'success',
-                    message: '验证码发送成功'
-                  })
-                } else {
-                  this.$message({
-                    type: 'warning',
-                    message: '一个小时只能接收三次验证码'
-                  })
-                  clearInterval(that.func)
-                  that.vfDes = `发送验证码`
-                  that.isVf = false
-                  that.desTime = true
+                if(res.data) {
+                  if(res.data.result) {
+                    this.$message({
+                      type: 'success',
+                      message: res.data.des
+                    })
+                  } else {
+                     this.$message({
+                      type: 'warning',
+                      message: res.data.des
+                    })
+                  }
                 }
               })
               .catch(res => {
@@ -289,7 +294,6 @@ export default {
             phone: this.resetObj.phone,
             code: this.resetObj.identify
           }).then(res => {
-            console.log(res.data)
             if (res.data) {
               document.querySelector('.phoneForm').style.display = 'none'
               document.querySelector('.resetPass_region').style.display =
@@ -307,6 +311,9 @@ export default {
       })
     },
     resetPassWord() {
+      if (!this.flag) {
+        return
+      }
       if (
         this.resetObj.password.length >= 6 &&
         this.resetObj.password === this.resetObj.confirmPassword

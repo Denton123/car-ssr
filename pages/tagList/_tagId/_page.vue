@@ -39,28 +39,38 @@
             <ul>
               <li v-for="(eassy, index) in eassyListUrl"
                 :key="index"
-                @click="toArticleOrHobbiesDetail(eassy)"
+              
                 class="tag_list_left_li">
-                <div class="img_wrapper">
-                  <img :src="eassy.photo"
-                    alt="文章图片">
-                </div>
-                <div class="tag_item">
-                  <p class="tag_title"
-                    v-if="eassy.title !== 'hobbies'">{{eassy.title}}</p>
-                  <div class="tag_line">
-                    <span class="one"></span><span class="two"></span>
+                <nuxt-link class="tag-nuxt-link" :to=" eassy.title === 'hobbies' ?  `/hobbies/hobbiesDetail/${eassy.id}/1` : `/tagList/detail/${eassy.id}/1`">
+                  <div class="img_wrapper">
+                    <img :src="eassy.photo"
+                      alt="文章图片">
                   </div>
-                  <div class="des">
-                    {{eassy.digest}}
-                  </div>
-                  <div class="userMsg">
-                    <div class="avatar"
-                      @click.stop.prevent="toBloger(eassy.userId)"><img :src="eassy.userPhoto"
-                        alt="用户头像"><span class="name">{{eassy.userName}}</span><span class="tag_line">|</span></div>
-                    <div class="channel">{{className(eassy.className)}}</div>
-                    <div class="time"
-                      v-text="formatData(eassy.create_time)"></div>
+                </nuxt-link>
+                  <div class="tag_item">
+                    <p class="tag_title"
+                      v-if="eassy.title !== 'hobbies'">
+                      <nuxt-link class="tag-nuxt-link tag-nuxt-des nuxt-redColor" :to="`/tagList/detail/${eassy.id}/1`">{{eassy.title}}
+                      </nuxt-link>
+                    </p>
+                    <div class="tag_line">
+                      <span class="one"></span><span class="two"></span>
+                    </div>
+                    <nuxt-link class="tag-nuxt-link tag-nuxt-des" :to="`/tagList/detail/${eassy.id}/1`">
+                    <div class="des nuxt-redColor">
+                      {{eassy.digest}}
+                    </div>
+                    </nuxt-link>
+                    <div class="userMsg">
+                      <nuxt-link class="tag-nuxt-link" :to="`/Bloger/${eassy.userId}/1`">
+                        <div class="avatar"
+                        ><img :src="eassy.userPhoto"
+                            alt="eassy.userName"><span class="name">{{eassy.userName}}</span><span class="tag_line">|</span>
+                        </div>
+                      </nuxt-link>
+                      <div class="channel">{{className(eassy.className)}}</div>
+                      <div class="time"
+                        v-text="formatData(eassy.create_time)"></div>
                   </div>
                 </div>
               </li>
@@ -618,11 +628,6 @@ export default {
                 height: 100%;
               }
             }
-            .img_wrapper:hover + .tag_item {
-              .tag_title {
-                color: #be001e;
-              }
-            }
             .tag_item {
               position: relative;
               display: inline-block;
@@ -684,6 +689,9 @@ export default {
                 text-overflow: ellipsis;
                 -webkit-line-clamp: 2;
                 -webkit-box-orient: vertical;
+                &:hover {
+                  color: #be001e;
+                }
               }
             }
             .userMsg {
@@ -948,6 +956,19 @@ export default {
         box-shadow: 0px 3px 0px 0px rgb(180, 32, 32) !important;
       }
     }
+  }
+  .tag-nuxt-link {
+    float: left;
+    &.tag-nuxt-des {
+      width: 328px;
+      color: #000;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+  .nuxt-redColor:hover {
+    color: rgb(180, 32, 32)
   }
 }
 </style>

@@ -297,9 +297,14 @@
     },
     methods: {
       //  图片拼接
-      /* piectImgUrl(item) {
-        return systemManage.getApi(item.photo)
-      }, */
+      piectImgUrl() {
+        const res = /http/g
+        if (res.test(this.articleForm.photo)) {
+          return this.articleForm.photo
+        } else {
+          return systemManage.getApi(this.articleForm.photo)
+        }
+      },
       // 获取文章信息
       async getArticleInfo() {
         let res = await $get(webEssayInfo, { id: this.id })
@@ -312,7 +317,7 @@
         console.log(this.articleForm.classOne)
         // 文章图片地址拼接显示
         this.articleForm.fileList = [
-          { name: 'img', url: systemManage.getApi(this.articleForm.photo) },
+          { name: 'img', url: this.piectImgUrl },
           { name: 'img', url: systemManage.getApi(this.articleForm.cover) }
         ]
         document.querySelector('.el-upload').style.display = 'none'
