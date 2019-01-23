@@ -116,6 +116,34 @@
   import systemManage from '@/http/photoApi.js'
   export default {
     name: 'Bloger',
+    head(){
+    return {
+      title: `${this.userData.blogger.loginName}_${this.currentPage}页-尖锋咖`,
+      // 设置 meta
+      meta: [
+        {
+          hid: 'keyWords',
+          name: 'keyWords',
+          content: '汽车,汽车文章,汽车视频,汽车图片,家用车,轿车,SUV'
+        },
+        {
+          hid: 'description',
+          name: 'description',
+          content: '从汽车到生活，我们生产内容，关乎你喜爱的一切'
+        },
+        {
+          hid: 'applicable-device',
+          name: 'applicable-device',
+          content: 'pc'
+        },
+        {
+          hid: 'mobile-agent',
+          name: 'mobile-agent',
+          content: `format=html5;url=http://m.jfcar.com.cn`
+        }
+      ],
+    }
+  },
     metaInfo: {
       // 设置 title
       title: '博主主页',
@@ -123,7 +151,7 @@
       meta: [
         {
           name: 'keyWords',
-          content: 'vue '
+          content: '汽车,汽车文章,汽车视频,汽车图片,家用车,轿车,SUV'
         }
       ],
       // 设置 link

@@ -523,6 +523,11 @@ export default {
     Emotion,
     Pagination
   },
+  head(){
+    return{
+      title:`${this.essayData.title}-${this.essayData.classOneName}-尖锋咖`
+    }
+  },
   data() {
     return {
       // 评论全部数据

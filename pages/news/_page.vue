@@ -363,6 +363,7 @@
 import systemManage from '@/http/url'
 import firstFeature from '@/components/firstFeature.vue'
 import secondFeature from '@/components/secondFeature.vue'
+
 // 修改
 // import todayRankTab from './components/todayRankTab.vue'
 import todayRankTab from '@/components/rankTab.vue'
@@ -385,6 +386,34 @@ import { setTimeout } from 'timers'
 
 export default {
   name: 'News',
+  head(){
+    return {
+      title: `今日车闻_${this.currentPage}页-尖峰咖`,
+            // 设置 meta
+      meta: [
+        {
+          hid: 'keyWords',
+          name: 'keyWords',
+          content: '今日车闻,新闻,资讯,汽车资讯,尖锋咖,新车动态,八卦车闻,交通资讯,国际车闻,车坛动态,各地车展,厂商动态'
+        },
+        {
+          hid: 'description',
+          name: 'description',
+          content: '尖锋咖提供最新即时汽车资讯，内容包括社区资讯、新车动态、八卦车闻、交通资讯、国际车闻、车坛动态、各地车展、厂商动态等'
+        },
+        {
+          hid: 'applicable-device',
+          name: 'applicable-device',
+          content: 'pc'
+        },
+        {
+          hid: 'mobile-agent',
+          name: 'mobile-agent',
+          content: `format=html5;url=http://m.jfcar.com.cn`
+        }
+      ],
+    }
+  },
   data: function() {
     return {
       currentPage: 1,
@@ -678,6 +707,9 @@ export default {
       }
     }
   },
+  created(){
+    this.currentPage = this.$route.params.page
+  },
   mounted() {
     // this.bannerResult.forEach((element, index) => {
     //   if (index == 0) {
@@ -688,7 +720,7 @@ export default {
     // })
     this.path = this.$route.path.match(/^\/[a-z]+/gi)
     this.model = this.$route.fullPath.match(/^\/[a-z]+/gi)
-    this.currentPage = this.$route.params.page
+    // this.currentPage = this.$route.params.page
     this.$nextTick(async () => {
       // 取cookie
       this.cookie = this.getCookie('token')

@@ -408,6 +408,34 @@ import { setTimeout } from 'timers'
 
 export default {
   name: 'car_video',
+    head(){
+    return {      
+      title: `视频_${this.currentPage}页-尖峰咖`,
+            // 设置 meta
+      meta: [
+        {
+          hid: 'keyWords',
+          name: 'keyWords',
+          content: '视频,尖锋汽车视频,尖锋汽车评测,新车评测,汽车试驾'
+        },
+        {
+          hid: 'description',
+          name: 'description',
+          content: '尖锋视频为车友们提供各种汽车视频集锦，包括尖锋车友的原创视频，新车上市、试驾评测、赛车美女视频以及汽车广告视频等，为大家分享最精彩的汽车视频大全。'
+        },
+        {
+          hid: 'applicable-device',
+          name: 'applicable-device',
+          content: 'pc'
+        },
+        {
+          hid: 'mobile-agent',
+          name: 'mobile-agent',
+          content: `format=html5;url=http://m.jfcar.com.cn`
+        }
+      ],
+    }
+  },
   data: function() {
     return {
       currentPage: 1,
@@ -699,11 +727,13 @@ export default {
       }
     }
   },
-
+  created(){
+    this.currentPage = this.$route.params.page
+  },
   mounted() {
     this.path = this.$route.path.match(/^\/[a-z]+/gi)
     this.model = this.$route.fullPath.match(/^\/[a-z]+/gi)
-    this.currentPage = this.$route.params.page
+    // this.currentPage = this.$route.params.page
     
     this.$nextTick(async () => {
       // 取cookie

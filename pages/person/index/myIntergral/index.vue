@@ -1,7 +1,7 @@
 <template>
   <div class="person-my-intergral">
     <div class="intergral-head">
-    <p class="intergral-count"><i class="head-right-icon"/>共<span class="intergral-red-number">{{userInterList.totalCount}}</span>积分</p>
+    <p class="intergral-count"><i class="head-right-icon"/>共<span class="intergral-red-number">{{userInterList&&userInterList.totalCount}}</span>积分</p>
       <button class="show-intergral-rules" @click="showIntergral">积分规则</button>
     </div>
     <div class="intergral-content-wrapper">
@@ -12,7 +12,7 @@
               <span class="intergral-des intergral-des-center">积分获取时间</span>
               <span class="intergral-des intergral-des-right">获得积分</span>
             </li>
-            <li v-for="(intergral, index) in userInterList.list" :key="index" class="intergral-content-li">
+            <li v-for="(intergral, index) in userInterList&&userInterList.list" :key="index" class="intergral-content-li">
                <span class="intergral-des intergral-des-left">{{intergral.integralName}}</span>
               <span class="intergral-des intergral-des-center">{{intergral.createTime}}</span>
               <span class="intergral-des intergral-des-right">+{{intergral.integralValue}}</span>
@@ -20,16 +20,16 @@
         </ul>
       </div>
       <div class="pagination">
-        <el-pagination v-if="userInterList.totalCount"
+        <el-pagination v-if="userInterList&&userInterList.totalCount"
           background
-          :current-page="userInterList.currPage"
+          :current-page="userInterList&&userInterList.currPage"
           @current-change="handleCurrentChange"
           layout="prev, pager, next"
           prev-text="上一页"
           next-text="下一页"
-          :page-count="userInterList.totalPage"
-          :page-size="userInterList.pageSize"
-          :total="userInterList.totalCount">
+          :page-count="userInterList&&userInterList.totalPage"
+          :page-size="userInterList&&userInterList.pageSize"
+          :total="userInterList&&userInterList.totalCount">
         </el-pagination>
         <!-- <div class="pagination">
           <div class="el-pagination is-background">
@@ -135,39 +135,41 @@ export default {
   },
   computed: {
     userRulesList() {
-      let result =  this.userInterRulesList.list.map(item => {
-        // 周期范围
-        if(item.dayTimes === 0) {
-           item.limitTimes = '一次性'
-        } else {
-          if(item.dayTimes >= 99999999) {
-            item.limitTimes = '不限'
-          } else {
-            item.limitTimes = '每天'
-          }
-        }
-        let times = item.dayTimes * item.monthTimes * item.integralValue
-        // 次数限制
-        if(times >= 99999999) {
-          times = '不限'
-        }else if(times === '0'){
-          times = '一次性'
-        }
-        item.times = times
-        // 咖值
-        item.integralValue = '+' + item.integralValue
-        if(item.monthTimes >= 99999999) {
-          item.monthTimes = '不限'
-        }
-         if(item.dayTimes >= 99999999) {
-           item.dayTimes = '不限'
-        } else if(item.dayTimes === 0) {
-          item.dayTimes = 1
-          item.times = item.monthTimes = item.integralValue.slice(1)
-        }
-       return item
-      })
-      return result
+      if( this.userInterRulesList &&  this.userInterRulesList.list != ''){
+          let result =  this.userInterRulesList.list.map(item => {
+            // 周期范围
+            if(item.dayTimes === 0) {
+              item.limitTimes = '一次性'
+            } else {
+              if(item.dayTimes >= 99999999) {
+                item.limitTimes = '不限'
+              } else {
+                item.limitTimes = '每天'
+              }
+            }
+            let times = item.dayTimes * item.monthTimes * item.integralValue
+            // 次数限制
+            if(times >= 99999999) {
+              times = '不限'
+            }else if(times === '0'){
+              times = '一次性'
+            }
+            item.times = times
+            // 咖值
+            item.integralValue = '+' + item.integralValue
+            if(item.monthTimes >= 99999999) {
+              item.monthTimes = '不限'
+            }
+            if(item.dayTimes >= 99999999) {
+              item.dayTimes = '不限'
+            } else if(item.dayTimes === 0) {
+              item.dayTimes = 1
+              item.times = item.monthTimes = item.integralValue.slice(1)
+            }
+          return item
+          })
+          return result
+      }
     }
   },
   methods:{

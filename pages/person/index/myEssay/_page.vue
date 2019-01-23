@@ -1,7 +1,7 @@
 <template>
   <div class="person_my_essay_list">
     <my-title v-if="listData && listData.list"
-      :num="listData.totalCount"></my-title>
+      :num="listData&&listData.totalCount"></my-title>
     <div class="person_essay_list">
       <div class="person_essay_list_block"
         v-for="(item, index) in listData.list"
@@ -44,7 +44,7 @@
 
     </div>
     <pagination @pageChange="pageChange"
-      :totalCount="listData.totalCount"
+      :totalCount="listData&&listData.totalCount"
       v-if="listData.list &&listData.list.length !== 0"
       :pageSize="9"
       :totalPage="listData.totalPage"
@@ -166,13 +166,13 @@ export default {
     this.currentPage = this.$route.params.page
     this.getArticle(this.currentPage)
   },
-  // watch : {
-  //   currentPage: {
-  //    async handler(newPage, oldPage) {
-  //     }
-  //   },
-  //   '$route' : 'newPageAAA'
-  // }
+  watch : {
+    currentPage: {
+     async handler(newPage, oldPage) {
+      //  this.$emit
+      }
+    }
+  }
 }
 </script>
 <style>

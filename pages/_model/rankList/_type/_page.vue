@@ -137,6 +137,8 @@ import pagination from '@/components/pagination.vue'
 import Header from '@/components/Header.vue'
 import Footer from '@/components/Footer.vue'
 import { $get } from '@/http/ajax.js'
+import until from '@/utils/until'
+
 // import Utils from 'utils/utils'
 
 import {
@@ -151,6 +153,36 @@ import { race } from 'q';
 
 export default {
   name: 'rankDetail',
+  head(){
+    return {
+      title: `${this.modelName}-${this.typeParamsName}_${
+        this.currentPage
+      }页-尖峰咖`,
+      // 设置 meta
+      // meta: [
+      //   {
+      //     // hid: 'keyWords',
+      //     name: 'keyWords',
+      //     content: 'vue '
+      //   },
+      //   {
+      //     // hid: 'description',
+      //     name: 'description',
+      //     content: `${this.metaDesc}`
+      //   },
+      //   {
+      //     // hid: 'applicable-device',
+      //     name: 'applicable-device',
+      //     content: 'pc'
+      //   },
+      //   {
+      //     // hid: 'mobile-agent',
+      //     name: 'mobile-agent',
+      //     content: `format=html5;url=${until.commonFileUrl}`
+      //   }
+      // ],
+    }
+  },
   data: function() {
     return {
       crumbsData: [],
@@ -422,6 +454,16 @@ export default {
       // 通过 `vm` 访问组件实例
     })
   },
+  created(){
+    this.currentPage = this.$route.params.page
+    this.typeParams = this.$route.params
+    // this.currentPage = this.$route.params.page
+    // 获取路由数据中的参数
+    this.model = this.$route.fullPath.match(/^\/[a-z]+/gi)
+    // 获取路由中model的值，再提取出其中的模块来源
+    this.getRouterMessage(this.model[0], this.typeParams.type)
+    // 获取路由中的重要信息，并设置全局变量用于面包屑以及meta
+  },
   mounted() {
     // 获取标签列表过来的信息
     if(sessionStorage.getItem('tagInfo') !=''&& sessionStorage.getItem('tagInfo') != null){
@@ -433,15 +475,8 @@ export default {
     this.tagName = tagInfo_title
     this.tagId = tagInfo_id
 
-    this.typeParams = this.$route.params
-    this.currentPage = this.$route.params.page
-    // 获取路由数据中的参数
-    this.model = this.$route.fullPath.match(/^\/[a-z]+/gi)
-    // 获取路由中model的值，再提取出其中的模块来源
-    this.getRouterMessage(this.model[0], this.typeParams.type)
-    // 获取路由中的重要信息，并设置全局变量用于面包屑以及meta
-    let rankCrumbsFromStronge
     // 以下假如是在排行列表中的排行点击更多的话，就执行：
+    let rankCrumbsFromStronge
     if( sessionStorage.getItem('rankCrumbs')&&  sessionStorage.getItem('rankCrumbs') !=''){
       if(JSON.parse(sessionStorage.getItem('rankCrumbs'))){
          rankCrumbsFromStronge = JSON.parse(sessionStorage.getItem('rankCrumbs'))

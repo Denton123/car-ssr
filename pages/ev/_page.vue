@@ -384,6 +384,34 @@ import {
 
 export default {
   name: 'ev',
+    head(){
+    return {
+      title: `新能源_${this.currentPage}页-尖峰咖`,
+            // 设置 meta
+      meta: [
+        {
+          hid: 'keyWords',
+          name: 'keyWords',
+          content: '新能源,新能源车,新能源电动车,新能源车价格,新能源车补贴,尖锋咖'
+        },
+        {
+          hid: 'description',
+          name: 'description',
+          content: '尖锋咖新能源为您提供新能源汽车价格，新能源车类型，新能源汽车补贴政策，新能源车有哪些，新能源电动车，增程式电动车，插电式油电混合动力车，双燃料车等信息，更多新能源汽车信息尽在尖锋咖'
+        },
+        {
+          hid: 'applicable-device',
+          name: 'applicable-device',
+          content: 'pc'
+        },
+        {
+          hid: 'mobile-agent',
+          name: 'mobile-agent',
+          content: `format=html5;url=http://m.jfcar.com.cn`
+        }
+      ],
+    }
+  },
   data: function() {
     return {
       currentPage: 1,
@@ -673,11 +701,13 @@ export default {
       }
     }
   },
-
+  created(){
+    this.currentPage = this.$route.params.page
+  },
   mounted() {
     this.path = this.$route.path.match(/^\/[a-z]+/gi)
     this.model = this.$route.fullPath.match(/^\/[a-z]+/gi)
-    this.currentPage = this.$route.params.page
+    // this.currentPage = this.$route.params.page
     this.$nextTick(async () => {
       // 取cookie
       this.cookie = this.getCookie('token')

@@ -278,6 +278,35 @@ import BigCoursel from '@/components/BigCoursel'
 
 export default {
   name: 'hobby',
+  // 兴趣部落,尖锋汽车部落,尖锋汽车俱乐部,尖锋社区,尖锋互动中心
+   head(){
+    return {
+      title: `兴趣部落_${this.currentPage}页-尖峰咖`,
+            // 设置 meta
+      meta: [
+        {
+          hid: 'keyWords',
+          name: 'keyWords',
+          content: '兴趣部落,尖锋汽车部落,尖锋汽车俱乐部,尖锋社区,尖锋互动中心'
+        },
+        {
+          hid: 'description',
+          name: 'description',
+          content: '尖锋咖兴趣部落中国最大的汽车社区之一，包括各尖锋汽车俱乐部，车友互动，经验交流，汽车维修保养等海量信息，尖锋咖兴趣部落让你的生活更精彩'
+        },
+        {
+          hid: 'applicable-device',
+          name: 'applicable-device',
+          content: 'pc'
+        },
+        {
+          hid: 'mobile-agent',
+          name: 'mobile-agent',
+          content: `format=html5;url=http://m.jfcar.com.cn`
+        }
+      ],
+    }
+  },
   data() {
     return {
       loginFlag: null,
@@ -413,6 +442,9 @@ export default {
       _mockHobbyItems: _mockHobbyItems.data ? _mockHobbyItems.data : {},
     }
   },
+  created(){
+    this.currentPage = this.$route.params.page
+  },
   mounted() {
     console.log(this.totalPage, 'totalPage')
       if (
@@ -431,7 +463,7 @@ export default {
     let obj = { 'X-Auth0-Token': this.tokenObj }
     this.curPage = this.$route.params.page
     this.routePage = this.$route.params.page
-    this.currentPage = this.$route.params.page
+    // this.currentPage = this.$route.params.page
     this.$nextTick(async() => {
       // 获取二级导航的数据——hobbies的分类，id
       let item = await $get('/web/banner/list?', {
