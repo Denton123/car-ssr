@@ -189,18 +189,18 @@
             <div class="content-blogger"
               v-for="(bloggerItem, index) in bloggerItems"
               :key="index"
-              v-show="bloggerItem.name !== null && bloggerItem.name !== ''">
-              <nuxt-link :to="`/Bloger/${bloggerItem.id}/1`">
+              v-show="bloggerItem.authorName !== null && bloggerItem.authorName !== ''">
+              <nuxt-link :to="`/Bloger/${bloggerItem.authorId}/1`">
                 <img 
-                    v-if="bloggerItem.photo !== ''&& bloggerItem.photo !== null"
-                    :alt="bloggerItem.name"
+                    v-if="bloggerItem.authorPhoto !== ''&& bloggerItem.authorPhoto !== null"
+                    :alt="bloggerItem.authorName"
                     class="avatar-blogger"
-                  :src="piectImg(bloggerItem)">
+                  :src="piecImgUrlS(bloggerItem)">
                 <img v-else 
                     class="avatar-blogger"
-                    :alt="`${bloggerItem.name}`"
+                    :alt="`${bloggerItem.authorName}`"
                     src="~static/picture/person_default.png" >
-                <span class="name-blogger">{{bloggerItem.name}}</span>
+                <span class="name-blogger">{{bloggerItem.authorName}}</span>
               </nuxt-link>
             </div>
           </div>
@@ -393,9 +393,10 @@ export default {
       })
 
     // 博主数据
-    let bloggerItems =  await $get('/web/hobbies/getHotBloggers?', {
+    let bloggerItems =  await $get('/web/user/getBollgerRank?',
+    {
       pageNo: 1,
-        pageSize: 10
+        size: 10
     })
     let _mockHobbyItems = await $get('/web/hobbies/list?', {
       limit: 12,
@@ -406,7 +407,7 @@ export default {
     return {
       tagItems: tagItems.data ? tagItems.data.tagsShowList : [],
       hostPointItems: _hostPointItems.data ? _hostPointItems.data : [],
-      bloggerItems: bloggerItems.data ? bloggerItems.data : [],
+      bloggerItems: bloggerItems.data ? bloggerItems.data.userEntities : [],
       mockHobbyItems: _mockHobbyItems.data.list ? _mockHobbyItems.data.list : [],
       totalPage: _mockHobbyItems.data.totalPage ? _mockHobbyItems.data.totalPage : 0,
       totalCount: _mockHobbyItems.data.totalCount ? _mockHobbyItems.data.totalCount : 0,
@@ -682,6 +683,9 @@ export default {
     },
     piecImgUrl(item) {
       return systemManage.getApi(item.authorphoto)
+    },
+        piecImgUrlS(item) {
+      return systemManage.getApi(item.authorPhoto)
     },
     tagOn(index) {
       this.tagType = index

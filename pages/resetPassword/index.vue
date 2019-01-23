@@ -126,19 +126,19 @@ export default {
     }
       let checkPasswordValue = (rule, value, callback) => {
       if (!value) {
-        this.flag = false
+        this.myPasswordFlag = false
         return callback(new Error('请输入密码'))
       } else if (value.length < 6) {
-        this.flag = false
+        this.myPasswordFlag = false
         return callback(new Error('密码长度不小于6位'))
       } else if (/[/.,\\!%()^,，_+=/`~~?:;‘’“”"]/g.test(value)) {
-        this.flag = false
+        this.myPasswordFlag = false
         return callback(new Error('不能使用、/,等特殊符号'))
       } else if (/\s/g.test(value)) {
-        this.flag = false
+        this.myPasswordFlag = false
         return callback(new Error('密码不能有空格'))
       } else {
-        this.flag = true
+        this.myPasswordFlag = true
         return callback()
       }
     }
@@ -148,7 +148,7 @@ export default {
         identify: '',
         password: '',
         confirmPassword: '',
-        flag: false
+        myPasswordFlag: false
       },
       /* verificationCode: '',
         confirmPassword: '', */
@@ -311,7 +311,7 @@ export default {
       })
     },
     resetPassWord() {
-      if (!this.flag) {
+      if (!this.myPasswordFlag) {
         return
       }
       if (

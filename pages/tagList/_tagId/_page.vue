@@ -8,7 +8,7 @@
         <div class="tag_breadCrumb">
           <el-breadcrumb separator-class="el-icon-arrow-right">
             <el-breadcrumb-item :to="{ path: preRouteObj.path }">{{ preRouteObj.name}}</el-breadcrumb-item>
-            <el-breadcrumb-item class="current">{{tagObj.title}}</el-breadcrumb-item>
+            <el-breadcrumb-item class="current"><strong>{{tagObj.title}}</strong></el-breadcrumb-item>
           </el-breadcrumb>
         </div>
         <div class="tag_des"
@@ -24,7 +24,7 @@
             <p class="tag_description">{{tagObj.des}}</p>
           </div> -->
           <div class="tag_des_content">
-            <p class="tag_title">{{tagObj.title}}</p>
+            <h2 class="tag_title">{{tagObj.title}}</h2>
             <p class="tag_description"
               v-html="tagObj.des"></p>
           </div>
@@ -38,11 +38,8 @@
           <div class="tag_list_left">
             <ul>
               <li v-for="(eassy, index) in eassyListUrl"
-                :key="index"
-
-              
+                :key="index"      
                 class="tag_list_left_li">
-
                 <nuxt-link class="tag-nuxt-link" :to=" eassy.title === 'hobbies' ?  `/hobbies/hobbiesDetail/${eassy.id}/1` : `/tagList/detail/${eassy.id}/1`">
                   <div class="img_wrapper">
                     <img :src="eassy.photo"
@@ -52,7 +49,7 @@
                   <div class="tag_item">
                     <p class="tag_title"
                       v-if="eassy.title !== 'hobbies'">
-                      <nuxt-link class="tag-nuxt-link tag-nuxt-des nuxt-redColor" :to="`/tagList/detail/${eassy.id}/1`">{{eassy.title}}
+                      <nuxt-link class="tag-nuxt-link tag-nuxt-des nuxt-redColor" :to="`/tagList/detail/${eassy.id}/1`"><strong>{{eassy.title}}</strong>
                       </nuxt-link>
                     </p>
                     <div class="tag_line">
@@ -166,23 +163,33 @@ import {
 } from "@/http/api";
 export default {
   name: "tagList",
-  metaInfo: {
-    // 设置 title
-    title: "tag列表页",
-    // 设置 meta
-    meta: [
-      {
-        name: "keyWords",
-        content: "vue "
-      }
-    ],
-    // 设置 link
-    link: [
-      {
-        rel: "asstes",
-        href: "https://assets-cdn.github.com/"
-      }
-    ]
+  head(){
+    return {
+      title: `${this.tagObj.title}_${this.pageObj.currPage}页-尖峰咖`,
+            // 设置 meta
+      meta: [
+        {
+          // hid: 'keyWords',
+          name: 'keyWords',
+          content: 'vue '
+        },
+       /*  {
+          // hid: 'description',
+          name: 'description',
+          content: `${this.metaDesc}`
+        }, */
+        {
+          // hid: 'applicable-device',
+          name: 'applicable-device',
+          content: 'pc'
+        },
+        {
+          // hid: 'mobile-agent',
+          name: 'mobile-agent',
+          content: `format=html5;url=http://m.jfcar.com.cn/m`
+        }
+      ],
+    }
   },
   // nuxt异步获取数据
   async asyncData({ params }) {
@@ -212,6 +219,7 @@ export default {
     };
   },
   beforeMount() {
+  
     this.createAdPicture();
     this._getWebTagDetail_();
     let preRouteSearContent = sessionStorage.getItem("tagRoute")
@@ -235,6 +243,7 @@ export default {
         name = "排行榜";
       }
       this.preRouteObj = { path: myFrom.fullPath, name };
+        console.log('preRouteOjb', this.preRouteObj)
     }
   },
   data() {
@@ -251,7 +260,23 @@ export default {
         limit: "6",
         page: "1"
       },
-      type: "w"
+      type: "w",
+     /*  headMeta: {
+        keyWord:[
+        '首页,尖锋,尖锋咖,尖锋汽车网,尖锋汽车咨询,尖锋今日车闻,尖锋新能源,尖锋视频,尖锋兴趣部落,jfcar',
+        '今日车闻,新闻,资讯,汽车资讯,尖锋咖,新车动态,八卦车闻,交通资讯,国际车闻,车坛动态,各地车展,厂商动态',
+        '新能源,新能源车,新能源电动车,新能源车价格,新能源车补贴,尖锋咖',
+        '兴趣部落,尖锋汽车部落,尖锋汽车俱乐部,尖锋社区,尖锋互动中心',
+        '视频,尖锋汽车视频,尖锋汽车评测,新车评测,汽车试驾',
+        ],
+        description: [
+          '尖锋咖为您提供最新汽车咨询，汽车图片，最精彩的汽车新闻、行情、评测、导购内容，是提供信息最独特的中国尖锋汽车网站。',
+          '尖锋咖提供最新即时汽车资讯，内容包括社区资讯、新车动态、八卦车闻、交通资讯、国际车闻、车坛动态、各地车展、厂商动态等',
+          '尖锋咖新能源为您提供新能源汽车价格，新能源车类型，新能源汽车补贴政策，新能源车有哪些，新能源电动车，增程式电动车，插电式油电混合动力车，双燃料车等信息，更多新能源汽车信息尽在尖锋咖',
+          '尖锋咖兴趣部落中国最大的汽车社区之一，包括各尖锋汽车俱乐部，车友互动，经验交流，汽车维修保养等海量信息，尖锋咖兴趣部落让你的生活更精彩',
+          '尖锋视频为车友们提供各种汽车视频集锦，包括尖锋车友的原创视频，新车上市、试驾评测、赛车美女视频以及汽车广告视频等，为大家分享最精彩的汽车视频大全。'
+        ]
+        } */
     };
   },
   beforeRouteEnter(to, from, next) {
@@ -327,6 +352,26 @@ export default {
         return item;
       });
     }
+    //metaKeyWord
+  /*   metaKeyWord() {
+      switch(this.preRouteObj.name) {
+        case '首页': {
+          return this.headMeta.keyWord[0]
+        }
+         case '今日车闻': {
+          return this.headMeta.keyWord[1]
+        }
+         case '新能源': {
+          return this.headMeta.keyWord[2]
+        }
+         case '兴趣部落': {
+          return this.headMeta.keyWord[3]
+        }
+          case '兴趣部落': {
+          return this.headMeta.keyWord[3]
+        }
+      }
+    } */
   },
   methods: {
     // 排名前三特殊背景
@@ -498,7 +543,7 @@ export default {
       .el-breadcrumb__inner:hover {
         color: #be001e;
       }
-      .el-breadcrumb__separator:last-child {
+      .el-breadcrumb__separator{
         &::before {
           content: "";
           display: inline-block;
@@ -507,6 +552,11 @@ export default {
           height: 8px;
           background: url("~static/images/small_right_black.png") no-repeat
             center;
+        }
+        &:last-child {
+          &::before {
+            background-image: url('~static/images/small_right_red.png')
+          }
         }
       }
     }
@@ -646,7 +696,7 @@ export default {
                 font-size: 26px;
                 font-weight: 600;
                 color: rgba(18, 18, 18, 1);
-                line-height: 26px;
+                line-height: 28px;
                 overflow: hidden;
                 white-space: nowrap;
                 text-overflow: ellipsis;
