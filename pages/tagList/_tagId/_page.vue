@@ -46,13 +46,8 @@
                 <nuxt-link class="tag-nuxt-link" :to=" eassy.title === 'hobbies' ?  `/hobbies/hobbiesDetail/${eassy.id}/1` : `/tagList/detail/${eassy.id}/1`">
                   <div class="img_wrapper">
                     <img :src="eassy.photo"
-                      alt="文章图片">
-
-
-
-
+                      :alt="eassy.title">
                   </div>
-
                 </nuxt-link>
                   <div class="tag_item">
                     <p class="tag_title"
@@ -72,21 +67,13 @@
                       <nuxt-link class="tag-nuxt-link" :to="`/Bloger/${eassy.userId}/1`">
                         <div class="avatar"
                         ><img :src="eassy.userPhoto"
-                            alt="eassy.userName"><span class="name">{{eassy.userName}}</span><span class="tag_line">|</span>
+                            :alt="eassy.userName"><span class="name">{{eassy.userName}}</span><span class="tag_line">|</span>
                         </div>
                       </nuxt-link>
                       <div class="channel">{{className(eassy.className)}}</div>
                       <div class="time"
                         v-text="formatData(eassy.create_time)"></div>
                   </div>
-
-
-
-
-
-
-
-
                 </div>
               </li>
             </ul>
