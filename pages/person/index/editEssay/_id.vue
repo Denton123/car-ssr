@@ -93,7 +93,7 @@
                          append-to-body>
                 <img class="imgSize"
                      :src="piectImgUrl"
-                     alt="">
+                     >
               </el-dialog>
               <!--裁剪图片-->
               <div class="app-main-content"
@@ -129,7 +129,7 @@
                        :on-progress="uploadVideoProcess"
                        :on-remove="handleRemoveVideo">
               <img src="~static/images/video_image.png"
-                   alt="">
+                   >
             </el-upload>
             <video v-if="articleForm.video"
                    :src="pieceVideoUrl"

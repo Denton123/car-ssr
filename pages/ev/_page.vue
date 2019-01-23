@@ -50,7 +50,7 @@
                       v-if="imgLoadStatus == false&& index == imgLossIndex">
                       <nuxt-link :to="`/ev/detail/${item.id}/1`">
                         <img src="~static/common/default.png"
-                          alt="尖峰咖"
+                          alt="尖锋咖"
                           width="160px">
                       </nuxt-link>
                     </div> -->
@@ -76,6 +76,7 @@
                   <div class="footerBox">
                     <nuxt-link :to="`/Bloger/${item.authorId}/1`">
                       <img :src="piectProfileUrl(item)"
+                        :alt="item.author"
                         class="userIcon"></nuxt-link>
                     <nuxt-link :to="`/Bloger/${item.authorId}/1`">
                       <span class="userName">{{item.author}}</span></nuxt-link>
@@ -130,7 +131,7 @@
               @mouseleave="removeAdverTitleActiveFn()">
               <!--如果有广告，自然会覆盖，如果没，则展示默认图片 -->
               <img src="~static/common/default.png"
-                alt="尖峰咖">
+                alt="尖锋咖">
             </div>
             <div class="imgFlagBox">
               <span class="flag">广告</span></div>
@@ -174,7 +175,7 @@
                       v-if="imgLoadStatus == false&& index == imgLossIndex">
                       <nuxt-link :to="`/ev/detail/${item.id}/1`">
                         <img src="~static/common/default.png"
-                          alt="尖峰咖"
+                          alt="尖锋咖"
                           width="160px">
                       </nuxt-link>
                     </div> -->
@@ -200,6 +201,7 @@
                   <div class="footerBox">
                     <nuxt-link :to="`/Bloger/${item.authorId}/1`">
                       <img :src="piectProfileUrl(item)"
+                        :alt='item.author'
                         class="userIcon"></nuxt-link>
                     <nuxt-link :to="`/Bloger/${item.authorId}/1`">
                       <span class="userName">{{item.author}}</span></nuxt-link>
@@ -285,7 +287,7 @@
                     <a :href="bannerMessageData.photoLinks == null ? '' : bannerMessageData.photoLinks[0].url"
                       target="_blank">
                       <img src="~static/common/default.png"
-                        alt="尖峰咖"
+                        alt="尖锋咖"
                         width="160px">
                     </a>
                   </div>
@@ -326,7 +328,7 @@
                     <a :href="bannerTopicData.photoLinks == null ? '': bannerTopicData.photoLinks[0].url"
                       target="_blank">
                       <img src="~static/common/default.png"
-                        alt="尖峰咖"
+                        alt="尖锋咖"
                         width="160px">
                     </a>
 
@@ -984,6 +986,7 @@ body {
   border-radius: 50%;
   opacity: 0.7;
   width: 25px;
+  height: 25px;
 }
 .sources .todayFooter .todayDivider {
   margin-left: 20px;

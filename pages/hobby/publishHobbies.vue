@@ -122,7 +122,7 @@
       <div class="advertise_wrapper">
         <a href="javascript: void (0);">
           <img src="~assets/images/ad_image.png"
-            alt="">
+            alt="尖锋咖">
         </a>
       </div>
     </div>

@@ -13,7 +13,7 @@
     <div v-swiper:mySwiper="galleryTop" v-if="sliderData&& sliderData.length >= 1" ref="topSwiper"   class="swiper-container gallery-top">
       <div class="swiper-wrapper">
           <div class="swiper-slide" v-for="(item, key) in sliderData" :key="key">
-            <img :src="formatphoto(item.photo)">
+            <img :src="formatphoto(item.photo)" alt="尖锋咖">
           </div>
       </div>
     </div>
@@ -21,7 +21,7 @@
     <div v-if="sliderData&& sliderData.length > 1 "  v-swiper:mySwiper2="galleryThumbs" style="margin-top: 50px;" ref="thumbSwiper"  class="swiper-container gallery-thumbs">
       <div class="swiper-wrapper">
         <div class="swiper-slide" v-for="(item, key) in sliderData" :key="key">
-          <img :src="formatphoto(item.photo)">
+          <img :src="formatphoto(item.photo)" alt="尖锋咖">
         </div>
       </div>
     </div>

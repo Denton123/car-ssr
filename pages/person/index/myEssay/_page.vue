@@ -10,13 +10,13 @@
           <div class="person_essay_list_block_pic"
             v-if="item.photo !== ''">
             <img :src="formatPic(item.photo)"
-              alt=""
+              :alt="item.title == 'hobbies' ? '兴趣部落' : item.title"
               class="person_essay_list_block_pic">
           </div>
           <div class="person_essay_list_block_pic_default"
             v-else>
             <img src="~static/common/default.png"
-              alt="">
+              alt="尖锋咖">
           </div>
           <div class="person_essay_list_block_tag">
             <!-- <span class="person_essay_list_block_tag_left"></span> -->
@@ -27,7 +27,7 @@
             <h3 class="person_essay_list_block_titleDesc">
               <i class="person_essay_list_block_titleDesc_line"></i>
               <span>{{item.state}}</span>
-              {{item.title}}</h3>
+              {{item.title == 'hobbies' ? '兴趣部落' : item.title}}</h3>
           </div>
           <div class="person_essay_list_block_desc">
             {{item.digest}}
@@ -37,7 +37,6 @@
         <div class="person_essay_list_block_desc_edit"
           v-if="item.state === '草稿'||item.state === '审核不通过'">
           <nuxt-link :to="item.title == 'hobbies' ? `/person/editHobbies/${item.id}` : `/person/editEssay/${item.id}`">
-
             <i class="el-icon-edit" />
           </nuxt-link>
         </div>

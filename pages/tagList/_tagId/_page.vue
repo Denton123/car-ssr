@@ -43,7 +43,7 @@
                 class="tag_list_left_li">
                 <div class="img_wrapper">
                   <img :src="eassy.photo"
-                    alt="文章图片">
+                    :alt="eassy.title">
                 </div>
                 <div class="tag_item">
                   <p class="tag_title"
@@ -57,7 +57,7 @@
                   <div class="userMsg">
                     <div class="avatar"
                       @click.stop.prevent="toBloger(eassy.userId)"><img :src="eassy.userPhoto"
-                        alt="用户头像"><span class="name">{{eassy.userName}}</span><span class="tag_line">|</span></div>
+                        :alt="eassy.userName"><span class="name">{{eassy.userName}}</span><span class="tag_line">|</span></div>
                     <div class="channel">{{className(eassy.className)}}</div>
                     <div class="time"
                       v-text="formatData(eassy.create_time)"></div>

@@ -63,7 +63,7 @@
                     <!--:class="{ navBorderOn: type===index || enterType === index }">-->
                     <!--<img :src="utils.getApi(navItem.photoUrl.slice(1))"-->
                     <!--v-if="navItem.photoUrl != null && navItem.photoUrl != ''"-->
-                    <!--alt="尖峰咖"-->
+                    <!--alt="尖锋咖"-->
                      <!--/></div>-->
                 <!--<div class="nav-hobby-text"-->
                         <!--:class="{ navTxtOn: type===index || enterType === index, navTxtRed : redType===index}">{{navItem.label}}</div>-->
@@ -118,7 +118,7 @@
                                       :key="index">
                   <!--<img src="./picture/x1.png">-->
                   <img class="get-hobby-image"
-                       :alt="`尖峰咖_${mockHobbyItem.description}`"
+                       :alt="mockHobbyItem.description"
                        :src="piectImgUrl(hobbyPicture)"
                        :class="hobbiesImageChage(mockHobbyItem.photoList, index)">
                 </span>
@@ -142,6 +142,7 @@
                             <span style="display: inline-block;float:left" v-if="mockHobbyItem.authorphoto !== ''&&mockHobbyItem.authorphoto !== null">
                                  <img class="detail-container-left-img"
                                       :src="piecImgUrl(mockHobbyItem)"
+                                      :alt="mockHobbyItem.userName"
                                  >
                             </span>
                             <span style="display: inline-block;float:left" v-else>
@@ -192,6 +193,7 @@
               <nuxt-link :to="`/Bloger/${bloggerItem.id}/1`">
                 <img 
                     v-if="bloggerItem.photo !== ''&& bloggerItem.photo !== null"
+                    :alt="bloggerItem.name"
                     class="avatar-blogger"
                   :src="piectImg(bloggerItem)">
                 <img v-else 

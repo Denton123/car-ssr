@@ -9,7 +9,7 @@
             <div class="person_head">
               <img v-if="userData.user.photo !== ''"
                 :src="formatPic(userData.user.photo)"
-                alt="">
+                :alt="userData.user.loginName != '' ? userData.user.loginName : ''">
               <img v-else
                 src="~static/person/person_default.png"
                 alt="">

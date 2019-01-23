@@ -34,7 +34,7 @@
           <a :href="item.linkurl"
             class="big_coursel_swiper_a"
             target="_blank">
-            <img :src="concatImage(item.url)">
+            <img :src="concatImage(item.url)" :alt="item.title">
             <div class="cover"
               ></div>
           </a>

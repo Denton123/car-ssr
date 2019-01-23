@@ -35,9 +35,11 @@
             <nuxt-link :to="`/Bloger/${essayData.userId}/1`"
               class="detail_content_user_avatar">
               <img v-if="essayData.userPhoto !== ''"
+                :alt="essayData.author"
                 :src="formatPic(essayData.userPhoto)"
-                class="detail_content_userAvatar">
+                class="detail_content_userAvatar" >
               <img v-else
+                alt="头像"
                 src="~static/detail/detail_user.png"
                 class="detail_content_userAvatar">
             </nuxt-link>
@@ -161,7 +163,7 @@
                     <img v-if="item.photo !== ''"
                       :src="formatPic(item.cover)"
                       class="detail_content_article_block_pic"
-                      alt="">
+                      :alt="item.title">
                     <video v-else-if="item.video !== ''"
                       :src="formatPic(item.video)"
                       class="detail_content_article_block_video"></video>
@@ -175,6 +177,7 @@
                   <div class="detail_content_article_block_avatar_wrap">
                     <nuxt-link :to="`/Bloger/${item.authorId}/1`">
                       <img v-if="item.authorPhoto"
+                        :alt="item.author"
                         :src="formatPic(item.authorPhoto)"
                         class="detail_content_article_block_avatar">
                       <img v-else
@@ -209,6 +212,7 @@
               <div class="detail_comment_form_avatar">
                 <div class="detail_comment_form_avatar_wrap">
                   <img v-if="user.photo !== ''"
+                    :alt="user.loginName"
                     :src="formatPic(user.photo)">
                   <img v-else
                     src="~static/detail/detail_user.png">
@@ -264,6 +268,7 @@
                   <nuxt-link :to="`/Bloger/${list.userId}/1`">
                     <span class="detail_comment_lists_avatar">
                       <img :src="formatPic(list.userPhoto)"
+                        :alt="list.author"
                         v-if="list.userPhoto !== ''">
                       <img src="~static/detail/detail_user.png"
                         v-else>
@@ -344,6 +349,7 @@
                 <nuxt-link :to="user.id !== essayData.userId ? `/Bloger/${essayData.userId}/1` : '/person/myEssay/1'">
                   <div class="detail_user_msg_avatar_wrap">
                     <img :src="formatPic(essayData.userPhoto)"
+                      :alt="essayData.author"
                       v-if="essayData.userPhoto">
                     <!-- <img src="/static/person/person_default.png"
                       v-else> -->
@@ -407,7 +413,7 @@
                 :key="index">
                 <nuxt-link :to="`/${hot.className}/${hot.className !== 'hobbies' ? 'detail' : 'hobbiesDetail' }/${hot.id}/1`">
                   <div v-if="hot.cover !== ''">
-                    <img :src="formatPic(hot.cover)">
+                    <img :src="formatPic(hot.cover)" :alt="hot.title">
                   </div>
                   <div v-else
                     class="detail_more_content_default">
@@ -415,9 +421,9 @@
                   </div>
 
                   <div class="detail_more_content_list">
-                    <h4>
+                    <p>
                       {{hot.title}}
-                    </h4>
+                    </p>
                     <span>
                       {{hot.createTime}}
                     </span>
@@ -447,16 +453,16 @@
 
                 <nuxt-link :to="`/${random.className}/${random.className !== 'hobbies' ? 'detail' : 'hobbiesDetail'}/${random.id}/1`">
                   <div v-if="random.cover!==''">
-                    <img :src="formatPic(random.cover)">
+                    <img :src="formatPic(random.cover)" :alt="random.title">
                   </div>
                   <div v-else
                     class="detail_more_content_default">
                     <img src="~static/common/default.png">
                   </div>
                   <div class="detail_more_content_list">
-                    <h4>
+                    <p>
                       {{random.title}}
-                    </h4>
+                    </p>
                     <span>
                       {{random.createTime}}
                     </span>
@@ -1611,7 +1617,7 @@ export default {
 }
 .detail_content_user_avatar {
   width: 25px;
-  height: 25x;
+  height: 25px;
   border-radius: 50%;
   overflow: hidden;
   display: inline-block;
@@ -2310,7 +2316,7 @@ export default {
   padding-left: 21px;
   width: 200px;
 }
-.detail_more_content_list h4 {
+.detail_more_content_list p {
   margin: 0;
   padding: 0;
   font-size: 16px;
