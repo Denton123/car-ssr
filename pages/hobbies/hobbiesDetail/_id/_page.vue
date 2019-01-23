@@ -31,6 +31,7 @@
             <nuxt-link :to="`/Bloger/${essayData.userId}/1`"
               class="detail_content_user_avatar">
               <img :src="formatPic(userInfo.photo)"
+                :alt="essayData.userName == null ? '': essayData.userName"
                 class="detail_content_userAvatar"
                 v-if="userInfo.photo !== ''">
               <img v-else
@@ -200,6 +201,7 @@
               <div class="detail_comment_form_avatar">
                 <div class="detail_comment_form_avatar_wrap">
                   <img v-if="user.photo !== ''"
+                    :alt="user.loginName"
                     :src="formatPic(user.photo)">
                   <img v-else
                     src="~static/detail/detail_user.png">
@@ -256,6 +258,7 @@
                   <nuxt-link :to="`/Bloger/${list.userId}/1`">
                     <span class="detail_comment_lists_avatar">
                       <img :src="formatPic(list.userPhoto)"
+                        :alt="list.author"
                         v-if="list.userPhoto !== ''">
                       <img v-else
                         src="~static/detail/detail_user.png">
@@ -339,6 +342,7 @@
                 <nuxt-link :to="essayData.userId !== user.id ? `/Bloger/${essayData.userId}/1` : '/person/myEssay/1'">
                   <div class="detail_user_msg_avatar_wrap">
                     <img v-if="userInfo.photo !== ''"
+                      :alt="essayData.userName"
                       :src="formatPic(userInfo.photo)">
                     <img v-else
                       src="~static/detail/person_default.png">
@@ -397,16 +401,16 @@
                 :key="index">
                 <nuxt-link :to="`/${hot.className}/${hot.className !== 'hobbies' ? 'detail' : 'hobbiesDetail'}/${hot.id}/1`">
                   <span v-if="hot.cover">
-                    <img :src="formatPic(hot.cover)">
+                    <img :src="formatPic(hot.cover)" :alt="hot.title">
                   </span>
                   <span class="detail_more_content_default"
                     v-else>
                     <img src="~static/common/default.png">
                   </span>
                   <div class="detail_more_content_list">
-                    <h4>
+                    <p>
                       {{hot.title}}
-                    </h4>
+                    </p>
                     <span>
                       {{hot.createTime}}
                     </span>
@@ -436,16 +440,16 @@
                 <nuxt-link :to="`/${random.className}/${random.className !== 'hobbies' ? 'detail' : 'hobbiesDetail'}/${random.id}/1`"
                   @click.native="flushCom(random.id)">
                   <span v-if="random.cover!==''">
-                    <img :src="formatPic(random.cover)">
+                    <img :src="formatPic(random.cover)" :alt="random.title">
                   </span>
                   <span v-else
                     class="detail_more_content_default">
                     <img src="~static/common/default.png">
                   </span>
                   <div class="detail_more_content_list">
-                    <h4>
+                    <p>
                       {{random.title}}
-                    </h4>
+                    </p>
                     <span>
                       {{random.createTime}}
                     </span>
@@ -658,7 +662,7 @@ export default {
     }
   },
   created(){
-      console.log('dddddd', this.hobbiesIdDetailData)
+      // console.log('dddddd', this.hobbiesIdDetailData)
   },
     computed: {
     solveCommentList() {
@@ -991,8 +995,6 @@ export default {
                 (this.essayData.good + this.essayData.bad)) *
                 100
             ) + '%'
-
-          console.log(this.goodPercent, ' this.goodPercent')
           this.badPercent =
             Math.round(
               (this.essayData.bad /
@@ -1215,8 +1217,6 @@ export default {
     },
     // 分享到微博
     shareWeibo(title, pic) {
-      console.log(title, 'title')
-      console.log(this.formatPic(pic), 'pic')
       var params = {
         url: `${window.location.href}`,
         type: '3',
@@ -1336,7 +1336,6 @@ export default {
       // } else {
       //   this.tabList = null
       // }
-      console.log(this.essayData,'==================<<<<9999999')
 
       switch (this.essayData.classOneName) {
         case '今日车闻':
@@ -1365,7 +1364,6 @@ export default {
                 100
             ) + '%'
 
-          console.log(this.goodPercent, ' this.goodPercent')
           this.badPercent =
             Math.round(
               (this.essayData.bad /
@@ -1567,7 +1565,7 @@ export default {
 }
 .detail_content_user_avatar {
   width: 25px;
-  height: 25x;
+  height: 25px;
   border-radius: 50%;
   overflow: hidden;
   display: inline-block;
@@ -2254,7 +2252,7 @@ detail_comment_form_input_operate_emoji:hover span {
   padding-left: 21px;
   width: 200px;
 }
-.detail_more_content_list h4 {
+.detail_more_content_list p {
   margin: 0;
   padding: 0;
   font-size: 16px;

@@ -39,13 +39,20 @@
             <ul>
               <li v-for="(eassy, index) in eassyListUrl"
                 :key="index"
+
               
                 class="tag_list_left_li">
+
                 <nuxt-link class="tag-nuxt-link" :to=" eassy.title === 'hobbies' ?  `/hobbies/hobbiesDetail/${eassy.id}/1` : `/tagList/detail/${eassy.id}/1`">
                   <div class="img_wrapper">
                     <img :src="eassy.photo"
                       alt="文章图片">
+
+
+
+
                   </div>
+
                 </nuxt-link>
                   <div class="tag_item">
                     <p class="tag_title"
@@ -72,6 +79,14 @@
                       <div class="time"
                         v-text="formatData(eassy.create_time)"></div>
                   </div>
+
+
+
+
+
+
+
+
                 </div>
               </li>
             </ul>
@@ -628,6 +643,7 @@ export default {
                 height: 100%;
               }
             }
+
             .tag_item {
               position: relative;
               display: inline-block;

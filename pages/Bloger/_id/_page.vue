@@ -7,7 +7,7 @@
           <div class="person_head">
             <img v-if="userData.blogger && userData.blogger.photo"
                  :src="formatPic(userData.blogger && userData.blogger.photo)"
-                 alt=""
+                 :alt="userData.blogger.loginName"
                  :onerror="defaultImg">
           </div>
           <div class="person_name">
@@ -67,7 +67,7 @@
               <div class="bloger_list">
                 <div class="bloger_list_top">
                   <img :src="formatPic(item.photo && item.photo)"
-                       alt="">
+                       :alt="item.title== 'hobbies' ? '兴趣部落':item.title ">
                   <div class="bloger_mark"
                        v-if="item.title == 'hobbies'">兴趣部落</div>
                   <div class="bloger_mark"

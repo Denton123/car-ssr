@@ -66,9 +66,9 @@
             <div class="avatar-uploader_wrap">
               <img v-if="editForm.photo"
                 :src="formatPic(editForm.photo)"
-                alt="">
+                :alt="editForm.account">
               <img v-else
-                src="~static/person/person_default.png">
+                src="~static/person/person_default.png" alt="用户头像">
             </div>
             <span>上传头像</span>
           </el-upload>

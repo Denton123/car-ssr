@@ -9,7 +9,7 @@
             <div class="person_head">
               <img v-if="userData.user.photo !== ''"
                 :src="formatPic(userData.user.photo)"
-                alt="">
+                :alt="userData.user.loginName != '' ? userData.user.loginName : ''">
               <img v-else
                 src="~static/person/person_default.png"
                 alt="">
@@ -53,6 +53,11 @@
                     name="person-index-myEssay-page">
                      <nuxt-child />
                   </el-tab-pane>
+                   <el-tab-pane
+                    label="我的积分"
+                    name="person-index-myIntergral">
+                    <my-intergral></my-intergral>
+                  </el-tab-pane>
                   <el-tab-pane label="个人信息"
                     name="person-index-editInfo">
                     <person-info></person-info>
@@ -85,6 +90,7 @@ import Footer from '@/components/Footer'
 import myEssay from '@/pages/person/index/myEssay/_page.vue'
 import personInfo from '@/pages/person/index/editInfo/index.vue'
 import resetPassword from '@/pages/person/index/resetPassword/index.vue'
+import myIntergral from '@/pages/person/index/myIntergral/index'
 
 import { webUserSelectByPrimaryKey, webMyEssay} from '@/http/api'
 import { $get, $post } from '@/http/ajax'
@@ -126,6 +132,9 @@ export default {
     handleClick(tab, event) {
       this.activeName = tab.name
       let tabArray = tab.name.split('-')
+      if(this.activeName === 'person-index-myIntergral') {
+        this.$router.push('/person/myIntergral')
+      }
       if (tabArray[2] === 'myEssay') {
         this.$router.push(`/person/${tabArray[2]}/1`)
       } else {
@@ -192,7 +201,8 @@ export default {
     Footer,
     myEssay,
     personInfo,
-    resetPassword
+    resetPassword,
+    'my-intergral': myIntergral
   }
 }
 </script>

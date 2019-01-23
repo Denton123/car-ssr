@@ -24,7 +24,7 @@
             target="_blank">
             <div class="right_Adver">
               <img src="../images/hotNews.jpg"
-                alt="广告图片"
+                alt="全新RDX狂热登场"
                 width="100%"
                 height="100%">
             </div>

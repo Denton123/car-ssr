@@ -94,7 +94,11 @@ export default {
   height: 280px;
   /* background-color: black; */
 }
-
+.index_card_block .pic img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 .img_a {
   display: block;
   height: 100%;

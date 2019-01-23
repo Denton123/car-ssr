@@ -24,7 +24,7 @@
                 <div class="
                 img_wrapper">
                   <img :src="eassy.essayPhoto"
-                       alt="文章图片">
+                       :alt="eassy.title">
                 </div>
                 <div class="search_item">
                   <p class="search_title"
@@ -41,7 +41,7 @@
                          @click.stop="toBloger(eassy.userId)">
                       <div>
                         <img :src="eassy.userPhoto"
-                             alt="用户头像图片">
+                             :alt="essay.userName">
                         <span class="name">{{eassy.userName}}</span>
                       </div>
                       <span class="search_line">|</span>

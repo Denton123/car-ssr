@@ -3,7 +3,7 @@
     <div class="car_header_wrap">
       <div class="car_header_logo">
         <router-link to="/">
-          <img src="~static/header/pc_logo.png">
+          <img src="~static/header/pc_logo.png" alt="尖锋咖">
         </router-link>
       </div>
       <div class="car_header_banner">
@@ -96,10 +96,10 @@
                     <!-- <router-link to="/person/myEssay/1"> -->
                     <img v-if="user.photo && user.photo!==''"
                       :src="formatPic(user.photo)"
-                      alt="">
+                      :alt="user.loginName">
                     <img v-else
                       src="~static/detail/detail_user.png"
-                      alt="">
+                      :alt="user.loginName">
                     <!-- </router-link> -->
                   </div>
                   <router-link to="/person/myEssay/1">
@@ -378,6 +378,7 @@ export default {
   display: inline-block;
   float: left;
   margin-left: 10px;
+  overflow: hidden;
 }
 .car_header_banner ul,
 .car_header_banner_icon ul {
@@ -401,7 +402,8 @@ export default {
   /*text-align: left;*/
 }
 .car_header_banner_li {
-  display: inline-block;
+  /* display: inline-block; */
+  float: left;
 }
 .car_header_banner ul li {
   /* width: 70px; */

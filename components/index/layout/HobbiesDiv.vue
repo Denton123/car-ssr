@@ -11,7 +11,7 @@
           v-if="card.photo">
       </router-link>
     </div>
-    <div v-if="isContent == '1'">
+    <div v-if="isContent == '1'" class="haveContent">
       <router-link :to="`/hobbies/hobbiesDetail/${card.id}/1`">
         <img :src="card.photo"
           :alt="card.title">
@@ -24,7 +24,7 @@
           @click="$router.push(`/Bloger/${cardData.userId}/1`)">
           <span class="info_header">
             <img :src="formatPic(card.authorphoto) "
-              alt="头像"
+              :alt="card.userName"
               height="100%"
               width="100%"
               v-if="card.authorphoto != null">
@@ -69,7 +69,6 @@ export default {
   computed: {
     card: function() {
       let data = this.cardData == null ? {} : this.cardData
-      console.log(data)
       if (data.authorphoto !== '' && data.authorphoto != null) {
         data.authorphoto = data.authorphoto
       } else {
@@ -111,7 +110,14 @@ export default {
   height: 280px;
   /* background-color: black; */
 }
-
+.hobbiesDiv .pic img{
+  object-fit: cover;
+}
+.hobbiesDiv .haveContent img{
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+}
 .hobbiesDiv .card-content {
   padding-top: 20px;
 }

@@ -41,7 +41,7 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 
 - 对于 `window` 或 `document` 对象，在服务端渲染会报错，需要根据情况去避免该报错
 
-### 以下实践方案主要针对 《尖峰咖》 项目，提供有效快速的迁移手段
+### 以下实践方案主要针对 《尖锋咖》 项目，提供有效快速的迁移手段
 
 > 文件结构
 

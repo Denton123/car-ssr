@@ -50,7 +50,7 @@
                       v-if="imgLoadStatus == false&&index == imgLossIndex">
                       <nuxt-link :to="`/video/detail/${item.id}/1`">
                         <img src="~static/common/default.png"
-                          alt="尖峰咖"
+                          alt="尖锋咖"
                           width="160px">
                       </nuxt-link>
                     </div> -->
@@ -86,6 +86,7 @@
                   <div class="footerBox">
                     <nuxt-link :to="`/Bloger/${item.authorId}/1`">
                       <img :src="piectProfileUrl(item)"
+                        :alt='item.author'
                         class="userIcon"></nuxt-link>
                     <nuxt-link :to="`/Bloger/${item.authorId}/1`">
                       <span class="userName">{{item.author}}</span></nuxt-link>
@@ -139,7 +140,7 @@
               @mouseleave="removeAdverTitleActiveFn()">
               <!--如果有广告，自然会覆盖，如果没，则展示默认图片 -->
               <img src="~static/common/default.png"
-                alt="尖峰咖">
+                alt="尖锋咖">
             </div>
             <!-- 播放按钮 -->
             <!-- <el-button class="videoBtn"
@@ -192,7 +193,7 @@
                       v-if="imgLoadStatus == false&&index == imgLossIndex">
                       <nuxt-link :to="`/video/detail/${item.id}/1`">
                         <img src="~static/common/default.png"
-                          alt="尖峰咖"
+                          alt="尖锋咖"
                           width="160px">
                       </nuxt-link>
                     </div> -->
@@ -228,6 +229,7 @@
                   <div class="footerBox">
                     <nuxt-link :to="`/Bloger/${item.authorId}/1`">
                       <img :src="piectProfileUrl(item)"
+                        :alt="item.author"
                         class="userIcon"></nuxt-link>
                     <nuxt-link :to="`/Bloger/${item.authorId}/1`">
                       <span class="userName">{{item.author}}</span></nuxt-link>
@@ -312,7 +314,7 @@
                     <a :href="bannerMessageData.photoLinks == null ? '' : bannerMessageData.photoLinks[0].url"
                       target="_blank">
                       <img src="~static/common/default.png"
-                        alt="尖峰咖"
+                        alt="尖锋咖"
                         width="160px">
                     </a>
                   </div>
@@ -351,7 +353,7 @@
                     <a :href="bannerTopicData.photoLinks == null ? '': bannerTopicData.photoLinks[0].url"
                       target="_blank">
                       <img src="~static/common/default.png"
-                        alt="尖峰咖"
+                        alt="尖锋咖"
                         width="160px">
                     </a>
                   </div>
@@ -410,7 +412,6 @@ export default {
     return {
       currentPage: 1,
       flag: 0,
-      adverTop: '',
       // tabData: [],
       topBanner: [],
       firstHalfData:[],
@@ -656,12 +657,12 @@ export default {
       // this.tabData = tab
       // this.leftSideResult = leftResult
       this.topBanner = topBigBannerData.data
-      if (this.leftSideResult.EssayEntity.length <= 2) {
-        this.adverTop = (this.leftSideResult.EssayEntity.length + 1) * 696 - 88
-      } else {
-        //null代表的意思是容器不需要增加高度
-        this.adverTop = null
-      }
+      // if (this.leftSideResult.EssayEntity.length <= 2) {
+      //   this.adverTop = (this.leftSideResult.EssayEntity.length + 1) * 696 - 88
+      // } else {
+      //   //null代表的意思是容器不需要增加高度
+      //   this.adverTop = null
+      // }
       this.leftSideResult.EssayEntity.forEach((element, index) => {
         // 自添加的4个属性
         this.$set(element, 'upSrc', '')
@@ -1051,6 +1052,7 @@ body {
   border-radius: 50%;
   opacity: 0.7;
   width: 25px;
+  height: 25px;
 }
 .car_video .todayFooter .todayDivider {
   margin-left: 20px;

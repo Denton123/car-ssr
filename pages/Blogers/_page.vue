@@ -2,7 +2,7 @@
   <div>
     <Header></Header>
     <div class="header-img-wrap">
-      <img src="~assets/picture/bloger_header.png" style="width:100%"
+      <img src="~assets/picture/bloger_header.png" alt="尖锋咖" style="width:100%"
       >
     </div>
     <div class="blogers-contain">
@@ -26,10 +26,10 @@
               <nuxt-link :to="`/Bloger/${item.authorId}/1`"
                 style="color: black">
                   <span class="user_wrap" v-if="item.authorPhoto !== ''&& item.authorPhoto !== null"><img :src="concatImage(item.authorPhoto)"
-                      :alt="`尖峰咖_${item.authorName}`"
+                      :alt="item.authorName"
                       ></span>
                   <span class="user_wrap" v-else>
-                    <img src="~static/picture/person_default.png" :alt="`尖峰咖_${item.authorName}`">
+                    <img src="~static/picture/person_default.png" :alt="item.authorName">
                   </span>
                   <strong><span class="authorName">{{item.authorName}}</span></strong>
               </nuxt-link>
@@ -63,7 +63,7 @@
               <nuxt-link :to="`/${item.arr}/${item.arr!== 'hobbies'?'detail':'hobbiesDetail'}/${item.id}/1`">
                 <span>
                   <img :src="concatImage(item.cover)"
-                       :alt="`尖峰咖_${item.title}`"
+                       :alt="item.title"
                   >
                 </span>
               </nuxt-link>
@@ -87,12 +87,12 @@
                 >
                   <span class="right-bottom-wrap" v-if="item.authorPhoto !== ''&& item.authorPhoto !== null">
                     <img :src="concatImage(item.authorPhoto)"
-                         :alt="`尖峰咖_${item.authorName}`"
+                         :alt="item.authorName"
                     >
                     <span>{{item.authorName}}</span>
                   </span>
                   <span class="right-bottom-wrap" v-else>
-                    <img class="detail-container-left-img" src="~static/picture/icon_head.png" :alt="`尖峰咖_${item.authorName}`">
+                    <img class="detail-container-left-img" src="~static/picture/icon_head.png" :alt="item.authorName">
                     <span>{{item.authorName}}</span>
                   </span>
                 </nuxt-link>

@@ -489,10 +489,10 @@ export default {
         let data = await $get(webEssayGetessayBycarnews, { channel });
         if (Array.isArray(data.data)) {
           let list = data.data;
-          if (list.length <= 10) {
+          if (list.length <= 7) {
             result = list;
           } else {
-            result = list.slice(0, 11);
+            result = list.slice(0, 7);
           }
         }
       } catch (err) {

@@ -35,7 +35,7 @@
                   v-if="imgLoadStatus == 'false' && index == imgLossIndex  ">
                   <nuxt-link :to="`/rank/detail/${item.essayId}/1`">
                     <img src="~static/common/default.png"
-                      alt="尖峰咖"
+                      alt="尖锋咖"
                       width="160px">
                   </nuxt-link>
                 </div>
@@ -67,6 +67,7 @@
                   <div class="messageBox">
                     <nuxt-link :to="`/Bloger/${item.authorId}/1`">
                       <img :src="piectProfileUrl(item)"
+                        :alt="item.NAME || item.name"
                         class="userIcon"></nuxt-link>
                     <nuxt-link :to="`/Bloger/${item.authorId}/1`">
                       <span class="userName">{{item.NAME || item.name}}</span></nuxt-link>
@@ -413,7 +414,7 @@ export default {
         }
       ]
       if (vm.model[0] == '/index') {
-        vm.crumbsData.shift()
+        vm.crumbsData.splice(1, 1)
       }
       if (vm.model[0] == '/search') {
         vm.crumbsData.splice(1, 1)
