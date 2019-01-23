@@ -30,6 +30,34 @@ import IndexContainer from "components/index/layout/IndexContainer";
 
 export default {
   name: "Index",
+   head(){
+    return {
+      title: `尖峰咖`,
+      // 设置 meta
+      meta: [
+        {
+          hid: 'keyWords',
+          name: 'keyWords',
+          content: '首页,尖锋,尖锋咖,尖锋汽车网,尖锋汽车咨询,尖锋今日车闻,尖锋新能源,尖锋视频,尖锋兴趣部落,jfcar'
+        },
+        {
+          hid: 'description',
+          name: 'description',
+          content: '尖锋咖为您提供最新汽车咨询，汽车图片，最精彩的汽车新闻、行情、评测、导购内容，是提供信息最独特的中国尖锋汽车网站。'
+        },
+        {
+          hid: 'applicable-device',
+          name: 'applicable-device',
+          content: 'pc'
+        },
+        {
+          hid: 'mobile-agent',
+          name: 'mobile-agent',
+          content: `format=html5;url=http://m.jfcar.com.cn`
+        }
+      ],
+    }
+  },
   components: {
     "index-container": IndexContainer
   },

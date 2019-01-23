@@ -384,6 +384,34 @@ import {
 
 export default {
   name: 'ev',
+    head(){
+    return {
+      title: `新能源_${this.currentPage}页-尖峰咖`,
+            // 设置 meta
+      meta: [
+        {
+          hid: 'keyWords',
+          name: 'keyWords',
+          content: '新能源,新能源车,新能源电动车,新能源车价格,新能源车补贴,尖锋咖'
+        },
+        {
+          hid: 'description',
+          name: 'description',
+          content: '尖锋咖新能源为您提供新能源汽车价格，新能源车类型，新能源汽车补贴政策，新能源车有哪些，新能源电动车，增程式电动车，插电式油电混合动力车，双燃料车等信息，更多新能源汽车信息尽在尖锋咖'
+        },
+        {
+          hid: 'applicable-device',
+          name: 'applicable-device',
+          content: 'pc'
+        },
+        {
+          hid: 'mobile-agent',
+          name: 'mobile-agent',
+          content: `format=html5;url=http://m.jfcar.com.cn`
+        }
+      ],
+    }
+  },
   data: function() {
     return {
       currentPage: 1,
@@ -673,11 +701,13 @@ export default {
       }
     }
   },
-
+  created(){
+    this.currentPage = this.$route.params.page
+  },
   mounted() {
     this.path = this.$route.path.match(/^\/[a-z]+/gi)
     this.model = this.$route.fullPath.match(/^\/[a-z]+/gi)
-    this.currentPage = this.$route.params.page
+    // this.currentPage = this.$route.params.page
     this.$nextTick(async () => {
       // 取cookie
       this.cookie = this.getCookie('token')
@@ -693,63 +723,9 @@ export default {
   watch: {
     currentPage: {
       async handler(newPage, oldPage) {
-        // 取cookie
-        this.cookie = this.getCookie('token')
-        if (this.cookie == '') {
-          this.tokenObj = JSON.parse(localStorage.getItem('userMsg')) &&  JSON.parse(localStorage.getItem('userMsg'))!='' ? JSON.parse(localStorage.getItem('userMsg')):'null'
-        }
-        if (this.tokenObj == null) {
-          this.tokenObj = {}
-        }
-        let obj = {
-          'X-Auth0-Token': this.cookie != '' ? this.cookie : this.tokenObj.token
-        }
         this.$router.push({
           path: `${this.model}/${newPage}`
         })
-        let leftSideResult = await $get(
-          webEssayGetEssayByChannel,
-          {
-            channel: '4',
-            pageNo: newPage,
-            size: 6
-          },
-          obj
-        )
-        // 判断是否为空
-        let leftResult = leftSideResult.data == null ? [] : leftSideResult.data
-        this.leftSideResult = leftResult
-        this.leftSideResult.EssayEntity.forEach(element => {
-          // 自添加的4个属性
-          this.$set(element, 'upSrc', '')
-          this.$set(element, 'downSrc', '')
-          this.$set(element, 'showPercent', '')
-          this.$set(element, 'goodAddClass', 'false')
-          // 以下方法不起效
-          // element = Object.assign({}, element, {
-          //   upSrc: '',
-          //   downSrc: '',
-          //   showPercent: '',
-          //   goodAddClass: ''
-          // })
-          if (element.click == 'click') {
-            element.upSrc = '~static/images/201.png'
-            element.downSrc = '~static/images/21.png'
-            element.showPercent = true
-          } else {
-            element.upSrc = '~static/images/202.png'
-            element.downSrc = '~static/images/211.png'
-            element.showPercent = false
-          }
-        })
-        // 将文章数据切割成两块来展示，为了中间插入广告位
-        if (this.leftSideResult.EssayEntity.length >= 2) {
-          this.firstHalfData = this.leftSideResult.EssayEntity.slice(0, 2)
-          this.secondHalfData = this.leftSideResult.EssayEntity.slice(2)
-        } else {
-          this.firstHalfData = this.leftSideResult.EssayEntity
-          this.secondHalfData = []
-        }
       }
     }
   }

@@ -141,6 +141,11 @@ import Utils from '@/utils/until'
 
 export default {
   name: 'Blogers',
+  head(){
+    return{
+      title:`热门博主_${this.currentPage}页-尖锋咖`
+    }
+  },
   data() {
     return {
       currentPage: 1,
@@ -216,10 +221,13 @@ export default {
       bloggerLists: bloggerLists.data ? bloggerLists.data : [],
     }
   },
+  created(){
+    this.currentPage = this.$route.params.page
+  },
   mounted() {
     // 取token
     this.routePage = this.$route.params.page
-    this.currentPage = this.$route.params.page
+    // this.currentPage = this.$route.params.page
     if (
       localStorage.getItem('userMsg') !== '' &&
       localStorage.getItem('userMsg') !== null

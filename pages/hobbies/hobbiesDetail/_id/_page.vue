@@ -513,6 +513,11 @@ export default {
     Emotion,
     Pagination
   },
+  head(){
+    return {
+      title: `详情_兴趣部落-尖锋咖`,
+    }
+  },
   data() {
     return {
       // 面包屑
