@@ -1431,8 +1431,10 @@ export default {
           })
     }
   },
-  mounted() {
+  created(){
     this.handleData()
+  },
+  mounted() {
     this.$nextTick(async() => {
     this.cookie = this.getCookie('token')
     if (this.cookie == '') {

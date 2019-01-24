@@ -1366,8 +1366,6 @@ export default {
       // } else {
       //   this.isFollow = '关注'
       // }
-      console.log(this.essayData,'==================<<<<1111111111111')
-
       switch (this.essayData.classOneName) {
         case '今日车闻':
           this.titleModel = 'news'
@@ -1472,10 +1470,10 @@ export default {
   //     }
   //   })
   // },
-  mounted() {
-    console.log('---------------------------dd-',this.essayData)
-    console.log(this.brandDetail.url, 'detail======================')
+  created(){
     this.handleData()
+  },
+  mounted() {
     this.cookie = this.getCookie('token')
     if (this.cookie == '') {
       this.tokenObj =localStorage.getItem('userMsg') &&
