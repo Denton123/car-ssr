@@ -648,61 +648,41 @@ export default {
         bChannel: 4,
         linktype: 'first'
       })
-      // let leftSideResult = await $get(
-      //   webEssayGetEssayByChannel,
-      //   {
-      //     channel: 4,
-      //     pageNo: this.currentPage,
-      //     size: 6
-      //   },
-      //   obj
-      // )
-
-      // 判断是否为空
-      // let leftResult = leftSideResult.data == null ? [] : leftSideResult.data
-      // let tab = tabResult.data == null ? [] : tabResult.data
       let topBigBannerData = topBigBanner == null ? [] : topBigBanner
       // this.tabData = tab
       // this.leftSideResult = leftResult
       this.topBanner = topBigBannerData.data
-      this.leftSideResult.EssayEntity.forEach((element, index) => {
-        // 自添加的4个属性
-        this.$set(element, 'upSrc', '')
-        this.$set(element, 'downSrc', '')
-        this.$set(element, 'showPercent', '')
-        this.$set(element, 'goodAddClass', 'false')
-        // 以下方法不起效
-        // element = Object.assign({}, element, {
-        //   upSrc: '',
-        //   downSrc: '',
-        //   showPercent: '',
-        //   goodAddClass: ''
-        // })
-        if (index == 0) {
-          this.metaDesc = element.digest
-        }
-        if (element.click == 'click') {
-          element.upSrc = '~static/images/201.png'
-          element.downSrc = '~static/images/21.png'
-          element.showPercent = true
-        } else {
-          element.upSrc = '~static/images/202.png'
-          element.downSrc = '~static/images/211.png'
-          element.showPercent = false
-        }
-      })
-      // 将文章数据切割成两块来展示，为了中间插入广告位
-      if (this.leftSideResult.EssayEntity.length >= 2) {
-        this.firstHalfData = this.leftSideResult.EssayEntity.slice(0, 2)
-        this.secondHalfData = this.leftSideResult.EssayEntity.slice(2)
-      } else {
-        this.firstHalfData = this.leftSideResult.EssayEntity
-        this.secondHalfData = []
-      }
     }
   },
   created(){
-    this.currentPage = this.$route.params.page
+      this.currentPage = this.$route.params.page
+      this.leftSideResult.EssayEntity.forEach((element, index) => {
+      // 自添加的4个属性
+      this.$set(element, 'upSrc', '')
+      this.$set(element, 'downSrc', '')
+      this.$set(element, 'showPercent', '')
+      this.$set(element, 'goodAddClass', 'false')
+      if (index == 0) {
+        this.metaDesc = element.digest
+      }
+      if (element.click == 'click') {
+        element.upSrc = '~static/images/201.png'
+        element.downSrc = '~static/images/21.png'
+        element.showPercent = true
+      } else {
+        element.upSrc = '~static/images/202.png'
+        element.downSrc = '~static/images/211.png'
+        element.showPercent = false
+      }
+    })
+    // 将文章数据切割成两块来展示，为了中间插入广告位
+    if (this.leftSideResult.EssayEntity.length >= 2) {
+      this.firstHalfData = this.leftSideResult.EssayEntity.slice(0, 2)
+      this.secondHalfData = this.leftSideResult.EssayEntity.slice(2)
+    } else {
+      this.firstHalfData = this.leftSideResult.EssayEntity
+      this.secondHalfData = []
+    }
   },
   mounted() {
     this.path = this.$route.path.match(/^\/[a-z]+/gi)

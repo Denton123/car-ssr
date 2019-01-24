@@ -438,7 +438,7 @@
               <li v-for="(random, index) in randomData"
                 :key="index">
                 <nuxt-link :to="`/${random.className}/${random.className !== 'hobbies' ? 'detail' : 'hobbiesDetail'}/${random.id}/1`"
-                  @click.native="flushCom(random.id)">
+                  >
                   <span v-if="random.cover!==''">
                     <img :src="formatPic(random.cover)" :alt="random.title">
                   </span>
@@ -1313,9 +1313,6 @@ export default {
         }
       })
     },
-    flushCom() {
-      this.$router.go(0)
-    },
     handleData () {
       // 判断是否可以关注
       // if (this.userCode !== 2) {
@@ -1431,8 +1428,10 @@ export default {
           })
     }
   },
-  mounted() {
+  created(){
     this.handleData()
+  },
+  mounted() {
     this.$nextTick(async() => {
     this.cookie = this.getCookie('token')
     if (this.cookie == '') {
