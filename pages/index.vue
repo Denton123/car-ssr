@@ -32,7 +32,7 @@ export default {
   name: "Index",
    head(){
     return {
-      title: `尖峰咖`,
+      title: `尖锋咖`,
       // 设置 meta
       meta: [
         {

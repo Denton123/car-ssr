@@ -281,7 +281,7 @@ export default {
   // 兴趣部落,尖锋汽车部落,尖锋汽车俱乐部,尖锋社区,尖锋互动中心
    head(){
     return {
-      title: `兴趣部落_${this.currentPage}页-尖峰咖`,
+      title: `兴趣部落_${this.currentPage}页-尖锋咖`,
             // 设置 meta
       meta: [
         {

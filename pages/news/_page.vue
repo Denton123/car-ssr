@@ -68,7 +68,7 @@
                         </strong>
                       </p>
                     </nuxt-link>
-                    <span class="detail">{{item.digest}}</span>
+                    <p class="detail">{{item.digest}}</p>
                   </div>
                 </el-main>
                 <el-footer class="todayFooter">
@@ -152,7 +152,7 @@
                 </p>
               </a>
               <!-- <span class="detail">{{adverMessage}}</span> -->
-              <span class="detail">新RDX有着强烈的个性和独特的产品力，就像一位棱角分明的青年，符合讴歌坚持自我的“异行者”的品牌定位。新RDX能否肩负起复兴讴歌品牌的重任，让我们拭目以待</span>
+              <p class="detail">新RDX有着强烈的个性和独特的产品力，就像一位棱角分明的青年，符合讴歌坚持自我的“异行者”的品牌定位。新RDX能否肩负起复兴讴歌品牌的重任，让我们拭目以待</p>
             </div>
           </div>
           <!-- 切割出来的第二单位 -->
@@ -195,7 +195,7 @@
                         </strong>
                       </p>
                     </nuxt-link>
-                    <span class="detail">{{item.digest}}</span>
+                    <p class="detail">{{item.digest}}</p>
                   </div>
                 </el-main>
                 <el-footer class="todayFooter">
@@ -388,7 +388,7 @@ export default {
   name: 'News',
   head(){
     return {
-      title: `今日车闻_${this.currentPage}页-尖峰咖`,
+      title: `今日车闻_${this.currentPage}页-尖锋咖`,
             // 设置 meta
       meta: [
         {

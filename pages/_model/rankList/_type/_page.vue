@@ -7,7 +7,7 @@
           :class="index == (crumbsData.length-1)?'active':''"
           v-for="(item,index) in crumbsData"
           :key="index">
-          <nuxt-link :to="item.link">{{item.pathName}}</nuxt-link>
+          <nuxt-link :to="`${item.link}`">{{item.pathName}}</nuxt-link>
           <i class="crumbsIcon"
             :class="index == (crumbsData.length-2) ? 'crumbsRedIcon' :''"
             v-if="index != (crumbsData.length-1)">
@@ -62,7 +62,7 @@
                   <div></div>
                   <div></div>
                 </div>
-                <span class="detail">{{item.digest}}</span>
+                <p class="detail">{{item.digest}}</p>
                 <div class="footerBox">
                   <div class="messageBox">
                     <nuxt-link :to="`/Bloger/${item.authorId}/1`">
@@ -157,7 +157,7 @@ export default {
     return {
       title: `${this.modelName}-${this.typeParamsName}_${
         this.currentPage
-      }页-尖峰咖`,
+      }页-尖锋咖`,
       // 设置 meta
       // meta: [
       //   {
