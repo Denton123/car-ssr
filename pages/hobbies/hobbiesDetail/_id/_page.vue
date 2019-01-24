@@ -930,7 +930,7 @@ export default {
     },
     // 获取兴趣部落文章数据
     async getArticleData() {
-      this.tokenObj = JSON.parse(localStorage.getItem('userMsg')) && JSON.parse(localStorage.getItem('userMsg')) !='' ? JSON.parse(localStorage.getItem('userMsg')):''
+       this.tokenObj = localStorage.getItem('userMsg') ?  JSON.parse(localStorage.getItem('userMsg')) : {}
       if (this.tokenObj == null) {
         this.tokenObj = {}
       }
@@ -1435,7 +1435,7 @@ export default {
     this.$nextTick(async() => {
     this.cookie = this.getCookie('token')
     if (this.cookie == '') {
-      this.tokenObj = JSON.parse(localStorage.getItem('userMsg')) && JSON.parse(localStorage.getItem('userMsg')) !='' ? JSON.parse(localStorage.getItem('userMsg')):''
+       this.tokenObj = localStorage.getItem('userMsg') ?  JSON.parse(localStorage.getItem('userMsg')) : {}
     }
     if (this.tokenObj == null) {
       this.tokenObj = {}
