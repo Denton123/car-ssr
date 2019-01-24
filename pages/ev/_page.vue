@@ -694,7 +694,7 @@ export default {
       // 取cookie
       this.cookie = this.getCookie('token')
       if (this.cookie == '') {
-        this.tokenObj =  JSON.parse(localStorage.getItem('userMsg')) &&  JSON.parse(localStorage.getItem('userMsg'))!='' ? JSON.parse(localStorage.getItem('userMsg')):'null'
+       this.tokenObj = localStorage.getItem('userMsg') ?  JSON.parse(localStorage.getItem('userMsg')) : {}
       }
       if (this.tokenObj == null) {
         this.tokenObj = {}
