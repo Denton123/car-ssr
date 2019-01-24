@@ -19,7 +19,8 @@ console.log('-------------')
 // let commonFileUrl = process.env.commonFileUrl
 let commonUrl = 'http://165.qiweioa.cn/image/'
 let commonFileUrl ='http://165.qiweioa.cn/'
-
+// let commonUrl = 'http://www.jfcar.com.cn/image/'
+// let commonFileUrl ='http://www.jfcar.com.cn/'
 
 //  * 12.28新增线上服务器ip
 //  */
