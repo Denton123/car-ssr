@@ -114,6 +114,8 @@ export default {
   },
   methods: {
     login(formName) {
+                        console.log('1133331',formName)
+                  console.log('22233333',formName)
       clearTimeout(this.fnc)
       let that = this
       this.fnc = setTimeout(function() {
@@ -153,6 +155,10 @@ export default {
                   ...res.data.des
                 })               
                 localStorage.setItem('userMsg', msg)
+                  console.log('11111111111',that.loginObj.checked)
+                  console.log('22222222222',msg)
+                  console.log('1111111222222',localStorage.getItem('userMsg'))
+
                 let temp =sessionStorage.getItem('login_from') && sessionStorage.getItem('login_from') != '' ? sessionStorage.getItem('login_from') : ''
                 if(temp) {
                   temp = JSON.parse(temp)
@@ -165,7 +171,7 @@ export default {
                   that.$router.push({ name: 'index' })
                 }          
               } else {
-               
+                                 console.log('3333333333333333')
                 // 不记住登陆状态， 只保存token 1个小时
                 this.setCookie('token', res.data.des.token, 1 / 24)
                 this.setCookie('userId', res.data.des.userId, 1 / 24)              
