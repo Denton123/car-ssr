@@ -669,41 +669,20 @@ export default {
         bChannel: 5,
         linktype: 'first'
       })
-      // let leftSideResult = await $get(
-      //   webEssayGetEssayByChannel,
-      //   {
-      //     channel: '5',
-      //     pageNo: this.$route.params.page,
-      //     size: 6
-      //   },
-      //   obj
-      // )
-      // 判断是否为空
-      // let leftResult = leftSideResult.data == null ? [] : leftSideResult.data
-      // let tab = tabResult.data == null ? [] : tabResult.data
       let topBigBannerData = topBigBanner == null ? [] : topBigBanner
       // this.tabData = tab
       // this.leftSideResult = leftResult
       this.topBanner = topBigBannerData.data
-      // if (this.leftSideResult.EssayEntity.length <= 2) {
-      //   this.adverTop = (this.leftSideResult.EssayEntity.length + 1) * 696 - 88
-      // } else {
-      //   //null代表的意思是容器不需要增加高度
-      //   this.adverTop = null
-      // }
-      this.leftSideResult.EssayEntity.forEach((element, index) => {
+    }
+  },
+  created(){
+        this.currentPage = this.$route.params.page
+        this.leftSideResult.EssayEntity.forEach((element, index) => {
         // 自添加的4个属性
         this.$set(element, 'upSrc', '')
         this.$set(element, 'downSrc', '')
         this.$set(element, 'showPercent', '')
         this.$set(element, 'goodAddClass', 'false')
-        // 以下方法不起效
-        // element = Object.assign({}, element, {
-        //   upSrc: '',
-        //   downSrc: '',
-        //   showPercent: '',
-        //   goodAddClass: ''
-        // })
         if (index == 0) {
           this.metaDesc = element.digest
         }
@@ -725,10 +704,6 @@ export default {
         this.firstHalfData = this.leftSideResult.EssayEntity
         this.secondHalfData = []
       }
-    }
-  },
-  created(){
-    this.currentPage = this.$route.params.page
   },
   mounted() {
     this.path = this.$route.path.match(/^\/[a-z]+/gi)

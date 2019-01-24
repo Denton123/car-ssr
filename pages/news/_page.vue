@@ -647,8 +647,8 @@ export default {
       this.imgFeatureLoadStatus = true
     },
     async getTotalData() {
-      // 触发广告位方法
       this.getAdvertise('imgBox', '5993934', 'adverImgBox', '5994002')
+      // 触发广告位方法
       if (this.tokenObj == null) {
         this.tokenObj = {}
       }
@@ -678,7 +678,11 @@ export default {
       // this.tabData = tab
       // this.leftSideResult = leftResult
       this.topBanner = topBigBannerData.data
-      this.leftSideResult.EssayEntity.forEach((element, index) => {
+    }
+  },
+  created(){
+        this.currentPage = this.$route.params.page
+        this.leftSideResult.EssayEntity.forEach((element, index) => {
         // 自添加的4个属性
         this.$set(element, 'upSrc', '')
         this.$set(element, 'downSrc', '')
@@ -705,10 +709,6 @@ export default {
         this.firstHalfData = this.leftSideResult.EssayEntity
         this.secondHalfData = []
       }
-    }
-  },
-  created(){
-    this.currentPage = this.$route.params.page
   },
   mounted() {
     // this.bannerResult.forEach((element, index) => {
