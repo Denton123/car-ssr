@@ -1,7 +1,5 @@
 import axios from 'axios'
 
-console.log(process.env.NODE_ENV)
-console.log('ssssssssssssssssssss')
 
 // let baseDomain
 // if (process.env.NODE_ENV === 'development') {
@@ -19,7 +17,7 @@ export const instance = axios.create({
   // baseURL: 'http://10.10.3.147:8080/',
   // baseURL: 'http://10.10.0.184:8080/',
   // baseURL: 'http://172.20.13.180:8080/',
-  // baseURL: 'http://10.10.0.184:8080/',
+  // baseURL: 'http://10.10.0.111:8080/',
   // baseURL: 'http://www.jfcar.com.cn/api/',
   baseURL: 'http://165.qiweioa.cn/api/',
   timeout: 60000
