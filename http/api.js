@@ -51,7 +51,8 @@ export const webUserSelectByPrimaryKey = '/web/user/selectByPrimaryKey' //   根
 export const webUserUpdate = '/web/user/update' //   修改前端用户信息
 export const webUserUpdatePhone = '/web/user/updatePhone' //   更新用户手机号码
 export const webUserAthourInfo = '/web/essay/getAuthorPersonal' //    根据文章id获取个人信息
-
+export const webUserGetFans = '/web/user/fans' //  获取我的粉丝列表
+export const webUserGetFollow = '/web/user/follow' //  获取我的关注列表
 //   web前端登录
 export const webAccountLogin = '/web/accountLogin' //   账号登录
 export const webNoteLogin = '/web/noteLogin' //   短信登录

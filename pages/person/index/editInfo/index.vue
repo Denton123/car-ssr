@@ -43,7 +43,7 @@
             </el-form-item>
             <el-button type="primary"
               @click="handlePhoneChange(editForm.verificationCode, editForm.phone)">保存</el-button>
-            <el-button class="phoneCancel">取消</el-button>
+            <el-button class="phoneCancel" @click="phoneCancle">取消</el-button>
           </div>
 
         </div>
@@ -392,6 +392,10 @@ export default {
       // this.editForm.phone = ''
       this.editForm.verificationCode = ''
       this.isShowPhone = true
+    },
+    // 取消更换手机
+    phoneCancle() {
+      this.isShowPhone = false
     },
     // 发送手机验证码
     sendVerify() {
