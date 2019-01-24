@@ -1,7 +1,5 @@
 import axios from 'axios'
 
-console.log(process.env.NODE_ENV)
-console.log('ssssssssssssssssssss')
 
 // let baseDomain
 // if (process.env.NODE_ENV === 'development') {
