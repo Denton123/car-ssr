@@ -363,6 +363,7 @@
 import systemManage from '@/http/url'
 import firstFeature from '@/components/firstFeature.vue'
 import secondFeature from '@/components/secondFeature.vue'
+import Utils from '@/utils/until'
 
 // 修改
 // import todayRankTab from './components/todayRankTab.vue'
@@ -453,7 +454,8 @@ export default {
     BigCoursel
   },
   // nuxt异步获取数据
-  async asyncData ({params}) {
+  async asyncData ({params,req}) {
+    let token = Utils.b_getToken(req)
     let bannerTopicData
     let bannerMessageData
     // 标签tag
@@ -464,6 +466,9 @@ export default {
           channel: '2',
           pageNo: params.page,
           size: 6
+        },
+        {
+          'X-Auth0-Token': token
         }
       )
     // 周排行

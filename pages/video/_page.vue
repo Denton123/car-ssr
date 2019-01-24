@@ -393,6 +393,8 @@ import Header from '@/components/Header.vue'
 import Footer from '@/components/Footer.vue'
 import BigCoursel from '@/components/BigCoursel.vue'
 import { $get } from '@/http/ajax.js'
+import Utils from '@/utils/until'
+
 
 import {
   webTagGetRandomTagsByChannel,
@@ -471,7 +473,8 @@ export default {
     Footer,
     BigCoursel
   },
-  async asyncData({params}) {
+  async asyncData({params,req}) {
+    let token = Utils.b_getToken(req)
     let bannerTopicData
     let bannerMessageData
     // 标签tag
@@ -482,6 +485,9 @@ export default {
           channel: '5',
           pageNo: params.page,
           size: 6
+        },
+        {
+          'X-Auth0-Token': token
         }
       )
      // 周排行

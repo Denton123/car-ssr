@@ -360,6 +360,7 @@
 <script>
 import systemManage from '@/http/url'
 import firstFeature from '@/components/firstFeature.vue'
+import Utils from '@/utils/until'
 import secondFeature from '@/components/secondFeature.vue'
 // 修改
 // import todayRankTab from './components/todayRankTab.vue'
@@ -448,7 +449,8 @@ export default {
     Footer,
     BigCoursel
   },
-  async asyncData ({params}) {
+  async asyncData ({params,req}) {
+    let token = Utils.b_getToken(req)
     let bannerTopicData
     let bannerMessageData
     let tabData = await $get(webTagGetRandomTagsByChannel, { id: '2' })
@@ -460,7 +462,7 @@ export default {
           size: 6
         },
         {
-          'X-Auth0-Token': null
+          'X-Auth0-Token': token          
         }
       )
     // 周排行
