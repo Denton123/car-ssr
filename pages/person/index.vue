@@ -58,6 +58,14 @@
                     name="person-index-myIntergral">
                     <my-intergral></my-intergral>
                   </el-tab-pane>
+                  <el-tab-pane label="我的粉丝"
+                    name="person-index-myFans">
+                    <my-fans></my-fans>
+                  </el-tab-pane>
+                  <el-tab-pane label="我的关注"
+                    name="person-index-myFollower">
+                    <my-follower></my-follower>
+                  </el-tab-pane>
                   <el-tab-pane label="个人信息"
                     name="person-index-editInfo">
                     <person-info></person-info>
@@ -91,6 +99,8 @@ import myEssay from '@/pages/person/index/myEssay/_page.vue'
 import personInfo from '@/pages/person/index/editInfo/index.vue'
 import resetPassword from '@/pages/person/index/resetPassword/index.vue'
 import myIntergral from '@/pages/person/index/myIntergral/index'
+import myFollower from '@/pages/person/index/myFollower/_page.vue'
+import myFans from '@/pages/person/index/myFans/_page.vue'
 
 import { webUserSelectByPrimaryKey, webMyEssay} from '@/http/api'
 import { $get, $post } from '@/http/ajax'
@@ -231,6 +241,8 @@ export default {
     myEssay,
     personInfo,
     resetPassword,
+    myFollower,
+    myFans,
     'my-intergral': myIntergral
   }
 }

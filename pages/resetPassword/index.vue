@@ -131,7 +131,7 @@ export default {
       } else if (value.length < 6) {
         this.myPasswordFlag = false
         return callback(new Error('密码长度不小于6位'))
-      } else if (/[/.,\\!%()^,，_+=/`~~?:;‘’“”"]/g.test(value)) {
+      } else if (/[/.,\\!%()^,，_+=\/`~~?:;‘’“”"]/g.test(value)) {
         this.myPasswordFlag = false
         return callback(new Error('不能使用、/,等特殊符号'))
       } else if (/\s/g.test(value)) {

@@ -97,9 +97,7 @@ export default {
   },
   methods: {
     onSubmit(formName) {
-
       this.warnSameTip()
-
       this.$refs[formName].validate(valid => {
         if (valid && this.passwordFlag) {
           $get(webUserChangePassword, this.resetForm, {
@@ -175,6 +173,18 @@ export default {
         this.isShowTwiceError = false
         this.isShowNewError = true
         this.newError = '密码存在特殊字符'
+        this.passwordFlag = false
+      } else if (
+        /\s/im.test(this.resetForm.newPassword) ||
+        /\s/im.test(this.resetForm.repeatPassword)
+      ) {
+         this.$message({
+          type: 'warning',
+          message: '密码存在空格'
+        })
+        this.isShowTwiceError = false
+        this.isShowNewError = true
+        this.newError = '密码存在空格'
         this.passwordFlag = false
       } else {
         this.passwordFlag = true
@@ -273,7 +283,7 @@ export default {
 .resetPassword .tangleColor {
   margin-right: 2px;
 }
-.resetPassword .tangleColor.higher:last-child {
+/* .resetPassword .tangleColor.higher:last-child {
   background: #66cc99;
 }
 .resetPassword .tangleColor.higher:nth-child(1) {
@@ -297,6 +307,30 @@ export default {
 .tangleColor.less:last-child,
 .tangleColor.less:nth-child(1) {
   background: #ccc;
+} */
+.resetPassword .tangleColor.higher:nth-child(3) {
+  background: #66cc99;
+}
+.resetPassword .tangleColor.higher:nth-child(2) {
+  background: #6699cc;
+}
+.resetPassword .tangleColor.higher:first-child {
+  background: #66cccc;
+}
+.resetPassword .tangleColor.middle {
+  background: #6699cc;
+}
+.resetPassword .tangleColor.middle:nth-child(3) {
+  background: #ccc;
+}
+.resetPassword .tangleColor.middle:first-child {
+  background: #66cccc;
+}
+.resetPassword .tangleColor.less {
+  background: #ccc;
+}
+.resetPassword .tangleColor.less:first-child {
+  background: #66cccc;
 }
 .repeatPasswordItem {
   display: inline-block;
