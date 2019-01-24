@@ -165,7 +165,7 @@ export default {
   name: "tagList",
   head(){
     return {
-      title: `${this.tagObj.title}_${this.pageObj.currPage}页-尖峰咖`,
+      title: `${this.tagObj.title}_${this.pageObj.currPage}页-尖锋咖`,
             // 设置 meta
       meta: [
         {
@@ -674,10 +674,10 @@ export default {
             .img_wrapper {
               float: left;
               width: 380px;
-              height: 100%;
+              height: 280px;
               img {
                 width: 100%;
-                height: 100%;
+                height: 280px;
               }
             }
 

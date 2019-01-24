@@ -98,9 +98,9 @@
                 </nuxt-link>
                 <div class="right-bottom-line">
                   <img src="~static/picture/line_middle.png">
-                </div>
+                </div>  
                 <div class="right-bottom-label">
-                  <span>{{item.label}}</span>
+                  <span>{{(item.label == '今日车闻' || item.label == '新能源' || item.label == '视频' || item.label == '兴趣部落') ? item.label :'兴趣部落'}}</span>
                 </div>
                 <div style="float:right;margin-right:20px;display:inline-block;
 ">
@@ -117,7 +117,7 @@
           :totalPage="totalPage"
           :totalCount="totalCount"
           :toTop={y:0}
-          :pageSize=18
+          :pageSize=6
           ref="pagination"></pagination>
       </div>
       <div id="blo-adv"
@@ -173,8 +173,6 @@ export default {
     pagination
   },
   created() {
-    console.log('sss', this.totalPage)
-    console.log('sss', this.totalCount)
       this.bloggerLists.userEntities.forEach(function(item) {
         if (item.label === '视频') {
           item.arr = 'video'
@@ -191,14 +189,14 @@ export default {
       // this.totalPage = this.bloggerLists.totalPageCount
       // this.totalCount = this.bloggerLists.totalBloggerCount
   },
-  async asyncData ({req}) {
+  async asyncData ({params,req}) {
     let token = Utils.b_getToken(req)
     let totalPage
     let totalCount
     let bloggerLists = await $get('/web/user/getBollgerRank?', 
       {
-        pageNo: 1,
-        size: 18
+        pageNo: params.page,
+        size: 6
       },
       {
         'X-Auth0-Token': token
@@ -284,12 +282,11 @@ export default {
         '/web/user/getBollgerRank?',
         {
           pageNo: page,
-          size: 18
+          size: 6
         },
         obj
       )
       this.bloggerLists = itemL.data
-
 
     },
 
@@ -322,7 +319,6 @@ export default {
       })
     },
     clickWatch(item, index) {
-      console.log(this.bloggerLists.login, 'login')
       if (this.userId !== item.authorId) {
         let button = document.getElementsByClassName('watch')[0]
         this.bloggerId = item.authorId
@@ -365,7 +361,7 @@ export default {
         path: `/blogers/${page}`
       })
       this.currentPage = page
-      this.getBlogersList(page)
+      // this.getBlogersList(page)
     }
   }
 }

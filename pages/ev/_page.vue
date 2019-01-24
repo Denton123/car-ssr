@@ -69,7 +69,7 @@
                         </strong>
                       </p>
                     </nuxt-link>
-                    <span class="detail">{{item.digest}}</span>
+                    <p class="detail">{{item.digest}}</p>
                   </div>
                 </el-main>
                 <el-footer class="todayFooter">
@@ -149,7 +149,7 @@
                   </strong>
                 </p>
               </a>
-              <span class="detail"></span>
+              <p class="detail"></p>
               <!-- <span class="detail">“Stay ahead”中文释义为“志在先端”，不仅意味着将在技术和产品上强化领先优势，更蕴含与消费者共同打造先端生活方式的寓意。通过开展Stay ahead品牌行动，东风本田不仅希望给新生代消费者带来科技、人性化的功能感受，更希望为他们带来个性、开创的情感魅力。</span> -->
             </div>
           </div>
@@ -194,7 +194,7 @@
                         </strong>
                       </p>
                     </nuxt-link>
-                    <span class="detail">{{item.digest}}</span>
+                    <p class="detail">{{item.digest}}</p>
                   </div>
                 </el-main>
                 <el-footer class="todayFooter">
@@ -386,7 +386,7 @@ export default {
   name: 'ev',
     head(){
     return {
-      title: `新能源_${this.currentPage}页-尖峰咖`,
+      title: `新能源_${this.currentPage}页-尖锋咖`,
             // 设置 meta
       meta: [
         {
