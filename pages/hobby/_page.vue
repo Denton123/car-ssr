@@ -396,8 +396,6 @@ export default {
   async asyncData({params, env, req}) {
     var userCookie = null
     if (req && req.headers && req.headers.cookie) {
-      console.log(req.header)
-      console.log(req.headers.cookie.split(';'), 'headers')
       let reqHeaders = req.headers.cookie.split(';')
       let tokenArr
       reqHeaders.forEach(v => {
@@ -408,7 +406,6 @@ export default {
         }
       })
     }
-    console.log(userCookie, 'userCookie')
     let mockHobbyItems
     let totalPage
     let totalCount
