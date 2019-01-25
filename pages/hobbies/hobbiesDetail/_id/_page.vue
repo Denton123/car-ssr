@@ -390,11 +390,9 @@
           <div class="detail_more_title">
             <img src="~static/detail/detail_article.png">
             <h2>热门作品</h2>
-            <a href="javascript:void(0);"
-              @click="getDataTopSix()"
-              class="detail_more_title_more">
+            <nuxt-link :to="`/Bloger/${essayData.userId}/1`" class="detail_more_title_more"> 
               更多
-            </a>
+            </nuxt-link>
           </div>
           <div class="detail_more_content">
             <ul>
