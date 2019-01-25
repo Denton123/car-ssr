@@ -42,7 +42,7 @@
       </div>
     </div>
      <div class="list_tip" v-else>
-      目前暂无关注数~
+       {{noNumberOfFollowers}}
     </div>
     <div class="pagination">
       <el-pagination v-if="listData&&listData.totalCount"
@@ -83,6 +83,7 @@
         fansPage: '',
         list: [],
         name: '',
+        noNumberOfFollowers: '目前暂无关注数~',
         defaultParams: {
           limit: 10,
           page: 1
@@ -137,6 +138,9 @@
         if (data.result) {
           this.list = data.page.list
           this.listData = data.page
+          if(name !== ''&&name !== undefined && this.list.length == 0){
+            this.noNumberOfFollowers = '目前暂无该关注~'
+          }
         }
         console.log(data)
       },
@@ -144,7 +148,6 @@
       onSearch(){
         console.log(this.name)
         this.fansList(this.name)
-        this.forceUpdate()
       },
       handleCurrentChange(val) {
         sessionStorage.setItem('personIndexPage', val)

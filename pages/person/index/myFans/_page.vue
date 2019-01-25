@@ -14,19 +14,19 @@
       :key="index">
         <div class="content_fans_left">
           <nuxt-link :to="`/Bloger/${item.id}/1`">
-          <div class="head_image"
+          <span class="head_image"
                v-if="item.photo !== ''">
             <img :src="formatPic(item.photo)" alt="">
-          </div>
-          <div class="head_image"
+          </span>
+          <span class="head_image"
                v-else>
             <img src="~static/person/person_default.png"
                  alt="">
-          </div>
+          </span>
           </nuxt-link>
           <div class="fans_info">
             <nuxt-link :to="`/Bloger/${item.id}/1`">
-            <p class="info_title">{{item.loginName}}</p>
+            <span class="info_title">{{item.loginName}}</span>
             </nuxt-link>
             <p class="info_detail">
               <span>粉丝 {{item.numberOfFans}}</span>
@@ -42,7 +42,7 @@
       </div>
     </div>
     <div class="list_tip" v-else>
-      目前暂无粉丝数~
+      {{noNumberOfFans}}
     </div>
     <div class="pagination">
       <el-pagination v-if="listData&&listData.totalCount"
@@ -57,13 +57,6 @@
                      :total="listData&&listData.totalCount">
       </el-pagination>
     </div>
-    <!--<pagination @pageChange="pageChange"-->
-                <!--:totalCount="listData.totalCount"-->
-                <!--v-show="list &&list.length"-->
-                <!--:pageSize="listData.pageSize"-->
-                <!--:totalPage="listData.totalPage"-->
-                <!--:routePage='listData.currPage'-->
-                <!--:toTop="{x: 0, y: 514}" />-->
   </div>
 </template>
 <script>
@@ -90,6 +83,7 @@ export default {
       fansPage: '',
       list: [],
       name: '',
+      noNumberOfFans: '目前暂无粉丝数~',
       defaultParams: {
         limit: 10,
         page: 1
@@ -144,6 +138,9 @@ export default {
       if (data.result) {
         this.list = data.page.list
         this.listData = data.page
+        if(name !== ''&&name !== undefined && this.list.length == 0){
+            this.noNumberOfFans = '目前暂无该粉丝~'
+        }
       }
       console.log(data)
        // this.fansData = _fanList.data.page
@@ -156,7 +153,6 @@ export default {
     onSearch(){
       console.log(this.name)
       this.fansList(this.name)
-      this.forceUpdate()
     },
     pageChange(page) {
       // console.log(page, 'page')
@@ -237,7 +233,7 @@ export default {
       return ''
     }
   },
-  mounted() {
+  async mounted() {
     this.cookie = this.getCookie('token')
     if (this.cookie == '') {
       this.tokenObj = localStorage.getItem('userMsg') && localStorage.getItem('userMsg') != '' ?  JSON.parse(localStorage.getItem('userMsg')) :{}
@@ -330,6 +326,7 @@ export default {
           width: 100px;
           height: 100px;
           border-radius: 100%;
+          display: inline-block;
           img{
             width: 100%;
             height: 100px;
