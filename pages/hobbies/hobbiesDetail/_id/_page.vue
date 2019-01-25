@@ -361,13 +361,13 @@
               <div class="detail_user_othermsg">
                 <ul>
                   <li>
-                    <a href="">
+                    <a href="javascript:void(0);">
                       <span>粉丝</span>
                       <span>{{userInfo.numberOfFans == null ? 0 : userInfo.numberOfFans}}</span>
                     </a>
                   </li>
                   <li>
-                    <a href="">
+                    <a href="javascript:void(0);">
                       <span>关注</span>
                       <span>{{userInfo.numberOfFollowers == null ? 0 : userInfo.numberOfFollowers}}</span>
                     </a>
