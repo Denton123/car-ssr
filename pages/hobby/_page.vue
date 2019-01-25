@@ -442,8 +442,6 @@ export default {
   },
   created(){
     this.currentPage = this.$route.params.page
-
-
   },
   mounted() {
     console.log(this.totalPage, 'totalPage')
@@ -451,7 +449,8 @@ export default {
       localStorage.getItem('userMsg') !== '' &&
       localStorage.getItem('userMsg') !== null
     ) {
-    this.tokenObj = localStorage.getItem('userMsg') ?  JSON.parse(localStorage.getItem('userMsg')).token : {}
+      this.tokenObj = JSON.parse(localStorage.getItem('userMsg')).token
+      console.log('localstroge', this.tokenObj)
     } else if (this.cookie !== '') {
       this.cookie = this.getCookie('token')
       this.tokenObj = this.cookie
@@ -462,8 +461,6 @@ export default {
     let obj = { 'X-Auth0-Token': this.tokenObj }
     this.curPage = this.$route.params.page
     this.routePage = this.$route.params.page
-                  console.log('555555555555555',localStorage.getItem('userMsg'))
-
     // this.currentPage = this.$route.params.page
     this.$nextTick(async() => {
       // 获取二级导航的数据——hobbies的分类，id
