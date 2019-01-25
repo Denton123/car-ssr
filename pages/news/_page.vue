@@ -380,7 +380,8 @@ import {
   webEssayClickEssay,
   webBannerList,
   webEssayGetWeekendRank,
-  webEssayGetMonthRank
+  webEssayGetMonthRank,
+  // webGetIp
 } from '@/http/api.js'
 
 import { setTimeout } from 'timers'
@@ -417,6 +418,7 @@ export default {
   },
   data: function() {
     return {
+      // webIp:"",
       currentPage: 1,
       flag: 0,
       adverTop: '',
@@ -458,6 +460,7 @@ export default {
     let token = Utils.b_getToken(req)
     let bannerTopicData
     let bannerMessageData
+    // let ip =  await $get(webGetIp)
     // 标签tag
     let tabData = await $get(webTagGetRandomTagsByChannel, { id: '2' })
     let leftSideResult = await $get(
@@ -502,7 +505,8 @@ export default {
       rankWeekLists: rankWeekLists.data.essayEntities ? rankWeekLists.data.essayEntities : [],
       rankMonthLists: rankMonthLists.data.essayEntities ? rankMonthLists.data.essayEntities : [],
       bannerTopicData: bannerTopicData == null ? [] : bannerTopicData,
-      bannerMessageData: bannerMessageData == null ? [] : bannerMessageData
+      bannerMessageData: bannerMessageData == null ? [] : bannerMessageData,
+      // webIp : ip
     }
   },
   methods: {
@@ -687,7 +691,69 @@ export default {
   },
   created(){
         this.currentPage = this.$route.params.page
-        this.leftSideResult.EssayEntity.forEach((element, index) => {
+      //   this.leftSideResult.EssayEntity.forEach((element, index) => {
+      //   // 自添加的4个属性
+      //   this.$set(element, 'upSrc', '')
+      //   this.$set(element, 'downSrc', '')
+      //   this.$set(element, 'showPercent', '')
+      //   this.$set(element, 'goodAddClass', 'false')
+      //   if (index == 0) {
+      //     this.metaDesc = element.digest
+      //   }
+      //   if (element.click == 'click') {
+      //     element.upSrc = '~static/images/201.png'
+      //     element.downSrc = '~static/images/21.png'
+      //     element.showPercent = true
+      //   } else {
+      //     element.upSrc = '~static/images/202.png'
+      //     element.downSrc = '~static/images/211.png'
+      //     element.showPercent = false
+      //   }
+      // })
+      // // 将文章数据切割成两块来展示，为了中间插入广告位
+      // if (this.leftSideResult.EssayEntity.length >= 2) {
+      //   this.firstHalfData = this.leftSideResult.EssayEntity.slice(0, 2)
+      //   this.secondHalfData = this.leftSideResult.EssayEntity.slice(2)
+      // } else {
+      //   this.firstHalfData = this.leftSideResult.EssayEntity
+      //   this.secondHalfData = []
+      // }
+  },
+  mounted() {
+    // console.log(this.webIp,'===================?webip')
+    // this.bannerResult.forEach((element, index) => {
+    //   if (index == 0) {
+    //     this.bannerMessageData = element
+    //   } else if (index == 1) {
+    //     this.bannerTopicData = element
+    //   }
+    // })
+    this.path = this.$route.path.match(/^\/[a-z]+/gi)
+    this.model = this.$route.fullPath.match(/^\/[a-z]+/gi)
+    // this.currentPage = this.$route.params.page
+    this.$nextTick(async () => {
+      // 取cookie
+      this.cookie = this.getCookie('token')
+      if (this.cookie == '') {
+        this.tokenObj = localStorage.getItem('userMsg') && JSON.parse(localStorage.getItem('userMsg')) != '' ?JSON.parse(localStorage.getItem('userMsg')) :'null'
+      }
+      if (this.tokenObj == null) {
+        this.tokenObj = {}
+      }
+      let obj = {
+        'X-Auth0-Token': this.cookie != '' ? this.cookie : this.tokenObj.token
+      }
+      let leftSideResult = await $get(
+        webEssayGetEssayByChannel,
+        {
+          channel: '2',
+          pageNo: this.currentPage,
+          size: 6
+        },
+        obj
+      )
+      this.leftSideResult = leftSideResult.data ? leftSideResult.data : []
+      this.leftSideResult.EssayEntity.forEach((element, index) => {
         // 自添加的4个属性
         this.$set(element, 'upSrc', '')
         this.$set(element, 'downSrc', '')
@@ -713,27 +779,6 @@ export default {
       } else {
         this.firstHalfData = this.leftSideResult.EssayEntity
         this.secondHalfData = []
-      }
-  },
-  mounted() {
-    // this.bannerResult.forEach((element, index) => {
-    //   if (index == 0) {
-    //     this.bannerMessageData = element
-    //   } else if (index == 1) {
-    //     this.bannerTopicData = element
-    //   }
-    // })
-    this.path = this.$route.path.match(/^\/[a-z]+/gi)
-    this.model = this.$route.fullPath.match(/^\/[a-z]+/gi)
-    // this.currentPage = this.$route.params.page
-    this.$nextTick(async () => {
-      // 取cookie
-      this.cookie = this.getCookie('token')
-      if (this.cookie == '') {
-        this.tokenObj = localStorage.getItem('userMsg') && JSON.parse(localStorage.getItem('userMsg')) != '' ?JSON.parse(localStorage.getItem('userMsg')) :'null'
-      }
-      if (this.tokenObj == null) {
-        this.tokenObj = {}
       }
       this.getTotalData()
       // let bannerResult = await $get(dsfFeatureGetRutureByChannel, {
