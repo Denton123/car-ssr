@@ -83,7 +83,7 @@ export default {
   },
   methods: {
     getArticle(page = 1) {
-      let tokenObj = localStorage.getItem('userMsg') && JSON.parse(localStorage.getItem('userMsg')) != ''? JSON.parse(localStorage.getItem('userMsg')):''
+      let tokenObj = localStorage.getItem('userMsg') && localStorage.getItem('userMsg') != ''? JSON.parse(localStorage.getItem('userMsg')):''
       if (tokenObj == null) {
         tokenObj = {}
       }

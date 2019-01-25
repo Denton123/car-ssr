@@ -529,7 +529,7 @@
             })
               .then(() => {
                 // let token = ''
-                // if (localStorage.getItem('userMsg')) {
+                // if (localStorage.getItem('userMsg')  && localStorage.getItem('userMsg') != '') {
                 //   token = JSON.parse(localStorage.getItem('userMsg')).token
                 // } else {
                 //   token = this.getCookie('token')
@@ -605,7 +605,7 @@
             })
               .then(() => {
                 // let token = ''
-                // if (localStorage.getItem('userMsg')) {
+                // if (localStorage.getItem('userMsg')  && localStorage.getItem('userMsg') != '') {
                 //   token = JSON.parse(localStorage.getItem('userMsg')).token
                 // } else {
                 //   token = this.getCookie('token')
@@ -681,13 +681,10 @@
     },
     mounted() {
       if (
-        localStorage.getItem('userMsg') !== '' &&
-        localStorage.getItem('userMsg') !== null
+        localStorage.getItem('userMsg') &&
+        localStorage.getItem('userMsg') != ''
       ) {
-        this.tokenObj = localStorage.getItem('userMsg') &&  JSON.parse(localStorage.getItem('userMsg')).token != ''
-          ? JSON.parse(localStorage.getItem('userMsg')).token
-          : null
-        console.log('localstroge', this.tokenObj)
+        this.tokenObj = JSON.parse(localStorage.getItem('userMsg')).token
       } else if (this.cookie !== '') {
         this.cookie = this.getCookie('token')
         this.tokenObj = this.cookie

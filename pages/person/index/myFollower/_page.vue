@@ -221,7 +221,7 @@
     mounted() {
       this.cookie = this.getCookie('token')
       if (this.cookie == '') {
-        this.tokenObj =localStorage.getItem('userMsg') && JSON.parse(localStorage.getItem('userMsg')) != '' ? JSON.parse(localStorage.getItem('userMsg')):{}
+        this.tokenObj =localStorage.getItem('userMsg') && localStorage.getItem('userMsg') != '' ? JSON.parse(localStorage.getItem('userMsg')):{}
       }
       if (this.tokenObj == null) {
         this.tokenObj = {}

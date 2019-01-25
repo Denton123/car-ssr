@@ -227,15 +227,15 @@ export default {
     this.routePage = this.$route.params.page
     // this.currentPage = this.$route.params.page
     if (
-      localStorage.getItem('userMsg') !== '' &&
-      localStorage.getItem('userMsg') !== null
+      localStorage.getItem('userMsg') &&
+      localStorage.getItem('userMsg') != ''
     ) {
-      this.tokenObj = localStorage.getItem('userMsg') ?  JSON.parse(localStorage.getItem('userMsg')) : {}
+      this.tokenObj =JSON.parse(localStorage.getItem('userMsg'))
     } else if (this.cookie !== '') {
       this.cookie = this.getCookie('token')
       this.tokenObj = this.cookie
     }
-    // if (localStorage.getItem('userMsg')) {
+    // if (localStorage.getItem('userMsg') &&  localStorage.getItem('userMsg') != '') {
     //   this.tokenObj = JSON.parse(localStorage.getItem('userMsg'))
     // }
     // 获取token

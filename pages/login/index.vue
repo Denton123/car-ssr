@@ -86,7 +86,7 @@ export default {
     },
   beforeMount() {
     let obj =localStorage.getItem('userMsg') &&
-      JSON.parse(localStorage.getItem('userMsg')) !== '' ? localStorage.getItem('userMsg') : ''
+     localStorage.getItem('userMsg') !== '' ? localStorage.getItem('userMsg') : ''
     let user = null
     if (obj) {
       user = JSON.parse(obj)

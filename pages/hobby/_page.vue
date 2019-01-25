@@ -446,8 +446,8 @@ export default {
   mounted() {
     console.log(this.totalPage, 'totalPage')
       if (
-      localStorage.getItem('userMsg') !== '' &&
-      localStorage.getItem('userMsg') !== null
+      localStorage.getItem('userMsg')&&
+      localStorage.getItem('userMsg') != ''
     ) {
       this.tokenObj = JSON.parse(localStorage.getItem('userMsg')).token
       console.log('localstroge', this.tokenObj)
@@ -787,11 +787,10 @@ export default {
         this.tokenObj = {}
       }
       if (
-        localStorage.getItem('userMsg') !== '' &&
-        localStorage.getItem('userMsg') !== null
+        localStorage.getItem('userMsg')&&
+        localStorage.getItem('userMsg') != ''
       ) {
-        this.tokenObj =localStorage.getItem('userMsg') &&
-      JSON.parse(localStorage.getItem('userMsg')).token !== '' ? JSON.parse(localStorage.getItem('userMsg')).token :''
+        this.tokenObj = JSON.parse(localStorage.getItem('userMsg')).token 
       } else if (this.cookie !== '') {
         this.cookie = this.getCookie('token')
         this.tokenObj = this.cookie
@@ -821,8 +820,8 @@ export default {
       })
       // console.log('ssefef')
       // if (
-      //   localStorage.getItem('userMsg') !== '' &&
-      //   localStorage.getItem('userMsg') !== null
+      //   localStorage.getItem('userMsg') &&
+      //   localStorage.getItem('userMsg') != ''
       // ) {
       //   this.$router.push({
       //     path: `/publishHobbies`

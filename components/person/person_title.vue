@@ -48,7 +48,7 @@ export default {
     },
     getUserInfo() {
       let cookie = this.getCookie('token')
-      let tokenObj = localStorage.getItem('userMsg') ?  JSON.parse(localStorage.getItem('userMsg')) : {}
+      let tokenObj = localStorage.getItem('userMsg') &&  localStorage.getItem('userMsg') != '' ?  JSON.parse(localStorage.getItem('userMsg')) : {}
       if (tokenObj == null) {
         tokenObj = {}
       }
