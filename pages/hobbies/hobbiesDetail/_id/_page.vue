@@ -1430,7 +1430,7 @@ export default {
     }
   },
   created(){
-    this.handleData()
+    // this.handleData()
   },
   mounted() {
     this.$nextTick(async() => {
@@ -1441,6 +1441,7 @@ export default {
     if (this.tokenObj == null) {
       this.tokenObj = {}
     }
+    this.handleData()
     this.currentPage = this.$route.params.page
     this.hobbiesid = `${this.$route.params.id}`
     // this.getArticleData()

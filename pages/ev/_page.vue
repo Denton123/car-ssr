@@ -699,6 +699,46 @@ export default {
       if (this.tokenObj == null) {
         this.tokenObj = {}
       }
+       let obj = {
+        'X-Auth0-Token': this.cookie != '' ? this.cookie : this.tokenObj.token
+      }
+      let leftSideResult = await $get(
+        webEssayGetEssayByChannel,
+        {
+          channel: '4',
+          pageNo: this.currentPage,
+          size: 6
+        },
+        obj
+      )
+      this.leftSideResult = leftSideResult.data ? leftSideResult.data : []
+      this.leftSideResult.EssayEntity.forEach((element, index) => {
+        // 自添加的4个属性
+        this.$set(element, 'upSrc', '')
+        this.$set(element, 'downSrc', '')
+        this.$set(element, 'showPercent', '')
+        this.$set(element, 'goodAddClass', 'false')
+        if (index == 0) {
+          this.metaDesc = element.digest
+        }
+        if (element.click == 'click') {
+          element.upSrc = '~static/images/201.png'
+          element.downSrc = '~static/images/21.png'
+          element.showPercent = true
+        } else {
+          element.upSrc = '~static/images/202.png'
+          element.downSrc = '~static/images/211.png'
+          element.showPercent = false
+        }
+      })
+      // 将文章数据切割成两块来展示，为了中间插入广告位
+      if (this.leftSideResult.EssayEntity.length >= 2) {
+        this.firstHalfData = this.leftSideResult.EssayEntity.slice(0, 2)
+        this.secondHalfData = this.leftSideResult.EssayEntity.slice(2)
+      } else {
+        this.firstHalfData = this.leftSideResult.EssayEntity
+        this.secondHalfData = []
+      }
       this.getTotalData()
     })
   },

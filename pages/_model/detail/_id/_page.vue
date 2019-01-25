@@ -1471,7 +1471,7 @@ export default {
   //   })
   // },
   created(){
-    this.handleData()
+    // this.handleData()
   },
   mounted() {
     this.cookie = this.getCookie('token')
@@ -1481,6 +1481,7 @@ export default {
     if (this.tokenObj == null) {
       this.tokenObj = {}
     }
+    this.handleData()
     this.commentBtn =
       this.tokenObj.token !== undefined || this.cookie !== '' ? '评论' : '登录'
     this.currentPage = this.$route.params.page

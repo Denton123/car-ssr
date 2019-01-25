@@ -752,6 +752,7 @@ export default {
   border-radius: 50%;
   opacity: 1;
   width: 25px;
+  height: 25px;
 }
 .rankDetail .footerBox .label {
   margin-left: 20px;
