@@ -227,6 +227,18 @@ export default {
         return callback(new Error('请输入省份'))
       }
     }
+
+    let checkLoginName = (rule, value, callback) => {
+      const reg = /\s/g
+      if(reg.test(value)){
+        this.state = false
+         return callback(new Error('昵称不能有空格'))
+      }else {
+        this.state = true
+        callback()
+      }
+    }
+
     return {
       editForm: {
         photo: null,
@@ -236,7 +248,12 @@ export default {
         account: null
       },
       rules: {
-        loginName: [{ required: true, message: '请输入昵称', trigger: 'blur' }],
+        loginName: [
+          { required: true,
+            validator: checkLoginName,
+            trigger: 'blur' 
+            }
+        ],
         name: [{ required: true, message: '请输入真实姓名', trigger: 'blur' }],
         idCard: [
           {
