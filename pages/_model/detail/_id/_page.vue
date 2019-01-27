@@ -89,8 +89,8 @@
               <img src="~static/common/default.png">
             </div>
             <div class="detail_content_brand_desc">
-              <h3>{{brandDetail.title}}</h3>
-              <p>{{brandDetail.des}}</p>
+              <h3 v-html="brandDetail.title"></h3>
+              <p v-html="brandDetail.des"></p>
             </div>
           </div>
           <!-- 分享等操作 -->
