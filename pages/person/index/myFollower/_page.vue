@@ -139,7 +139,7 @@
           this.list = data.page.list
           this.listData = data.page
           if(name !== ''&&name !== undefined && this.list.length == 0){
-            this.noNumberOfFollowers = '目前暂无该关注~'
+            this.noNumberOfFollowers = '目前暂无该用户~'
           }
         }
         console.log(data)

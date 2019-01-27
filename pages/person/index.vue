@@ -233,7 +233,13 @@ export default {
     this.getUserInfo()
     this.$nextTick(() => {this.createAd()})
     this.activeName = this.$route.name
-    // this.$router.push('/person/myEssay/1')
+    if (this.activeName==='person-index-myFans-page'){
+      this.activeName = 'person-index-myFans'
+    }
+    else if (this.activeName==='person-index-myFollower-page'){
+      this.activeName = 'person-index-myFollower'
+    }
+    this.$router.push('/person/myEssay/1')
   },
   components: {
     Header,
