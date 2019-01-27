@@ -570,7 +570,9 @@ export default {
   color: rgba(18, 18, 18, 1);
   line-height: 23px;
 }
-.rankDetail .crumbsItem.active a {
+.rankDetail .crumbsItem.active a,
+.rankDetail .crumbsItem a:hover 
+{
   color: #bd081e;
 }
 .rankDetail .crumbsItem .crumbsIcon {

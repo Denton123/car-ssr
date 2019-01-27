@@ -8,12 +8,12 @@
       <div class="detail_title">
         <h2>
           <nuxt-link to="/">
-            <span>首页</span>
+            <span class="detail_title_class">首页</span>
           </nuxt-link>
           <i class="detail_title_arrow detail_title_arrow_black"></i>
           <!-- <nuxt-link :to="`/${titleModel}/1`"> -->
           <nuxt-link :to="`/hobby/1`">
-            <span>兴趣部落</span>
+            <span class="detail_title_class">兴趣部落</span>
           </nuxt-link>
           <i class="detail_title_arrow detail_title_arrow_red"></i>
           <span style="color:#be001e">详情</span>
@@ -1503,6 +1503,9 @@ export default {
   font-weight: 400;
   font-size: 14px;
   /* font-family: SourceHanSansCN-Normal; */
+}
+.detail_title_class:hover{
+  color: #be001e !important
 }
 .detail_title_arrow {
   width: 6px;

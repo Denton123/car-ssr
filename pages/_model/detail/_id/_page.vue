@@ -1549,6 +1549,9 @@ export default {
 .detail_title_class {
   color: #000 !important;
 }
+.detail_title_class:hover{
+  color: #be001e !important
+}
 .detail_title_arrow {
   width: 6px;
   height: 8px;
