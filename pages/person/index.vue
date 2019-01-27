@@ -58,14 +58,14 @@
                     name="person-index-myIntergral">
                     <my-intergral></my-intergral>
                   </el-tab-pane>
-                  <el-tab-pane label="我的粉丝"
+                  <!-- <el-tab-pane label="我的粉丝"
                     name="person-index-myFans">
                     <my-fans></my-fans>
                   </el-tab-pane>
                   <el-tab-pane label="我的关注"
                     name="person-index-myFollower">
                     <my-follower></my-follower>
-                  </el-tab-pane>
+                  </el-tab-pane> -->
                   <el-tab-pane label="个人信息"
                     name="person-index-editInfo">
                     <person-info></person-info>
