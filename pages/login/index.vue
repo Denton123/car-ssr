@@ -146,8 +146,8 @@ export default {
               // 永久记住登陆状态，保存token，账号和密码
               if (that.loginObj.checked === true) {
                 // 若永久登陆，则保存30天的cookie
-                this.setCookie('token', res.data.des.token, 30*24 / 24)
-                this.setCookie('userId', res.data.des.userId, 30*24 / 24) 
+                this.setCookie('token', res.data.des.token, 15*24 / 24)
+                this.setCookie('userId', res.data.des.userId, 15*24 / 24) 
                 let msg = JSON.stringify({
                   account: that.loginObj.account,
                   password: that.loginObj.password,

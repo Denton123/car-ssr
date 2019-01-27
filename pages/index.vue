@@ -101,7 +101,7 @@ export default {
     let EvList = await $get(webEssayGetEssayByChannelShou, {
       channel: 4,
       pageNo: 1,
-      pageSize: 3
+      pageSize: 4
     })
     // 兴趣部落轮播图
     let hobbiesCourselData = await $get(webBannerList, {cChannel: 17, linktype: 'second'})

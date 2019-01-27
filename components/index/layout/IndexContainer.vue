@@ -44,12 +44,14 @@
       href="/ev/1">
       <car-carsouel slot="leftContent"
         :list="EvCourselData"></car-carsouel>
-      <hot-tags slot="rightContent"
-        :list="tagHot"></hot-tags>
+      <!-- <hot-tags slot="rightContent"
+        :list="tagHot"></hot-tags> -->
+    <hot-tags slot="rightContent"
+        :list="EvRightList"></hot-tags>
     </center-no-bg>
     <car-card-list class="mt20"
       type="ev"
-      :list="EvList"></car-card-list>
+      :list="EvNormalList"></car-card-list>
     <!-- 兴趣部落 -->
     <center title="兴趣部落"
       titleEn="hobbies"
@@ -325,7 +327,8 @@ export default {
       // newsRightList: [], // 今日车闻右侧内容
       // newsList: [], // 今日车闻下方文章
       // EvCourselData: [], // 新能源轮播图数据
-      // EvList: [], // 新能源下方文章
+      EvNormalList: [], // 新能源下方文章
+      EvRightList:{}, //新能源右侧文章
       // hobbiesCourselData: [], // 兴趣部落轮播图数据
       hobbiesActiveUrl: "", // 兴趣部落当前轮播图
       hobbiesRightList: [], // 兴趣部落右侧内容
@@ -342,6 +345,28 @@ export default {
       // monthList: [], // 月排行版数据,
       carsouelFlag: "video"
     }
+  },
+  // async asyncData(){
+  //   // 新能源下方数据列表
+  //   let EvRightList = await $get(webEssayGetEssayByChannelShou, {
+  //     channel: 4,
+  //     pageNo: 1,
+  //     pageSize: 1
+  //   })
+  //   return{
+  //       EvRightList: EvRightList.data ? EvRightList.data : [],
+  //   } 
+  // },
+  created(){
+      // 取第一条ev数据，放在轮播图的右边板块：
+      if(this.EvList.length >= 2){
+        this.EvRightList = this.EvList.slice(0,1)
+        this.EvNormalList = this.EvList.slice(1)
+      }else{
+        // 展示列出来的其余3条ev数据：
+        this.EvRightList = this.EvList
+        this.EvNormalList = []
+      }
   },
   mounted() {
     // 添加百度管家广告
