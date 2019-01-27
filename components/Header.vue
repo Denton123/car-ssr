@@ -213,15 +213,13 @@ export default {
       if (this.tokenObj == null) {
         this.tokenObj = {}
       }
-      $get(
-        webUserSelectByPrimaryKey,
+      $get(webUserSelectByPrimaryKey,
         {},
         {
           'X-Auth0-Token':
             this.cookie !== '' ? this.cookie : this.tokenObj.token
         }
       ).then(res => {
-        console.log(res)
         if (res.data.code == 0) {
           this.user = res.data.des.user
           this.loginFlag = res.data.code
@@ -329,6 +327,7 @@ export default {
     if (this.tokenObj == null) {
       this.tokenObj = {}
     }
+    console.log('obj=======================>>>>>',this.tokenObj)
     this.getUserInfo()
     if (this.tokenObj.token !== undefined || this.cookie !== '') {
       this.hasLoginIn = true
