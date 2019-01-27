@@ -256,7 +256,7 @@
       uploadPicSuccess(res) {
         if (res.code === 0) {
           this.hobbyForm.photo = res.urls[0]
-          console.log(this.hobbyForm.photo)
+          // console.log(this.hobbyForm.photo)
           // 拼接后的图片地址
           this.url = systemManage.getApi(this.hobbyForm.photo)
           this.hobbyForm.fileList.push({ url: this.url })
@@ -284,7 +284,7 @@
         })
       },
       handleRemove(file, fileList) {
-        console.log(file, fileList)
+        // console.log(file, fileList)
         let index = this.hobbyForm.fileList.find(item => {
           return item.url === file.url
         })
@@ -325,7 +325,7 @@
         this.videoUploadPercent = file.percentage.toFixed(0)
       },
       handleVideoSuccess(res, file) {
-        console.log(res)
+        // console.log(res)
         this.videoFlag = false
         this.videoUploadPercent = 0
         if (res.code === 0) {
@@ -344,7 +344,7 @@
       },
       /* 视频End */
       handleClick(tab, event) {
-        console.log(tab, event)
+        // console.log(tab, event)
       },
       /* 重置表单 */
       resetForm(formName) {
@@ -373,7 +373,7 @@
                   },
                   { 'X-Auth0-Token': token }
                 ).then(response => {
-                  console.log(response)
+                  // console.log(response)
                   if (response.data.code === 0) {
                     this.$message({
                       type: 'success',
@@ -527,10 +527,10 @@
       getCookie(cname) {
         var name = cname + '='
         var ca = document.cookie.split(';')
-        console.log(ca)
+        // console.log(ca)
         for (var i = 0; i < ca.length; i++) {
           var c = ca[i]
-          console.log(c)
+          // console.log(c)
           while (c.charAt(0) == ' ') c = c.substring(1)
           if (c.indexOf(name) != -1) {
             return c.substring(name.length, c.length)

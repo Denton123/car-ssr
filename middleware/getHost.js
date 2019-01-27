@@ -8,7 +8,6 @@ export default function ({
   if(process.client){
 
     env.userToken='hhhhhhhhhhhhh'
-    console.log(22, localStorage)
     env.commonUrl = `http://www.jfcar.com.cn/image/`
     env.commonFileUrl = `http://www.jfcar.com.cn/`
   }

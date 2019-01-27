@@ -344,7 +344,7 @@ export default {
       let data = new Date().getTime()
       this.clock = setInterval(function() {
         that.time = 3 - parseInt((new Date().getTime() - data) / 1000)
-        console.log(this.time)
+        // console.log(this.time)
         if (that.time <= 0) {
           clearInterval(that.clock)
           that.$router.push({ name: 'login' })

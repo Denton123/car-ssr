@@ -505,13 +505,15 @@ export default {
       channel: 5
     })
     let banner = bannerResult.data == null ? [] : bannerResult.data
-    banner.forEach((element, index) => {
-      if (index == 0) {
-        bannerMessageData = element
-      } else if (index == 1) {
-        bannerTopicData = element
-      }
-    })
+      if(banner != []){
+        banner.forEach((element, index) => {
+        if (index == 0) {
+          bannerMessageData = element
+        } else if (index == 1) {
+          bannerTopicData = element
+        }
+      })
+    }
     if (tabData.data && tabData.data.length >= 11) {
       tabData.data.splice(11)
     }

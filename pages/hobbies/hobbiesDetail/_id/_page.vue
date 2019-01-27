@@ -873,7 +873,7 @@ export default {
         this.$message(res.data.result_msg)
       } else {
         this.getCommentData(this.currentPage)
-        console.log(count, 'goodCountChange')
+        // console.log(count, 'goodCountChange')
       }
       this.likeIndex = commentId
     },

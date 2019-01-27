@@ -401,7 +401,6 @@ export default {
       reqHeaders.forEach(v => {
         if (v.indexOf('token') !== -1) {
           tokenArr = v.split('=')
-          console.log(tokenArr)
           userCookie = tokenArr[1]
         }
       })
@@ -444,13 +443,11 @@ export default {
     this.currentPage = this.$route.params.page
   },
   mounted() {
-    console.log(this.totalPage, 'totalPage')
       if (
       localStorage.getItem('userMsg')&&
       localStorage.getItem('userMsg') != ''
     ) {
       this.tokenObj = JSON.parse(localStorage.getItem('userMsg')).token
-      console.log('localstroge', this.tokenObj)
     } else if (this.cookie !== '') {
       this.cookie = this.getCookie('token')
       this.tokenObj = this.cookie
@@ -803,7 +800,6 @@ export default {
             this.tokenObj
         }
       ).then(res => {
-        console.log(res)
         if (res.data.code === 0) {
           this.loginFlag = res.data.code
           this.$router.push({
@@ -961,7 +957,6 @@ export default {
       this.$router.push({
         path: `/hobby/${page}`
       })
-      console.log(page, 'testpage')
         this.waterFlow('content-wrap', 'contain-hobby-wrap')
       this.getRecentlyHobbiesList(this.hobbiesClassId, page)
       this.currentPage = page

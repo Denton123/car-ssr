@@ -41,7 +41,6 @@ export default {
       // }
     },
     hobbiesRouter() {
-      console.log('您当前还没有发表文章的权限')
       this.$router.push({
         path: '/hobby/publishHobbies'
       })

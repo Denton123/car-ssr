@@ -45,7 +45,6 @@ export default {
   methods: {
     // 改变元素
     change(index) {
-      console.log(index)
       this.activeIndex = index
     },
     // 监听滚动事件

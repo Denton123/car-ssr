@@ -130,7 +130,7 @@ export default {
     // 获取积分列表方法
     this.getInterList()
      let result = await $get(getUserInterListRules, {limit: '100', page: '1'})
-      console.log('result.data', result.data.page.list) 
+      // console.log('result.data', result.data.page.list) 
       this.userInterRulesList = result.data.page
   },
   computed: {
@@ -182,7 +182,7 @@ export default {
     async getInterList () {
       let userIntergralList = await $get(getUserInterList, this.defaultParams)
       this.userInterList = userIntergralList.data.page
-      console.log('userInterList', this.userInterList)
+      // console.log('userInterList', this.userInterList)
     },
     async showIntergral() {     
       this.showHide = true

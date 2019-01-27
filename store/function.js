@@ -1,7 +1,7 @@
 
 const localEvent = function (item) {
     this.getLocalStorage = function () {
-        return JSON.parse(localStorage.getItem(item))
+        return localStorage.getItem(item)? JSON.parse(localStorage.getItem(item)) :''
     }
     this.getCookie = function () {
         let name = item + '='

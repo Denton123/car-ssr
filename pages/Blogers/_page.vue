@@ -226,8 +226,7 @@ export default {
     // 取token
     this.routePage = this.$route.params.page
     // this.currentPage = this.$route.params.page
-    if (
-      localStorage.getItem('userMsg') &&
+    if (localStorage.getItem('userMsg') &&
       localStorage.getItem('userMsg') != ''
     ) {
       this.tokenObj =JSON.parse(localStorage.getItem('userMsg'))

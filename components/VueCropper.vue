@@ -99,7 +99,6 @@ export default {
   // },
   watch: {
     clearMessage() {
-      console.log(this.option.img)
       this.option.img = ''
       this.previews.url = ''
     }
@@ -173,7 +172,6 @@ export default {
             })
             .then(response => {
               var res = response.data
-              console.log(res)
               if (res.code === 0) {
                 _this.imgFile = ''
                 _this.$message({
@@ -183,7 +181,6 @@ export default {
                 })
                 // 将返回的数据传给父组件（截图）
                 _this.$emit('cropper-after', res.urls[0])
-                console.log(res.urls[0])
               }
             })
         })
@@ -193,16 +190,13 @@ export default {
           this.modelSrc = data
         })
       }
-      console.log(this.option.img)
     },
     // 实时预览函数
     realTime(data) {
-      console.log('realTime')
       this.previews = data
     },
     // 下载图片
     down(type) {
-      console.log('down')
       var aLink = document.createElement('a')
       aLink.download = 'author-img'
       if (type === 'blob') {
@@ -221,7 +215,6 @@ export default {
     },
     // 选择本地图片
     uploadImg(e, num) {
-      console.log(e)
       var _this = this
       let formData = new FormData()
       // 上传图片
@@ -248,7 +241,6 @@ export default {
         })
         .then(response => {
           var res = response.data
-          console.log(res)
           if (res.code === 0) {
             _this.$message({
               // element-ui的消息Message消息提示组件
@@ -257,21 +249,16 @@ export default {
             })
             // 将返回的数据传给父组件(原图）
             _this.$emit('cropper-before', res.urls[0])
-            console.log(res.urls[0])
           }
         })
       var reader = new FileReader()
       reader.onload = e => {
-        console.log(e)
         let data
         if (typeof e.target.result === 'object') {
-          console.log(e.target.result)
           // 把Array Buffer转化为blob 如果是base64不需要
           data = window.URL.createObjectURL(new Blob([e.target.result]))
-          console.log(data)
         } else {
           data = e.target.result
-          console.log(data)
         }
         if (num === 1) {
           _this.option.img = data
@@ -285,8 +272,7 @@ export default {
       reader.readAsArrayBuffer(file)
     },
     imgLoad(msg) {
-      console.log('imgLoad')
-      console.log(msg)
+      // console.log('imgLoad')
     }
   }
 }

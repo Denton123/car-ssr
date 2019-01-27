@@ -102,7 +102,8 @@ export default {
       if (user) {
         this.loginObj.account = user.account
         this.loginObj.password = user.password
-        this.loginObj.checked = this.loginObj.checked
+        // this.loginObj.checked = this.loginObj.checked
+        this.loginObj.checked = user.checked
         // 如果是永久记住密码，那么就自动登陆
         this.login('form')
       }
@@ -136,7 +137,6 @@ export default {
         _check_(valid, that) {
       if (valid) {
         that.loading = true
-        console.log(that.loading)
         let urlParam = new URLSearchParams()
         urlParam.append('account', that.loginObj.account)
         urlParam.append('password', that.loginObj.password)
@@ -145,12 +145,15 @@ export default {
             if (res.data.des.token) {
               // 永久记住登陆状态，保存token，账号和密码
               if (that.loginObj.checked === true) {
+                // 若永久登陆，则保存30天的cookie
+                this.setCookie('token', res.data.des.token, 30*24 / 24)
+                this.setCookie('userId', res.data.des.userId, 30*24 / 24) 
                 let msg = JSON.stringify({
                   account: that.loginObj.account,
                   password: that.loginObj.password,
                   checked: that.loginObj.checked,
                   ...res.data.des
-                })               
+                })
                 localStorage.setItem('userMsg', msg)
                 let temp =sessionStorage.getItem('login_from') && sessionStorage.getItem('login_from') != '' ? sessionStorage.getItem('login_from') : ''
                 if(temp) {
@@ -181,7 +184,6 @@ export default {
               }
             } else {
               that.loading = false
-              console.log(that.loading)
               that.$message({
                 type: 'warning',
                 message: res.data.des

@@ -213,15 +213,13 @@ export default {
       if (this.tokenObj == null) {
         this.tokenObj = {}
       }
-      $get(
-        webUserSelectByPrimaryKey,
+      $get(webUserSelectByPrimaryKey,
         {},
         {
           'X-Auth0-Token':
             this.cookie !== '' ? this.cookie : this.tokenObj.token
         }
       ).then(res => {
-        console.log(res)
         if (res.data.code == 0) {
           this.user = res.data.des.user
           this.loginFlag = res.data.code
@@ -309,7 +307,6 @@ export default {
     },
     headerTagHover(name) {
       this.hoverName = name
-      console.log(name)
     },
     headerTagOut() {
       this.hoverName = this.activeName
@@ -318,7 +315,6 @@ export default {
   mounted() {
     this.cookie = this.getCookie('token')
     let route = this.$route
-    console.log(route)
     if (route.params.model) {
       this.activeName = route.params.model
     } else {

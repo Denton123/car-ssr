@@ -281,10 +281,8 @@
         let index = this.oneClassOptions.findIndex(function(item) {
           return item.id === that.articleForm.classOne
         })
-        console.log(index)
         let temp = this.oneClassOptions.slice()
         temp.splice(index, 1)
-        console.log(temp)
         return temp
       },
       connectClassOneState() {
@@ -308,13 +306,11 @@
       // 获取文章信息
       async getArticleInfo() {
         let res = await $get(webEssayInfo, { id: this.id })
-        console.log(res)
         this.articleForm = res.data
         $('#summernote').summernote('code', this.articleForm.description)
         this.articleForm.selectedOptions = []
         // 选中对象默认模块
         this.articleForm.selectedOptions.push(this.articleForm.classOne)
-        console.log(this.articleForm.classOne)
         // 文章图片地址拼接显示
         this.articleForm.fileList = [
           { name: 'img', url: this.piectImgUrl },
@@ -361,7 +357,6 @@
           url: systemManage.getApi(data)
         })
         this.articleForm.photo = data
-        console.log(data)
       },
       closeDialog() {
         this.clearMessage = !this.clearMessage
@@ -422,7 +417,6 @@
       uploadPicSuccess(res) {
         if (res.code === 0) {
           this.articleForm.photo = res.urls[0]
-          console.log(this.articleForm.photo)
           this.url = systemManage.getApi(this.articleForm.photo)
           document.querySelector('.el-upload').style.display = 'none'
           this.showCropper = true
@@ -445,14 +439,12 @@
         })
       },
       handleClick(tab, event) {
-        console.log(tab, event)
       },
       submitForm(formName) {
         this.$refs[formName].validate(valid => {
           if (valid) {
             alert('submit!')
           } else {
-            console.log('error submit!!')
             return false
           }
         })
@@ -494,7 +486,6 @@
         this.videoUploadPercent = file.percentage.toFixed(0)
       },
       handleVideoSuccess(res, file) {
-        console.log(res)
         this.videoFlag = false
         this.videoUploadPercent = 0
         if (res.code === 0) {
@@ -542,7 +533,6 @@
                   },
                   { 'X-Auth0-Token': this.tokenObj }
                 ).then(response => {
-                  console.log(response)
                   if (response.data.code === 0) {
                     this.$message({
                       type: 'success',
@@ -588,7 +578,6 @@
       },
       draftClick(formName) {
         this.articleForm.description = $('#summernote').summernote('code')
-        console.log(this.articleForm.description)
          if(this.articleForm.description == '<p><br></p>' || this.articleForm.description == ''){
           this.$message.error('文章内容必须填写！')
           return false
@@ -667,10 +656,8 @@
       getCookie(cname) {
         var name = cname + '='
         var ca = document.cookie.split(';')
-        console.log(ca)
         for (var i = 0; i < ca.length; i++) {
           var c = ca[i]
-          console.log(c)
           while (c.charAt(0) == ' ') c = c.substring(1)
           if (c.indexOf(name) != -1) {
             return c.substring(name.length, c.length)
@@ -748,11 +735,9 @@
         },
         callbacks: {
           onImageUpload: function(files) {
-            console.log(files[0])
             let formData = new FormData()
             formData.append('file', files[0])
             formData.append('moduleName', 'essay')
-            console.log(formData)
             axios
               .post(url, formData, {
                 contentType: false,
@@ -762,7 +747,6 @@
               .then(response => {
                 var res = response.data
                 if (res.code === 0) {
-                  console.log(systemManage.getApi(res.urls[0]))
                   $('#summernote').summernote(
                     'insertImage',
                     systemManage.getApi(res.urls[0])
@@ -775,7 +759,6 @@
       window.uploadVideo = function() {
         // vm.showLoading = true // 因ship上传比较耗时，所以加了个loading提示
         let formData = new FormData()
-        console.log($('#videoInput')[0].files[0])
         formData.append('file', $('#videoInput')[0].files[0])
         formData.append('moduleName', 'essay')
         axios
@@ -787,7 +770,6 @@
           .then(response => {
             var res = response.data
             if (res.code === 0) {
-              console.log(systemManage.getApi(res.urls[0]))
               var node = document.createElement('div') // 创建节点，用于包裹视频，再加这一层是方便调视频样式
               node.innerHTML =
                 '<video controls="controls" style="max-width:100%;" src="' +
@@ -923,6 +905,7 @@
     margin: 0 auto;
     background: #fff;
   }
+
   .article_content_editEssay .person_title .title_nav {
     width: 1200px;
     margin: 0 auto;
@@ -948,7 +931,6 @@
     height: 60px;
     line-height: 60px;
     background: #f6f6f6;
-    margin-top: 1px;
   }
   .nav_title_active span {
     color: #be001e !important;
