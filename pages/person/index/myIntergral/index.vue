@@ -59,7 +59,7 @@
             stripe
             >
             <el-table-column
-              prop="des"
+              prop="integralName"
               label="积分名称"
               width="150"
               >
