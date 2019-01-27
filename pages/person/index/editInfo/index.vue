@@ -369,7 +369,7 @@ export default {
     },
     onChangeProvince(data) {
       this.editForm.province = data.value
-      console.log(data.value, '省份')
+      // console.log(data.value, '省份')
       // if (data.value == '请选择省份') {
       //   $('.distpicker-address-wrapper select').css('color', '#babdc6')
       // } else {
@@ -379,7 +379,7 @@ export default {
     handleAvatarSuccess(res, file) {
       if (res.des === '上传成功') {
         // this.editForm.photo = this.imageUrl
-        console.log(res, 'this.imageUrl')
+        // console.log(res, 'this.imageUrl')
         if (res.code == 0) {
           this.$message({
             showClose: true,
@@ -432,7 +432,7 @@ export default {
           }
         }, 1000)
         $get(smsSendMsgByRegister, { phone: this.editForm.phone }).then(res => {
-          console.log(res.data)
+          // console.log(res.data)
           if (res.data) {
             this.$message({
               type: 'success',

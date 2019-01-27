@@ -104,7 +104,6 @@ export default {
         this.loginObj.password = user.password
         // this.loginObj.checked = this.loginObj.checked
         this.loginObj.checked = user.checked
-        console.log("localStorage里有信息=>checked="+this.loginObj.checked)
         // 如果是永久记住密码，那么就自动登陆
         this.login('form')
       }
@@ -138,7 +137,6 @@ export default {
         _check_(valid, that) {
       if (valid) {
         that.loading = true
-        console.log("loading========"+that.loading)
         let urlParam = new URLSearchParams()
         urlParam.append('account', that.loginObj.account)
         urlParam.append('password', that.loginObj.password)
@@ -186,7 +184,6 @@ export default {
               }
             } else {
               that.loading = false
-              console.log(that.loading)
               that.$message({
                 type: 'warning',
                 message: res.data.des

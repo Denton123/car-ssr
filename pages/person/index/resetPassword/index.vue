@@ -161,7 +161,7 @@ export default {
         this.isShowNewError = true
         this.newError = '密码不小于6个字符'
         this.passwordFlag = false
-        console.log(this.passwordFlag, 'this.passwordFlag')
+        // console.log(this.passwordFlag, 'this.passwordFlag')
       } else if (
         /[`~!#$%^&*_+<>{}\/'[\]]/im.test(this.resetForm.newPassword) ||
         /[`~!#$%^&*_+<>{}\/'[\]]/im.test(this.resetForm.repeatPassword)

@@ -1277,7 +1277,6 @@ export default {
             this.getUserInfo()
             // console.log(res)
           } else {
-            console.log('取消关注取消关注取消关注取消关注')
             urlParam.append('type', 'follow')
             let res = await $post(webUserClickCare, urlParam, {
               'X-Auth0-Token':
@@ -1325,14 +1324,14 @@ export default {
             this.cookie !== '' ? this.cookie : this.tokenObj.token
         }
       ).then(res => {
-        console.log(res, 'res')
+        // console.log(res, 'res')
         if (res.data.code == 0) {
           this.user = res.data.des.user
           this.userCode = res.data.code
           if (this.userCode == 2) {
             this.isFollow = '关注'
           }
-          console.log(this.userCode)
+          // console.log(this.userCode)
         }
       })
     },

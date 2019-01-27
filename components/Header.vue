@@ -307,7 +307,6 @@ export default {
     },
     headerTagHover(name) {
       this.hoverName = name
-      console.log(name)
     },
     headerTagOut() {
       this.hoverName = this.activeName
@@ -316,7 +315,6 @@ export default {
   mounted() {
     this.cookie = this.getCookie('token')
     let route = this.$route
-    console.log(route)
     if (route.params.model) {
       this.activeName = route.params.model
     } else {
@@ -327,7 +325,6 @@ export default {
     if (this.tokenObj == null) {
       this.tokenObj = {}
     }
-    console.log('obj=======================>>>>>',this.tokenObj)
     this.getUserInfo()
     if (this.tokenObj.token !== undefined || this.cookie !== '') {
       this.hasLoginIn = true

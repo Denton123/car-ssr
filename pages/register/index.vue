@@ -277,7 +277,7 @@ export default {
     // 发送手机验证码
     sendVerify() {
       let that = this
-      console.log(this.registerObj.phone)
+      // console.log(this.registerObj.phone)
       if (this.state) {
         this.Time = new Date().getTime()
         this.isVf = true
@@ -295,26 +295,32 @@ export default {
         $get(smsSendMsgByRegister, { phone: this.registerObj.phone }).then(
           res => {
               if(res.data) {
-                if(res.data.result) {
+                // console.log(res.data)
+                // if(res.data.code == 0) {
                   this.$message({
                     type: 'success',
-                    message: res.data.des
+                    message: '短信验证码下发成功'
                     })
-                } else {
-                    this.$message({
-                    type: 'warning',
-                    message: res.data.des
-                  })
-                }
+                // } else {
+                //     this.$message({
+                //     type: 'warning',
+                //     message: '验证码下发失败'
+                //   })
+                //   clearInterval(that.func)
+                //   that.vfDes = `发送验证码`
+                //   that.isVf = false
+                //   that.desTime = true
+                // }
             } else {
               this.$message({
                 type: 'warning',
-                message: '一小时内只能发送三次验证码'
+                message: '验证码下发失败'
               })
               clearInterval(that.func)
               that.vfDes = `发送验证码`
               that.isVf = false
               that.desTime = true
+              // 18244994441
             }
           }
         )

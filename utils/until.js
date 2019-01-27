@@ -12,8 +12,8 @@ const apiSchedule = '/api/v1/schedule/' // 门户服务
  * 11.27新增服务器ip
  */
 
-console.log(process.env.userToken)
-console.log('-------------')
+// console.log(process.env.userToken)
+// console.log('-------------')
 
 // let commonUrl = process.env.commonUrl
 // let commonFileUrl = process.env.commonFileUrl

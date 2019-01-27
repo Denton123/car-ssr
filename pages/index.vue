@@ -215,8 +215,8 @@ export default {
   mounted() {
     // this.formatName(this.newsList)
     // this.formatName(this.EvList)
-    console.log('aaaaaa')
-    console.log(this.newsObj)
+    // console.log('aaaaaa')
+    // console.log(this.newsObj)
   }
 };
 </script>

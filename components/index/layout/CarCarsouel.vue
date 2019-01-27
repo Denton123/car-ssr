@@ -92,7 +92,6 @@ export default {
     },
   },
   mounted() {
-    console.log(this.data)
     if (this.data[0] == null) {
       this.$emit('change', null)
     } else {

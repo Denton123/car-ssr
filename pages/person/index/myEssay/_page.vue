@@ -88,7 +88,7 @@ export default {
         tokenObj = {}
       }
       let cookie = this.getCookie('token')
-      $get(
+       $get(
         webMyEssay,
         {
           limit: 9,

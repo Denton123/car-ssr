@@ -142,7 +142,7 @@ export default {
             this.noNumberOfFans = '目前暂无该粉丝~'
         }
       }
-      console.log(data)
+      // console.log(data)
        // this.fansData = _fanList.data.page
        // this.fansNum = _fanList.data.page.totalCount
        // this.fansListData = _fanList.data.page.list
@@ -151,7 +151,7 @@ export default {
     },
     // 搜索
     onSearch(){
-      console.log(this.name)
+      // console.log(this.name)
       this.fansList(this.name)
     },
     pageChange(page) {
@@ -202,7 +202,7 @@ export default {
       urlParam.append('type', 'cancel')
       urlParam.append('bloggerId', id)
       let res = await $post('/web/user/clickCare?', urlParam, obj)
-      console.log('取消关注', res)
+      // console.log('取消关注', res)
       if (res.data.code === 3) {
         this.$message({
           type: 'success',

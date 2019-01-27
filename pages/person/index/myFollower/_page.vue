@@ -142,11 +142,11 @@
             this.noNumberOfFollowers = '目前暂无该用户~'
           }
         }
-        console.log(data)
+        // console.log(data)
       },
       // 搜索
       onSearch(){
-        console.log(this.name)
+        // console.log(this.name)
         this.fansList(this.name)
       },
       handleCurrentChange(val) {
@@ -190,7 +190,7 @@
       urlParam.append('type', 'cancel')
       urlParam.append('bloggerId', id)
       let res = await $post('/web/user/clickCare?', urlParam, obj)
-      console.log('取消关注', res)
+      // console.log('取消关注', res)
       if (res.data.code === 3) {
         this.$message({
           type: 'success',

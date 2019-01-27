@@ -169,7 +169,7 @@
       }
     defaultParams.pageNo = content.params.pageNo || '1'
     let searchContent = content.params.searchContent
-    console.log(searchContent)
+    // console.log(searchContent)
     return{
       defaultParams,
       searchContent
@@ -199,7 +199,7 @@
       // 在渲染该组件的对应路由被 confirm 前调用
       // 不！能！获取组件实例 `this`
       // 因为当守卫执行前，组件实例还没被创建
-      console.log(to, from)
+      // console.log(to, from)
       next(vm => {
         vm.searchContent = to.params.searchContent
         vm.preRouteObj = { path: from.fullPath, name: from.meta.title }
@@ -295,7 +295,7 @@
       },
       // 跳转到兴趣部落文章详情 或 文章
       toArticleOrHobbiesDetail(eassy) {
-        console.log(eassy)
+        // console.log(eassy)
         if (eassy.title === 'hobbies') {
           this.$router.push({ path: `/tagList/hobbiesDetail/${eassy.id}/1` })
         } else {
@@ -308,7 +308,7 @@
           ...this.defaultParams,
           tagId: searchId
         }).then(res => {
-          console.log(res.data)
+          // console.log(res.data)
           this.pageObj = res.data
           this.eassyList = res.data.list
         })

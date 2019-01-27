@@ -867,6 +867,13 @@
     margin: 0 auto;
     background: #fff;
   }
+  .article_content_editEssay{
+     margin-top: 1px;
+   }
+  .article_content_editEssay .el-breadcrumb__inner a:hover, 
+  .article_content_editEssay .el-breadcrumb__inner.is-link:hover{
+    color: #be001e;
+  }
   .article_content_editEssay .person_title .title_nav {
     width: 1200px;
     margin: 0 auto;
