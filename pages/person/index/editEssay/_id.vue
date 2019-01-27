@@ -948,6 +948,7 @@
     height: 60px;
     line-height: 60px;
     background: #f6f6f6;
+    margin-top: 1px;
   }
   .nav_title_active span {
     color: #be001e !important;
