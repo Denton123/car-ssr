@@ -15,6 +15,7 @@
     <div class="card-content">
       <router-link class="title"
         :to="moduleType == 'hobbies' ? `/${moduleType}/hobbiesDetail/${card.id == null ? '' : card.id}/1`:  `/${moduleType}/detail/${card.id == null ? '' : card.id}/1`">{{card.title == '' ? '无': card.title}}</router-link>
+      <!-- <p class="card-content-desc" v-html="card.digest == '' ? '': card.digest"></p>       -->
       <div class="info clearfix">
         <div class="info_left">
           <router-link :to="`/Bloger/${card.authorId}/1`">
@@ -122,7 +123,16 @@ export default {
   white-space: nowrap;
   width: 100%;
 }
-
+/* .index_card_block .card-content-desc{
+  width: 95%;
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
+  padding-left: 17px;
+  color: #000;
+  font-size: 14px;
+  font-weight: 400;
+} */
 .index_card_block .card-content .title:hover {
   border-color: #be001e;
   color: #be001e;

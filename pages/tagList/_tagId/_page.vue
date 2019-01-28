@@ -740,8 +740,10 @@ export default {
                 text-overflow: -o-ellipsis-lastline;
                 overflow: hidden;
                 text-overflow: ellipsis;
-                -webkit-line-clamp: 2;
+                -webkit-line-clamp: 2; 
+                /* autoprefixer: off */
                 -webkit-box-orient: vertical;
+                /* autoprefixer: on */
                 &:hover {
                   color: #be001e;
                 }

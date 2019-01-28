@@ -7,7 +7,10 @@
       </nuxt-link>
       <div class="card-content">
         <nuxt-link class="title"
-          :to="`/ev/detail/${EvRightListData[0].id == null ? '' : EvRightListData[0].id}/1`">{{EvRightListData[0].title == '' ? '无': EvRightListData[0].title}}</nuxt-link>
+          :to="`/ev/detail/${EvRightListData[0].id == null ? '' : EvRightListData[0].id}/1`">
+          {{EvRightListData[0].title == '' ? '无': EvRightListData[0].title}}
+        </nuxt-link>
+        <p class="card-content-desc" v-html="EvRightListData[0].digest == '' ? '': EvRightListData[0].digest"></p>
         <div class="info clearfix">
           <div class="info_left">
             <nuxt-link :to="`/Bloger/${EvRightListData[0].authorId}/1`">
@@ -112,7 +115,8 @@ export default {
 .hot-tags .card-content {
   padding-top: 20px;
 }
-.hot-tags .card-content .title {
+.hot-tags .card-content .title
+ {
   display: inline-block;
   box-sizing: border-box;
   border-left: 2px solid #e4e4e4;
@@ -126,7 +130,20 @@ export default {
   white-space: nowrap;
   width: 100%;
 }
-
+.hot-tags .card-content .card-content-desc{
+  width: 95%;
+ /* autoprefixer: off */
+  -webkit-box-orient: vertical;
+  /* autoprefixer: on */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  padding-left: 17px;
+  color: #000;
+  margin-top: 14px;
+  font-size: 14px;
+  font-weight: 400;
+}
 .hot-tags .card-content .title:hover {
   border-color: #be001e;
   color: #be001e;

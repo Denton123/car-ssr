@@ -724,7 +724,9 @@ export default {
   -webkit-line-clamp: 2;
   overflow: hidden;
   word-break: break-all;
+ /* autoprefixer: off */
   -webkit-box-orient: vertical;
+  /* autoprefixer: on */
   position: absolute;
   top: 116px;
   width: 331px;

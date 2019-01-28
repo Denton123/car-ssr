@@ -610,7 +610,9 @@
                   overflow: hidden;
                   text-overflow: ellipsis;
                   -webkit-line-clamp: 2;
+                  /* autoprefixer: off */
                   -webkit-box-orient: vertical;
+                  /* autoprefixer: on */
                 }
               }
               .userMsg {
