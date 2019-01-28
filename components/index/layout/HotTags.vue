@@ -2,28 +2,31 @@
   <div class="hot-tags">
     <div class="hot-tags-container">
       <nuxt-link class="title"
-          :to="`/ev/detail/${EvRightListData[0].id == null ? '' : EvRightListData[0].id}/1`">
-      <img :src="formatPic(EvRightListData[0].photo)" :alt="EvRightListData[0].title" class="hot-tags-container-img">
+          :to="`/ev/detail/${EvRightListData.id == null ? '' : EvRightListData.id}/1`">
+      <img :src="formatPic(EvRightListData.photo)" :alt="EvRightListData.title" class="hot-tags-container-img">
       </nuxt-link>
       <div class="card-content">
         <nuxt-link class="title"
-          :to="`/ev/detail/${EvRightListData[0].id == null ? '' : EvRightListData[0].id}/1`">{{EvRightListData[0].title == '' ? '无': EvRightListData[0].title}}</nuxt-link>
+          :to="`/ev/detail/${EvRightListData.id == null ? '' : EvRightListData.id}/1`">
+          {{EvRightListData.title == '' ? '无': EvRightListData.title}}
+        </nuxt-link>
+        <p class="card-content-desc" v-html="EvRightListData.digest == '' ? '': EvRightListData.digest"></p>
         <div class="info clearfix">
           <div class="info_left">
-            <nuxt-link :to="`/Bloger/${EvRightListData[0].authorId}/1`">
+            <nuxt-link :to="`/Bloger/${EvRightListData.authorId}/1`">
               <span class="info_header">
-                <img :src="formatPic(EvRightListData[0].photoUrl)"
-                  :alt="EvRightListData[0].title"
+                <img :src="formatPic(EvRightListData.photoUrl)"
+                  :alt="EvRightListData.title"
                   height="100%"
                   width="100%">
               </span>
             </nuxt-link>
-            <nuxt-link :to="`/Bloger/${EvRightListData[0].authorId}/1`">
-              <span class="info_name">{{EvRightListData[0].webName !== '' ? EvRightListData[0].webName : EvRightListData[0].author}}</span>
+            <nuxt-link :to="`/Bloger/${EvRightListData.authorId}/1`">
+              <span class="info_name">{{EvRightListData.webName !== '' ? EvRightListData.webName : EvRightListData.author}}</span>
             </nuxt-link>
           </div>
           <div class="info_center"></div>
-          <div class="info_right">{{EvRightListData[0].classOneName == ''?'无': EvRightListData[0].classOneName}}</div>
+          <div class="info_right">{{EvRightListData.classOneName == ''?'无': EvRightListData.classOneName}}</div>
         </div>
       </div>
 
@@ -48,26 +51,45 @@
 </template>
 <script>
 import systemManage from '@/http/photoApi.js'
-
+import { $get } from "@/http/ajax";
+import {
+  webGetEvRightEssay
+} from "@/http/api";
 export default {
   name: 'HotTags',
-  props: {
-    list:{
-      type : Array
+  data(){ 
+    return{
     }
   },
+  props: {
+    // list:{
+    //   type : Array
+    // },
+    EvRightListData:{
+        type : Object
+    }
+  },
+  // async asyncData(){
+  //   let EvRightListData = await $get(webGetEvRightEssay);
+  //   return{
+  //     EvRightListData : EvRightListData == '' ? [] : EvRightListData
+  //   }
+  // },
   computed: {
     // listData: function() {
     //   return this.list == null ? [] : this.list
     // }
-    EvRightListData : function(){
-        return this.list == null ? [] :this.list
-    }
+    // EvRightListData : function(){
+    //     return this.EvRightList == null ? [] :this.EvRightList
+    // }
   },
   methods:{
     formatPic(item) {
       return systemManage.getApi(item)
     },
+  },
+  mounted(){
+    console.log(this.EvRightListData,'子组件里的')
   }
 }
 </script>
@@ -112,7 +134,8 @@ export default {
 .hot-tags .card-content {
   padding-top: 20px;
 }
-.hot-tags .card-content .title {
+.hot-tags .card-content .title
+ {
   display: inline-block;
   box-sizing: border-box;
   border-left: 2px solid #e4e4e4;
@@ -126,7 +149,20 @@ export default {
   white-space: nowrap;
   width: 100%;
 }
-
+.hot-tags .card-content .card-content-desc{
+  width: 95%;
+ /* autoprefixer: off */
+  -webkit-box-orient: vertical;
+  /* autoprefixer: on */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  padding-left: 17px;
+  color: #000;
+  margin-top: 14px;
+  font-size: 14px;
+  font-weight: 400;
+}
 .hot-tags .card-content .title:hover {
   border-color: #be001e;
   color: #be001e;
