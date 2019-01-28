@@ -47,7 +47,7 @@
       <!-- <hot-tags slot="rightContent"
         :list="tagHot"></hot-tags> -->
     <hot-tags slot="rightContent"
-        :list="EvRightList"></hot-tags>
+        :EvRightListData="EvRightListData"></hot-tags>
     </center-no-bg>
     <car-card-list class="mt20"
       type="ev"
@@ -264,6 +264,12 @@ export default {
         return []
       }
     },
+    EvRightListData:{
+      type: Object,
+      default () {
+        return []
+      }
+    },
     hobbiesCourselData: {
       type: Array,
       default () {
@@ -359,18 +365,22 @@ export default {
   // },
   created(){
       // 取第一条ev数据，放在轮播图的右边板块：
-      if(this.EvList.length >= 2){
-        this.EvRightList = this.EvList.slice(0,1)
-        this.EvNormalList = this.EvList.slice(1)
-      }else{
-        // 展示列出来的其余3条ev数据：
-        this.EvRightList = this.EvList
-        this.EvNormalList = []
-      }
+      // if(this.EvList.length >= 2){
+      //   this.EvRightList = this.EvList.slice(0,1)
+      //   this.EvNormalList = this.EvList.slice(1)
+      // }else{
+      //   // 展示列出来的其余3条ev数据：
+      //   this.EvRightList = this.EvList
+      //   this.EvNormalList = []
+      // }
+      this.EvNormalList = this.EvList
+      // this.EvRightList = this.EvRightListData
   },
   mounted() {
     // 添加百度管家广告
     this.addAd();
+    // this.EvNormalList = this.EvList
+    // this.EvRightList = this.EvRightListData
     this.$nextTick(async () => {
       // 添加广告
       // this.getAdverBlock('newsAdver', '5993923')

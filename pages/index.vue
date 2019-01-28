@@ -9,6 +9,7 @@
       :EvCourselData="EvCourselData"
       :tagHot="tagHot"
       :EvList="EvList"
+      :EvRightListData="EvRightListData"
       :hobbiesCourselData="hobbiesCourselData"
       :hobbiesItem="hobbiesItem"
       :hobbiesList="hobbiesList"
@@ -24,7 +25,7 @@
 <script>
 
 import { $get } from "http/ajax";
-import { webEssayGetWeekendRank, webBannerList, webEssayGethoteassy, webTagGetRandomTagsByChannel, webEssayGetessayBycarnews,
+import { webEssayGetWeekendRank, webBannerList, webEssayGethoteassy, webTagGetRandomTagsByChannel, webEssayGetessayBycarnews,webGetEvRightEssay,
 webEssayGetEssayByChannelShou, webTagGetNewEnergyTags, webHobbiesGetOneHobbies, webHobbiesList, webEssayGetDayRank, webEssayGetMonthRank} from "http/api";
 import IndexContainer from "components/index/layout/IndexContainer";
 
@@ -97,11 +98,15 @@ export default {
     })
     // 热点tag
     let tagHot = await $get(webTagGetNewEnergyTags)
+
+    // 新能源右边数据列表
+    let EvRightListData = await $get(webGetEvRightEssay)
+
     // 新能源下方数据列表
     let EvList = await $get(webEssayGetEssayByChannelShou, {
       channel: 4,
       pageNo: 1,
-      pageSize: 4
+      pageSize: 3
     })
     // 兴趣部落轮播图
     let hobbiesCourselData = await $get(webBannerList, {cChannel: 17, linktype: 'second'})
@@ -185,6 +190,7 @@ export default {
       EvCourselData: EvCourselData.data ? EvCourselData.data : [],
       tagHot: tagHot.data ? tagHot.data : [],
       EvList: EvList.data ? EvList.data : [],
+      EvRightListData : EvRightListData.data.des && EvRightListData.data.code == 0  ?  EvRightListData.data.des : [],
       hobbiesCourselData: hobbiesCourselData.data ? hobbiesCourselData.data : [],
       hobbiesItem: hobbiesItem.data ? hobbiesItem.data : {},
       hobbiesList: hobbiesList.data.list ? hobbiesList.data.list : [],
@@ -213,6 +219,7 @@ export default {
     }
   },
   mounted() {
+    // console.log(this.EvRightListData,'父组件拿的数据')
     // this.formatName(this.newsList)
     // this.formatName(this.EvList)
     // console.log('aaaaaa')

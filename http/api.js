@@ -2,6 +2,9 @@
  * 这里填写接口名称
  */
 
+// 首页新能源右侧文章
+export const webGetEvRightEssay = '/web/essay/getEvRightEssay' // 新增
+
 //    hobbies模块
 export const webHobbiesDelete = '/web/hobbies/delete' //    删除hobbies
 export const webHobbiesGetClassList = '/web/hobbies/getClassList' //    获取hobbies分类

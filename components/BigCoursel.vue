@@ -270,7 +270,7 @@ export default {
 
 .big_container .titleBg {
   width: 1200px;
-  height: 100px;
+  height: 60px;
   background-color: #000;
   opacity: 0.5;
   color: #ffffff;
@@ -285,17 +285,20 @@ export default {
 
 .big_container .title {
   display: block;
-  width: 1200px;
-  height: 100px;
+  width: 520px;
+  height: 60px;
   color: #ffffff;
   position: absolute;
   z-index: 100;
   bottom: 40px;
-  left: 50%;
+  left: 26%;
   box-sizing: border-box;
   padding-top: 10px;
-  text-align: center;
+  /* text-align: center; */
   /* letter-spacing: 5px; */
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
   font-size: 30px;
   transform: translateX(-50%);
 }
