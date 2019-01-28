@@ -54,6 +54,8 @@
           <div class="detail_content_desc">
               <!-- <img :src="formatPic(essayData.photo)"
                 class="detail_content_desc_pic" v-if="essayData.classOneName !== '视频'"> -->
+                <video :src="formatPic(essayData.video)" controls="controls"
+                class="detail_content_desc_pic" v-if="essayData.video !== ''"  height="450" width="100%"></video>
             <div class="detail_content_introduction"
               v-html="essayData.description"></div>
           </div>
@@ -2537,5 +2539,8 @@ margin: 23px 25px 22px 0;
   height: 32px;
   background: url('~static/images/watch_red.png') no-repeat;
   color: #fff;
+}
+video{
+  width: 100%;
 }
 </style>

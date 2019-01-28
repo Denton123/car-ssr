@@ -81,59 +81,69 @@
               <el-radio-button :label="1">增加水印</el-radio-button>
               <el-radio-button :label="2">无水印</el-radio-button>
             </el-radio-group>
+            <!-- 截图开始 -->
             <div class="article_file_picture">
               <el-upload :action="imgUrl"
-                         :data="imgType"
-                         :limit="limit"
-                         :file-list="articleForm.fileList"
-                         :on-success="uploadPicSuccess"
-                         :on-error="uploadPicFailure"
-                         list-type="picture-card"
-                         name="upPhoto"
-                         :on-preview="handlePictureCardPreview"
-                         :before-upload="beforeUpload"
-                         :on-remove="handleRemove">
+                :data="imgType"
+                :limit="limit"
+                multiple
+                :file-list="articleForm.fileList"
+                :on-success="uploadPicSuccess"
+                :on-error="uploadPicFailure"
+                list-type="picture-card"
+                name="upPhoto"
+                :disabled="true"
+                :on-preview="handlePictureCardPreview"
+                :before-upload="beforeUpload"
+                :on-remove="handleRemove">
                 <i class="el-icon-plus"></i>
+                <div class="app-main-content"
+                  @click="showCropper = true"
+                  v-show="isCropper">
+                </div>
               </el-upload>
-              <el-dialog :visible.sync="dialogVisible"
-                         append-to-body>
+              <el-dialog 
+                :visible.sync="dialogVisible"
+                append-to-body>
                 <img class="imgSize"
-                     :src="piectImgUrl"
-                     alt="">
+                    :src="piectImgUrl"
+                    alt="">
               </el-dialog>
               <!--裁剪图片-->
-              <div class="app-main-content"
-                   @click="showCropper = true"
-                   v-show="isCropper">
-              </div>
               <el-dialog :visible.sync="showCropper"
-                         title="封面裁图"
-                         class="dialog-content"
-                         @close='closeDialog'>
-                <vueCropper @cropper-after="cropperSuccessAfter"
-                             @cropper-before="cropperSuccessBefore"
-                             :clearMessage="clearMessage"></vueCropper>
+                title="封面裁图"
+                class="dialog-content"
+                @close='closeDialog'>
+                <vueCropper
+                  :autoCropWidth=380
+                  :autoCropHeight=280
+                  @cropper-after="cropperSuccessAfter"
+                  @cropper-before="cropperSuccessBefore"
+                  :uploads="suploads"
+                  :clearMessage="clearMessage"></vueCropper>
               </el-dialog>
               <div class="picture_mark"
-                   v-show="isText">
-                <span>封面原图</span> <span>封面截图</span>
+                v-show="isText">
+                <!-- <span>封面原图</span>  -->
+                <span>封面截图</span>
               </div>
             </div>
+            <!-- 截图结束 -->
           </el-form-item>
           <el-form-item prop="Video">
             <p class="article_form_title">
               上传视频<span>视频大小建议为2M以内，支持格式 MP4</span>
             </p>
             <el-upload :action="imgUrl"
-                       name="upPhoto"
-                       :data="imgType"
-                       :limit="1"
-                       :fileList="videoFileList"
-                       :on-success="handleVideoSuccess"
-                       :on-error="uploadVideoFailure"
-                       :before-upload="beforeUploadVideo"
-                       :on-progress="uploadVideoProcess"
-                       :on-remove="handleRemoveVideo">
+              name="upPhoto"
+              :data="imgType"
+              :limit="1"
+              :fileList="videoFileList"
+              :on-success="handleVideoSuccess"
+              :on-error="uploadVideoFailure"
+              :before-upload="beforeUploadVideo"
+              :on-progress="uploadVideoProcess"
+              :on-remove="handleRemoveVideo">
               <img src="~static/images/video_image.png"
                    alt=""
                    class="videoControl">
@@ -191,6 +201,8 @@
         imgUrl: url,
         utils: utils,
         activeName: 'first',
+        luploads: 'luploads',
+        suploads: 'suploads',
         articleForm: {
           title: '',
           type: '',
@@ -237,7 +249,7 @@
         videoFileList: [],
         oneClassOptions: [],
         content: '',
-        limit: 9,
+        limit: 2,
         croppa: {},
         videoForm: {},
         imgType: {
@@ -307,24 +319,29 @@
       },
       // 子组件裁剪方法成功执行后与父组件通信
       cropperSuccessAfter(data) {
-        this.articleForm.fileList = []
-        this.articleForm.fileList.push({
-          name: this.fileListNew[0].name,
-          url: this.fileListNew[0].url
-        })
+        console.log('-------')
+        console.log(data)
+        console.log(this.fileListNew[0].url)
+        console.log('-------')
+        // this.articleForm.fileList = []
+        // this.articleForm.fileList.push({
+        //   name: this.fileListNew[0].name,
+        //   url: this.fileListNew[0].url
+        // })
         this.articleForm.fileList.push({
           name: 'image2',
           url: systemManage.getApi(data)
         })
         this.articleForm.cover = data
         this.showCropper = false
-        document.querySelector('.el-upload').style.display = 'none'
-        this.isCropper = false
+        // document.querySelector('.el-upload').style.display = 'none'
+        this.isCropper = true
         this.isText = true
+        console.log(this.articleForm)
       },
       cropperSuccessBefore(data) {
         this.fileListNew = []
-        this.articleForm.fileList = []
+        // this.articleForm.fileList = []
         this.fileListNew.push({
           name: 'image1',
           url: systemManage.getApi(data)
@@ -373,7 +390,9 @@
         //       message: '已取消操作'
         //     })
         //   })
-        this.articleForm.fileList = []
+        console.log(file)
+        console.log(fileList)
+        // this.articleForm.fileList = []
         this.isCropper = true
         this.isText = false
         document.querySelector('.el-upload').style.display = 'inline-block'
@@ -393,7 +412,7 @@
           this.articleForm.photo = res.urls[0]
           // console.log(this.articleForm.photo)
           this.url = systemManage.getApi(this.articleForm.photo)
-          document.querySelector('.el-upload').style.display = 'none'
+          // document.querySelector('.el-upload').style.display = 'none'
           this.showCropper = true
           this.$message({
             type: 'success',
@@ -788,6 +807,9 @@
     flex-direction: column;
     align-items: center;
   }
+  .el-upload{
+    position: relative;
+  }
   .person_head {
     width: 130px;
     height: 130px;
@@ -1013,7 +1035,8 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: 320px;
+    // width: 320px;
+    width: 148px;
     height: 100%;
     cursor: pointer;
   }

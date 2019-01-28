@@ -48,21 +48,29 @@
           <el-row class="avatar-btns">
             <el-col :span="18">
               <el-button type="primary"
-                         class="el-button el-button--primary"
-                         title="放大"
-                         @click="changeScale(1)">放大</el-button>
+                class="el-button el-button--primary"
+                title="放大"
+                @click="changeScale(1)">放大</el-button>
               <el-button type="primary"
-                         class="el-button el-button--primary"
-                         title="缩小"
-                         @click="changeScale(-1)">缩小</el-button>
+                class="el-button el-button--primary"
+                title="缩小"
+                @click="changeScale(-1)">缩小</el-button>
               <el-button type="primary"
-                         class="el-button el-button--primary"
-                         title="左旋转"
-                         @click="rotateLeft">↺</el-button>
+                class="el-button el-button--primary"
+                title="左旋转"
+                @click="rotateLeft">↺</el-button>
               <el-button type="primary"
-                         class="el-button el-button--primary"
-                         title="右旋转"
-                         @click="rotateRight">↻</el-button>
+                class="el-button el-button--primary"
+                title="右旋转"
+                @click="rotateRight">↻</el-button>
+              <el-button type="primary"
+                class="el-button el-button--primary"
+                title="380*280"
+                @click="smallCrop">380*280</el-button>
+              <el-button type="primary"
+                class="el-button el-button--primary"
+                title="790*450"
+                @click="bigCrop">790*450</el-button>
             </el-col>
             <el-col :span="6">
               <input type="button"
@@ -98,16 +106,27 @@ export default {
   //   vueCropper
   // },
   watch: {
-    clearMessage() {
-      this.option.img = ''
-      this.previews.url = ''
+    clearMessage(curVal, oldVal) {
+      if (curVal) {
+        this.option.img = ''
+        this.previews.url = ''
+      }
+      console.log(this.option.img)
     }
   },
   props: {
     clearMessage: {
       type: Boolean,
       require: true
-    }
+    },
+    // autoCropWidth: {
+    //   type: Number,
+    //   require: true
+    // },
+    // autoCropHeight: {
+    //   type: Number,
+    //   require: true
+    // }
   },
   data() {
     return {
@@ -120,13 +139,13 @@ export default {
         outputSize: 1, // 剪切后的图片质量（0.1-1）
         full: false, // 输出原图比例截图 props名full
         outputType: 'png || jpeg || jpg',
-        canMove: true,
-        original: false,
-        canMoveBox: true,
+        canMove: true, 
+        original: false, 
+        canMoveBox: true, 
         autoCrop: true,
         autoCropWidth: 380,
         autoCropHeight: 280,
-        fixedBox: true
+        fixedBox: true //是否固定截图框大小，不允许改变
       },
       fileName: '', // 本机文件地址
       downImg: '#',
@@ -150,6 +169,16 @@ export default {
     rotateRight() {
       // console.log('rotateRight')
       this.$refs.cropper.rotateRight()
+    },
+    // 380*280尺寸
+    smallCrop () {
+      this.option.autoCropWidth = 380
+      this.option.autoCropHeight = 280
+    },
+    // 790*450尺寸
+    bigCrop () {
+      this.option.autoCropWidth = 790
+      this.option.autoCropHeight = 450
     },
     // 上传图片（点击上传按钮）
     finish(type) {
@@ -181,6 +210,7 @@ export default {
                 })
                 // 将返回的数据传给父组件（截图）
                 _this.$emit('cropper-after', res.urls[0])
+                console.log(res.urls[0], '==========')
               }
             })
         })
@@ -336,8 +366,10 @@ export default {
   justify-content: flex-end;
   -webkit-justify-content: flex-end;
   .cropper {
-    width: 735px;
-    height: 420px;
+    // width: 735px;
+    width: 800px;
+    // height: 420px;
+    height: 500px;
   }
   .show-preview {
     flex: 1;
