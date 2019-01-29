@@ -17,20 +17,20 @@
         <div class="cropper-content">
           <div class="cropper">
               <vueCropper ref="cropper"
-                          :img="option.img"
-                          :outputSize="option.size"
-                          :outputType="option.outputType"
-                          :info="true"
-                          :full="option.full"
-                          :canMove="option.canMove"
-                          :canMoveBox="option.canMoveBox"
-                          :original="option.original"
-                          :autoCrop="option.autoCrop"
-                          :autoCropWidth="option.autoCropWidth"
-                          :autoCropHeight="option.autoCropHeight"
-                          :fixedBox="option.fixedBox"
-                          @realTime="realTime"
-                          @imgLoad="imgLoad">
+                :img="option.img"
+                :outputSize="option.size"
+                :outputType="option.outputType"
+                :info="true"
+                :full="option.full"
+                :canMove="option.canMove"
+                :canMoveBox="option.canMoveBox"
+                :original="option.original"
+                :autoCrop="option.autoCrop"
+                :autoCropWidth="option.autoCropWidth"
+                :autoCropHeight="option.autoCropHeight"
+                :fixedBox="option.fixedBox"
+                @realTime="realTime"
+                @imgLoad="imgLoad">
               </vueCropper>
           </div>
           <div style="margin-left:20px;">
@@ -210,6 +210,8 @@ export default {
                 })
                 // 将返回的数据传给父组件（截图）
                 _this.$emit('cropper-after', res.urls[0])
+                this.option.img = ''
+                console.log(this.option.img, 'img')
                 console.log(res.urls[0], '==========')
               }
             })

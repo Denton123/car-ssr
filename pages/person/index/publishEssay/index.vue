@@ -85,14 +85,13 @@
             <div class="article_file_picture">
               <el-upload :action="imgUrl"
                 :data="imgType"
-                :limit="limit"
-                multiple
+                :class="{disabled: uploadDisabled}"
                 :file-list="articleForm.fileList"
                 :on-success="uploadPicSuccess"
                 :on-error="uploadPicFailure"
                 list-type="picture-card"
                 name="upPhoto"
-                :disabled="true"
+                :disabled="uploadFlag"
                 :on-preview="handlePictureCardPreview"
                 :before-upload="beforeUpload"
                 :on-remove="handleRemove">
@@ -295,6 +294,12 @@
         } else {
           return false
         }
+      },
+      uploadDisabled: function() {
+        return this.articleForm.fileList.length >= 2
+      },
+      uploadFlag: function (){
+        return this.articleForm.fileList.length == 0 || this.articleForm.fileList.length == 1
       }
     },
     methods: {
@@ -319,10 +324,6 @@
       },
       // 子组件裁剪方法成功执行后与父组件通信
       cropperSuccessAfter(data) {
-        console.log('-------')
-        console.log(data)
-        console.log(this.fileListNew[0].url)
-        console.log('-------')
         // this.articleForm.fileList = []
         // this.articleForm.fileList.push({
         //   name: this.fileListNew[0].name,
@@ -1117,5 +1118,8 @@
         width: 68% !important;
       }
     }
+  }
+  .disabled .el-upload--picture-card{
+    display: none;
   }
 </style>
