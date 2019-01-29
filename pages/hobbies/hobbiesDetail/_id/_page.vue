@@ -53,6 +53,7 @@
             <!-- <img src="../../assets/detail/logo.png" class="detail_content_desc_pic"> -->
             <slider-show :sliderData="essayData.photoList == null ? []: essayData.photoList"></slider-show>
             <!-- <slider-show :sliderData="sliderData"></slider-show> -->
+            <video :src="formatPic(essayData.video)" v-if="essayData.video !== ''" controls="controls" height="450" width="100%"></video>
             <div class="detail_content_introduction"
               v-html="essayData.description"
               v-if="essayData.description != null"

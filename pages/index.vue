@@ -185,7 +185,7 @@ export default {
       newsObj: newsObj.data ? newsObj.data : {},
       tagOne: tagOne.data ? tagOne.data : [],
       newsCourselData: newsCourselData.data ? newsCourselData.data : [],
-      newsRightList: newsRightList.data ?  (newsRightList.data  && newsRightList.data.length <= 10 ? newsRightList.data : newsRightList.data.slice(0, 11) ) : [],
+      newsRightList: newsRightList.data ?  (newsRightList.data  && newsRightList.data.length <= 6 ? newsRightList.data : newsRightList.data.slice(0, 7) ) : [],
       newsList: newsList.data ? newsList.data: [],
       EvCourselData: EvCourselData.data ? EvCourselData.data : [],
       tagHot: tagHot.data ? tagHot.data : [],
@@ -221,8 +221,9 @@ export default {
   mounted() {
     // console.log(this.EvRightListData,'父组件拿的数据')
     // this.formatName(this.newsList)
-    // this.formatName(this.EvList)
-    // console.log('aaaaaa')
+    this.formatName(this.EvList)
+    console.log('aaaaaa')
+    console.log(this.EvList)
     // console.log(this.newsObj)
   }
 };

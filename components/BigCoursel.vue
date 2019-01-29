@@ -77,6 +77,7 @@
         slot="button-next"
         @click="next"></div>
     </div> -->
+
     <div class="titleBg">
     </div>
     <div class="bg-titleWrap">
@@ -270,7 +271,6 @@ export default {
 .big_container .swiper-slide {
   width: 1200px;
 }
-
 .big_container .titleBg
  {
   width: 1200px;
@@ -286,6 +286,19 @@ export default {
   padding-top: 10px;
   transform: translateX(-50%);
 }
+.big_container .bg-titleWrap{
+  width: 1200px;
+  height: 60px;
+  color: #ffffff;
+  position: absolute;
+  z-index: 100;
+  bottom: 40px;
+  left: 50%;
+  box-sizing: border-box;
+  padding-top: 10px;
+  transform: translateX(-50%);
+}
+
 .big_container .bg-titleWrap{
   width: 1200px;
   height: 60px;
