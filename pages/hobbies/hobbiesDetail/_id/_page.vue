@@ -53,7 +53,7 @@
             <!-- <img src="../../assets/detail/logo.png" class="detail_content_desc_pic"> -->
             <slider-show :sliderData="essayData.photoList == null ? []: essayData.photoList"></slider-show>
             <!-- <slider-show :sliderData="sliderData"></slider-show> -->
-            <video :src="formatPic(essayData.video)" v-if="essayData.video !== ''" controls="controls" height="450" width="100%"></video>
+            <video :src="formatPic(essayData.video)" v-if="essayData.video != '' && essayData.description != '' && essayData.description.indexOf('<video') < 0 " class="detail_content_desc_pic" controls="controls" width="100%"></video>
             <div class="detail_content_introduction"
               v-html="essayData.description"
               v-if="essayData.description != null"
@@ -1596,6 +1596,11 @@ export default {
 .detail_content_time {
   position: absolute;
   right: 0;
+}
+.detail_content_desc_pic {
+  width: 710px;
+  margin-bottom: 30px;
+  margin-top: 30px;
 }
 .detail_content_desc_pic {
   width: 710px;

@@ -55,7 +55,7 @@
               <!-- <img :src="formatPic(essayData.photo)"
                 class="detail_content_desc_pic" v-if="essayData.classOneName !== '视频'"> -->
                 <video :src="formatPic(essayData.video)" controls="controls"
-                class="detail_content_desc_pic" v-if="essayData.video !== ''"  height="450" width="100%"></video>
+                class="detail_content_desc_pic" v-if="essayData.video != '' && essayData.description != '' && essayData.description.indexOf('<video') < 0 "  width="100%"></video>
             <div class="detail_content_introduction"
               v-html="essayData.description"></div>
           </div>
@@ -1650,8 +1650,9 @@ export default {
 }
 .detail_content_desc_pic {
   width: 710px;
-  height: 416px;
-  margin-bottom: 31px;
+  /* height: 416px; */
+  margin-bottom: 30px;
+  margin-top: 30px;
 }
 .detail_content_tab {
   margin-top: 80px;
