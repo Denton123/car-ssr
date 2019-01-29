@@ -106,19 +106,19 @@ export default {
   //   vueCropper
   // },
   watch: {
-    clearMessage(curVal, oldVal) {
-      if (curVal) {
-        this.option.img = ''
-        this.previews.url = ''
-      }
-      console.log(this.option.img)
-    }
+    // clearMessage(curVal, oldVal) {
+    //   if (curVal || oldVal) {
+    //     this.option.img = ''
+    //     this.previews.url = ''
+    //   }
+    //   console.log(oldVal, 'oldVal watch')
+    // }
   },
   props: {
-    clearMessage: {
-      type: Boolean,
-      require: true
-    },
+    // clearMessage: {
+    //   type: Boolean,
+    //   require: true
+    // },
     // autoCropWidth: {
     //   type: Number,
     //   require: true
@@ -150,7 +150,7 @@ export default {
       fileName: '', // 本机文件地址
       downImg: '#',
       imgFile: '',
-      uploadImgRelaPath: '' // 上传后的图片的地址（不带服务器域名）
+      uploadImgRelaPath: '', // 上传后的图片的地址（不带服务器域名）,
     }
   },
   methods: {
@@ -281,6 +281,7 @@ export default {
             })
             // 将返回的数据传给父组件(原图）
             _this.$emit('cropper-before', res.urls[0])
+            console.log(res.urls[0], 'cropper-before')
           }
         })
       var reader = new FileReader()

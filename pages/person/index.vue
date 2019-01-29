@@ -18,7 +18,7 @@
               v-if="userData.user.loginName!==''">
               {{userData.user.loginName}}
             </div>
-            <div class="person_approve" v-if="userData.user.idCard !== ''">
+            <div class="person_approve" v-if="userData.user.idCard  && userData.user.idCard !== ''">
               已认证
             </div>
             <div class="person_msg">

@@ -123,7 +123,6 @@
               </el-dialog>
               <div class="picture_mark"
                 v-show="isText">
-                <!-- <span>封面原图</span>  -->
                 <span>封面截图</span>
               </div>
             </div>
@@ -261,7 +260,8 @@
         isCropper: true,
         isText: false,
         url: null,
-        clearMessage: true
+        clearMessage: true,
+        uploadDisabled: false
       }
     },
     /* 预览图和视频地址拼接 */
@@ -295,11 +295,21 @@
           return false
         }
       },
-      uploadDisabled: function() {
-        return this.articleForm.fileList.length >= 2
-      },
-      uploadFlag: function (){
-        return this.articleForm.fileList.length == 0 || this.articleForm.fileList.length == 1
+      // uploadDisabled: function() {
+      //   return this.articleForm.fileList.length >= 2
+      // },
+      uploadFlag: function() {
+        return this.articleForm.fileList.length <= 1
+      }
+    },
+    watch: {
+      'articleForm.fileList': {
+        handler: function(v) {
+          if (v.length == 2) {
+            this.uploadDisabled = true
+          }
+        },
+        deep: true
       }
     },
     methods: {
@@ -328,7 +338,9 @@
         // this.articleForm.fileList.push({
         //   name: this.fileListNew[0].name,
         //   url: this.fileListNew[0].url
-        // })
+        // // })
+        // console.log(data, 'data')
+        // console.log(this.articleForm.fileList, 'fileList')
         this.articleForm.fileList.push({
           name: 'image2',
           url: systemManage.getApi(data)
@@ -339,6 +351,13 @@
         this.isCropper = true
         this.isText = true
         console.log(this.articleForm)
+        if (this.articleForm.fileList.length == 2) {
+          this.uploadDisabled = true
+        }
+        console.log(this.uploadDisabled, 'this.uploadDisabled')
+        console.log(this.articleForm.fileList, 'this.uploadDisabled fileList')
+        this.clearMessage = !this.clearMessage
+        $('.el-upload-list--picture-card .el-upload-list__item').append('<b>封面截图</b>')
       },
       cropperSuccessBefore(data) {
         this.fileListNew = []
@@ -391,12 +410,25 @@
         //       message: '已取消操作'
         //     })
         //   })
-        console.log(file)
-        console.log(fileList)
+        // console.log(file, 'handleRemove file')
+        // console.log(fileList, 'handleRemove fileList')
+        // console.log(this.articleForm.fileList, 'handleRemove fileList')
+        if (this.articleForm.fileList && this.articleForm.fileList.length !== 0) {
+          for (var j = 0; j < this.articleForm.fileList.length; j++) {
+            console.log(j)
+            if (this.articleForm.fileList[j].uid == file.uid) {
+              this.articleForm.fileList.splice(j, 1)
+            }
+          }
+          if (this.articleForm.fileList.length < 2) {
+            this.uploadDisabled = false
+          }
+        }
         // this.articleForm.fileList = []
         this.isCropper = true
         this.isText = false
         document.querySelector('.el-upload').style.display = 'inline-block'
+        // console.log(this.articleForm.fileList, 'handleRemove')
       },
       handlePictureCardPreview(file) {
         // 新上传
@@ -953,6 +985,7 @@
   .article_file_picture {
     position: relative;
     margin-top: 20px;
+    // border: 1px solid red;
   }
   .article_ruleForm .el-input {
     width: 65%;
@@ -1120,6 +1153,6 @@
     }
   }
   .disabled .el-upload--picture-card{
-    display: none;
+    display: none !important;
   }
 </style>

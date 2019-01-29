@@ -519,11 +519,13 @@ export default {
               type: 'warning',
               message: `${res.data.des}`
             })
+            this.editForm.phone = ''
           } else if (res.data.code == 2) {
             this.$message({
               type: 'warning',
               message: '登录失效，请重新登录'
             })
+            this.editForm.phone = ''
           }
         })
       }
