@@ -2,7 +2,7 @@
   <div id="fans">
     <div class="detail_content_article_title">
       <img src="~static/detail/detail_article.png">
-      <h2>{{ defaultPageData.numberTitle[0] }} <span>{{listData.totalCount}}</span> {{ defaultPageData.numberTitle[1] }}</h2>
+      <h2>{{ defaultPageData.numberTitle[0] }} <span>{{totalData.totalCount}}</span> {{ defaultPageData.numberTitle[1] }}</h2>
       <div class="search_fans">
         <input type="text" v-model="name" class="v-left" :placeholder="defaultPageData.searchTitle">
         <div class="fans_search_btn" @click="onSearch">搜索</div>
@@ -74,6 +74,7 @@ export default {
   },
   data() {
     return {
+      totalData:{},
       fansNum: '',
       photo: '',
       numberOfFans: '',
@@ -120,22 +121,23 @@ export default {
       if (this.tokenObj == null) {
         this.tokenObj = {}
       }
-      let page = sessionStorage.getItem('personIndexPage')
-      if(page) {
-        this.defaultParams.page = page
-      }
+      // let page = sessionStorage.getItem('personIndexPage')
+      // if(page) {
+      //   this.defaultParams.page = page
+      // }
       let res = await $get(
         webUserGetFans,
         {
           limit: '8',
           name: name || '',
-          page: page || '1'
+          page: this.defaultParams.page || '1'
         },
         {
           'X-Auth0-Token': this.cookie !== '' ? this.cookie : this.tokenObj.token
         })
       let data = res.data
       if (data.result) {
+        this.totalData = data 
         this.list = data.page.list
         this.listData = data.page
         if(name !== ''&&name !== undefined && this.list.length == 0){
@@ -162,7 +164,7 @@ export default {
       this.fansList(page)
     },
     handleCurrentChange(val) {
-      sessionStorage.setItem('personIndexPage', val)
+      // sessionStorage.setItem('personIndexPage', val)
       this.defaultParams.page = val
       this.fansList()
     },

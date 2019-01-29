@@ -4,6 +4,12 @@
   "description": "My splendiferous Nuxt.js project",
   "author": "littlezong",
   "private": true,
+  "config": {
+    "nuxt": {
+      "host": "0.0.0.0",
+      "port": "3000"
+    }
+  },
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon server/index-koa.js --watch server",
     "build": "nuxt build",
@@ -24,7 +30,6 @@
     "koa": "^2.6.2",
     "nuxt": "^2.0.0",
     "qrcodejs2": "^0.0.2",
-    "summernote": "^0.8.11",
     "v-distpicker": "^1.0.23",
     "vue-awesome-swiper": "^3.1.3",
     "vue-cropper": "^0.4.8",
@@ -38,6 +43,7 @@
     "less": "^3.9.0",
     "less-loader": "^4.1.0",
     "nodemon": "^1.11.0",
+    "summernote": "^0.8.11",
     "transform-runtime": "^0.0.0",
     "webpack-merge": "^4.1.5"
   }

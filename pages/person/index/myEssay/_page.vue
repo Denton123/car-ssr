@@ -9,7 +9,7 @@
         <nuxt-link :to="`/${item.title !== 'hobbies' ? item.classLabel.toLowerCase() : 'hobbies'}/${item.title !== 'hobbies' ? 'detail' : 'hobbiesDetail'}/${item.id}/1`">
           <div class="person_essay_list_block_pic"
             v-if="item.photo !== ''">
-            <img :src="formatPic(item.photo)"
+            <img :src="formatPic(item.photo) + '?time=' + new Date().getTime"
               :alt="item.title == 'hobbies' ? '兴趣部落' : item.title"
               class="person_essay_list_block_pic">
           </div>

@@ -164,6 +164,7 @@
 </template>
 <script>
   // import 'bootstrap/dist/css/bootstrap.css'
+  // import "dist/summernote.js"
   import Header from '@/components/Header'
   import Footer from '@/components/Footer'
   import VueCropper from '@/components/VueCropper'
@@ -185,6 +186,8 @@
   if (process.client) {
     require("summernote/dist/summernote-lite");
   }
+  // import '@/components/summernote/dist/summernote.js'
+  // import '@/components/summernote/dist/summernote-lite.css'
 
   export default {
     name: 'person',
