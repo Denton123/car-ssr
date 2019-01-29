@@ -7,7 +7,11 @@
             <div class="publish_hobby_wrapper">
               <el-breadcrumb separator-class="el-icon-arrow-right"
                              class="nav_title hobby_tip">
-                <el-breadcrumb-item>兴趣部落</el-breadcrumb-item>
+                <el-breadcrumb-item>
+                  <nuxt-link to="/hobby/1" class="editHobbyLink">
+                  兴趣部落
+                  </nuxt-link>
+                  </el-breadcrumb-item>
                 <el-breadcrumb-item class="nav_title_active"><span>编辑兴趣部落</span></el-breadcrumb-item>
               </el-breadcrumb>
               <div class="publish_hobby">
@@ -117,14 +121,14 @@
           </div>
         </div>
       </div>
-      <div class="advertise_wrapper">
+      <!-- <div class="advertise_wrapper">
         <a href="javascript: void (0);">
           <img src="../../../../assets/images/ad_image.png"
                alt="">
         </a>
-      </div>
+      </div> -->
     </div>
-    <Footer></Footer>
+    <!-- <Footer></Footer> -->
   </div>
 </template>
 <script>
@@ -144,11 +148,13 @@
     name: 'hobby',
     data() {
       return {
+        id:'',
         imgUrl: url,
         utils: utils,
         activeName: 'first',
         hobbyForm: {
           photo: '',
+          video:'',
           watermark: 2,
           classfiy: '',
           description: '',
@@ -193,9 +199,11 @@
         this.id = sessionStorage.getItem('hobbiesId') || '1'
       }
       this.gethobbyType()
+      this.getHobbiesInfo()
     },
     /* 预览图 */
     computed: {
+      // 图片拼接
       piectImgUrl() {
         const res = /http/g
         if (res.test(this.hobbyForm.photo)) {
@@ -203,7 +211,11 @@
         } else {
           return systemManage.getApi(this.hobbyForm.photo)
         }
-      }
+      },
+      // 视频拼接
+      pieceVideoUrl() {
+        return systemManage.getApi(this.hobbyForm.video)
+      },
     },
     methods: {
       // 获取hobbies文章信息
@@ -246,10 +258,10 @@
       },
       handlePictureCardPreview(file) {
         if (file.response && file.response.code === 0) {
-          this.dialogImageUrl = file.url
+          this.dialogImageUrl = file.url 
           this.dialogVisible = true
         } else {
-          this.dialogImageUrl = file.url
+          this.dialogImageUrl = file.url 
           this.dialogVisible = true
         }
       },
@@ -285,9 +297,10 @@
       },
       handleRemove(file, fileList) {
         // console.log(file, fileList)
-        let index = this.hobbyForm.fileList.find(item => {
+        let indexEl = this.hobbyForm.fileList.find(item => {
           return item.url === file.url
         })
+        let index = this.hobbyForm.fileList.indexOf(indexEl)
         this.hobbyForm.fileList.splice(index, 1)
         this.hobbyForm.photoList.splice(index, 1)
         // document.querySelectorAll('.el-upload')[0].style.display = 'block'
@@ -540,9 +553,7 @@
       }
     },
     mounted() {
-      this.$nextTick(async () => {
-        this.getHobbiesInfo()
-        this.gethobbyType()
+      this.$nextTick(async () => {      
       })
     },
     components: {
@@ -584,6 +595,9 @@
     font-weight: bold;
     color: #fff;
     margin-bottom: 12px;
+  }
+  .editHobbyLink:hover{
+    color: #be001e;
   }
   .hobby_approve {
     width: 80px;

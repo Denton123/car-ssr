@@ -268,9 +268,10 @@ export default {
       })
     },
     handleRemove(file, fileList) {
-      let index = this.hobbyForm.fileList.find(item => {
+      let indexEl = this.hobbyForm.fileList.find(item => {
         return item.url === file.url
       })
+      let index = this.hobbyForm.fileList.indexOf(indexEl)
       this.hobbyForm.fileList.splice(index, 1)
       this.hobbyForm.photoList.splice(index, 1)
       document.querySelectorAll('.el-upload')[0].style.display = 'block'

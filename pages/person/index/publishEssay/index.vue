@@ -183,7 +183,7 @@
   import { webEssaySave, filePicture, webEssayArticleType } from "@/http/api";
   import systemManage from "@/http/photoApi.js";
   import utils from "@/utils/until";
-  // import $ from 'jquery'
+  // import jQuery from 'jquery'
   import axios from "axios";
   const url = utils.commonFileUrl + utils.apiPath + "sys/uploadFile";
   // const serverUrl = utils.commonUrl
@@ -192,6 +192,7 @@
   if (process.client) {
     require("summernote/dist/summernote-lite");
   }
+  // import '@/components/summernote/dist/summernote-lite'
   export default {
     name: 'person',
     data() {
