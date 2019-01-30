@@ -770,15 +770,27 @@ export default {
     },
     //  图片拼接
     piectImgUrl(item) {
+      if(item.photo.indexOf('http:') >= 0 || item.photo.indexOf('/image') >= 0){
+        return item.photo
+      }
       return systemManage.getApi(item.photo)
     },
     piectImg(item) {
+      if(item.photo.indexOf('http:') >= 0 || item.photo.indexOf('/image') >= 0){
+        return item.photo
+      }
       return systemManage.getApi(item.photo)
     },
     piecImgUrl(item) {
+      if(item.authorphoto.indexOf('http:') >= 0 || item.authorphoto.indexOf('/image') >= 0){
+        return item.authorphoto
+      }
       return systemManage.getApi(item.authorphoto)
     },
-        piecImgUrlS(item) {
+    piecImgUrlS(item) {
+      if(item.authorPhoto.indexOf('http:') >= 0 || item.authorPhoto.indexOf('/image') >= 0){
+        return item.authorPhoto
+      }
       return systemManage.getApi(item.authorPhoto)
     },
     tagOn(index) {
@@ -985,7 +997,8 @@ export default {
         classfiy: this.hobbiesClassId,
         order: 'desc',
         sidx: this.sidexHot
-      }) // 初始化 传值 id,desc,h.create_time，页数 (还未实现)
+      }) 
+      // 初始化 传值 id,desc,h.create_time，页数 (还未实现)
       this.mockHobbyItems = _mockHobbyItems.data.list
       this.indexId = 0
       this.hobbiesTwelve = this.mockHobbyItems.slice(0, 12)
@@ -1023,12 +1036,11 @@ export default {
       this.hostPointItems = _hostPointItems.data
     },
     pageChange(page) {
+      // this.$router.push({
+      //   path: `/hobby/${page}`
+      // })
       this.waterFlow('content-wrap', 'contain-hobby-wrap')
       this.getRecentlyHobbiesList(this.hobbiesClassId, page)
-      this.$router.replace({
-        path: `/hobby/${page}`
-      })
-      console.log(this.sidx, 'pagechange')
       this.currentPage = page
     }
   }

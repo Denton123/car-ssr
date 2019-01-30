@@ -41,8 +41,8 @@
                          @click.stop="toBloger(eassy.userId)">
                       <div>
                         <img :src="eassy.userPhoto"
-                             :alt="essay.userName">
-                        <span class="name">{{eassy.userName}}</span>
+                            :alt="eassy.userName&&eassy.userName" >
+                        <span class="name">{{eassy.userName&&eassy.userName}}</span>
                       </div>
                       <span class="search_line">|</span>
                     </div>
@@ -210,8 +210,8 @@
       // 拼接list里面的头像的地址
       eassyListUrl() {
         return this.eassyList.map(item => {
-          item.essayPhoto = systemManage.getApi(item.essayPhoto)
-          item.userPhoto = systemManage.getApi(item.userPhoto)
+          item.essayPhoto = item.essayPhoto.indexOf('http:') >= 0 ? item.essayPhoto : systemManage.getApi(item.essayPhoto)
+          item.userPhoto = item.userPhoto.indexOf('http:') >= 0 ? item.userPhoto : systemManage.getApi(item.userPhoto)
           return item
         })
       }
@@ -469,7 +469,6 @@
           .search_title {
             height: 24px;
             font-size: 24px;
-
             font-weight: bold;
             color: rgba(18, 18, 18, 1);
             line-height: 24px;
@@ -493,7 +492,6 @@
             margin-bottom: 31px;
             height: 42px;
             font-size: 26px;
-
             vertical-align: top;
             font-weight: bold;
             color: rgba(0, 0, 0, 1);
@@ -561,7 +559,7 @@
                 .search_title {
                   margin: 0 auto;
                   width: 328px;
-                  height: 26px;
+                  height: 30px;
                   font-size: 26px;
                   font-weight: 600;
                   color: rgba(18, 18, 18, 1);

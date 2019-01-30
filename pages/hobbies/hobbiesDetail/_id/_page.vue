@@ -1138,6 +1138,9 @@ export default {
       // this.getCommentData(this.$route.params.page)
     },
     formatPic(item) {
+      // if(item.indexOf('http:') >= 0 || item.indexOf('/image') >= 0){
+      //   return item
+      // }
       return systemManage.getApi(item)
     },
     // 加油
@@ -2260,6 +2263,7 @@ detail_comment_form_input_operate_emoji:hover span {
   width: 100px;
   height: 74px;
   vertical-align: bottom;
+  object-fit: cover;
 }
 .detail_more_content_list {
   display: inline-block;

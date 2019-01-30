@@ -277,6 +277,9 @@
         }
       },
       pieceVideoUrl() {
+      if(this.articleForm.video.indexOf('http:') >= 0 || this.articleForm.video.indexOf('/image') >= 0){
+        return this.articleForm.video
+      }
         return systemManage.getApi(this.articleForm.video)
       },
       connectClassOne() {

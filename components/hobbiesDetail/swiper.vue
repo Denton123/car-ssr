@@ -148,6 +148,9 @@ export default {
   },
   methods: {
     formatphoto(item) {
+      if(item.indexOf('http:') >= 0 || item.indexOf('/image') >= 0){
+        return item
+      }
       return systemManage.getApi(item)
     }
   },

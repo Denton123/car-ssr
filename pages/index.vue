@@ -203,27 +203,27 @@ export default {
     };
   },
   methods: {
-    formatName (obj) {
-      obj.forEach(v => {
-      v.classOneName = v.classOneName.toLowerCase();
-      if (v.classOneName.toLowerCase() == "news") {
-        v.classOneName = "今日车闻";
-      } else if (v.classOneName.toLowerCase() == "video") {
-        v.classOneName = "视频";
-      } else if (v.classOneName.toLowerCase() == "ev") {
-        v.classOneName = "新能源";
-      } else {
-        v.classOneName = "兴趣部落";
-      }
-    });
-    }
+    // formatName (obj) {
+    //   obj.forEach(v => {
+    //   v.classOneName = v.classOneName.toLowerCase();
+    //   if (v.classOneName.toLowerCase() == "news") {
+    //     v.classOneName = "今日车闻";
+    //   } else if (v.classOneName.toLowerCase() == "video") {
+    //     v.classOneName = "视频";
+    //   } else if (v.classOneName == "ev") {
+    //     v.classOneName = "新能源";
+    //   } else {
+    //     v.classOneName = "兴趣部落";
+    //   }
+    // });
+    // }
   },
   mounted() {
     // console.log(this.EvRightListData,'父组件拿的数据')
     // this.formatName(this.newsList)
-    this.formatName(this.EvList)
-    console.log('aaaaaa')
-    console.log(this.EvList)
+    // this.formatName(this.EvList)
+    // console.log('aaaaaa')
+    // console.log(this.EvList,'0000000000000000')
     // console.log(this.newsObj)
   }
 };

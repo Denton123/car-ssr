@@ -175,7 +175,6 @@ export default {
       if(this.activeName === 'person-index-myIntergral') {
         this.$router.push('/person/myIntergral')
       }
-      console.log(tabArray[2],'99999999')
       if (tabArray[2] === 'myEssay') {
         this.$router.push(`/person/${tabArray[2]}/1`)
       } else {
@@ -201,6 +200,9 @@ export default {
       })
     },
     formatPic(item) {
+      if(item.indexOf('http:') >= 0 || item.indexOf('/image') >= 0){
+        return item
+      }
       return systemManage.getApi(item)
     },
     // 获取cookie

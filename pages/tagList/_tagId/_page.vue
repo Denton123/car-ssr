@@ -343,12 +343,15 @@ export default {
   computed: {
     // 拼接list里面的头像的地址
     titleUrl() {
+      if(this.tagObj.url.indexOf('http:') >= 0 || this.tagObj.url.indexOf('/image') >= 0){
+        return this.tagObj.url
+      }
       return systemManage.getApi(this.tagObj.url);
     },
     eassyListUrl() {
       return this.eassyList.map(item => {
-        item.photo = systemManage.getApi(item.photo);
-        item.userPhoto = systemManage.getApi(item.userPhoto);
+        item.photo = item.photo.indexOf('http:') >= 0 ?  item.photo : systemManage.getApi(item.photo);
+        item.userPhoto = item.userPhoto.indexOf('http:') >= 0 ? item.userPhoto : systemManage.getApi(item.userPhoto);
         return item;
       });
     }

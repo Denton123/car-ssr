@@ -278,6 +278,9 @@
         }
       },
       pieceVideoUrl() {
+        if(this.articleForm.video.indexOf('http:') >= 0 || this.articleForm.video.indexOf('/image') >= 0){
+        return this.articleForm.video
+      }
         return systemManage.getApi(this.articleForm.video)
       },
       connectClassOne() {
@@ -450,6 +453,11 @@
         if (res.code === 0) {
           this.articleForm.photo = res.urls[0]
           // console.log(this.articleForm.photo)
+          // if(this.articleForm.photo.indexOf('http:') >= 0 || this.articleForm.photo.indexOf('/image') >= 0){
+          //   this.url = this.articleForm.photo
+          // }else{
+          //   this.url = systemManage.getApi(this.articleForm.photo)
+          // }
           this.url = systemManage.getApi(this.articleForm.photo)
           // document.querySelector('.el-upload').style.display = 'none'
           this.showCropper = true
@@ -775,7 +783,6 @@
                   .then(response => {
                     var res = response.data
                     if (res.code === 0) {
-                      console.log(systemManage.getApi(res.urls[0]))
                       $('#summernote').summernote(
                         'insertImage',
                         systemManage.getApi(res.urls[0])
@@ -800,7 +807,6 @@
               .then(response => {
                 var res = response.data
                 if (res.code === 0) {
-                  console.log(systemManage.getApi(res.urls[0]))
                   var node = document.createElement('div') // 创建节点，用于包裹视频，再加这一层是方便调视频样式
                   node.innerHTML =
                     '<video controls="controls" style="max-width:100%;" src="' +

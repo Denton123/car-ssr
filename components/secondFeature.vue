@@ -55,6 +55,9 @@ export default {
   methods: {
     //专栏的图片拼接
     piectFeatureUrl(item) {
+      if(item.photo.indexOf('http:') >= 0 || item.photo.indexOf('/image') >= 0){
+        return item.photo
+      }
       return systemManage.getApi(item.photo)
     },
     setItem(index) {

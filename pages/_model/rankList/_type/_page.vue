@@ -323,10 +323,16 @@ export default {
       // })
     },
     piectImgUrl(item) {
+      if(item.cover.indexOf('http:') >= 0 || item.cover.indexOf('/image') >= 0){
+        return item.cover
+      }
       return systemManage.getApi(item.cover)
     },
     // 头像
     piectProfileUrl(item) {
+      if(item.photo.indexOf('http:') >= 0 || item.photo.indexOf('/image') >= 0){
+        return item.photo
+      }
       return systemManage.getApi(item.photo)
     },
     newPage: function(value) {

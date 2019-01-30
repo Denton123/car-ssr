@@ -545,14 +545,23 @@ export default {
     },
     // 文章的图片拼接
     piectImgUrl(item) {
+      if(item.photo.indexOf('http:') >= 0 || item.photo.indexOf('/image') >= 0){
+        return item.photo
+      }
       return systemManage.getApi(item.photo)
     },
     // 头像的图片拼接
     piectProfileUrl(item) {
+      if(item.photoUrl.indexOf('http:') >= 0 || item.photoUrl.indexOf('/image') >= 0){
+        return item.photoUrl
+      }
       return systemManage.getApi(item.photoUrl)
     },
     // 专栏的图片拼接
     piectFeatureUrl(item) {
+      if(item.indexOf('http:') >= 0 || item.indexOf('/image') >= 0){
+        return item
+      }
       return systemManage.getApi(item)
     },
     newPage: function(value) {
@@ -1173,6 +1182,7 @@ line-height:125px; */
   width: 100%;
   height: 180px;
   position: absolute;
+  object-fit: cover;
 }
 .todayNew .firstBanner .feature_titleWrap,
 .todayNew .secondBanner .feature_titleWrap {
