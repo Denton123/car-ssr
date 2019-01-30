@@ -97,7 +97,7 @@
                 :on-remove="handleRemove">
                 <i class="el-icon-plus"></i>
                 <div class="app-main-content"
-                  @click="showCropper = true"
+                  @click="isShowCropper"
                   v-show="isCropper">
                 </div>
               </el-upload>
@@ -124,6 +124,7 @@
               <div class="picture_mark"
                 v-show="isText">
                 <span>封面截图</span>
+                <span v-show="articleForm.fileList.length > 1">封面截图</span>
               </div>
             </div>
             <!-- 截图结束 -->
@@ -262,7 +263,8 @@
         isText: false,
         url: null,
         clearMessage: true,
-        uploadDisabled: false
+        uploadDisabled: false,
+        // uploadFlag: false
       }
     },
     /* 预览图和视频地址拼接 */
@@ -314,6 +316,9 @@
       }
     },
     methods: {
+      isShowCropper () {
+        this.showCropper = true
+      },
       //  图片拼接
       /* piectImgUrl(item) {
         return systemManage.getApi(item.photo)
@@ -1155,5 +1160,8 @@
   }
   .disabled .el-upload--picture-card{
     display: none !important;
+  }
+  .avatar{
+    max-width: 800px;
   }
 </style>

@@ -23,7 +23,7 @@
           <div>
             <el-form-item class="articleVerify"
                           prop="classOne">
-              <el-select v-model="articleForm.classOne"
+              <el-select v-model="articleForm.classOneName"
                          placeholder="请选择文章分类">
                 <el-option v-for="item in oneClassOptions"
                            :key="item.id"
@@ -280,6 +280,7 @@
         return systemManage.getApi(this.articleForm.video)
       },
       connectClassOne() {
+        console.log(this.oneClassOptions, 'computed')
         let that = this
         let index = this.oneClassOptions.findIndex(function(item) {
           return item.id === that.articleForm.classOne
@@ -670,6 +671,7 @@
       }
     },
     mounted() {
+      console.log(this.connectClassOne, 'connectClassOne')
       if (
         localStorage.getItem('userMsg') &&
         localStorage.getItem('userMsg') != ''

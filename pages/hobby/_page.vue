@@ -202,6 +202,14 @@
                     src="~static/picture/person_default.png" >
                 <span class="name-blogger">{{bloggerItem.authorName}}</span>
               </nuxt-link>
+              <div class="bloggerFocus">
+                <div v-if="bloggerItem.follow === false || bloggerItem.follow === undefined" @click="clickWatch(bloggerItem, index)">
+                  <span class="bloggerNoFocus"><strong>关注</strong></span>
+                </div>
+                <div v-else @click="cancelWatch(bloggerItem)">
+                  <span class="bloggerhasFocus"><strong>已关注</strong></span>
+                </div>
+              </div>
             </div>
           </div>
           <!--热点模块——title-本周热点以及本月-->
@@ -264,7 +272,7 @@
   </div>
 </template>
 <script>
-import { $get } from '@/http/ajax'
+import { $get, $post } from '@/http/ajax'
 import { instance } from '@/http/instance'
 import { webHobbiesInfo, webHobbiesGetClassList, webUserSelectByPrimaryKey } from '@/http/api'
 import systemManage from '@/http/photoApi.js'
@@ -275,6 +283,7 @@ import Header from '@/components/Header.vue'
 import BigCoursel from '@/components/BigCoursel'
 // import Swiper from 'swiper'
 // import 'swiper/dist/css/swiper.css'
+import Utils from '@/utils/until'
 
 export default {
   name: 'hobby',
@@ -383,7 +392,8 @@ export default {
       picTotal: 0, // 图片总数量
       curPage: 1,
       cookie: null,
-      tokenObj:null
+      tokenObj:null,
+      userId: ''
     }
   },
   components: {
@@ -394,6 +404,7 @@ export default {
   },
   // nuxt异步获取数据
   async asyncData({params, env, req}) {
+    let token = Utils.b_getToken(req)
     var userCookie = null
     if (req && req.headers && req.headers.cookie) {
       let reqHeaders = req.headers.cookie.split(';')
@@ -422,6 +433,8 @@ export default {
     {
       pageNo: 1,
         size: 10
+    }, {
+      'X-Auth0-Token': token
     })
     let _mockHobbyItems = await $get('/web/hobbies/list?', {
       limit: 12,
@@ -443,6 +456,7 @@ export default {
     this.currentPage = this.$route.params.page
   },
   mounted() {
+    console.log(this.bloggerItems, 'bloggerItems')
       if (
       localStorage.getItem('userMsg')&&
       localStorage.getItem('userMsg') != ''
@@ -505,13 +519,16 @@ export default {
       // this.totalPage = this._mockHobbyItems.totalPage
       // this.totalCount = this._mockHobbyItems.totalCount
       // this.mockHobbyItems = this._mockHobbyItems.list
-      this.metaDescription = this.mockHobbyItems[0].description
+      // console.log(this.mockHobbyItems, 'mockHobbyItems')
+      this.metaDescription = this.mockHobbyItems !== null ? this.mockHobbyItems[0].description : 1
       this.picCount = 0
       this.picTotal = 0
-      this.mockHobbyItems.forEach(item => {
-        this.picTotal += item.photoList.length
-      })
-      this.hobbiesTwelve = this.mockHobbyItems.slice(0, 12)
+      if (this.mockHobbyItems !== null) {
+        this.mockHobbyItems.forEach(item => {
+          this.picTotal += item.photoList.length
+        })
+      }
+      this.hobbiesTwelve = this.mockHobbyItems !== null ? this.mockHobbyItems.slice(0, 12) : []
       this.mockHobbyItems = this.hobbiesTwelve
       // console.log(this.$refs.pagination, 'page')
       // this.$refs.pagination.routLinkCurrentPage()
@@ -539,8 +556,58 @@ export default {
         async: true
       })
     }
+    this.getUserInfo()
   },
   methods: {
+    // 获取当前登录用户信息
+    getUserInfo() {
+      $get(webUserSelectByPrimaryKey, {}, {
+        'X-Auth0-Token':
+          this.tokenObj
+      }).then(res => {
+        // console.log(res)
+        if (res.data.code == 0 ) {
+          this.userId = res.data.des.user&& res.data.des.user!= '' ? res.data.des.user.id : ''
+        }
+        
+      })
+    },
+    // 关注
+    clickWatch (item, index) {
+      if(this.tokenObj.token !== undefined || this.cookie !== '') {
+        if (this.userId == item.authorId) {
+          this.$message('用户不能关注自己')
+        } else {
+          item.follow = true
+          this.watchBloger(item.authorId)
+        }
+      } else {
+        this.$message('请先登录')
+      }
+    },
+    async cancelWatch(item) {
+      item.follow = false
+      let obj = { 'X-Auth0-Token': this.tokenObj }
+      let urlParam = new URLSearchParams()
+      urlParam.append('type', 'cancel')
+      urlParam.append('bloggerId', item.authorId)
+      let itemL = await $post('/web/user/clickCare?', urlParam, obj)
+      this.$message({
+        type: 'success',
+        message: '取消成功!'
+      })
+    },
+    async watchBloger(id) {
+      let obj = { 'X-Auth0-Token': this.tokenObj }
+      let urlParam = new URLSearchParams()
+      urlParam.append('type', 'follow')
+      urlParam.append('bloggerId', id)
+      await $post('/web/user/clickCare?', urlParam, obj)
+      this.$message({
+        type: 'success',
+        message: '关注成功!'
+      })
+    },
     // 获取cookies
     getCookie(cname) {
       let name = cname + '='
@@ -671,6 +738,7 @@ export default {
     //   }
     // },
     async getRecentlyHobbiesList(id, page = 1) {
+      console.log(this.sidx, 'sidxsidx')
       let wparent = document.getElementsByClassName('content-wrap')
       let contentContain = document.getElementsByClassName('content-contain')
       wparent[0].style.height = 1300 + 'px'
@@ -925,6 +993,7 @@ export default {
       setTimeout(() => {
         this.waterFlow('content-wrap', 'contain-hobby-wrap')
       }, 600)
+      console.log(this.recentlyDecorationOn, 'recentlyDecorationOn')
       // this.scrollEvent()
     },
     // 本月热点——改变按钮样式&&
@@ -954,11 +1023,12 @@ export default {
       this.hostPointItems = _hostPointItems.data
     },
     pageChange(page) {
-      this.$router.push({
+      this.waterFlow('content-wrap', 'contain-hobby-wrap')
+      this.getRecentlyHobbiesList(this.hobbiesClassId, page)
+      this.$router.replace({
         path: `/hobby/${page}`
       })
-        this.waterFlow('content-wrap', 'contain-hobby-wrap')
-      this.getRecentlyHobbiesList(this.hobbiesClassId, page)
+      console.log(this.sidx, 'pagechange')
       this.currentPage = page
     }
   }
@@ -1519,7 +1589,7 @@ html {
   display:inline-block;
   font-size: 16px;
   font-weight: bold;
-  width: 250px;
+  /* width: 250px; */
   height:50px;
   color: rgba(0, 0, 0, 1);
   margin-top: 17px;
@@ -1704,5 +1774,30 @@ html {
   }
   .hobbies-footer {
     margin-top:20px;
+  }
+  .bloggerFocus{
+    display: inline-block;
+    float: right;
+    margin-top: 13px;
+  }
+  .bloggerNoFocus{
+    display: inline-block;
+    width: 70px;
+    height: 32px;
+    background: url('~static/picture/watch_red.png');
+    text-align: center;
+    line-height: 32px;
+    color: #fff;
+    cursor: pointer;
+  }
+  .bloggerhasFocus {
+    display: inline-block;
+    width: 70px;
+    height: 30px;
+    background: url('~static/picture/watch_wrap.png');
+    text-align: center;
+    line-height: 32px;
+    color: #AAAAAA;
+    cursor: pointer;
   }
 </style>
