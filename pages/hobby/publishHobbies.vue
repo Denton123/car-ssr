@@ -198,6 +198,9 @@ export default {
       }
     },
     pieceVideoUrl() {
+      if(this.hobbyForm.video.indexOf('http:') >= 0 || this.hobbyForm.video.indexOf('/image') >= 0){
+        return this.hobbyForm.video
+      }
       return systemManage.getApi(this.hobbyForm.video)
     }
   },

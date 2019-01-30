@@ -26,7 +26,8 @@
             </nuxt-link>
           </div>
           <div class="info_center"></div>
-          <div class="info_right">{{EvRightListData.classOneName == ''?'无': EvRightListData.classOneName}}</div>
+          <!-- <div class="info_right">{{EvRightListData.classOneName == ''?'无' : EvRightListData.classOneName}}</div> -->
+          <div class="info_right">新能源</div>
         </div>
       </div>
 
@@ -85,11 +86,11 @@ export default {
   },
   methods:{
     formatPic(item) {
+      if(item.indexOf('http:') >= 0 || item.indexOf('/image') >= 0){
+        return item
+      }
       return systemManage.getApi(item)
     },
-  },
-  mounted(){
-    console.log(this.EvRightListData,'子组件里的')
   }
 }
 </script>

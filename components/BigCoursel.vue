@@ -180,7 +180,10 @@ export default {
         }
   },
   methods: {
-        concatImage(item) {
+      concatImage(item) {
+      if(item.indexOf('http:') >= 0 || item.indexOf('/image') >= 0){
+        return item
+      }
       return systemManage.getApi(item)
     },
     // 轮播改变

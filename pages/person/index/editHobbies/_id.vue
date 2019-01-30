@@ -214,6 +214,9 @@
       },
       // 视频拼接
       pieceVideoUrl() {
+        if(this.hobbyForm.video.indexOf('http:') >= 0 || this.hobbyForm.video.indexOf('/image') >= 0){
+          return this.hobbyForm.video
+        }
         return systemManage.getApi(this.hobbyForm.video)
       },
     },
@@ -270,6 +273,11 @@
           this.hobbyForm.photo = res.urls[0]
           // console.log(this.hobbyForm.photo)
           // 拼接后的图片地址
+          // if(this.hobbyForm.photo.indexOf('http:') >= 0 || this.hobbyForm.photo.indexOf('/image') >= 0){
+          //   this.url =  this.hobbyForm.photo
+          // }else{
+          //   this.url = systemManage.getApi(this.hobbyForm.photo)
+          // }
           this.url = systemManage.getApi(this.hobbyForm.photo)
           this.hobbyForm.fileList.push({ url: this.url })
           this.hobbyForm.photoList.push({ photo: res.urls[0] })

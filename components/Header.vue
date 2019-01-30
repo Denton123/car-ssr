@@ -227,6 +227,9 @@ export default {
       })
     },
     formatPic(item) {
+      if(item.indexOf('http:') >= 0 || item.indexOf('/image') >= 0){
+        return item
+      }
       return systemManage.getApi(item)
     },
     // 跳转到搜索页

@@ -1125,6 +1125,9 @@ export default {
       // console.log(userInfo)
     },
     formatPic(item) {
+      if(item.indexOf('http:') >= 0 || item.indexOf('/image') >= 0){
+        return item
+      }
       return systemManage.getApi(item)
     },
     pageChange(page) {
@@ -2316,6 +2319,7 @@ export default {
   width: 100px !important;
   height: 74px;
   vertical-align: bottom;
+  object-fit: cover;
   /*display: block;*/
 }
 .detail_more_content_list {

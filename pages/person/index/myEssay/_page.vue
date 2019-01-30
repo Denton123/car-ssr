@@ -129,6 +129,9 @@ export default {
       })
     },
     formatPic(item) {
+      if(item.indexOf('http:') >= 0 || item.indexOf('/image') >= 0){
+        return item
+      }
       return systemManage.getApi(item)
     },
     // newPageAAA(){
@@ -212,6 +215,7 @@ export default {
 .person_my_essay_list .person_essay_list_block_pic img {
   width: 100%;
   height: 100%;
+  object-fit: cover;
 }
 .person_my_essay_list .person_essay_list_block_tag span {
   display: inline-block;

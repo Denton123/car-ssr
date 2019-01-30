@@ -16,12 +16,12 @@
           <nuxt-link :to="`/Bloger/${item.id}/1`">
           <div class="head_image"
                v-if="item.photo !== ''">
-            <img :src="formatPic(item.photo)" alt="">
+            <img :src="formatPic(item.photo)" :alt="item.loginName">
           </div>
           <div class="head_image"
                v-else>
             <img src="~static/person/person_default.png"
-                 alt="">
+                 alt="用户头像">
           </div>
           </nuxt-link>
           <div class="fans_info">
@@ -318,6 +318,8 @@
           border-radius: 100%;
           img{
             width: 100%;
+            height: 100px;
+            border-radius: 50%
           }
         }
         .fans_info{
