@@ -29,7 +29,7 @@ instance.interceptors.request.use(
   // function(config) {
   //   let localUser
   //   if (process.client) {
-  //     localUser = localStorage.getItem('userMsg') && JSON.parse(localStorage.getItem('userMsg')) !== '' ? JSON.parse(localStorage.getItem('userMsg')).token : ''
+  //     localUser = localStorage.getItem('userMsg') &&  localStorage.getItem('userMsg') != '' ? JSON.parse(localStorage.getItem('userMsg')).token : ''
   //   }
   //   console.log(localUser, 'localUser')
   //     const token = process.client ? (getCookie('token') !== '' ? getCookie('token') : localUser) : ''
