@@ -30,7 +30,9 @@
 
           <ul>
             <li class="car_header_banner_icon_search"
-              @click="showSearch()">
+              @click="showSearch()"
+              @mouseenter="showSearch()"
+              @mouseleave="hideSearch()">
               <a href="javascript:void(0);">
                 <i :class="{'hasSearchHover': isShowSearch}"></i>
               </a>
@@ -49,10 +51,16 @@
             </li>
             <li class="car_header_banner_icon_upload"
               @click="toPublishEssay()"
-              v-if=" loginFlag !==2">
-              <a href="javascript:void(0);">
-                <i></i>
-              </a>
+              @mouseenter="hasToEssay"
+              @mouseleave="hideToEssay">
+                <a href="javascript:void(0);">
+                  <i></i>
+                </a>
+                <div class="toEssayWrap" v-if="ShowToEssay" @click="toEssay">
+                  <span class="toEssay">
+                  上传内容
+                </span>
+                </div>
             </li>
             <li class="car_header_banner_icon_phone"
               @mouseenter="showActive(3)"
@@ -60,11 +68,11 @@
               <a href="javascript:void(0);">
                 <i></i>
               </a>
-              <div class="phone_code"
-                v-if="active == 3">
+              <div class="phone_code" v-if="active == 3">
                 <div class="triangle">
                   <span></span>
                 </div>
+                <span class="codeDes">扫码浏览手机端</span>
                 <img src="~static/detail/code.jpg">
               </div>
             </li>
@@ -74,11 +82,11 @@
               <a href="javascript:void(0);">
                 <i></i>
               </a>
-              <div class="wechat_code"
-                v-if="active == 4">
+              <div class="wechat_code" v-if="active == 4">
                 <div class="triangle">
                   <span></span>
                 </div>
+                <span class="codeDes">扫码关注公众号</span>
                 <img src="~static/detail/code.jpg">
               </div>
             </li>
@@ -182,7 +190,8 @@ export default {
       },
       cookie: '',
       tokenObj: {},
-      loginFlag: 2
+      loginFlag: 2,
+      ShowToEssay: false
     }
   },
   methods: {
@@ -198,6 +207,9 @@ export default {
     },
     showSearch() {
       this.isShowSearch = true
+    },
+    hideSearch() {
+      this.isShowSearch = false
     },
     toAnotherRouter(name) {
       this.operateActiveName = name
@@ -313,6 +325,17 @@ export default {
     },
     headerTagOut() {
       this.hoverName = this.activeName
+    },
+    hasToEssay() {
+      this.ShowToEssay = true
+    },
+    hideToEssay() {
+      this.ShowToEssay = false
+    },
+    toEssay() {
+      this.$router.push({
+        path: '/person/myEssay/1'
+      })
     }
   },
   mounted() {
@@ -333,6 +356,9 @@ export default {
       this.hasLoginIn = true
     }
     // console.log(this.activeName)
+    $('#el-tooltip-8687').click(function(){
+      console.log('ppppppppppppppppppppppp')
+    })
   }
 }
 </script>
@@ -592,8 +618,17 @@ export default {
 .car_header .phone_code img {
   display: inline-block;
   width: 100px !important;
-  height: 100px !important;
-  margin: 15px auto;
+  /* height: 100px !important; */
+  /* margin: 15px auto; */
+  position: relative;
+  top: -47px;
+}
+.car_header .codeDes{
+  padding: 0;
+  position: relative;
+  top: -23px;
+  font-size: 12px;
+  color: #fff;
 }
 .wechat_code {
   width: 130px;
@@ -608,9 +643,11 @@ export default {
 .car_header .wechat_code img {
   display: inline-block;
   width: 100px !important;
-  height: 100px !important;
-  margin: 15px auto;
+  /* height: 100px !important; */
+  /* margin: 15px auto; */
   /* padding: 15px; */
+  position: relative;
+  top: -47px;
 }
 .triangle {
   width: 0;
@@ -743,5 +780,22 @@ export default {
   background: #be001e;
   height: 100%;
   position: absolute;
+}
+.toEssayWrap{
+  /* padding-top: 20px; */
+  position: absolute;
+  left: -39px;
+  top: 26px;
+  z-index: 999999;
+}
+.toEssay {
+  width: 84px;
+  height: 35px;
+  color: #000;
+  background: #fff;
+  text-align: center;
+  line-height: 35px;
+  border-radius: 5px;
+  display: inline-block;
 }
 </style>

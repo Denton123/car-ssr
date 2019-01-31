@@ -1,7 +1,7 @@
 <template>
   <div class="person-my-intergral">
     <div class="intergral-head">
-    <p class="intergral-count"><i class="head-right-icon"/>共<span class="intergral-red-number">{{userInterList&&userInterList.totalCount}}</span>积分</p>
+    <p class="intergral-count"><i class="head-right-icon"/>共<span class="intergral-red-number">{{integralData&&integralData.integral}}</span>积分</p>
       <button class="show-intergral-rules" @click="showIntergral">积分规则</button>
     </div>
     <div class="intergral-content-wrapper">
@@ -119,7 +119,8 @@ export default {
           return {}
         }
       },
-      showHide: false
+      showHide: false,
+      integralData: {}
     }
   },
   async mounted() {
@@ -182,6 +183,8 @@ export default {
     async getInterList () {
       let userIntergralList = await $get(getUserInterList, this.defaultParams)
       this.userInterList = userIntergralList.data.page
+      this.integralData = userIntergralList.data
+      console.log(userIntergralList)
       // console.log('userInterList', this.userInterList)
     },
     async showIntergral() {     

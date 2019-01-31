@@ -1818,6 +1818,12 @@ height: 150px;
   font-weight: 300;
   /* font-family: SourceHanSansCN-Light; */
   color: rgba(177, 177, 177, 1);
+  width: 45px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: middle;
 }
 .detail_content_article_block_desperate {
   font-size: 12px;
