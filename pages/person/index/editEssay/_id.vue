@@ -788,6 +788,7 @@
             }
           })
       }
+      console.log('一刷新就没啦')
     },
     components: {
       Header,
@@ -1135,5 +1136,11 @@
         width: 68% !important;
       }
     }
+  }
+  .avatar{
+    max-width: 800px;
+  }
+  video{
+    max-width: 800px;
   }
 </style>

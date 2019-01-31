@@ -58,14 +58,14 @@
                     name="person-index-myIntergral">
                     <my-intergral></my-intergral>
                   </el-tab-pane>
-                  <el-tab-pane label="我的粉丝"
+                  <!-- <el-tab-pane label="我的粉丝"
                     name="person-index-myFans">
                     <my-fans></my-fans>
                   </el-tab-pane>
                   <el-tab-pane label="我的关注"
                     name="person-index-myFollower">
                     <my-follower></my-follower>
-                  </el-tab-pane>
+                  </el-tab-pane> -->
                   <el-tab-pane label="个人信息"
                     name="person-index-editInfo">
                     <person-info></person-info>
@@ -237,11 +237,13 @@ export default {
     this.$nextTick(() => {this.createAd()})
     this.activeName = this.$route.name
     // 解决刷新之后，选项卡可能不显示的问题
-    if (this.activeName==='person-index-myFans-page'){
+    if (this.activeName==='person-index-myFans-page') {
       this.activeName = 'person-index-myFans'
-    }else if (this.activeName==='person-index-myFollower-page'){
+    }else if (this.activeName==='person-index-myFollower-page') {
       this.activeName = 'person-index-myFollower'
-    }else if(this.activeName == 'person-index-publishEssay'){ 
+    }else if(this.activeName == 'person-index-publishEssay') { 
+      this.activeName = 'person-index-myEssay-page'
+    } else if (this.activeName === 'person-index-editEssay-id') {
       this.activeName = 'person-index-myEssay-page'
     }
     // this.$router.push('/person/myEssay/1')
