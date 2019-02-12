@@ -1039,10 +1039,10 @@ export default {
       // this.$router.push({
       //   path: `/hobby/${page}`
       // })
-      setTimeout(() => {
+      // setTimeout(() => {
         this.waterFlow('content-wrap', 'contain-hobby-wrap')
         this.getRecentlyHobbiesList(this.hobbiesClassId, page)
-      }, 1000);
+      // }, 1000);
       this.currentPage = page
     }
   }
