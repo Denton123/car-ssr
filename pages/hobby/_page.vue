@@ -1036,9 +1036,9 @@ export default {
       this.hostPointItems = _hostPointItems.data
     },
     pageChange(page) {
-      this.$router.push({
-        path: `/hobby/${page}`
-      })
+      // this.$router.push({
+      //   path: `/hobby/${page}`
+      // })
       setTimeout(() => {
         this.waterFlow('content-wrap', 'contain-hobby-wrap')
         this.getRecentlyHobbiesList(this.hobbiesClassId, page)
