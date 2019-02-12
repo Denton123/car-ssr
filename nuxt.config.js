@@ -28,10 +28,12 @@ module.exports = {
       rel: 'icon',
       type: 'image/x-icon',
       href: `${routerconfig}/favicon.ico`
-    }],
+    }
+  ],
     script: [{
-      src: 'http://dup.baidustatic.com/js/ds.js'
-    }]
+      src: 'http://dup.baidustatic.com/js/ds.js',
+    }
+  ]
   },
 
   env: {
