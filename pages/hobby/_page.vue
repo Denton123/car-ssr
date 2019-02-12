@@ -1036,13 +1036,13 @@ export default {
       this.hostPointItems = _hostPointItems.data
     },
     pageChange(page) {
-      this.$router.push({
-        path: `/hobby/${page}`
-      })
-      setTimeout(() => {
+      // this.$router.push({
+      //   path: `/hobby/${page}`
+      // })
+      // setTimeout(() => {
         this.waterFlow('content-wrap', 'contain-hobby-wrap')
         this.getRecentlyHobbiesList(this.hobbiesClassId, page)
-      }, 1000);
+      // }, 1000);
       this.currentPage = page
     }
   }
