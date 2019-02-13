@@ -695,11 +695,11 @@ export default {
               .tag_title {
                 margin: 0 auto;
                 width: 328px;
-                height: 34px;
+                // height: 34px;
                 font-size: 26px;
                 font-weight: 600;
                 color: rgba(18, 18, 18, 1);
-                line-height: 34px;
+                // line-height: 34px;
                 overflow: hidden;
                 white-space: nowrap;
                 text-overflow: ellipsis;

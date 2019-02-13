@@ -559,11 +559,11 @@
                 .search_title {
                   margin: 0 auto;
                   width: 328px;
-                  height: 30px;
+                  // height: 30px;
                   font-size: 26px;
                   font-weight: 600;
                   color: rgba(18, 18, 18, 1);
-                  line-height: 26px;
+                  // line-height: 26px;
                   overflow: hidden;
                   white-space: nowrap;
                   text-overflow: ellipsis;
