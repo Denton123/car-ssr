@@ -555,6 +555,8 @@
           this.$message.error('请上传封面图片！')
           return false
         }
+        // 中文逗号替换为英文逗号
+        this.articleForm.tag= this.articleForm.tag.replace("，",",");
         let newTag = this.articleForm.tag.split(',')
         //【注意】执行两次forEach才可以把数组最后可能存在的空元素删除。。。
         newTag.forEach((element,i) => {
@@ -646,6 +648,8 @@
           this.$message.error('请上传封面图片！')
           return false
         }
+        // 中文逗号替换为英文逗号
+        this.articleForm.tag= this.articleForm.tag.replace("，",",");
         let newTag = this.articleForm.tag.split(',')
         //【注意】执行两次forEach才可以把数组最后可能存在的空元素删除。。。
         newTag.forEach((element,i) => {

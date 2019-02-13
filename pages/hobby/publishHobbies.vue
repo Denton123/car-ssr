@@ -336,6 +336,8 @@ export default {
       this.$refs[formName].resetFields()
     },
     checkClick(formName) {
+      // 中文逗号替换为英文逗号
+      this.hobbyForm.tag= this.hobbyForm.tag.replace("，",",");
       let newTag = this.hobbyForm.tag.split(',')
       //【注意】执行两次forEach才可以把数组最后可能存在的空元素删除。。。
       newTag.forEach((element,i) => {
@@ -350,7 +352,7 @@ export default {
       });
       // 此时的得到的tag就是不存在空元素的了
       this.hobbyForm.tag = newTag.join(',');
-
+'，'
       this.$refs[formName].validate(valide => {
         if (valide) {
           this.$confirm('此操作将新建兴趣部落文章发布, 是否继续?', '提示', {
@@ -434,6 +436,8 @@ export default {
       // })
     },
     draftClick(formName) {
+      // 中文逗号替换为英文逗号
+      this.hobbyForm.tag= this.hobbyForm.tag.replace("，",",");
       let newTag = this.hobbyForm.tag.split(',')
       //【注意】执行两次forEach才可以把数组最后可能存在的空元素删除。。。
       newTag.forEach((element,i) => {
@@ -448,7 +452,6 @@ export default {
       });
       // 此时的得到的tag就是不存在空元素的了
       this.hobbyForm.tag = newTag.join(',');
-
       this.$refs[formName].validate(valide => {
         if (valide) {
           this.$confirm(
