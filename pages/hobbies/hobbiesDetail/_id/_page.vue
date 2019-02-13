@@ -838,7 +838,16 @@ export default {
           return str.replace(/&(nbsp);/ig, function(all, t){
           return arrEntities[t]})
       }
+      // 回复评论不存在换行问题
+      // if(content.indexOf('<br>') > 0){
+      //   content =  content.replace(/(\<div\>\<br\>\<\/div\>)/ig,'')
+      // }
       content =  nbsp2Space(content)
+
+       // 以下的replace是为了排除先键入回车，再键入空格也会被认为不为空，能评论成功的问题，
+       // 因为这种操作会使得 &nbsp; 的首尾多个<div></div>标签，即不为空了
+      // content = content.replace(/(\<div\>\s+\<\/div\>)/ig,'')
+
       if ( !content|| content == '' ||
           (content.length > 0 &&
             content.trim().length == 0) ||
@@ -890,16 +899,23 @@ export default {
 
       // &nbsp;转义为空格的方法：
       function nbsp2Space(str) {
-        var arrEntities = {'nbsp' : ' '};
+        var arrEntities = {'nbsp' : ''};
         return str.replace(/&(nbsp);/ig, function(all, t){
           return arrEntities[t]})
       }
-
       if(this.tokenObj.token !== undefined || this.cookie !== ''){
+        if(editor.innerHTML.indexOf('<br>') > 0){
+          editor.innerHTML =  editor.innerHTML.replace(/(\<div\>\<br\>\<\/div\>)/ig,'')
+        }
         editor.innerHTML =  nbsp2Space(editor.innerHTML)
+
+       // 以下的replace是为了排除先键入回车，再键入空格也会被认为不为空，能评论成功的问题，
+       // 因为这种操作会使得 &nbsp; 的首尾多个<div></div>标签，即不为空了
+        editor.innerHTML = editor.innerHTML.replace(/(\<div\>\s+\<\/div\>)/ig,'')
+
         if ( !editor.innerHTML || editor.innerHTML == '' ||
           (
-            editor.innerHTML.trim().length == 0) ||
+          editor.innerHTML.trim().length == 0) ||
           editor.innerHTML == null ||
           editor.innerHTML == undefined) {
           this.$message('内容不为空')
@@ -1887,6 +1903,9 @@ height: 150px;
 .detail_comment_form_input p {
   width: 614px;
   height: 146px;
+  max-height: 146px;
+  overflow-x: hidden;
+  overflow-y: auto;
   margin: 0;
   padding: 0;
   margin-bottom: 20px;
@@ -2297,7 +2316,7 @@ detail_comment_form_input_operate_emoji:hover span {
 .quill_editor {
   width: 634px;
   padding-bottom: 91px;
-  height: 166px;
+  /* height: 166px; */
 }
 .emoji_container {
   width: 400px;

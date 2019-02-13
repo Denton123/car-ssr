@@ -827,9 +827,18 @@ export default {
             return str.replace(/&(nbsp);/ig, function(all, t){
             return arrEntities[t]})
         }
+        // 回复评论不存在换行问题
+        // if(content.indexOf('<br>') > 0){
+        //   content =  content.replace(/(\<div\>\<br\>\<\/div\>)/ig,'')
+        // }
         content =  nbsp2Space(content)
+
+       // 以下的replace是为了排除先键入回车，再键入空格也会被认为不为空，能评论成功的问题，
+       // 因为这种操作会使得 &nbsp; 的首尾多个<div></div>标签，即不为空了
+       // content = content.replace(/(\<div\>\s+\<\/div\>)/ig,'')
+       
         if ( !content|| content == '' ||
-          (content > 0 &&
+          (content.length > 0 &&
             content.trim().length == 0) ||
           content == null ||
           content == undefined) {
@@ -890,7 +899,15 @@ export default {
           return arrEntities[t]})
       }
       if(this.tokenObj.token !== undefined || this.cookie !== ''){
-          editor.innerHTML =  nbsp2Space(editor.innerHTML)
+          // editor.innerHTML =  nbsp2Space(editor.innerHTML)
+        if(editor.innerHTML.indexOf('<br>') > 0){
+          editor.innerHTML =  editor.innerHTML.replace(/(\<div\>\<br\>\<\/div\>)/ig,'')
+        }
+        editor.innerHTML =  nbsp2Space(editor.innerHTML)
+
+       // 以下的replace是为了排除先键入回车，再键入空格也会被认为不为空，能评论成功的问题，
+       // 因为这种操作会使得 &nbsp; 的首尾多个<div></div>标签，即不为空了
+        editor.innerHTML = editor.innerHTML.replace(/(\<div\>\s+\<\/div\>)/ig,'')
       }
       if (this.tokenObj.token !== undefined || this.cookie !== '') {
         if (editor.innerHTML == '' || (editor.innerHTML.length > 0 &&
