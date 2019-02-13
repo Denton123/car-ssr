@@ -1903,7 +1903,6 @@ height: 150px;
 .detail_comment_form_input p {
   width: 614px;
   height: 146px;
-  max-height: 146px;
   overflow-x: hidden;
   overflow-y: auto;
   margin: 0;

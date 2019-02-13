@@ -1953,6 +1953,8 @@ export default {
 .detail_comment_form_input p {
   width: 614px;
   height: 146px;
+  overflow-x: hidden;
+  overflow-y: auto;
   margin: 0;
   padding: 0;
   margin-bottom: 20px;
@@ -2371,7 +2373,7 @@ export default {
 .quill_editor {
   width: 634px;
   padding-bottom: 91px;
-  height: 166px;
+  /* height: 166px; */
 }
 .emoji_container {
   width: 400px;

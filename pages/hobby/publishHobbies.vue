@@ -352,7 +352,6 @@ export default {
       });
       // 此时的得到的tag就是不存在空元素的了
       this.hobbyForm.tag = newTag.join(',');
-'，'
       this.$refs[formName].validate(valide => {
         if (valide) {
           this.$confirm('此操作将新建兴趣部落文章发布, 是否继续?', '提示', {

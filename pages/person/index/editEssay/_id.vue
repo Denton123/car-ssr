@@ -518,6 +518,23 @@
           this.$message.error('请上传封面图片！')
           return false
         }
+        // 中文逗号替换为英文逗号
+        this.articleForm.tag= this.articleForm.tag.replace("，",",");
+        let newTag = this.articleForm.tag.split(',')
+        //【注意】执行两次forEach才可以把数组最后可能存在的空元素删除。。。
+        newTag.forEach((element,i) => {
+          if(element.trim().length == 0){
+            newTag.splice(i,1)
+          }
+        });
+        newTag.forEach((element,i) => {
+          if(element.trim().length == 0){
+            newTag.splice(i,1)
+          }
+        });
+        // 此时的得到的tag就是不存在空元素的了
+        this.articleForm.tag = newTag.join(',');
+
         this.$refs[formName].validate(valide => {
           if (valide) {
             this.$confirm('此操作将新建文章发布, 是否继续?', '提示', {
@@ -592,6 +609,23 @@
           this.$message.error('请上传封面图片！')
           return false
         }
+        // 中文逗号替换为英文逗号
+        this.articleForm.tag= this.articleForm.tag.replace("，",",");
+        let newTag = this.articleForm.tag.split(',')
+        //【注意】执行两次forEach才可以把数组最后可能存在的空元素删除。。。
+        newTag.forEach((element,i) => {
+          if(element.trim().length == 0){
+            newTag.splice(i,1)
+          }
+        });
+        newTag.forEach((element,i) => {
+          if(element.trim().length == 0){
+            newTag.splice(i,1)
+          }
+        });
+        // 此时的得到的tag就是不存在空元素的了
+        this.articleForm.tag = newTag.join(',');
+
         this.$refs[formName].validate(valide => {
           if (valide) {
             this.$confirm('此操作将新建文章保存为草稿, 是否继续?', '提示', {
