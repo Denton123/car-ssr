@@ -36,9 +36,26 @@
         <!-- <div class="info_center"></div> -->
         <!-- <div class="info_right">{{card.className == ''?'无': '兴趣部落'}}</div> -->
       </div>
+      <!-- 兴趣部落右侧的描述和用户信息 -->
       <div v-if="sContent== '1'"
-        class="hobbies_content">
+        class="hobbies_content info clearfix">
         <p v-html="card.description"></p>
+        <div class="info_left"
+          @click="$router.push(`/Bloger/${cardData.userId}/1`)">
+          <span class="info_header">
+            <img :src="formatPic(card.authorphoto) "
+              :alt="card.userName"
+              height="100%"
+              width="100%"
+              v-if="card.authorphoto != null">
+          </span>
+          <router-link :to="`/Bloger/${card.userId}/1`">
+            <span class="info_name">{{card.userName == '' ? '无': card.userName}}</span>
+          </router-link>
+        </div>
+        <!-- <div class="info_right">{{card.className == ''?'无': '兴趣部落'}}</div> -->
+        <div class="info_center"></div>
+        <div class="info_right">兴趣部落</div>
       </div>
     </div>
   </div>
@@ -196,5 +213,11 @@ export default {
 .hobbies_content p {
   letter-spacing: 1px;
   line-height: 23px;
+  display: -webkit-box;
+   /* autoprefixer: off */
+  -webkit-box-orient: vertical;
+  /* autoprefixer: on */
+  -webkit-line-clamp: 4;
+  overflow: hidden;
 }
 </style>
