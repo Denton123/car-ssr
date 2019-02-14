@@ -236,6 +236,7 @@ export default {
     this.getUserInfo()
     this.$nextTick(() => {this.createAd()})
     this.activeName = this.$route.name
+    console.log(this.activeName)
     // 解决刷新之后，选项卡可能不显示的问题
     if (this.activeName==='person-index-myFans-page') {
       this.activeName = 'person-index-myFans'
@@ -244,6 +245,8 @@ export default {
     }else if(this.activeName == 'person-index-publishEssay') { 
       this.activeName = 'person-index-myEssay-page'
     } else if (this.activeName === 'person-index-editEssay-id') {
+      this.activeName = 'person-index-myEssay-page'
+    } else if (this.activeName = 'person-index-editHobbies-id') {
       this.activeName = 'person-index-myEssay-page'
     }
     // this.$router.push('/person/myEssay/1')

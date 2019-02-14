@@ -24,7 +24,7 @@
         <div class="detail_content">
           <div class="detail_content_title">
             <h1 class="detail_content_name">
-              <span class="detail_content_origin">{{essayType}}</span>
+              <!-- <span class="detail_content_origin">{{essayType}}</span> -->
               {{essayData.title}}
             </h1>
           </div>
