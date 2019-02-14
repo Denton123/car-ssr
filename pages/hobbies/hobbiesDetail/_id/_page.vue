@@ -904,8 +904,8 @@ export default {
           return arrEntities[t]})
       }
       if(this.tokenObj.token !== undefined || this.cookie !== ''){
-        if(editor.innerHTML.indexOf('<br>') > 0){
-          editor.innerHTML =  editor.innerHTML.replace(/(\<div\>\<br\>\<\/div\>)/ig,'')
+        if(editor.innerHTML.indexOf('<br>') >= 0){
+          editor.innerHTML =  editor.innerHTML.replace(/(\<div\>\<br\>\<\/div\>)|\<br\>/ig,'')
         }
         editor.innerHTML =  nbsp2Space(editor.innerHTML)
 

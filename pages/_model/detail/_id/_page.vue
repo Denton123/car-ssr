@@ -900,11 +900,10 @@ export default {
       }
       if(this.tokenObj.token !== undefined || this.cookie !== ''){
           // editor.innerHTML =  nbsp2Space(editor.innerHTML)
-        if(editor.innerHTML.indexOf('<br>') > 0){
-          editor.innerHTML =  editor.innerHTML.replace(/(\<div\>\<br\>\<\/div\>)/ig,'')
+        if(editor.innerHTML.indexOf('<br>') >= 0){
+          editor.innerHTML =  editor.innerHTML.replace(/(\<div\>\<br\>\<\/div\>)|\<br\>/ig,'')
         }
         editor.innerHTML =  nbsp2Space(editor.innerHTML)
-
        // 以下的replace是为了排除先键入回车，再键入空格也会被认为不为空，能评论成功的问题，
        // 因为这种操作会使得 &nbsp; 的首尾多个<div></div>标签，即不为空了
         editor.innerHTML = editor.innerHTML.replace(/(\<div\>\s+\<\/div\>)/ig,'')
