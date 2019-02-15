@@ -162,6 +162,15 @@ module.exports = {
         'window.jQuery': 'jquery'
       })
     ],
+    extractCSS: { allChunks: true },    // css 独立打包 link 的形式加载
+    publicPath: '/sample/assets/', //sample/essays 打包的默认路径为 ‘_nuxt’ 或者可以指定cdn 域名
+    filenames:{         // css 和 js  img 打包时指定文件夹
+      app: ({ isDev }) => isDev ? '[name].js' : '[chunkhash].js',
+      chunk: ({ isDev }) => isDev ? '[name].js' : '[chunkhash].js',
+      css: ({ isDev }) => isDev ? '[name].js' : '[contenthash].css',
+      img: ({ isDev }) => isDev ? '[path][name].[ext]' : '[hash:7].[ext]'
+    },
+    cssSourceMap: false,
     // analyze: true,
     // babel: {
     //   presets: ['es2015', 'stage-2'],

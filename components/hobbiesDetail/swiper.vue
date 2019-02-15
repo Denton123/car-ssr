@@ -4,10 +4,10 @@
     <!-- 如果是一张图片，充满整个容器 -->
      <!-- <swiper v-if="sliderData&& sliderData.length >= 1" :options="galleryTop" ref="topSwiper"  class="swiper-container gallery-top"> 
     </swiper> -->
-    <!-- <div class="swiper-button-next"
+    <div class="swiper-button-next"
       style="position:absolute;top:77.5%;left:47.3%;width: 51px;height: 77px;"></div>
     <div class="swiper-button-prev"
-      style="background: url(~static/detail/left.png);position:absolute;top:77.5%;left:40%;width: 51px;height: 77px;"></div> -->
+      style="background: url(~static/detail/left.png);position:absolute;top:77.5%;left:40%;width: 51px;height: 77px;"></div>
      <!-- <swiper v-if="sliderData&& sliderData.length > 1 " :options="galleryThumbs"  style="margin-top: 50px;" ref="thumbSwiper"  class="swiper-container gallery-thumbs"> -->
     <!-- </swiper>  -->
     <div v-swiper:mySwiper="galleryTop" v-if="sliderData&& sliderData.length >= 1" ref="topSwiper"   class="swiper-container gallery-top">
@@ -16,6 +16,10 @@
             <img :src="formatphoto(item.photo)" alt="尖锋咖">
           </div>
       </div>
+          <!-- <div class="swiper-button-next"
+            style="position:absolute;top:77.5%;left:47.3%;width: 51px;height: 77px;"></div>
+          <div class="swiper-button-prev"
+          style="background: url(~static/detail/left.png);position:absolute;top:77.5%;left:40%;width: 51px;height: 77px;"></div> -->
     </div>
 
     <div v-if="sliderData&& sliderData.length > 1 "  v-swiper:mySwiper2="galleryThumbs" style="margin-top: 50px;" ref="thumbSwiper"  class="swiper-container gallery-thumbs">
