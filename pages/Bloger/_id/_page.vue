@@ -2,7 +2,7 @@
   <div id="bloger">
     <Header></Header>
     <div class="person_container">
-      <div class="person_theme">
+      <div class="blogger_person_theme">
         <div class="person_wrap">
           <div class="person_head">
             <img v-if="userData.blogger && userData.blogger.photo"
@@ -407,14 +407,14 @@
     width: 100%;
     height: 100%;
   }
-  .person_theme {
+  .blogger_person_theme {
     width: 100%;
     height: 400px;
     background: url('~static/images/person_head.png') no-repeat;
     background-size: 100% 100%;
   }
   @media screen and (max-width: 1366px) {
-    .person_theme {
+    .blogger_person_theme {
       width: 100%;
       height: 400px;
       background: url('~static/images/person_person_head_min.jpg') no-repeat;
