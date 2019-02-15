@@ -5,9 +5,9 @@
      <!-- <swiper v-if="sliderData&& sliderData.length >= 1" :options="galleryTop" ref="topSwiper"  class="swiper-container gallery-top"> 
     </swiper> -->
     <div class="swiper-button-next"
-      style="position:absolute;top:77.5%;left:47.3%;width: 51px;height: 77px;"></div>
+      style="position:absolute;top:28.5%;width: 51px;height: 77px;"></div>
     <div class="swiper-button-prev"
-      style="background: url(~static/detail/left.png);position:absolute;top:77.5%;left:40%;width: 51px;height: 77px;"></div>
+      style="background: url(~static/detail/left.png);position:absolute;top:28.5%;width: 51px;height: 77px;"></div>
      <!-- <swiper v-if="sliderData&& sliderData.length > 1 " :options="galleryThumbs"  style="margin-top: 50px;" ref="thumbSwiper"  class="swiper-container gallery-thumbs"> -->
     <!-- </swiper>  -->
     <div v-swiper:mySwiper="galleryTop" v-if="sliderData&& sliderData.length >= 1" ref="topSwiper"   class="swiper-container gallery-top">
@@ -122,6 +122,15 @@ export default {
       if( this.mySwiper && this.mySwiper2){
         this.mySwiper.controller.control = this.mySwiper2
         this.mySwiper2.controller.control = this.mySwiper
+        console.log(this.mySwiper)
+        document.onkeydown = function(e) {
+          if (e.keyCode == 37) {
+            $('.swiper-button-prev').click()
+          }
+          if (e.keyCode == 39) {
+            $('.swiper-button-next').click()
+          }
+        }
       }
 
 
