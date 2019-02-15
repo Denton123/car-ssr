@@ -112,7 +112,7 @@ export default {
   head(){
     return {
       // title: `${this.userData.user.loginName}_${this.$route.params.page}页-尖锋咖`,
-      title:'个人中心'
+      title:'个人中心-尖锋咖',
       // 设置 meta
       // meta: [
       //   {

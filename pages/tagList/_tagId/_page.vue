@@ -169,24 +169,24 @@ export default {
             // 设置 meta
       meta: [
         {
-          // hid: 'keyWords',
+          hid: 'keyWords',
           name: 'keyWords',
-          content: 'vue '
+          content: ''
         },
-       /*  {
-          // hid: 'description',
+        {
+          hid: 'description',
           name: 'description',
           content: `${this.metaDesc}`
-        }, */
+        },
         {
-          // hid: 'applicable-device',
+          hid: 'applicable-device',
           name: 'applicable-device',
           content: 'pc'
         },
         {
-          // hid: 'mobile-agent',
+          hid: 'mobile-agent',
           name: 'mobile-agent',
-          content: `format=html5;url=http://m.jfcar.com.cn/m`
+          content: `format=html5;url=http://m.jfcar.com.cn`
         }
       ],
     }
@@ -218,8 +218,14 @@ export default {
       searchContent: params.searchContent // 暴露当前搜索的tagId
     };
   },
+  created(){
+    this.eassyList.forEach((element, index) => {
+      if (index == 0) {
+        this.metaDesc = element.digest
+      }
+    })
+  },
   beforeMount() {
-  
     this.createAdPicture();
     this._getWebTagDetail_();
     let preRouteSearContent = sessionStorage.getItem("tagRoute")
@@ -248,6 +254,7 @@ export default {
   },
   data() {
     return {
+      metaDesc:'',
       activeName: "weekRank",
       tagObj: {},
       pageObj: {},
