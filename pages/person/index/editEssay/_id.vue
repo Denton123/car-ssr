@@ -848,14 +848,14 @@
   //   background: url('/static/images/person_head.jpg') no-repeat;
   //   // background-size: 100% 100%;
   // }
-  @media screen and (max-width: 1366px) {
-    .person_theme {
-      width: 100%;
-      height: 400px;
-      background: url('~static/images/person_person_head_min.jpg') no-repeat;
-      background-size: 100% 100%;
-    }
-  }
+  // @media screen and (max-width: 1366px) {
+  //   .person_theme {
+  //     width: 100%;
+  //     height: 400px;
+  //     background: url('~static/images/person_person_head_min.jpg') no-repeat;
+  //     background-size: 100% 100%;
+  //   }
+  // }
   .person_container {
     width: 100%;
     height: 100%;
