@@ -42,7 +42,7 @@
     "cross-env": "^5.2.0",
     "less": "^3.9.0",
     "less-loader": "^4.1.0",
-    "nodemon": "^1.11.0",
+    "nodemon": "^1.18.10",
     "summernote": "^0.8.11",
     "transform-runtime": "^0.0.0",
     "webpack-merge": "^4.1.5"
