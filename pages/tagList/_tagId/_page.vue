@@ -685,6 +685,10 @@ export default {
               float: left;
               width: 380px;
               height: 280px;
+              background: url('~static/common/default.png');
+              background-position: center;
+              background-repeat: no-repeat;
+              background-color: #e7e7e7;
               img {
                 width: 100%;
                 height: 280px;
@@ -789,7 +793,7 @@ export default {
                 .name {
                   margin-right: 20px;
                   height: 14px;
-                  max-width: 80px;
+                  max-width: 54px;
                   vertical-align: top;
                   font-size: 14px;
                   cursor: pointer;
