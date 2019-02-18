@@ -159,32 +159,34 @@ export default {
         this.currentPage
       }页-尖锋咖`,
       // 设置 meta
-      // meta: [
-      //   {
-      //     // hid: 'keyWords',
-      //     name: 'keyWords',
-      //     content: 'vue '
-      //   },
-      //   {
-      //     // hid: 'description',
-      //     name: 'description',
-      //     content: `${this.metaDesc}`
-      //   },
-      //   {
-      //     // hid: 'applicable-device',
-      //     name: 'applicable-device',
-      //     content: 'pc'
-      //   },
-      //   {
-      //     // hid: 'mobile-agent',
-      //     name: 'mobile-agent',
-      //     content: `format=html5;url=${until.commonFileUrl}`
-      //   }
-      // ],
+      meta: [
+        {
+          hid: 'keyWords',
+          name: 'keyWords',
+          content: ''
+        },
+        {
+          hid: 'description',
+          name: 'description',
+          content: `${this.metaDesc}`
+        },
+        {
+          hid: 'applicable-device',
+          name: 'applicable-device',
+          content: 'pc'
+        },
+        {
+          hid: 'mobile-agent',
+          name: 'mobile-agent',
+          content: `format=html5;url=http://m.jfcar.com.cn`
+        }
+      ],
     }
   },
   data: function() {
     return {
+      // 文章tag，用于设置meta的keyWord
+      tagStr:'',
       crumbsData: [],
       typeParams: {},
       currentPage: '1',
@@ -469,6 +471,12 @@ export default {
     // 获取路由中model的值，再提取出其中的模块来源
     this.getRouterMessage(this.model[0], this.typeParams.type)
     // 获取路由中的重要信息，并设置全局变量用于面包屑以及meta
+    // 获取第一篇文章摘要
+    this.leftSideResult.essayEntities.forEach((element, index) => {
+      if (index == 0) {
+        this.metaDesc = element.digest
+      }
+    })
   },
   mounted() {
     // 获取标签列表过来的信息
@@ -541,11 +549,6 @@ export default {
       // }
       // // 触发pagination子组件中的方法，改变子组件的页码
       // this.$refs.pagination.routLinkCurrentPage()
-      this.leftSideResult.essayEntities.forEach((element, index) => {
-        if (index == 0) {
-          this.metaDesc = element.digest
-        }
-      })
     })
   },
   watch: {

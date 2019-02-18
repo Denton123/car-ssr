@@ -1158,7 +1158,7 @@ body {
   overflow: hidden;
   background: white;
   position: relative;
-  padding-bottom: 40px;
+  padding-bottom: 30px;
 }
 .car_video .rightSideContent .firstBanner,
 .car_video .rightSideContent .secondBanner {

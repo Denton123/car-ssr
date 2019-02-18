@@ -516,10 +516,36 @@ export default {
   head(){
     return {
       title: `详情_兴趣部落-尖锋咖`,
+      meta: [
+        {
+          hid: 'keyWords',
+          name: 'keyWords',
+          content: `${this.tagStr}`
+        },
+        {
+          hid: 'description',
+          name: 'description',
+          content: `${this.articleHTMLForMeta}`
+        },
+        {
+          hid: 'applicable-device',
+          name: 'applicable-device',
+          content: 'pc'
+        },
+        {
+          hid: 'mobile-agent',
+          name: 'mobile-agent',
+          content: `format=html5;url=http://m.jfcar.com.cn`
+        }
+      ],
     }
   },
   data() {
     return {
+      // 文章tag，用于设置meta的keyWord
+      tagStr:'',
+      // 文章内容文本，用于设置Meta的descrition
+      articleHTMLForMeta:'',
       // 面包屑
       titleModel:'',
       // 兴趣部落详情顶部轮播图数据
@@ -667,7 +693,31 @@ export default {
     }
   },
   created(){
-      // console.log('dddddd', this.hobbiesIdDetailData)
+      // 获取文章内容文本
+      //str.replace(/<[^>]+>/g,"");  //正则去掉所有的html标记
+      this.articleHTMLForMeta = this.essayData.description != '' ? this.essayData.description.replace(/<[^>]+>/g,"") : ''
+      if(this.articleHTMLForMeta.length >= 120){
+        this.articleHTMLForMeta.slice(0,120);
+      }
+      // 获取文章tag
+      var tagStr = ''
+      if(this.essayData.tagList && this.essayData.tagList.length != 0){
+        // 如果tagList有数据，则取其
+        this.essayData.tagList.forEach((element,i) => {
+          if(i <= this.essayData.tagList.length - 2 ){
+            tagStr +=`${element.title},`;
+          }else{
+            tagStr += `${element.title}`;
+          }
+        });
+      }else if(this.essayData.tag != ''){
+        // 如果tagList没有数据，则取tag里的
+        tagStr = this.essayData.tag
+      }else{
+        // 如果tagList和tag都没有数据，则等于文本
+        tagStr = this.articleHTMLForMeta
+      }
+      this.tagStr = tagStr
   },
     computed: {
     solveCommentList() {
@@ -1446,9 +1496,6 @@ export default {
             }
           })
     }
-  },
-  created(){
-    // this.handleData()
   },
   mounted() {
     this.$nextTick(async() => {

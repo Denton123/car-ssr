@@ -1515,7 +1515,35 @@ export default {
   //   })
   // },
   created(){
-    // this.handleData()
+      // 获取文章内容文本
+      //str.replace(/<[^>]+>/g,"");  //正则去掉所有的html标记
+      if(this.essayData.description && this.essayData.description.replace(/<[^>]+>/g,"") == ''){
+        this.articleHTMLForMeta =this.essayData.digest != '' ? this.essayData.digest : ''
+      }else{
+        this.articleHTMLForMeta = this.essayData.description != '' ? this.essayData.description.replace(/<[^>]+>/g,"") : ''
+      }
+      if(this.articleHTMLForMeta.length >= 120){
+        this.articleHTMLForMeta.slice(0,120);
+      }
+      // 获取文章tag
+      var tagStr = ''
+      if(this.essayData.tagList && this.essayData.tagList.length != 0){
+        // 如果tagList有数据，则取其
+        this.essayData.tagList.forEach((element,i) => {
+          if(i <= this.essayData.tagList.length - 2 ){
+            tagStr +=`${element.title},`;
+          }else{
+            tagStr += `${element.title}`;
+          }
+        });
+      }else if(this.essayData.tag != ''){
+        // 如果tagList没有数据，则取tag里的
+        tagStr = this.essayData.tag
+      }else{
+        // 如果tagList和tag都没有数据，则等于文本
+        tagStr = this.articleHTMLForMeta
+      }
+      this.tagStr = tagStr
   },
   mounted() {
     this.cookie = this.getCookie('token')
@@ -1534,34 +1562,6 @@ export default {
       this.getLoginUserInfo()
       // 以下getArticleData（）为客户端再渲染一次，不能去掉，否则点赞爆胎刷新之后就没了
       this.getArticleData()
-
-      // 获取文章内容文本
-      //str.replace(/<[^>]+>/g,"");  //正则去掉所有的html标记
-      this.articleHTMLForMeta = this.essayData.description != '' ? this.essayData.description.replace(/<[^>]+>/g,"") : ''
-      if(this.articleHTMLForMeta.length >= 120){
-        this.articleHTMLForMeta.slice(0,120);
-      }
-      // 获取文章tag
-      var tagStr = ''
-      if(this.essayData.tagList && this.essayData.tagList.length != 0){
-        // 如果tagList有数据，则取其
-        this.essayData.forEach((element,i) => {
-          if(i <= this.essayData.tagList.length - 2 ){
-            tagStr +=`${element.title} + ','`;
-          }else{
-            tagStr += `${element.title}`;
-          }
-        });
-        console.log(tagStr,'0000000000000')
-      }else if(this.essayData.tag != ''){
-        // 如果tagList没有数据，则取tag里的
-        tagStr = this.essayData.tag
-        console.log(tagStr,'1111111111111')
-      }else{
-        // 如果tagList和tag都没有数据，则等于文本
-        tagStr = this.articleHTMLForMeta
-      }
-      this.tagStr = tagStr
       this.getUserInfo()
       // this.getDataTopSix()
       // this.getRandomData()

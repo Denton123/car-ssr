@@ -538,6 +538,10 @@
                 float: left;
                 width: 380px;
                 height: 100%;
+                background: #e7e7e7;
+                background-image: url('~static/common/default.png');
+                background-position: center;
+                background-repeat: no-repeat;
                 img {
                   width: 100%;
                   height: 100%;
@@ -648,7 +652,7 @@
                     vertical-align: top;
                     font-size: 14px;
                     font-weight: 300;
-                    max-width: 80px;
+                    max-width: 54px;
                     cursor: pointer;
                     color: rgba(177, 177, 177, 1);
                     line-height: 25px;

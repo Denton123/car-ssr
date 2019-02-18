@@ -234,15 +234,37 @@
             </nuxt-link>
             <div class="decoration-line"></div>
           </div>
-          <!--热点模块——contain-本周热点以及本月-->
-          <div id="wrapHostPoint">
+          <!--热点模块——contain-本周热点-->
+          <div id="wrapHostPoint" v-show="rankId == 'w'">
             <div class="contain-wrap-host-point"
-              v-for="(hostPointItem, index) in hostPointItems.hobbiess"
+              v-for="(hostPointItem, index) in hostPointItems_inWeek.hobbiess"
               :key="index">
               <div class="textRank"
                 :class="{ whiteTextOn : index ===0 || index===1 || index===2}">{{index+1}}</div>
               <div class="titleRank">
 
+                <nuxt-link :to="`/hobbies/hobbiesDetail/${hostPointItem.hobbiesId}/1`">{{hostPointItem.description}}</nuxt-link>
+              </div>
+              <!--<div class="content-left-hostPoint"></div>-->
+              <!--<div class="content-right-hostPoint">-->
+              <!--<div class="hostPoint-tex">{{hostPointItem.text}}</div>-->
+              <!--<div class="hostPoint-time">{{hostPointItem.theTime}}</div>-->
+              <!--</div>-->
+            </div>
+            <div class="black_img"><img src="~static/picture/black.png"></div>
+            <div class="red_img"><img src="~static/picture/red.png"></div>
+            <div class="red2_img"><img src="~static/picture/red.png"></div>
+            <div class="red3_img"><img src="~static/picture/red.png"></div>
+          </div>
+
+          <!--热点模块——contain-本月热点-->
+          <div id="wrapHostPoint" v-show="rankId == 'm'">
+            <div class="contain-wrap-host-point"
+              v-for="(hostPointItem, index) in hostPointItems_inMonth.hobbiess"
+              :key="index">
+              <div class="textRank"
+                :class="{ whiteTextOn : index ===0 || index===1 || index===2}">{{index+1}}</div>
+              <div class="titleRank">
                 <nuxt-link :to="`/hobbies/hobbiesDetail/${hostPointItem.hobbiesId}/1`">{{hostPointItem.description}}</nuxt-link>
               </div>
               <!--<div class="content-left-hostPoint"></div>-->
@@ -318,6 +340,8 @@ export default {
   },
   data() {
     return {
+      hostPointItems_inWeek:'',
+      hostPointItems_inMonth:'',
       loginFlag: null,
       routePage: 2,
       metaWords: 'str',
@@ -422,12 +446,16 @@ export default {
     // 标签
     let tokenObj = '8f558bfd4dd5aa42898a394d8b1accc3'
     let tagItems = await $get('/web/hobbies/gotohobbies', {})
-    // // 周排行
-    let _hostPointItems = await $get('/web/hobbies/hobbiesWeekRank?', {
+    // // 周热点
+    let hostPointItems_week = await $get('/web/hobbies/hobbiesWeekRank?', {
         pageNo: 1,
         size: 10
       })
-
+      // 月热点
+    let hostPointItems_month = await $get('/web/hobbies/hobbiesMonthRank?', {
+        pageNo: 1,
+        size: 10
+      })
     // 博主数据
     let bloggerItems =  await $get('/web/user/getBollgerRank?',
     {
@@ -444,7 +472,8 @@ export default {
     })
     return {
       tagItems: tagItems.data ? tagItems.data.tagsShowList : [],
-      hostPointItems: _hostPointItems.data ? _hostPointItems.data : [],
+      hostPointItems_inWeek: hostPointItems_week.data ? hostPointItems_week.data : [],
+      hostPointItems_inMonth: hostPointItems_month.data ? hostPointItems_month.data : [],
       bloggerItems: bloggerItems.data ? bloggerItems.data.userEntities : [],
       mockHobbyItems: _mockHobbyItems.data.list ? _mockHobbyItems.data.list : [],
       totalPage: _mockHobbyItems.data.totalPage ? _mockHobbyItems.data.totalPage : 0,
@@ -1016,11 +1045,11 @@ export default {
       this.monthDecoration = false
       this.weekDecoration = true
       this.weekHotOn = true
-      let _hostPointItems = await $get('/web/hobbies/hobbiesWeekRank?', {
-        pageNo: 1,
-        size: 10
-      })
-      this.hostPointItems = _hostPointItems.data
+      // let _hostPointItems = await $get('/web/hobbies/hobbiesWeekRank?', {
+      //   pageNo: 1,
+      //   size: 10
+      // })
+      // this.hostPointItems = _hostPointItems.data
     },
     // 本月热点——改变按钮样式&&
     async enterMonthHotList() {
@@ -1029,11 +1058,11 @@ export default {
       this.monthDecoration = true
       this.weekHotOn = false
       this.weekDecoration = false
-      let _hostPointItems = await $get('/web/hobbies/hobbiesMonthRank?', {
-        pageNo: 1,
-        size: 10
-      })
-      this.hostPointItems = _hostPointItems.data
+      // let _hostPointItems = await $get('/web/hobbies/hobbiesMonthRank?', {
+      //   pageNo: 1,
+      //   size: 10
+      // })
+      // this.hostPointItems = _hostPointItems.data
     },
     pageChange(page) {
       // this.$router.push({
@@ -1727,6 +1756,7 @@ html {
   font-weight: 400;
   color: black;
   margin-left: 3px;
+  margin-top: 1px;
   display: inline-block;
   vertical-align: top;
   z-index: 10;

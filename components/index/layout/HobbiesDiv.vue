@@ -219,5 +219,6 @@ export default {
   /* autoprefixer: on */
   -webkit-line-clamp: 4;
   overflow: hidden;
+  margin-bottom: 10px;
 }
 </style>
