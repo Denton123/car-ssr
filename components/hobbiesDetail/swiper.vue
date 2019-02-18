@@ -4,9 +4,9 @@
     <!-- 如果是一张图片，充满整个容器 -->
      <!-- <swiper v-if="sliderData&& sliderData.length >= 1" :options="galleryTop" ref="topSwiper"  class="swiper-container gallery-top"> 
     </swiper> -->
-    <div class="swiper-button-next"
+    <div class="swiper-button-next" v-if="sliderData&& sliderData.length > 1 "
       style="position:absolute;top:41%;width: 50px;height: 77px;transform: translateY(-50%);" @click="next()"></div>
-    <div class="swiper-button-prev"
+    <div class="swiper-button-prev" v-if="sliderData&& sliderData.length > 1 "
       style="background: url(~static/detail/left.png);position:absolute;top:41%;width: 50px;height: 77px;transform: translateY(-50%);" @click="prev()"></div>
      <!-- <swiper v-if="sliderData&& sliderData.length > 1 " :options="galleryThumbs"  style="margin-top: 50px;" ref="thumbSwiper"  class="swiper-container gallery-thumbs"> -->
     <!-- </swiper>  -->
@@ -92,6 +92,8 @@ export default {
   computed: {
   },
   mounted() {
+    let defaultHeight = $('.swiper-slide:eq(0)').css('height')
+     $('.gallery-top').css('height', defaultHeight)
       // for (let i = 0; i < this.sliderData.length; i++) {
           // let imgUrl = this.formatphoto(this.sliderData[i].photo)
         // 不知为何，这里会重复执行两次，所以下面的append会执行两次，就会出现double数量的图片，因此加上了判断
