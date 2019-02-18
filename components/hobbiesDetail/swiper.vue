@@ -5,9 +5,9 @@
      <!-- <swiper v-if="sliderData&& sliderData.length >= 1" :options="galleryTop" ref="topSwiper"  class="swiper-container gallery-top"> 
     </swiper> -->
     <div class="swiper-button-next"
-      style="position:absolute;top:28.5%;width: 51px;height: 77px;"></div>
+      style="position:absolute;top:41%;width: 50px;height: 77px;transform: translateY(-50%);" @click="next()"></div>
     <div class="swiper-button-prev"
-      style="background: url(~static/detail/left.png);position:absolute;top:28.5%;width: 51px;height: 77px;"></div>
+      style="background: url(~static/detail/left.png);position:absolute;top:41%;width: 50px;height: 77px;transform: translateY(-50%);" @click="prev()"></div>
      <!-- <swiper v-if="sliderData&& sliderData.length > 1 " :options="galleryThumbs"  style="margin-top: 50px;" ref="thumbSwiper"  class="swiper-container gallery-thumbs"> -->
     <!-- </swiper>  -->
     <div v-swiper:mySwiper="galleryTop" v-if="sliderData&& sliderData.length >= 1" ref="topSwiper"   class="swiper-container gallery-top">
@@ -165,6 +165,19 @@ export default {
         return item
       }
       return systemManage.getApi(item)
+    },
+    next() {
+      $('.gallery-top').css('height', 'auto')
+      let imgHeight = $('.swiper-slide-active').next().css('height')
+      // console.log($('.swiper-slide-active').next().find('img').attr('src'))
+      $('.gallery-top').css('height', imgHeight)
+    },
+    prev() {
+      $('.gallery-top').css('height', 'auto')
+      let imgHeight = $('.swiper-slide-active').prev().css('height')
+      // console.log($('.swiper-slide-active').find('img').attr('src'))
+      // console.log(imgHeight, 'imgHeight')
+      $('.gallery-top').css('height', imgHeight)
     }
   },
 
@@ -179,7 +192,7 @@ export default {
 }
 .hobbiesDetailSwiper .swiper-container {
   width: 100%;
-  height: 300px;
+  /* height: 300px; */
   margin-left: auto;
   margin-right: auto;
 }
