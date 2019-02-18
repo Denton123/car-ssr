@@ -1,40 +1,82 @@
 
 <template>
   <div class="todayTabChangeBox">
-    <el-tabs v-model="activeName"
-      class="todayTabChange">
-      <el-tab-pane label="周排行榜"
-        name="first"
-        v-if="rankWeekLists!=''">
-        <ul class="numSort">
-          <li v-for="(item,index) in 10"
-            :class="index == 0 || index == 1 || index == 2 ? 'numTop' : ''"
-            :key="index"><span>{{item}}</span></li>
-        </ul>
-        <ul class="contentSort">
-          <li v-for="(item, index) in rankWeekLists"
-            :key="index">
-            <router-link :to="`/rank/detail/${item.essayId}/1`">{{item.title}}</router-link>
-          </li>
-        </ul>
-      </el-tab-pane>
-      <el-tab-pane label="月排行榜"
-        name="second"
-        v-if="rankMonthLists !=''">
-        <ul class="numSort">
-          <li v-for="(item,index) in 10"
-            :class="index == 0 || index == 1 || index == 2 ? 'numTop' : ''"
-            :key="index"><span>{{item}}</span></li>
-        </ul>
-        <ul class="contentSort">
-          <li v-for="(item, index) in rankMonthLists"
-            :key="index">
-            <router-link :to="`/rank/detail/${item.essayId}/1`">{{item.title}}</router-link>
-          </li>
-        </ul>
-      </el-tab-pane>
-    </el-tabs>
-    <div v-if="fullPath != '/w' || fullPath !='/m' || fullPath != '/d'">
+    <!--热点模块——title-本周热点以及本月-->
+    <div class="title-host-point">
+        <div class="title-hostPoint-bottom">
+            <div class="button-week"
+            @click="enterWeekHotList"
+            :class=" { weekHotOn } ">周排行榜
+            </div>
+            <div class="button-month"
+            @click="enterMonthHotList"
+            :class="{ monthHotOn }">月排行榜</div>
+            <div class="hot-img-wrap"
+            v-show="weekDecoration"><img src="~static/picture/hotpoint.jpg"
+                class="height=6px;width=90px"> </div>
+            <div class="hot-img-wrap2"
+            v-show="monthDecoration"><img src="~static/picture/hotpoint.jpg"
+                class="height=6px;width=90px"></div>
+        </div>
+        <div v-if="fullPath != '/w' || fullPath !='/m' || fullPath != '/d'">
+        <nuxt-link :to="`${modelName}/rankList/${rankId}/1`"
+            class="text-more">更多></nuxt-link>
+        </div>
+        <div v-else>
+        <router-link :to="``"
+            class="text-more"
+            @click.native="refresh">更多></router-link>
+        </div>
+        <!-- <nuxt-link :to="`/hobbies/rankList/${rankId}/1`">
+            <span class="text-more">更多></span>
+        </nuxt-link> -->
+        <div class="decoration-line"></div>
+    </div>
+
+    <!--热点模块——contain-周排行-->
+    <div id="wrapHostPoint" class="wrapHostPoint-week" v-show="rankId == 'w'">
+      <div class="contain-wrap-host-point"
+          v-for="(hostPointItem, index) in hostPointItems_week"
+          :key="index">
+          <div class="textRank"
+          :class="{ whiteTextOn : index ===0 || index===1 || index===2}">{{index+1}}</div>
+          <div class="titleRank">
+          <nuxt-link :to="`/rank/detail/${hostPointItem.essayId}/1`">{{hostPointItem.title}}</nuxt-link>
+          </div>
+          <!--<div class="content-left-hostPoint"></div>-->
+          <!--<div class="content-right-hostPoint">-->
+          <!--<div class="hostPoint-tex">{{hostPointItem.text}}</div>-->
+          <!--<div class="hostPoint-time">{{hostPointItem.theTime}}</div>-->
+          <!--</div>-->
+      </div>
+      <div class="black_img"><img src="~static/picture/black.png"></div>
+      <div class="red_img"><img src="~static/picture/red.png"></div>
+      <div class="red2_img"><img src="~static/picture/red.png"></div>
+      <div class="red3_img"><img src="~static/picture/red.png"></div>
+    </div>
+
+    <!--热点模块——contain-月排行-->
+    <div id="wrapHostPoint" class="wrapHostPoint-month" v-show="rankId == 'm'">
+      <div class="contain-wrap-host-point"
+          v-for="(hostPointItem, index) in hostPointItems_month"
+          :key="index">
+          <div class="textRank"
+          :class="{ whiteTextOn : index ===0 || index===1 || index===2}">{{index+1}}</div>
+          <div class="titleRank">
+          <nuxt-link :to="`/rank/detail/${hostPointItem.essayId}/1`">{{hostPointItem.title}}</nuxt-link>
+          </div>
+          <!--<div class="content-left-hostPoint"></div>-->
+          <!--<div class="content-right-hostPoint">-->
+          <!--<div class="hostPoint-tex">{{hostPointItem.text}}</div>-->
+          <!--<div class="hostPoint-time">{{hostPointItem.theTime}}</div>-->
+          <!--</div>-->
+      </div>
+      <div class="black_img"><img src="~static/picture/black.png"></div>
+      <div class="red_img"><img src="~static/picture/red.png"></div>
+      <div class="red2_img"><img src="~static/picture/red.png"></div>
+      <div class="red3_img"><img src="~static/picture/red.png"></div>
+    </div>
+    <!-- <div v-if="fullPath != '/w' || fullPath !='/m' || fullPath != '/d'">
       <nuxt-link :to="`${modelName}/rankList/${activeName == 'first' ? 'w':'m'}/1`"
         class="rankMore">更多></nuxt-link>
     </div>
@@ -42,7 +84,7 @@
       <router-link :to="``"
         class="rankMore"
         @click.native="refresh">更多></router-link>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -57,6 +99,13 @@ export default {
     return {
       // rankWeekLists: [],
       // rankMonthLists: [],
+      hostPointItems_week:'',
+      hostPointItems_month:'',
+      rankId: 'w',
+      weekHotOn: true,
+      monthHotOn: false,
+      weekDecoration: true,
+      monthDecoration: false,
       activeName: 'first',
       fullPath: '',
       modelName:''
@@ -84,11 +133,29 @@ export default {
           this.activeName == 'first' ? 'w' : 'm'
         }/1`
       })
-    }
+    },
+     // 本月热点——改变按钮样式&&
+    async enterWeekHotList() {
+      this.rankId = 'w'
+      this.monthHotOn = false
+      this.monthDecoration = false
+      this.weekDecoration = true
+      this.weekHotOn = true
+    },
+    // 本月热点——改变按钮样式&&
+    async enterMonthHotList() {
+      this.rankId = 'm'
+      this.monthHotOn = true
+      this.monthDecoration = true
+      this.weekHotOn = false
+      this.weekDecoration = false
+    },
   },
   created()
   { 
     // console.log(this.model,'model 666666666');
+    this.hostPointItems_week = this.rankWeekLists
+    this.hostPointItems_month = this.rankMonthLists
   },
   mounted() {
     let fullPath = this.$route.fullPath.match(/\/[a-z]{1}/gi)
@@ -115,147 +182,150 @@ export default {
 </script>
 
 <style>
-.todayTabChange {
-  text-align: left;
+.todayTabChangeBox .title-host-point {
+  /*margin-bottom: 27px;*/
+  position: relative;
 }
-/* 滑块部分 */
-.todayTabChange .el-tabs__active-bar.is-top {
-  width: 90px !important;
-  height: 7px;
-  background: linear-gradient(
-    -150deg,
-    transparent 5px,
-    rgba(190, 0, 30, 1) 0
-  ) !important;
-  bottom: -17px;
-  position: absolute;
-  left: -9px;
-}
-
-/* tab 头部部分 */
-body .todayTabChange .el-tabs__header {
-  margin-bottom: 29px;
-}
-
-/* tab 头部内标签 */
-body .todayTabChange .el-tabs__nav-scroll {
-  height: 55px;
-}
-
-/* tab 头部内-内导航块 */
-body .todayTabChange .el-tabs__nav {
-  transform: translateX(8px) !important;
-}
-
-/*tab 头部字体 */
-body .todayTabChange .el-tabs__item {
-  width: 72px;
-  height: 18px;
-  font-size: 18px;
-  font-weight: bold;
-}
-.todayTabChange .el-tabs__item:hover,
-.todayTabChangeBox .rankMore:hover,
-.todayTabChange .contentSort li a:hover {
-  color: rgba(190, 0, 30, 1);
-}
-/*长 下划线 */
-.todayTabChange .el-tabs__nav-wrap::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: 7px;
-  width: 308px;
-  height: 0.9px;
-  background-color: black;
-  z-index: 1;
-}
-
-/* 短 下划线 */
-.todayTabChange .el-tabs__nav-wrap::before {
-  content: '';
-  position: absolute;
-  right: 24px;
-  bottom: 2px;
-  width: 30px;
-  height: 0.9px;
-  background-color: black;
-  z-index: 1;
-}
-
-/* 更多 */
-.todayTabChangeBox .rankMore {
-  width: 55px;
-  font-size: 14px;
-  position: absolute;
-  color: rgba(153, 153, 153, 1);
-  top: 30px;
-  right: 7px;
+.todayTabChangeBox .title-host-point a:hover {
+  color: #BE001E;
   text-decoration: none;
+}
+.todayTabChangeBox .title-hostPoint-bottom {
+  position: relative;
+  width: 285px;
+  height: 40px;
+  margin-top: 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 1);
+}
+.todayTabChangeBox .hot-img-wrap {
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+}
+.todayTabChangeBox .hot-img-wrap2 {
+  position: absolute;
+  bottom: -6px;
+  left: 98px;
+}
+.todayTabChangeBox .button-week {
+  font-size: 18px;
+  font-weight: 600;
+  /*color:rgba(190,0,30,1);*/
+  width: 78px;
+  float: left;
+  margin-right: 22px;
+  padding-bottom: 6px;
+  text-align: left;
   cursor: pointer;
 }
-body .todayTabChange .el-tabs__item.is-active {
+.todayTabChangeBox .button-week:hover {
+  color: #BE001E;
+  text-decoration: none;
+}
+.todayTabChangeBox .button-week.weekHotOn {
   color: rgba(190, 0, 30, 1);
 }
-
-/* 排序的序号部分 & 公共li部分 */
-.todayTabChange .el-tabs__content ul {
-  margin: 3px 0px 0px 0px;
-  padding-left: 3px;
-}
-.todayTabChange .el-tabs__content .numSort {
-  width: 13px;
-  height: 297px;
-  font-weight: 400;
-  color: rgba(255, 255, 255, 1);
+.todayTabChangeBox .button-month {
+  font-size: 18px;
+  font-weight: 600;
+  color: rgba(25, 25, 25, 1);
   float: left;
+  text-align: left;
+  cursor: pointer;
 }
-.todayTabChange .el-tabs__content li {
-  list-style: none;
-  text-align: center;
-  width: 100%;
-  height: 13px;
+.todayTabChangeBox .button-month:hover {
+  color: #BE001E;
+  text-decoration: none;
+}
+.todayTabChangeBox .button-month.monthHotOn {
+  color: rgba(190, 0, 30, 1);
+}
+.todayTabChangeBox .text-more {
+  font-size: 14px;
+  font-weight: normal;
+  color: rgba(153, 153, 153, 1);
+  position: absolute;
+  right: 40px;
+  top: 4px;
+}
+.todayTabChangeBox .decoration-line {
+  width: 43px;
+  border-bottom: 1px solid rgba(0, 0, 0, 1);
+  position: absolute;
+  right: 32px;
+  top: 46px;
+}
+.todayTabChangeBox #wrapHostPoint {
+  box-sizing: border-box;
+  padding: 10px 0 0 0;
+  margin: 20px 0 0 0;
+  width: 320px;
+  position: relative;
+}
+.todayTabChangeBox .black_img {
+  position: absolute;
+  top: 11px;
+  left: 4px;
+}
+.todayTabChangeBox .red_img {
+  position: absolute;
+  top: 10px;
+  left: 0px;
+}
+.todayTabChangeBox .red2_img {
+  position: absolute;
+  top: 42px;
+  left: 0px;
+}
+.todayTabChangeBox .red3_img {
+  position: absolute;
+  top: 74px;
+  left: 0px;
+}
+
+.todayTabChangeBox .contain-wrap-host-point {
+  /*position: relative;*/
+  /*border-bottom: 1px solid rgba(240, 240, 240, 1);*/
+  min-height: 15px;
+  width: 320px;
+  margin-left: 5px;
+  margin-bottom: 18px;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.todayTabChangeBox .textRank {
+  position: absolute;
   font-size: 12px;
+  font-weight: 400;
   color: black;
-  margin-bottom: 19px;
-}
-
-.todayTabChange .el-tabs__content li span {
+  margin-left: 3px;
+  margin-top: 1px;
   display: inline-block;
+  vertical-align: top;
+  z-index: 10;
+  /*line-height:32px;*/
 }
-
-.todayTabChange .numTop {
-  background: #bd081e;
-  transform: rotateZ(-45deg);
-  box-shadow: 3px 4px 0px black;
-}
-
-.todayTabChange .numTop span {
-  transform: rotateZ(45deg) translateY(-2px);
+.todayTabChangeBox .textRank.whiteTextOn {
   color: white;
 }
-
-/* 排序的文字部分 */
-.todayTabChange .el-tabs__content .contentSort {
-  width: 269px;
-  height: 308px;
-  float: left;
-  margin-left: 24px;
-}
-
-.todayTabChange .el-tabs__content .contentSort li {
-  text-align: left;
-  overflow: hidden;
-  height: 17px;
-  text-overflow: ellipsis;
-  line-height: 17px;
-  white-space: nowrap;
-  margin-bottom: 15px;
-}
-
-.todayTabChange .contentSort li a {
-  text-decoration: none;
+.todayTabChangeBox .titleRank {
+  position: absolute;
   font-size: 14px;
-  color: rgba(0, 0, 0, 1);
+  display: inline-block;
+  vertical-align: top;
+  width: 260px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  z-index: 10;
+  left: 50px;
+}
+.todayTabChangeBox .titleRank  a{
+    color: black;
+}
+.todayTabChangeBox .titleRank a:hover {
+  color: #BE001E;
+  text-decoration: none;
 }
 </style>

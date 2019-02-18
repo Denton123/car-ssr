@@ -1156,7 +1156,7 @@ line-height:125px; */
   overflow: hidden;
   background: white;
   position: relative;
-  padding-bottom: 40px;
+  padding-bottom: 30px;
 }
 .todayNew .rightSideContent .firstBanner .el-main,
 .todayNew .rightSideContent .secondBanner .el-main {

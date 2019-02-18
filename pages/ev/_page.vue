@@ -1094,7 +1094,7 @@ body {
   overflow: hidden;
   background: white;
   position: relative;
-  padding-bottom: 40px;
+  padding-bottom: 30px;
 }
 .sources .rightSideContent .firstBanner,
 .sources .rightSideContent .secondBanner {
