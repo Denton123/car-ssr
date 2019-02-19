@@ -15,7 +15,8 @@
             @mouseenter="headerTagHover(item.name)"
             @mouseout="headerTagOut(item.name)">
             <a :href="item.to"
-              :class="{'fontWeight': item.name === activeName}">{{item.title}}
+              :class="{'fontWeight': item.name === activeName}">
+              <strong>{{item.title}}</strong>
               <span class="headerSubScript"
                 v-if="item.name === activeName || item.name === hoverName">
                 <span></span>
