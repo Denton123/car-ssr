@@ -24,7 +24,7 @@
 
     <div v-if="sliderData&& sliderData.length > 1 "  v-swiper:mySwiper2="galleryThumbs" style="margin-top: 50px;" ref="thumbSwiper"  class="swiper-container gallery-thumbs">
       <div class="swiper-wrapper">
-        <div class="swiper-slide" v-for="(item, key) in sliderData" :key="key">
+        <div class="swiper-slide" v-for="(item, key) in sliderData" :key="key" @click="thumbClick()">
           <img :src="formatphoto(item.photo)" alt="尖锋咖">
         </div>
       </div>
@@ -92,7 +92,7 @@ export default {
   computed: {
   },
   mounted() {
-    let defaultHeight = $('.swiper-slide:eq(0)').css('height')
+    let defaultHeight = $('.swiper-slide:eq(0)').css('height') 
      $('.gallery-top').css('height', defaultHeight)
       // for (let i = 0; i < this.sliderData.length; i++) {
           // let imgUrl = this.formatphoto(this.sliderData[i].photo)
@@ -168,18 +168,23 @@ export default {
       }
       return systemManage.getApi(item)
     },
+    // 点击右箭头自适应高度
     next() {
       $('.gallery-top').css('height', 'auto')
       let imgHeight = $('.swiper-slide-active').next().css('height')
-      // console.log($('.swiper-slide-active').next().find('img').attr('src'))
       $('.gallery-top').css('height', imgHeight)
     },
+    // 点击左箭头自适应高度
     prev() {
       $('.gallery-top').css('height', 'auto')
       let imgHeight = $('.swiper-slide-active').prev().css('height')
-      // console.log($('.swiper-slide-active').find('img').attr('src'))
-      // console.log(imgHeight, 'imgHeight')
       $('.gallery-top').css('height', imgHeight)
+    },
+    // 点击当前图片自适应高度
+    thumbClick(){
+      $('.gallery-top').css('height', 'auto')
+      let currentHeight = $('.swiper-slide-active').css('height')
+      $('.gallery-top').css('height', currentHeight)
     }
   },
 
