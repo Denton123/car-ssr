@@ -1065,6 +1065,7 @@ export default {
       // this.hostPointItems = _hostPointItems.data
     },
     pageChange(page) {
+      // 【注意】不能push，因为是选项卡里的分页，push的话会有问题
       // this.$router.push({
       //   path: `/hobby/${page}`
       // })
