@@ -1517,8 +1517,8 @@ export default {
   created(){
       // 获取文章内容文本
       //str.replace(/<[^>]+>/g,"");  //正则去掉所有的html标记
-      if(this.essayData.description && this.essayData.description.replace(/<[^>]+>/g,"") == ''){
-        this.articleHTMLForMeta =this.essayData.digest != '' ? this.essayData.digest : ''
+      if(this.essayData.digest != ''){
+        this.articleHTMLForMeta =this.essayData.digest 
       }else{
         this.articleHTMLForMeta = this.essayData.description != '' ? this.essayData.description.replace(/<[^>]+>/g,"") : ''
       }

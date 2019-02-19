@@ -163,7 +163,7 @@ export default {
         {
           hid: 'keyWords',
           name: 'keyWords',
-          content: ''
+          content: `${this.tagStr}`
         },
         {
           hid: 'description',
@@ -471,10 +471,32 @@ export default {
     // 获取路由中model的值，再提取出其中的模块来源
     this.getRouterMessage(this.model[0], this.typeParams.type)
     // 获取路由中的重要信息，并设置全局变量用于面包屑以及meta
-    // 获取第一篇文章摘要
+    var tagStr = ''
     this.leftSideResult.essayEntities.forEach((element, index) => {
       if (index == 0) {
-        this.metaDesc = element.digest
+        //获取每页第一篇文章的摘要
+        this.metaDesc = element.digest != '' ? element.digest : element.title
+        if(this.metaDesc.length >= 120){
+          this.metaDesc.slice(0,120);
+        }
+        // 获取每页第一篇文章的tag
+        if(element.tagList.length != 0){
+          // 如果tagList有数据，则取其
+          element.tagList.forEach((e,i) =>{
+            if(i <= element.tagList.length - 2 ){
+              tagStr +=`${e.title},`;
+            }else{
+              tagStr += `${e.title}`;
+            }
+          })
+        }else if(element.tag != ''){
+          // 如果tagList没有数据，则取tag里的
+          tagStr = element.tag
+        }else{
+          // 如果tagList和tag都没有数据，则等于文本
+          tagStr = this.metaDesc  
+        }
+        this.tagStr = tagStr
       }
     })
   },

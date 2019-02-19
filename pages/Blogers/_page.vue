@@ -143,11 +143,35 @@ export default {
   name: 'Blogers',
   head(){
     return{
-      title:`热门博主_${this.currentPage}页-尖锋咖`
+      title:`热门博主_${this.currentPage}页-尖锋咖`,
+      meta: [
+        {
+          hid: 'keyWords',
+          name: 'keyWords',
+          content: `${this.tagStr}`
+        },
+        {
+          hid: 'description',
+          name: 'description',
+          content: `${this.articleHTMLForMeta}`
+        },
+        {
+          hid: 'applicable-device',
+          name: 'applicable-device',
+          content: 'pc'
+        },
+        {
+          hid: 'mobile-agent',
+          name: 'mobile-agent',
+          content: `format=html5;url=http://m.jfcar.com.cn`
+        }
+      ],
     }
   },
   data() {
     return {
+      articleHTMLForMeta:"",
+      tagStr:"",
       currentPage: 1,
       metaDescription: null,
       routePage: 1,
@@ -221,6 +245,35 @@ export default {
   },
   created(){
     this.currentPage = this.$route.params.page
+    // 以下是为了设置meta
+    var tagStr = ''
+    this.bloggerLists.userEntities.forEach((element,index) => {
+      if(index == 0){
+        //获取每页第一篇文章的摘要
+        this.articleHTMLForMeta =element.digest != '' ? element.digest : element.title
+        if(this.articleHTMLForMeta.length >= 120){
+          this.articleHTMLForMeta.slice(0,120);
+        }
+        // 获取每页第一篇文章的tag
+        if(element.tagList.length != 0){
+          // 如果tagList有数据，则取其
+          element.tagList.forEach((e,i) =>{
+            if(i <= element.tagList.length - 2 ){
+              tagStr +=`${e.title},`;
+            }else{
+              tagStr += `${e.title}`;
+            }
+          })
+        }else if(element.tag != ''){
+          // 如果tagList没有数据，则取tag里的
+          tagStr = element.tag
+        }else{
+          // 如果tagList和tag都没有数据，则等于文本
+          tagStr = this.articleHTMLForMeta
+        }
+      }
+    })
+    this.tagStr = tagStr
   },
   mounted() {
     // 取token
