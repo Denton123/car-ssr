@@ -4,7 +4,7 @@
   "description": "My splendiferous Nuxt.js project",
   "author": "littlezong",
   "private": true,
-  "config": {
+  "config":{
     "nuxt": {
       "host": "0.0.0.0",
       "port": "3000"

@@ -1,7 +1,7 @@
 /**
  * API配置文件
  */
-
+import { pc_URL } from '@/utils/defaultConfig.js'
 const apiPath = '/api/' // 测试服
 const apiDigital = '/api/v1/digital/' // 权限服务
 const apiAuthorize = '/api/v1/authorize/' // 数据服务
@@ -17,8 +17,8 @@ const apiSchedule = '/api/v1/schedule/' // 门户服务
 
 // let commonUrl = process.env.commonUrl
 // let commonFileUrl = process.env.commonFileUrl
-let commonUrl = 'http://165.qiweioa.cn/image/'
-let commonFileUrl ='http://165.qiweioa.cn/'
+let commonUrl = `${pc_URL}/image/`
+let commonFileUrl =`${pc_URL}`
 // let commonUrl = 'http://www.jfcar.com.cn/image/'
 // let commonFileUrl ='http://www.jfcar.com.cn/'
 

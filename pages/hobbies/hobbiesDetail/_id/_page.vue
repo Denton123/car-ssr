@@ -710,7 +710,7 @@ export default {
             tagStr += `${element.title}`;
           }
         });
-      }else if(this.essayData.tag != ''){
+      }else if(this.essayData.tag && this.essayData.tag != ''){
         // 如果tagList没有数据，则取tag里的
         tagStr = this.essayData.tag
       }else{

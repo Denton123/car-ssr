@@ -1,5 +1,5 @@
 import axios from 'axios'
-
+import {pc_URL} from '@/utils/defaultConfig.js'
 
 // let baseDomain
 // if (process.env.NODE_ENV === 'development') {
@@ -20,7 +20,7 @@ export const instance = axios.create({
   // baseURL: 'http://10.10.0.111:8080/',
   // baseURL: 'http://www.jfcar.com.cn/api/',
   // baseURL: `http://172.20.13.177:8080`,
-  baseURL: 'http://165.qiweioa.cn/api/',
+  baseURL: `${pc_URL}/api/`,
   timeout: 60000
 })
 

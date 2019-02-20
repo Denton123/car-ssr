@@ -480,7 +480,7 @@ export default {
           this.metaDesc.slice(0,120);
         }
         // 获取每页第一篇文章的tag
-        if(element.tagList.length != 0){
+        if(element.tagList&&element.tagList.length != 0){
           // 如果tagList有数据，则取其
           element.tagList.forEach((e,i) =>{
             if(i <= element.tagList.length - 2 ){
@@ -489,7 +489,7 @@ export default {
               tagStr += `${e.title}`;
             }
           })
-        }else if(element.tag != ''){
+        }else if(element.tag&&element.tag != ''){
           // 如果tagList没有数据，则取tag里的
           tagStr = element.tag
         }else{
