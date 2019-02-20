@@ -1,5 +1,9 @@
 # ssr-nuxt
 
+## 注意事项
+由于修改了依赖node_modules里面的summernote富文本的源码---summernote-lite.js
+【重点】因此新交接人员，切记先替换一次源码（已经写好的文件），再执行打包发布操作！！
+
 > 基于 `nuxtjs@2.3.4`
 
 ## Build Setup
