@@ -134,6 +134,8 @@ export default {
         this.currentPage = parseInt(newRoutePage)
       }
     }
+  },
+  components: {
   }
 }
 </script>

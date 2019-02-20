@@ -79,7 +79,7 @@
               </div>
               <nuxt-link :to="`/${item.arr}/${item.arr!== 'hobbies'?'detail':'hobbiesDetail'}/${item.id}/1`">
                 <span class="description-list">
-                  <span class="digist">{{item.digest}}</span>
+                  <span class="digist" v-html="item.digest"></span>
                 </span>
               </nuxt-link>
               <div class="bloggerList-right-bottom">
@@ -173,7 +173,6 @@ export default {
       articleHTMLForMeta:"",
       tagStr:"",
       currentPage: 1,
-      metaDescription: null,
       routePage: 1,
       test: null,
       watched: [0, 1, 2, 3, 4, 5],
@@ -195,23 +194,6 @@ export default {
     Header,
     Footer,
     pagination
-  },
-  created() {
-      this.bloggerLists.userEntities.forEach(function(item) {
-        if (item.label === '视频') {
-          item.arr = 'video'
-        } else if (item.label === '今日车闻') {
-          item.arr = 'news'
-        } else if (item.label === '新能源') {
-          item.arr = 'ev'
-        } else {
-          item.arr = 'hobbies'
-        }
-      })
-      this.metaDescription = this.bloggerLists.userEntities[0].digest && this.bloggerLists.userEntities[0].digest !=''? this.bloggerLists.userEntities[0].digest:''
-      // this.bloggerId = this.bloggerLists.userEntities.authorId
-      // this.totalPage = this.bloggerLists.totalPageCount
-      // this.totalCount = this.bloggerLists.totalBloggerCount
   },
   async asyncData ({params,req}) {
     let token = Utils.b_getToken(req)
@@ -244,13 +226,24 @@ export default {
     }
   },
   created(){
-    this.currentPage = this.$route.params.page
+      this.currentPage = this.$route.params.page
+      this.bloggerLists.userEntities.forEach(function(item) {
+      if (item.label === '视频') {
+        item.arr = 'video'
+      } else if (item.label === '今日车闻') {
+        item.arr = 'news'
+      } else if (item.label === '新能源') {
+        item.arr = 'ev'
+      } else {
+        item.arr = 'hobbies'
+      }
+    })
     // 以下是为了设置meta
     var tagStr = ''
     this.bloggerLists.userEntities.forEach((element,index) => {
       if(index == 0){
         //获取每页第一篇文章的摘要
-        this.articleHTMLForMeta =element.digest != '' ? element.digest : element.title
+        this.articleHTMLForMeta =element.digest != '' ? element.digest.replace(/<[^>]+>/g,"") : element.title
         if(this.articleHTMLForMeta.length >= 120){
           this.articleHTMLForMeta.slice(0,120);
         }
