@@ -22,7 +22,7 @@
           :class="{ 'tagBorderOn': index === tagType}"
           @mouseenter="tagOn(index)"
           @mouseleave="tagOnDeline(index)">
-          <nuxt-link :to="`/tagList/${item.id}/1`">
+          <nuxt-link :to="`/taglist/${item.id}/1`">
             <strong>{{item.title}}</strong>
             <span class="tag-nav--change"
               v-show=" index === tagType">
@@ -39,7 +39,7 @@
           :class="{ 'tagBorderOn': index === tagType}"
           @mouseenter="tagOn(index)"
           @mouseleave="tagOnDeline(index)">
-          <router-link :to="`/tagList/${item.id}/1`">
+          <router-link :to="`/taglist/${item.id}/1`">
             <span class="tag--box">
               <strong>{{item.title}}</strong>
             </span>
@@ -95,7 +95,7 @@
               <img class="img_wrap_hobby"
                 src="~static/picture/hobby.jpg">
             </div>
-            <!--<nuxt-link :to="`/publishHobbies`">-->
+            <!--<nuxt-link :to="`/publishhobbies`">-->
               <div class="add-wrap" >
                 <img class="img_add"
                      src="~static/picture/add.jpg">
@@ -112,7 +112,7 @@
                  @mouseenter="isRedOn(index)"
                  @mouseleave="isRedIn"
               :key="index">
-              <nuxt-link :to="`/hobbies/hobbiesDetail/${mockHobbyItem.id}/1`">
+              <nuxt-link :to="`/hobbies/hobbiesdetail/${mockHobbyItem.id}/1`">
                                 <span class="box-picture"
                                       v-for="(hobbyPicture, index) in mockHobbyItem.photoList"
                                       :key="index">
@@ -128,7 +128,7 @@
                       <div class="red-line"
                            v-show="isRed===index"><img src="~static/picture/line_red.png"> </div>
                       <div class="title-wrap">
-                        <nuxt-link :to="`/hobbies/hobbiesDetail/${mockHobbyItem.id}/1`">
+                        <nuxt-link :to="`/hobbies/hobbiesdetail/${mockHobbyItem.id}/1`">
                                                  <span class="detail-hobby-title"
                                                        @mouseenter="isRedOn(index)"
                                                  >
@@ -138,7 +138,7 @@
                       <div class="left-line-gray"></div>
                       <div class="left-line-red"></div>
                       <div class="detail-container">
-                        <nuxt-link :to="`/Bloger/${mockHobbyItem.userId}/1`">
+                        <nuxt-link :to="`/bloger/${mockHobbyItem.userId}/1`">
                             <span style="display: inline-block;float:left" v-if="mockHobbyItem.authorphoto !== ''&&mockHobbyItem.authorphoto !== null">
                                  <img class="detail-container-left-img"
                                       :src="piecImgUrl(mockHobbyItem)"
@@ -190,13 +190,13 @@
               v-for="(bloggerItem, index) in bloggerItems"
               :key="index"
               v-show="bloggerItem.authorName !== null && bloggerItem.authorName !== ''">
-              <nuxt-link :to="`/Bloger/${bloggerItem.authorId}/1`">
-                <img 
+              <nuxt-link :to="`/bloger/${bloggerItem.authorId}/1`">
+                <img
                     v-if="bloggerItem.authorPhoto !== ''&& bloggerItem.authorPhoto !== null"
                     :alt="bloggerItem.authorName"
                     class="avatar-blogger"
                   :src="piecImgUrlS(bloggerItem)">
-                <img v-else 
+                <img v-else
                     class="avatar-blogger"
                     :alt="`${bloggerItem.authorName}`"
                     src="~static/picture/person_default.png" >
@@ -243,7 +243,7 @@
                 :class="{ whiteTextOn : index ===0 || index===1 || index===2}">{{index+1}}</div>
               <div class="titleRank">
 
-                <nuxt-link :to="`/hobbies/hobbiesDetail/${hostPointItem.hobbiesId}/1`">{{hostPointItem.description}}</nuxt-link>
+                <nuxt-link :to="`/hobbies/hobbiesdetail/${hostPointItem.hobbiesId}/1`">{{hostPointItem.description}}</nuxt-link>
               </div>
               <!--<div class="content-left-hostPoint"></div>-->
               <!--<div class="content-right-hostPoint">-->
@@ -265,7 +265,7 @@
               <div class="textRank"
                 :class="{ whiteTextOn : index ===0 || index===1 || index===2}">{{index+1}}</div>
               <div class="titleRank">
-                <nuxt-link :to="`/hobbies/hobbiesDetail/${hostPointItem.hobbiesId}/1`">{{hostPointItem.description}}</nuxt-link>
+                <nuxt-link :to="`/hobbies/hobbiesdetail/${hostPointItem.hobbiesId}/1`">{{hostPointItem.description}}</nuxt-link>
               </div>
               <!--<div class="content-left-hostPoint"></div>-->
               <!--<div class="content-right-hostPoint">-->
@@ -598,7 +598,7 @@ export default {
         if (res.data.code == 0 ) {
           this.userId = res.data.des.user&& res.data.des.user!= '' ? res.data.des.user.id : ''
         }
-        
+
       })
     },
     // 关注
@@ -896,7 +896,7 @@ export default {
         localStorage.getItem('userMsg')&&
         localStorage.getItem('userMsg') != ''
       ) {
-        this.tokenObj = JSON.parse(localStorage.getItem('userMsg')).token 
+        this.tokenObj = JSON.parse(localStorage.getItem('userMsg')).token
       } else if (this.cookie !== '') {
         this.cookie = this.getCookie('token')
         this.tokenObj = this.cookie
@@ -912,7 +912,7 @@ export default {
         if (res.data.code === 0) {
           this.loginFlag = res.data.code
           this.$router.push({
-            path: `/hobby/publishHobbies`
+            path: `/hobby/publishhobbies`
           })
         } else {
            this.$message('您还未登录，请登录！')
@@ -929,11 +929,11 @@ export default {
       //   localStorage.getItem('userMsg') != ''
       // ) {
       //   this.$router.push({
-      //     path: `/publishHobbies`
+      //     path: `/publishhobbies`
       //   })
       // } else if (this.getCookie('token') !== '' && this.getCookie('token') !== null) {
       //   this.$router.push({
-      //     path: `/publishHobbies`
+      //     path: `/publishhobbies`
       //   })
       // } else {
       //   let x = window.confirm('您还未登录，请登录！')
@@ -1026,7 +1026,7 @@ export default {
         classfiy: this.hobbiesClassId,
         order: 'desc',
         sidx: this.sidexHot
-      }) 
+      })
       // 初始化 传值 id,desc,h.create_time，页数 (还未实现)
       this.mockHobbyItems = _mockHobbyItems.data.list
       this.indexId = 0
@@ -1474,9 +1474,8 @@ html {
   font-size: 16px;
   text-overflow: ellipsis;
   display: -webkit-box;
-  /* autoprefixer: off */  
-  -webkit-box-orient: vertical;  
-  /* autoprefixer: on */  
+  /* autoprefixer: ignore next */
+  -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
 }
 

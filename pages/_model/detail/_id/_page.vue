@@ -32,7 +32,7 @@
             v-if="essayData.hotTime != null"></div>
           <!-- 用户信息 -->
           <div class="detail_content_user">
-            <nuxt-link :to="`/Bloger/${essayData.userId}/1`"
+            <nuxt-link :to="`/bloger/${essayData.userId}/1`"
               class="detail_content_user_avatar">
               <img v-if="essayData.userPhoto !== ''"
                 :alt="essayData.author"
@@ -44,7 +44,7 @@
                 class="detail_content_userAvatar">
             </nuxt-link>
 
-            <nuxt-link :to="`/Bloger/${essayData.userId}/1`">
+            <nuxt-link :to="`/bloger/${essayData.userId}/1`">
               <span class="detail_content_userName">{{essayData.author}}</span>
             </nuxt-link>
             <span class="detail_content_user_desperate">|</span>
@@ -67,7 +67,7 @@
               <ul>
                 <div v-for="tab in tabList"
                   :key="tab.title">
-                  <nuxt-link :to="`/tagList/${tab.id}/1`">
+                  <nuxt-link :to="`/taglist/${tab.id}/1`">
                     <li>
                       <span v-if="tab.title !== ''">{{tab.title}}</span>
                       <!-- 品牌 -->
@@ -177,7 +177,7 @@
                   <h3 class="detail_content_article_block_title">{{item.title}}</h3>
                 </nuxt-link>
                   <div class="detail_content_article_block_avatar_wrap">
-                    <nuxt-link :to="`/Bloger/${item.authorId}/1`">
+                    <nuxt-link :to="`/bloger/${item.authorId}/1`">
                       <img v-if="item.authorPhoto"
                         :alt="item.author"
                         :src="formatPic(item.authorPhoto)"
@@ -187,12 +187,12 @@
                         class="detail_content_article_block_avatar">
                     </nuxt-link>
                   </div>
-                  <nuxt-link :to="`/Bloger/${item.authorId}/1`">
+                  <nuxt-link :to="`/bloger/${item.authorId}/1`">
                     <span class="detail_content_article_block_user">{{item.author}}</span>
                   </nuxt-link>
-                  
+
                   <span class="detail_content_article_block_desperate">|</span>
-                  
+
                   <nuxt-link :to="`/${item.className.toLowerCase()}/${item.className.toLowerCase() !== 'hobbies' ? 'detail': 'hobbiesDetail'}/${item.id}/1`">
                   <span class="detail_content_article_block_desc">{{item.tag}}</span>
                   </nuxt-link>
@@ -267,7 +267,7 @@
                 <div v-for="(list, index) in solveCommentList"
                   :key="index"
                   class="detail_comment_lists_content">
-                  <nuxt-link :to="`/Bloger/${list.userId}/1`">
+                  <nuxt-link :to="`/bloger/${list.userId}/1`">
                     <span class="detail_comment_lists_avatar">
                       <img :src="formatPic(list.userPhoto)"
                         :alt="list.author"
@@ -348,7 +348,7 @@
             <span class="detail_user_bg_red"></span>
             <div class="detail_user_msgWrap">
               <div class="detail_user_msg">
-                <nuxt-link :to="user.id !== essayData.userId ? `/Bloger/${essayData.userId}/1` : '/person/myEssay/1'">
+                <nuxt-link :to="user.id !== essayData.userId ? `/bloger/${essayData.userId}/1` : '/person/myEssay/1'">
                   <div class="detail_user_msg_avatar_wrap">
                     <img :src="formatPic(essayData.userPhoto)"
                       :alt="essayData.author"
@@ -358,7 +358,7 @@
                   </div>
                 </nuxt-link>
                 <span>
-                  <nuxt-link :to="user.id !== essayData.userId ? `/Bloger/${essayData.userId}/1` : '/person/myEssay/1'">
+                  <nuxt-link :to="user.id !== essayData.userId ? `/bloger/${essayData.userId}/1` : '/person/myEssay/1'">
 
                     <span class="detail_user_msg_name">{{essayData.author}}</span>
                   </nuxt-link>
@@ -387,7 +387,7 @@
                     </a>
                   </li>
                   <li>
-                    <nuxt-link :to="`/Bloger/${essayData.userId}/1`">
+                    <nuxt-link :to="`/bloger/${essayData.userId}/1`">
                       <span>文章</span>
                       <span>{{userInfo.essayCount == null ? 0 : userInfo.essayCount}}</span>
                     </nuxt-link>
@@ -404,7 +404,7 @@
           <div class="detail_more_title">
             <img src="~static/detail/detail_article.png">
             <h2>热门作品</h2>
-            <nuxt-link :to="`/Bloger/${essayData.userId}/1`"  class="detail_more_title_more">
+            <nuxt-link :to="`/bloger/${essayData.userId}/1`"  class="detail_more_title_more">
               更多
            </nuxt-link>
           </div>
@@ -571,7 +571,7 @@ export default {
       // 相关文章数据
       // essaysWidthTag: [],
       // 标签数据
-      tabList: [], 
+      tabList: [],
       // 回复文本
       replyText: '',
       // 品牌详情
@@ -675,7 +675,7 @@ export default {
       } else {
         v.tag = '兴趣部落'
       }
-    }) 
+    })
       return {
         articleCommentData: articleCommentData.data ? articleCommentData.data.list : [],
         commentData: articleCommentData.data ? articleCommentData.data : [],
@@ -862,7 +862,7 @@ export default {
        // 以下的replace是为了排除先键入回车，再键入空格也会被认为不为空，能评论成功的问题，
        // 因为这种操作会使得 &nbsp; 的首尾多个<div></div>标签，即不为空了
        // content = content.replace(/(\<div\>\s+\<\/div\>)/ig,'')
-       
+
         if ( !content|| content == '' ||
           (content.length > 0 &&
             content.trim().length == 0) ||
@@ -888,7 +888,7 @@ export default {
                 this.listIndex = -1
                 this.getCommentData(this.currentPage)
               }
-            } 
+            }
         }
     },
     // 点赞
@@ -1518,7 +1518,7 @@ export default {
       // 获取文章内容文本
       //str.replace(/<[^>]+>/g,"");  //正则去掉所有的html标记
       if(this.essayData.digest && this.essayData.digest != ''){
-        this.articleHTMLForMeta =this.essayData.digest 
+        this.articleHTMLForMeta =this.essayData.digest
       }else{
         this.articleHTMLForMeta = this.essayData.description != '' ? this.essayData.description.replace(/<[^>]+>/g,"") : ''
       }

@@ -225,7 +225,7 @@
         }
       },
       toBloger(id) {
-        this.$router.push(`/Bloger/${id}/1`)
+        this.$router.push(`/bloger/${id}/1`)
       },
       handleCurrentChange(val) {
         /* this.defaultParams.page = val */
@@ -250,7 +250,7 @@
           this.$message({
             message: '请输入搜索内容'
           })
-          return 
+          return
         }
          this.tempContent = this.searchContent
         //先判断是不是同一次内容
@@ -284,7 +284,7 @@
           } else if (res.data.code === 'tag') {
             let tagId = res.data.tagId
             this.$router.push({
-              path: `/tagList/${tagId}/1`
+              path: `/taglist/${tagId}/1`
             })
           } else if (res.data.code === '9') {
             this.tempContent = this.searchContent
@@ -297,7 +297,7 @@
       toArticleOrHobbiesDetail(eassy) {
         // console.log(eassy)
         if (eassy.title === 'hobbies') {
-          this.$router.push({ path: `/tagList/hobbiesDetail/${eassy.id}/1` })
+          this.$router.push({ path: `/taglist/hobbiesdetail/${eassy.id}/1` })
         } else {
           this.toArticleDetail(eassy.essayId)
         }
@@ -613,9 +613,8 @@
                   overflow: hidden;
                   text-overflow: ellipsis;
                   -webkit-line-clamp: 2;
-                  /* autoprefixer: off */
+                  /* autoprefixer: ignore next */
                   -webkit-box-orient: vertical;
-                  /* autoprefixer: on */
                 }
               }
               .userMsg {

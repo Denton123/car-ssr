@@ -209,7 +209,7 @@
       },
       // 跳转到兴趣部落文章详情页
       toHobbiesDetail(id) {
-        this.$router.push({ path: `/hobbies/hobbiesDetail/${id}/1` })
+        this.$router.push({ path: `/hobbies/hobbiesdetail/${id}/1` })
       },
       // 图片
       formatPic(item) {
@@ -222,7 +222,7 @@
       pageChange(page) {
       let id = `${this.$route.params.id}`
       this.$router.push({
-        path: `/Bloger/${id}/${page}`
+        path: `/bloger/${id}/${page}`
       })
       setTimeout(()=>{
         this.blogerList(page)

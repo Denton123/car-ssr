@@ -65,11 +65,11 @@
                 <p class="detail">{{item.digest}}</p>
                 <div class="footerBox">
                   <div class="messageBox">
-                    <nuxt-link :to="`/Bloger/${item.authorId}/1`">
+                    <nuxt-link :to="`/bloger/${item.authorId}/1`">
                       <img :src="piectProfileUrl(item)"
                         :alt="item.NAME || item.name"
                         class="userIcon"></nuxt-link>
-                    <nuxt-link :to="`/Bloger/${item.authorId}/1`">
+                    <nuxt-link :to="`/bloger/${item.authorId}/1`">
                       <span class="userName">{{item.NAME || item.name}}</span></nuxt-link>
                     <div class="todayDivider"></div>
                     <span class="label">{{item.label}}</span>
@@ -278,7 +278,7 @@ export default {
         case '/hobbies':
           this.modelName = '兴趣部落'
           break
-        case '/tagList':
+        case '/taglist':
           this.modelName = 'tag列表页'
           break
         default:
@@ -494,7 +494,7 @@ export default {
           tagStr = element.tag
         }else{
           // 如果tagList和tag都没有数据，则等于文本
-          tagStr = this.metaDesc  
+          tagStr = this.metaDesc
         }
         this.tagStr = tagStr
       }
@@ -602,7 +602,7 @@ export default {
   line-height: 23px;
 }
 .rankDetail .crumbsItem.active a,
-.rankDetail .crumbsItem a:hover 
+.rankDetail .crumbsItem a:hover
 {
   color: #bd081e;
 }
@@ -755,9 +755,8 @@ export default {
   -webkit-line-clamp: 2;
   overflow: hidden;
   word-break: break-all;
- /* autoprefixer: off */
+  /* autoprefixer: ignore next */
   -webkit-box-orient: vertical;
-  /* autoprefixer: on */
   position: absolute;
   top: 116px;
   width: 331px;

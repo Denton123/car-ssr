@@ -13,7 +13,7 @@
         <p class="card-content-desc" v-html="EvRightListData.digest == '' ? '': EvRightListData.digest"></p>
         <div class="info clearfix">
           <div class="info_left">
-            <nuxt-link :to="`/Bloger/${EvRightListData.authorId}/1`">
+            <nuxt-link :to="`/bloger/${EvRightListData.authorId}/1`">
               <span class="info_header">
                 <img :src="formatPic(EvRightListData.photoUrl)"
                   :alt="EvRightListData.title"
@@ -21,7 +21,7 @@
                   width="100%">
               </span>
             </nuxt-link>
-            <nuxt-link :to="`/Bloger/${EvRightListData.authorId}/1`">
+            <nuxt-link :to="`/bloger/${EvRightListData.authorId}/1`">
               <span class="info_name">{{EvRightListData.webName !== '' ? EvRightListData.webName : EvRightListData.author}}</span>
             </nuxt-link>
           </div>
@@ -43,7 +43,7 @@
         <ul>
           <li v-for="(item, index) in listData"
             :key="index">
-            <router-link :to="`/tagList/${item.id}/1`"><strong>{{item.title}}</strong></router-link>
+            <router-link :to="`/taglist/${item.id}/1`"><strong>{{item.title}}</strong></router-link>
           </li>
         </ul>
       </div> -->
@@ -58,7 +58,7 @@ import {
 } from "@/http/api";
 export default {
   name: 'HotTags',
-  data(){ 
+  data(){
     return{
     }
   },
@@ -152,9 +152,8 @@ export default {
 }
 .hot-tags .card-content .card-content-desc{
   width: 95%;
- /* autoprefixer: off */
+  /* autoprefixer: ignore next */
   -webkit-box-orient: vertical;
-  /* autoprefixer: on */
   display: -webkit-box;
   -webkit-line-clamp: 2;
   overflow: hidden;

@@ -4,7 +4,7 @@
       <div v-for="(item, index) in listData"
         :key="index"
         class="tags-ul_li_wrap">
-        <router-link :to="`/tagList/${item.id}/1`">
+        <router-link :to="`/taglist/${item.id}/1`">
           <li @click="changeIndex(index)">
             <a href="javascript:;"
               class="normal"><strong>{{item.title}}</strong></a>

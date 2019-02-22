@@ -2,7 +2,7 @@
   <div class="index_card_block"
     :style="{'height':height, 'width': width}">
     <div class="pic">
-      <router-link :to="moduleType == 'hobbies' ? `/${moduleType}/hobbiesDetail/${card.id == null ? '' : card.id}/1`:  `/${moduleType}/detail/${card.id == null ? '' : card.id}/1`"
+      <router-link :to="moduleType == 'hobbies' ? `/${moduleType}/hobbiesdetail/${card.id == null ? '' : card.id}/1`:  `/${moduleType}/detail/${card.id == null ? '' : card.id}/1`"
         class="img_a">
         <img :src="formatPic(card.photo)"
           :alt="card.title"
@@ -14,11 +14,11 @@
     </div>
     <div class="card-content">
       <router-link class="title"
-        :to="moduleType == 'hobbies' ? `/${moduleType}/hobbiesDetail/${card.id == null ? '' : card.id}/1`:  `/${moduleType}/detail/${card.id == null ? '' : card.id}/1`">{{card.title == '' ? '无': card.title}}</router-link>
+        :to="moduleType == 'hobbies' ? `/${moduleType}/hobbiesdetail/${card.id == null ? '' : card.id}/1`:  `/${moduleType}/detail/${card.id == null ? '' : card.id}/1`">{{card.title == '' ? '无': card.title}}</router-link>
       <!-- <p class="card-content-desc" v-html="card.digest == '' ? '': card.digest"></p>       -->
       <div class="info clearfix">
         <div class="info_left">
-          <router-link :to="`/Bloger/${card.authorId}/1`">
+          <router-link :to="`/bloger/${card.authorId}/1`">
             <span class="info_header">
               <img :src="formatPic(card.photoUrl)"
                 :alt="card.title"
@@ -26,7 +26,7 @@
                 width="100%">
             </span>
           </router-link>
-          <router-link :to="`/Bloger/${card.authorId}/1`">
+          <router-link :to="`/bloger/${card.authorId}/1`">
             <span class="info_name">{{card.webName !== '' ? card.webName : card.author}}</span>
           </router-link>
 

@@ -24,11 +24,11 @@
         <!-- 文章内容 -->
         <div class="detail_content">
           <div class="detail_content_title">
-                
+
           </div>
           <!-- 用户信息 -->
           <div class="detail_content_user" style="background: url('~static/header/nav_upload.png');">
-            <nuxt-link :to="`/Bloger/${essayData.userId}/1`"
+            <nuxt-link :to="`/bloger/${essayData.userId}/1`"
               class="detail_content_user_avatar">
               <img :src="formatPic(userInfo.photo)"
                 :alt="essayData.userName == null ? '': essayData.userName"
@@ -38,7 +38,7 @@
                 src="~static/detail/detail_user.png"
                 class="detail_content_userAvatar">
             </nuxt-link>
-            <nuxt-link :to="`/Bloger/${essayData.userId}/1`">
+            <nuxt-link :to="`/bloger/${essayData.userId}/1`">
               <span class="detail_content_userName"
                 v-if="essayData">{{essayData.userName == null ? '': essayData.userName}}</span>
             </nuxt-link>
@@ -68,7 +68,7 @@
               <ul>
                 <div v-for="tab in tabList"
                   :key="tab.title">
-                  <nuxt-link :to="`/tagList/${tab.id}/1`">
+                  <nuxt-link :to="`/taglist/${tab.id}/1`">
                     <li>
                       <span>{{tab.title}}</span>
                       <!-- 品牌 -->
@@ -168,7 +168,7 @@
                   <h3 class="detail_content_article_block_title">{{item.title}}</h3>
                 </nuxt-link>
                   <div class="detail_content_article_block_avatar_wrap">
-                    <nuxt-link :to="`/Bloger/${item.authorId}/1`">
+                    <nuxt-link :to="`/bloger/${item.authorId}/1`">
                       <img v-if="item.authorPhoto"
                         :src="formatPic(item.authorPhoto)"
                         class="detail_content_article_block_avatar">
@@ -177,7 +177,7 @@
                         class="detail_content_article_block_avatar">
                     </nuxt-link>
                   </div>
-                  <nuxt-link :to="`/Bloger/${item.authorId}/1`">
+                  <nuxt-link :to="`/bloger/${item.authorId}/1`">
                     <span class="detail_content_article_block_user">{{item.author}}</span>
                   </nuxt-link>
                   <span class="detail_content_article_block_desperate">|</span>
@@ -256,7 +256,7 @@
                 <div v-for="(list, index) in solveCommentList"
                   :key="index"
                   class="detail_comment_lists_content">
-                  <nuxt-link :to="`/Bloger/${list.userId}/1`">
+                  <nuxt-link :to="`/bloger/${list.userId}/1`">
                     <span class="detail_comment_lists_avatar">
                       <img :src="formatPic(list.userPhoto)"
                         :alt="list.author"
@@ -340,7 +340,7 @@
             <span class="detail_user_bg_red"></span>
             <div class="detail_user_msgWrap">
               <div class="detail_user_msg">
-                <nuxt-link :to="essayData.userId !== user.id ? `/Bloger/${essayData.userId}/1` : '/person/myEssay/1'">
+                <nuxt-link :to="essayData.userId !== user.id ? `/bloger/${essayData.userId}/1` : '/person/myEssay/1'">
                   <div class="detail_user_msg_avatar_wrap">
                     <img v-if="userInfo.photo !== ''"
                       :alt="essayData.userName"
@@ -349,7 +349,7 @@
                       src="~static/detail/person_default.png">
                   </div>
                 </nuxt-link>
-                <nuxt-link :to="essayData.userId !== user.id ? `/Bloger/${essayData.userId}/1` : '/person/myEssay/1'">
+                <nuxt-link :to="essayData.userId !== user.id ? `/bloger/${essayData.userId}/1` : '/person/myEssay/1'">
                   <span class="detail_user_msg_name">{{essayData.userName}}</span>
                 </nuxt-link>
                 <a href="javascript:void(0);"
@@ -374,7 +374,7 @@
                     </a>
                   </li>
                   <li>
-                    <nuxt-link :to="`/Bloger/${essayData.userId}/1`">
+                    <nuxt-link :to="`/bloger/${essayData.userId}/1`">
                       <span>文章</span>
                       <span>{{userInfo.essayCount == null ? 0 : userInfo.essayCount}}</span>
                     </nuxt-link>
@@ -391,7 +391,7 @@
           <div class="detail_more_title">
             <img src="~static/detail/detail_article.png">
             <h2>热门作品</h2>
-            <nuxt-link :to="`/Bloger/${essayData.userId}/1`" class="detail_more_title_more"> 
+            <nuxt-link :to="`/bloger/${essayData.userId}/1`" class="detail_more_title_more">
               更多
             </nuxt-link>
           </div>
@@ -731,7 +731,7 @@ export default {
       })
       return result
     }
-    
+
   },
   methods: {
     getArticle() {
@@ -1009,7 +1009,7 @@ export default {
         {
           'X-Auth0-Token':
             this.cookie !== '' ? this.cookie : this.tokenObj.token
-        }   
+        }
       )
       // this.hobbiesDetailData = res.data
       this.hobbiesIdDetailData = res.data.result_data
@@ -1196,7 +1196,7 @@ export default {
     },
     pageChange(page) {
       this.$router.push({
-        path: `/hobbies/hobbiesDetail/${this.hobbiesid}/${page}`
+        path: `/hobbies/hobbiesdetail/${this.hobbiesid}/${page}`
       })
       this.getCommentData(page)
       this.currentPage = page

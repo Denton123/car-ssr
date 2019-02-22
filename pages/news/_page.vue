@@ -14,7 +14,7 @@
           <div v-for="(item, index) in tabData"
             :key="index"
             class="navWrap">
-            <nuxt-link :to="`/tagList/${item.id}/1`">
+            <nuxt-link :to="`/taglist/${item.id}/1`">
               <li :class="navTabActiveStatus == true&&navTabActiveIndex == index ? ['navActiveClass', 'active']: '' "
                 @mouseenter="navTabActive(item)"
                 @mouseleave="removeNavTabActive()">
@@ -73,11 +73,11 @@
                 </el-main>
                 <el-footer class="todayFooter">
                   <div class="footerBox">
-                    <nuxt-link :to="`/Bloger/${item.authorId}/1`">
+                    <nuxt-link :to="`/bloger/${item.authorId}/1`">
                       <img :src="piectProfileUrl(item)"
                         :alt='item.author'
                         class="userIcon"></nuxt-link>
-                    <nuxt-link :to="`/Bloger/${item.authorId}/1`">
+                    <nuxt-link :to="`/bloger/${item.authorId}/1`">
                       <span class="userName">{{item.author}}</span></nuxt-link>
                     <div class="todayDivider"></div>
                     <!-- <span class="classOneName">{{item.classOneName}}</span> -->
@@ -200,11 +200,11 @@
                 </el-main>
                 <el-footer class="todayFooter">
                   <div class="footerBox">
-                    <nuxt-link :to="`/Bloger/${item.authorId}/1`">
+                    <nuxt-link :to="`/bloger/${item.authorId}/1`">
                       <img :src="piectProfileUrl(item)"
                         :alt='item.author'
                         class="userIcon"></nuxt-link>
-                    <nuxt-link :to="`/Bloger/${item.authorId}/1`">
+                    <nuxt-link :to="`/bloger/${item.authorId}/1`">
                       <span class="userName">{{item.author}}</span></nuxt-link>
                     <div class="todayDivider"></div>
                     <!-- <span class="classOneName">{{item.classOneName}}</span> -->
@@ -573,9 +573,9 @@ export default {
     },
     titleActive(item) {
       if( this.titleActiveIndex = this.firstHalfData.indexOf(item) >= 0 ){
-          this.titleActiveIndex = this.firstHalfData.indexOf(item) 
+          this.titleActiveIndex = this.firstHalfData.indexOf(item)
       }else{
-          this.titleActiveIndex = this.secondHalfData.indexOf(item) 
+          this.titleActiveIndex = this.secondHalfData.indexOf(item)
       }
       this.removeTitleActive = true
     },

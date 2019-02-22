@@ -14,7 +14,7 @@
           <div v-for="(item, index) in tabData"
             :key="index"
             class="navWrap">
-            <nuxt-link :to="`/tagList/${item.id}/1`">
+            <nuxt-link :to="`/taglist/${item.id}/1`">
               <li :class=" navTabActiveStatus == true&&navTabActiveIndex == index ? ['navActiveClass', 'active']: '' "
                 @mouseenter="navTabActive(item)"
                 @mouseleave="removeNavTabActive()">
@@ -74,11 +74,11 @@
                 </el-main>
                 <el-footer class="todayFooter">
                   <div class="footerBox">
-                    <nuxt-link :to="`/Bloger/${item.authorId}/1`">
+                    <nuxt-link :to="`/bloger/${item.authorId}/1`">
                       <img :src="piectProfileUrl(item)"
                         :alt="item.author"
                         class="userIcon"></nuxt-link>
-                    <nuxt-link :to="`/Bloger/${item.authorId}/1`">
+                    <nuxt-link :to="`/bloger/${item.authorId}/1`">
                       <span class="userName">{{item.author}}</span></nuxt-link>
                     <div class="todayDivider"></div>
                     <!-- <span class="classOneName">{{item.classOneName}}</span> -->
@@ -199,11 +199,11 @@
                 </el-main>
                 <el-footer class="todayFooter">
                   <div class="footerBox">
-                    <nuxt-link :to="`/Bloger/${item.authorId}/1`">
+                    <nuxt-link :to="`/bloger/${item.authorId}/1`">
                       <img :src="piectProfileUrl(item)"
                         :alt='item.author'
                         class="userIcon"></nuxt-link>
-                    <nuxt-link :to="`/Bloger/${item.authorId}/1`">
+                    <nuxt-link :to="`/bloger/${item.authorId}/1`">
                       <span class="userName">{{item.author}}</span></nuxt-link>
                     <div class="todayDivider"></div>
                     <!-- <span class="classOneName">{{item.classOneName}}</span> -->
@@ -462,7 +462,7 @@ export default {
           size: 6
         },
         {
-          'X-Auth0-Token': token          
+          'X-Auth0-Token': token
         }
       )
     // 周排行
@@ -531,7 +531,7 @@ export default {
     piectImgUrl(item) {
       if(item.photo.indexOf('http:') >= 0 || item.photo.indexOf('/image') >= 0){
         return item.photo
-      } 
+      }
       return systemManage.getApi(item.photo)
     },
     // 头像的图片拼接
@@ -557,9 +557,9 @@ export default {
     },
     titleActive(item) {
       if( this.titleActiveIndex = this.firstHalfData.indexOf(item) >= 0 ){
-          this.titleActiveIndex = this.firstHalfData.indexOf(item) 
+          this.titleActiveIndex = this.firstHalfData.indexOf(item)
       }else{
-          this.titleActiveIndex = this.secondHalfData.indexOf(item) 
+          this.titleActiveIndex = this.secondHalfData.indexOf(item)
       }
       this.removeTitleActive = true
     },

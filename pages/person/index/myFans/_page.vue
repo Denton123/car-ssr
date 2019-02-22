@@ -13,7 +13,7 @@
       v-for="(item, index) in list"
       :key="index">
         <div class="content_fans_left">
-          <nuxt-link :to="`/Bloger/${item.id}/1`">
+          <nuxt-link :to="`/bloger/${item.id}/1`">
           <span class="head_image"
                v-if="item.photo !== ''">
             <img :src="formatPic(item.photo)" :alt="item.loginName">
@@ -25,7 +25,7 @@
           </span>
           </nuxt-link>
           <div class="fans_info">
-            <nuxt-link :to="`/Bloger/${item.id}/1`">
+            <nuxt-link :to="`/bloger/${item.id}/1`">
             <span class="info_title">{{item.loginName}}</span>
             </nuxt-link>
             <p class="info_detail">
@@ -137,7 +137,7 @@ export default {
         })
       let data = res.data
       if (data.result) {
-        this.totalData = data 
+        this.totalData = data
         this.list = data.page.list
         this.listData = data.page
         if(name !== ''&&name !== undefined && this.list.length == 0){

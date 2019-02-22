@@ -86,9 +86,9 @@ import {
   smsUserSendMsgUpdateByPwd,
   smsCheckCode
 } from '@/http/api'
-import { setTimeout, clearTimeout } from 'timers'
+// import { setTimeout, clearTimeout } from 'timers'
 export default {
-  name: 'resetPassword',
+  name: 'resetpassword',
   metaInfo: {
     // 设置 title
     title: '重置密码页',

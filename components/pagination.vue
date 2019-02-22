@@ -21,6 +21,7 @@
       :class=" nextDisabled == true ? 'btnDisabled' :''">
       <span>下一页</span>
     </div>
+    <div v-html="renderPagination()" class="v-visibist-hide"></div>
   </div>
 </template>
 
@@ -120,6 +121,40 @@ export default {
     },
     routLinkCurrentPage() {
       this.currentPage = parseInt(this.routePage)
+    },
+    renderPagination () {
+      var html = ''
+      var currentPage =  (() => {
+        let fullPath = this.$route.fullPath.split("?")[0]
+        let path = fullPath.split('/')
+        return path[path.length - 1]
+      })();
+      var fullPath = () => {
+          let fullPath = this.$route.fullPath.split("?")[0]
+          let path = fullPath.split('/')
+          delete path[path.length - 1]
+          return path.join('/')
+        };
+        var routePage = () => {
+          let fullPath = this.$route.fullPath.split("?")[0]
+          let path = fullPath.split('/')
+          return path[path.length - 1]
+        }
+      var page = routePage() - 0;
+      var currentPage = page;
+      var number = 10
+      html += `<a href="${fullPath()}${currentPage -1}">上一页</a>`
+      while(currentPage > 0 && currentPage > page - number ) {
+        html += `<a href="${fullPath()}${currentPage}">${currentPage  }</a>`
+        currentPage--;
+      }
+      var currentPage = page + 1;
+      while(currentPage > 0 && currentPage < page + number && currentPage <= this.totalPage ) {
+        html += `<a href="${fullPath()}${currentPage}">${currentPage }</a>`
+        currentPage++;
+      }
+      html += `<a href="${fullPath()}${currentPage + 1}">下一页</a>`
+      return html;
     }
   },
   watch: {
@@ -188,17 +223,19 @@ export default {
 .pagination .prevBtn:hover,
 .pagination .number:hover,
 .pagination .nextBtn:hover {
-  background-color: #121212 !important;
+  background-color: #c9d438 !important;
   box-shadow: 0px 3px 0px 0px #bd081e;
   color: white !important;
 }
-
+.tag_wrapper .el-pager li.number.active{
+  background-color: #c9d438 !important;
+}
 /* 禁用状态的样式 */
 .pagination .btnDisabled:hover {
   cursor: not-allowed;
 }
 .pagination .el-pagination.is-background .el-pager li:not(.disabled).active {
-  background-color: #121212 !important;
+  background-color: #c9d438 !important;
   box-shadow: 0px 3px 0px 0px #bd081e !important;
 }
 
@@ -239,4 +276,11 @@ export default {
   -ms-user-select: none;
   user-select: none;
 }
+
+/*number.active*/
+  .v-visibist-hide{
+    visibility: hidden;
+    width: 0;
+    height: 0;
+  }
 </style>

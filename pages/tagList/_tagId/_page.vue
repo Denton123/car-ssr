@@ -38,9 +38,9 @@
           <div class="tag_list_left">
             <ul>
               <li v-for="(eassy, index) in eassyListUrl"
-                :key="index"      
+                :key="index"
                 class="tag_list_left_li">
-                <nuxt-link class="tag-nuxt-link" :to=" eassy.title === 'hobbies' ?  `/hobbies/hobbiesDetail/${eassy.id}/1` : `/tagList/detail/${eassy.id}/1`">
+                <nuxt-link class="tag-nuxt-link" :to=" eassy.title === 'hobbies' ?  `/hobbies/hobbiesdetail/${eassy.id}/1` : `/taglist/detail/${eassy.id}/1`">
                   <div class="img_wrapper">
                     <img :src="eassy.photo"
                       :alt="eassy.title">
@@ -49,19 +49,19 @@
                   <div class="tag_item">
                     <p class="tag_title"
                       v-if="eassy.title !== 'hobbies'">
-                      <nuxt-link class="tag-nuxt-link tag-nuxt-des nuxt-redColor" :to="`/tagList/detail/${eassy.id}/1`"><strong>{{eassy.title}}</strong>
+                      <nuxt-link class="tag-nuxt-link tag-nuxt-des nuxt-redColor" :to="`/taglist/detail/${eassy.id}/1`"><strong>{{eassy.title}}</strong>
                       </nuxt-link>
                     </p>
                     <div class="tag_line">
                       <span class="one"></span><span class="two"></span>
                     </div>
-                    <nuxt-link class="tag-nuxt-link tag-nuxt-des" :to="`/tagList/detail/${eassy.id}/1`">
+                    <nuxt-link class="tag-nuxt-link tag-nuxt-des" :to="`/taglist/detail/${eassy.id}/1`">
                     <div class="des nuxt-redColor">
                       {{eassy.digest}}
                     </div>
                     </nuxt-link>
                     <div class="userMsg">
-                      <nuxt-link class="tag-nuxt-link" :to="`/Bloger/${eassy.userId}/1`">
+                      <nuxt-link class="tag-nuxt-link" :to="`/bloger/${eassy.userId}/1`">
                         <div class="avatar"
                         ><img :src="eassy.userPhoto"
                             :alt="eassy.userName"><span class="name">{{eassy.userName}}</span><span class="tag_line">|</span>
@@ -85,6 +85,7 @@
               :page-size="pageObj.pageSize"
               :total="pageObj.totalCount">
             </el-pagination>
+            <div v-html="renderPagination()" class="v-visibist-hide"></div>
           </div>
           <div class="tag_list_right">
             <ul class="tag_list_ul">
@@ -241,7 +242,7 @@ export default {
           tagStr = element.tag
         }else{
           // 如果tagList和tag都没有数据，则等于文本
-          tagStr = this.metaDesc  
+          tagStr = this.metaDesc
         }
         this.tagStr = tagStr
       }
@@ -425,13 +426,13 @@ export default {
     },
     // 调到博主主页
     toBloger(id) {
-      this.$router.push(`/Bloger/${id}/1`);
+      this.$router.push(`/bloger/${id}/1`);
     },
     handleCurrentChange(val) {
       let id = this.$route.params.tagId;
       this.defaultParams.page = val;
       /* this._getWebEassyList_(id) */
-      this.$router.push({ path: `/tagList/${id}/${val}` });
+      this.$router.push({ path: `/taglist/${id}/${val}` });
     },
     formatData(time) {
       if (time) {
@@ -470,16 +471,16 @@ export default {
         title: this.tagObj.title
       });
       sessionStorage.setItem("tagInfo", tagInfo);
-      this.$router.push({ path: `/tagList/rankList/${this.type}/1` });
+      this.$router.push({ path: `/taglist/rankList/${this.type}/1` });
     },
     // 跳转到文章详情页
     toArticleDetail(essayId, type) {
-      this.$router.push({ path: `/tagList/detail/${essayId}/1` });
+      this.$router.push({ path: `/taglist/detail/${essayId}/1` });
     },
     // 跳转到兴趣部落文章详情 或 文章
     toArticleOrHobbiesDetail(eassy) {
       if (eassy.title === "hobbies") {
-        this.$router.push({ path: `/hobbies/hobbiesDetail/${eassy.id}/1` });
+        this.$router.push({ path: `/hobbies/hobbiesdetail/${eassy.id}/1` });
       } else {
         this.toArticleDetail(eassy.id);
       }
@@ -542,6 +543,40 @@ export default {
         display: "inlay-fix",
         async: true
       });
+    },
+    renderPagination () {
+      var html = ''
+      var currentPage =  (() => {
+        let fullPath = this.$route.fullPath.split("?")[0]
+        let path = fullPath.split('/')
+        return path[path.length - 1]
+      })();
+      var fullPath = () => {
+        let fullPath = this.$route.fullPath.split("?")[0]
+        let path = fullPath.split('/')
+        delete path[path.length - 1]
+        return path.join('/')
+      };
+      var routePage = () => {
+        let fullPath = this.$route.fullPath.split("?")[0]
+        let path = fullPath.split('/')
+        return path[path.length - 1]
+      }
+      var page = routePage() - 0;
+      var currentPage = page;
+      var number = 10
+      html += `<a href="${fullPath()}${currentPage -1}">上一页</a>`
+      while(currentPage > 0 && currentPage > page - number ) {
+        html += `<a href="${fullPath()}${currentPage}">${currentPage  }</a>`
+        currentPage--;
+      }
+      var currentPage = page + 1;
+      while(currentPage > 0 && currentPage < page + number && currentPage <= this.totalPage ) {
+        html += `<a href="${fullPath()}${currentPage}">${currentPage }</a>`
+        currentPage++;
+      }
+      html += `<a href="${fullPath()}${currentPage + 1}">下一页</a>`
+      return html;
     }
   },
   watch: {
@@ -778,10 +813,9 @@ export default {
                 text-overflow: -o-ellipsis-lastline;
                 overflow: hidden;
                 text-overflow: ellipsis;
-                -webkit-line-clamp: 2; 
-                /* autoprefixer: off */
+                -webkit-line-clamp: 2;
+                /* autoprefixer: ignore next */
                 -webkit-box-orient: vertical;
-                /* autoprefixer: on */
                 &:hover {
                   color: #be001e;
                 }
@@ -1022,7 +1056,7 @@ export default {
   .btn-prev:hover,
   .btn-next:hover {
     color: #fff !important;
-    background: #000 !important;
+    background: #c9d438 !important;
     box-shadow: 0px 3px 0px 0px rgb(180, 32, 32) !important;
   }
   .el-pagination {
@@ -1040,12 +1074,12 @@ export default {
       background: rgba(255, 255, 255, 1) !important;
       box-shadow: 0px 3px 0px 0px rgb(228, 228, 228, 1) !important;
       &.active {
-        background: #000 !important;
+        background: #c9d438 !important;
         box-shadow: 0px 3px 0px 0px rgb(180, 32, 32) !important;
       }
       &:hover {
         color: #fff !important;
-        background: #000 !important;
+        background: #c9d438 !important;
         box-shadow: 0px 3px 0px 0px rgb(180, 32, 32) !important;
       }
     }
@@ -1063,5 +1097,10 @@ export default {
   .nuxt-redColor:hover {
     color: rgb(180, 32, 32)
   }
+}
+.v-visibist-hide{
+  visibility: hidden;
+  width: 0;
+  height: 0;
 }
 </style>

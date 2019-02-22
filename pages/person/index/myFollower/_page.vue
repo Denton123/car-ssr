@@ -13,7 +13,7 @@
            v-for="(item, index) in list"
            :key="index">
         <div class="content_fans_left">
-          <nuxt-link :to="`/Bloger/${item.id}/1`">
+          <nuxt-link :to="`/bloger/${item.id}/1`">
           <div class="head_image"
                v-if="item.photo !== ''">
             <img :src="formatPic(item.photo)" :alt="item.loginName">
@@ -25,7 +25,7 @@
           </div>
           </nuxt-link>
           <div class="fans_info">
-            <nuxt-link :to="`/Bloger/${item.id}/1`">
+            <nuxt-link :to="`/bloger/${item.id}/1`">
               <p class="info_title">{{item.loginName}}</p>
             </nuxt-link>
             <p class="info_detail">

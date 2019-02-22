@@ -3,7 +3,7 @@
     :style="{'height':sHeight, 'width': width}">
     <div class="pic"
       v-if="isContent == '0'">
-      <router-link :to="`/hobbies/hobbiesDetail/${card.id}/1`">
+      <router-link :to="`/hobbies/hobbiesdetail/${card.id}/1`">
         <img :src="card.photo"
           :alt="card.title"
           width="100%"
@@ -12,7 +12,7 @@
       </router-link>
     </div>
     <div v-if="isContent == '1'" class="haveContent">
-      <router-link :to="`/hobbies/hobbiesDetail/${card.id}/1`">
+      <router-link :to="`/hobbies/hobbiesdetail/${card.id}/1`">
         <img :src="card.photo"
           :alt="card.title">
       </router-link>
@@ -21,7 +21,7 @@
       <div class="info clearfix"
         v-if="sContent == '0'">
         <div class="info_left"
-          @click="$router.push(`/Bloger/${cardData.userId}/1`)">
+          @click="$router.push(`/bloger/${cardData.userId}/1`)">
           <span class="info_header">
             <img :src="formatPic(card.authorphoto) "
               :alt="card.userName"
@@ -29,7 +29,7 @@
               width="100%"
               v-if="card.authorphoto != null">
           </span>
-          <router-link :to="`/Bloger/${card.userId}/1`">
+          <router-link :to="`/bloger/${card.userId}/1`">
             <span class="info_name">{{card.userName == '' ? '无': card.userName}}</span>
           </router-link>
         </div>
@@ -41,7 +41,7 @@
         class="hobbies_content info clearfix">
         <p v-html="card.description"></p>
         <div class="info_left"
-          @click="$router.push(`/Bloger/${cardData.userId}/1`)">
+          @click="$router.push(`/bloger/${cardData.userId}/1`)">
           <span class="info_header">
             <img :src="formatPic(card.authorphoto) "
               :alt="card.userName"
@@ -49,7 +49,7 @@
               width="100%"
               v-if="card.authorphoto != null">
           </span>
-          <router-link :to="`/Bloger/${card.userId}/1`">
+          <router-link :to="`/bloger/${card.userId}/1`">
             <span class="info_name">{{card.userName == '' ? '无': card.userName}}</span>
           </router-link>
         </div>
@@ -214,9 +214,8 @@ export default {
   letter-spacing: 1px;
   line-height: 23px;
   display: -webkit-box;
-   /* autoprefixer: off */
+  /* autoprefixer: ignore next */
   -webkit-box-orient: vertical;
-  /* autoprefixer: on */
   -webkit-line-clamp: 4;
   overflow: hidden;
   margin-bottom: 10px;

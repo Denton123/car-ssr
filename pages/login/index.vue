@@ -76,7 +76,7 @@ export default {
     // 在渲染该组件的对应路由被 confirm 前调用
     // 不！能！获取组件实例 `this`
     // 因为当守卫执行前，组件实例还没被创建
-  
+
     next(vm => {
       /* 如果在当前页刷新，临时使用跳转过来的路由 */
       if(from.name) {
@@ -126,7 +126,7 @@ export default {
       this.$router.push({ name: 'register' })
     },
     forgetPassword() {
-      this.$router.push('/resetPassword')
+      this.$router.push('/resetpassword')
     },
     setCookie(cname, cvalue, exdays) {
       var d = new Date()
@@ -147,7 +147,7 @@ export default {
               if (that.loginObj.checked === true) {
                 // 若永久登陆，则保存30天的cookie
                 this.setCookie('token', res.data.des.token, 15*24 / 24)
-                this.setCookie('userId', res.data.des.userId, 15*24 / 24) 
+                this.setCookie('userId', res.data.des.userId, 15*24 / 24)
                 let msg = JSON.stringify({
                   account: that.loginObj.account,
                   password: that.loginObj.password,
@@ -161,26 +161,26 @@ export default {
                 }else {
                   temp = ''
                 }
-                if(temp !== null && temp.name !== 'resetPassword' && temp.name !== 'register') {
+                if(temp !== null && temp.name !== 'resetpassword' && temp.name !== 'register') {
                   that.$router.push(temp.fullPath)
                 } else {
                   that.$router.push({ name: 'index' })
-                }          
-              } else {    
+                }
+              } else {
                 // 不记住登陆状态， 只保存token 1个小时
                 this.setCookie('token', res.data.des.token, 1 / 24)
-                this.setCookie('userId', res.data.des.userId, 1 / 24)              
+                this.setCookie('userId', res.data.des.userId, 1 / 24)
                 let temp =sessionStorage.getItem('login_from') && sessionStorage.getItem('login_from') != '' ? sessionStorage.getItem('login_from') : ''
                 if(temp) {
                   temp = JSON.parse(temp)
                 }else {
                   temp = ''
                 }
-                if(temp !== null && temp.name !== 'resetPassword' && temp.name !== 'register') {
+                if(temp !== null && temp.name !== 'resetpassword' && temp.name !== 'register') {
                   that.$router.push(temp.fullPath)
                 } else {
                   that.$router.push({ name: 'index' })
-                }               
+                }
               }
             } else {
               that.loading = false

@@ -72,7 +72,7 @@
                   </el-tab-pane>
                   <el-tab-pane label="修改密码"
                     name="person-index-resetPassword">
-                    <reset-password></reset-password>
+                    <resetpassword></resetpassword>
                   </el-tab-pane>
                 </el-tabs>
                 </no-ssr>
@@ -97,7 +97,7 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import myEssay from '@/pages/person/index/myEssay/_page.vue'
 import personInfo from '@/pages/person/index/editInfo/index.vue'
-import resetPassword from '@/pages/person/index/resetPassword/index.vue'
+import resetpassword from '@/pages/person/index/resetpassword/index.vue'
 import myIntergral from '@/pages/person/index/myIntergral/index'
 import myFollower from '@/pages/person/index/myFollower/_page.vue'
 import myFans from '@/pages/person/index/myFans/_page.vue'
@@ -178,7 +178,7 @@ export default {
       if (tabArray[2] === 'myEssay') {
         this.$router.push(`/person/${tabArray[2]}/1`)
       } else {
-        this.$router.push(`/person/${tabArray[2]}`)
+        this.$router.push(`/person/${tabArray[2].toLowerCase()}`)
       }
     },
     getUserInfo() {
@@ -242,7 +242,7 @@ export default {
       this.activeName = 'person-index-myFans'
     }else if (this.activeName==='person-index-myFollower-page') {
       this.activeName = 'person-index-myFollower'
-    }else if(this.activeName == 'person-index-publishEssay') { 
+    }else if(this.activeName == 'person-index-publishEssay') {
       this.activeName = 'person-index-myEssay-page'
     } else if (this.activeName === 'person-index-editEssay-id') {
       this.activeName = 'person-index-myEssay-page'
@@ -258,7 +258,7 @@ export default {
     Footer,
     myEssay,
     personInfo,
-    resetPassword,
+    resetpassword,
     myFollower,
     myFans,
     'my-intergral': myIntergral

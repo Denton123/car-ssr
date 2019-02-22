@@ -23,7 +23,7 @@
           :key="index">
           <div class="blogger-list-left">
             <div class="bloggerList-top">
-              <nuxt-link :to="`/Bloger/${item.authorId}/1`"
+              <nuxt-link :to="`/bloger/${item.authorId}/1`"
                 style="color: black">
                   <span class="user_wrap" v-if="item.authorPhoto !== ''&& item.authorPhoto !== null"><img :src="concatImage(item.authorPhoto)"
                       :alt="item.authorName"
@@ -83,7 +83,7 @@
                 </span>
               </nuxt-link>
               <div class="bloggerList-right-bottom">
-                <nuxt-link :to="`/Bloger/${item.authorId}/1`"
+                <nuxt-link :to="`/bloger/${item.authorId}/1`"
                 >
                   <span class="right-bottom-wrap" v-if="item.authorPhoto !== ''&& item.authorPhoto !== null">
                     <img :src="concatImage(item.authorPhoto)"
@@ -98,7 +98,7 @@
                 </nuxt-link>
                 <div class="right-bottom-line">
                   <img src="~static/picture/line_middle.png">
-                </div>  
+                </div>
                 <div class="right-bottom-label">
                   <span>{{(item.label == '今日车闻' || item.label == '新能源' || item.label == '视频' || item.label == '兴趣部落') ? item.label :'兴趣部落'}}</span>
                 </div>
@@ -199,7 +199,7 @@ export default {
     let token = Utils.b_getToken(req)
     let totalPage
     let totalCount
-    let bloggerLists = await $get('/web/user/getBollgerRank?', 
+    let bloggerLists = await $get('/web/user/getBollgerRank?',
       {
         pageNo: params.page,
         size: 6
@@ -615,9 +615,8 @@ margin-top: 20px;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
- /* autoprefixer: off */
+  /* autoprefixer: ignore next */
   -webkit-box-orient: vertical;
-  /* autoprefixer: on */
   -webkit-line-clamp: 2;
   line-height: 24px;
 }
