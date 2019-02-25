@@ -223,19 +223,19 @@ export default {
 .pagination .prevBtn:hover,
 .pagination .number:hover,
 .pagination .nextBtn:hover {
-  background-color: #c9d438 !important;
+  background-color: #121212 !important;
   box-shadow: 0px 3px 0px 0px #bd081e;
   color: white !important;
 }
 .tag_wrapper .el-pager li.number.active{
-  background-color: #c9d438 !important;
+  background-color: #121212 !important;
 }
 /* 禁用状态的样式 */
 .pagination .btnDisabled:hover {
   cursor: not-allowed;
 }
 .pagination .el-pagination.is-background .el-pager li:not(.disabled).active {
-  background-color: #c9d438 !important;
+  background-color: #121212 !important;
   box-shadow: 0px 3px 0px 0px #bd081e !important;
 }
 

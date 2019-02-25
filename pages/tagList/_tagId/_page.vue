@@ -1056,7 +1056,7 @@ export default {
   .btn-prev:hover,
   .btn-next:hover {
     color: #fff !important;
-    background: #c9d438 !important;
+    background: #121212 !important;
     box-shadow: 0px 3px 0px 0px rgb(180, 32, 32) !important;
   }
   .el-pagination {
@@ -1074,12 +1074,12 @@ export default {
       background: rgba(255, 255, 255, 1) !important;
       box-shadow: 0px 3px 0px 0px rgb(228, 228, 228, 1) !important;
       &.active {
-        background: #c9d438 !important;
+        background: #121212 !important;
         box-shadow: 0px 3px 0px 0px rgb(180, 32, 32) !important;
       }
       &:hover {
         color: #fff !important;
-        background: #c9d438 !important;
+        background: #121212 !important;
         box-shadow: 0px 3px 0px 0px rgb(180, 32, 32) !important;
       }
     }

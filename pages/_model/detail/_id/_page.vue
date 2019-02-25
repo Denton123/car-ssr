@@ -3,7 +3,7 @@
   <!-- 详情 -->
   <div class="detail_wrap">
     <index-header />
-    <div class="detail_container">
+    <div class="detail_container" v-if="isShowMounted">
       <!-- 标题 -->
       <div class="detail_title">
         <h2>
@@ -634,7 +634,8 @@ export default {
     }
   },
   async asyncData({params, context, req}) {
-    let token = Utils.b_getToken(req)
+    let token = Utils.b_getToken(req);
+    let isShowMounted = false
     let essayData
     let isFollow
     // 文章评论
@@ -685,7 +686,8 @@ export default {
         essayData: detailData.data.result_data.essay ? detailData.data.result_data.essay : {},
         detailData: detailData.data.result_data ? detailData.data.result_data : {},
         hotData: hotData.data.result_data ? hotData.data.result_data : [],
-        randomData: randomData.data.result_data ? randomData.data.result_data : []
+        randomData: randomData.data.result_data ? randomData.data.result_data : [],
+        isShowMounted
       }
   },
     computed: {
@@ -1163,8 +1165,9 @@ export default {
       let userInfo = await $get(webUserAthourInfo, {
         essayId: this.essayid
       })
-      this.userInfo = userInfo.data
-      // console.log(userInfo)
+      if (this.userInfo == userInfo.data) {
+        this.userInfo = userInfo.data
+      }
     },
     formatPic(item) {
       if(item.indexOf('http:') >= 0 || item.indexOf('/image') >= 0){
@@ -1546,6 +1549,7 @@ export default {
       this.tagStr = tagStr
   },
   mounted() {
+    this.isShowMounted = false
     this.cookie = this.getCookie('token')
     if (this.cookie == '') {
        this.tokenObj = localStorage.getItem('userMsg') &&  localStorage.getItem('userMsg') != '' ?  JSON.parse(localStorage.getItem('userMsg')) : {}
@@ -1556,13 +1560,14 @@ export default {
     this.handleData()
     this.commentBtn =
       this.tokenObj.token !== undefined || this.cookie !== '' ? '评论' : '登录'
-    this.currentPage = this.$route.params.page
-    this.$nextTick(async () => {
+      this.currentPage = this.$route.params.page
       this.essayid = this.$route.params.id
       this.getLoginUserInfo()
       // 以下getArticleData（）为客户端再渲染一次，不能去掉，否则点赞爆胎刷新之后就没了
-      this.getArticleData()
-      this.getUserInfo()
+       this.getArticleData()
+       this.getUserInfo()
+      this.isShowMounted = true
+
       // this.getDataTopSix()
       // this.getRandomData()
       let ad = document.getElementById('advertisement')
@@ -1575,7 +1580,6 @@ export default {
           async: true
         })
       }
-    })
   },
   watch: {
     $route(to, from) {
