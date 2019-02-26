@@ -17,22 +17,30 @@
   import { pc_URL } from '@/utils/defaultConfig.js'
   export default {
     mounted () {
+      var href = window.location.href
       if (goPAGE() == 'pc') {
-        var href = window.location.href
+
+      } else {
+        // 如果在m端， 但输入的不是m端的连接， 则跳转到m端
         if ( pc_URL == 'http://165.qiweioa.cn'){
-          if (href.indexOf("http://165.qiweioa.cn/m") != -1) {
-            href = href.replace('http://165.qiweioa.cn/m', function() {
-              return 'http://165.qiweioa.cn'
+          if (href.indexOf("165.qiweioa.cn/m") == -1) {
+            href = href.replace('165.qiweioa.cn', function() {
+              return '165.qiweioa.cn/m'
             })
             window.location.href = href
           }
-        } else if ( pc_URL == 'http://m.jfcar.com.cn') {
-          href = href.replace('http://m.jfcar.com.cn', function() {
-            return 'http://www.jfcar.com.cn'
+        } else if ( pc_URL == 'http://www.jfcar.com.cn') {
+          href = href.replace('www.jfcar.com.cn', function() {
+            return 'm.jfcar.com.cn'
           })
           window.location.href = href
         }
-
+        if (href.indexOf("127.0.0.1:3000") >= 0) {
+          href = href.replace('127.0.0.1:3000', function() {
+            return '192.168.12.12:3000/m'
+          })
+          window.location.href = href
+        }
       }
     }
   }
