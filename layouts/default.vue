@@ -17,20 +17,22 @@
   import { pc_URL } from '@/utils/defaultConfig.js'
   export default {
     mounted () {
-      if (goPAGE() == 'mobile') {
+      if (goPAGE() == 'pc') {
         var href = window.location.href
         if ( pc_URL == 'http://165.qiweioa.cn'){
-          if (href.indexOf("http://165.qiweioa.cn/m") == -1) {
-            href = href.replace('http://165.qiweioa.cn/', function() {
-              return 'http://165.qiweioa.cn/m'
+          if (href.indexOf("http://165.qiweioa.cn/m") != -1) {
+            href = href.replace('http://165.qiweioa.cn/m', function() {
+              return 'http://165.qiweioa.cn'
             })
+            window.location.href = href
           }
-        } else if ( pc_URL == 'http://www.jfcar.com.cn') {
-          href = href.replace('http://www.jfcar.com.cn', function() {
-            return 'http://m.jfcar.com.cn'
+        } else if ( pc_URL == 'http://m.jfcar.com.cn') {
+          href = href.replace('http://m.jfcar.com.cn', function() {
+            return 'http://www.jfcar.com.cn'
           })
+          window.location.href = href
         }
-        window.location.href = href
+
       }
     }
   }

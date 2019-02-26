@@ -307,6 +307,9 @@ export default {
       document.cookie = name + '=v; expires=' + date.toGMTString() + ';path=/'
     },
     toPublishEssay() {
+      if (!(!!this.tokenObj.token || !!this.cookie)) {
+        return false;
+      }
       if (this.user.idCard !== '') {
         // console.log('token==============')
         this.$router.push({
@@ -334,9 +337,15 @@ export default {
       this.ShowToEssay = false
     },
     toEssay() {
-      this.$router.push({
-        path: '/person/myEssay/1'
-      })
+      if (!!this.tokenObj.token || !!this.cookie) {
+          this.$router.push({
+            path: '/person/myEssay/1'
+          })
+        } else {
+          this.$router.push({
+            path: '/login'
+          })
+        }
     }
   },
   mounted() {
