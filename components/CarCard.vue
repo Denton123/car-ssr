@@ -21,7 +21,7 @@
           <router-link :to="`/bloger/${card.authorId}/1`">
             <span class="info_header">
               <img :src="formatPic(card.photoUrl)"
-                :alt="card.title"
+                :alt="card.webName !== '' ? card.webName : card.author"
                 height="100%"
                 width="100%">
             </span>

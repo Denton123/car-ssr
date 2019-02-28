@@ -39,7 +39,7 @@ export default {
         {
           hid: 'keyWords',
           name: 'keyWords',
-          content: '首页,尖锋,尖锋咖,尖锋汽车网,尖锋汽车咨询,尖锋今日车闻,尖锋新能源,尖锋视频,尖锋兴趣部落,jfcar'
+          content: '尖锋,尖锋咖,尖锋汽车网,尖锋汽车咨询,尖锋今日车闻,尖锋新能源,尖锋视频,尖锋兴趣部落,jfcar'
         },
         {
           hid: 'description',
@@ -64,7 +64,7 @@ export default {
   },
   async asyncData({ params }) {
     // 周排行
-    let weeklist = await $get(webEssayGetWeekendRank, { pageNo: 1, size: 12 });
+    let weeklist = await $get(webEssayGetWeekendRank, { pageNo: 1, size: 10 });
     // 大轮播图
     // let bigCourselData = await $get(webBannerList, {
     //   cChannel: 18,
@@ -137,9 +137,9 @@ export default {
       channel: 5
     })
     // 日排行
-    let dayList = await $get(webEssayGetDayRank, { pageNo: 1, size: 12 });
+    let dayList = await $get(webEssayGetDayRank, { pageNo: 1, size: 10 });
     // 月排行
-    let monthList = await $get(webEssayGetMonthRank, { pageNo: 1, size: 12 });
+    let monthList = await $get(webEssayGetMonthRank, { pageNo: 1, size: 10 });
     newsObj.data.click = newsObj.data.click ? (newsObj.data.click.length > 4 ? newsObj.data.click.slice(0, 4) : newsObj.data.click) : []
     newsList.data.forEach(v => {
       v.classOneName = v.classOneName.toLowerCase();

@@ -105,7 +105,7 @@ export default {
   line-height: 26px;
   margin-left: -5px;
 }
-.detail_content_article_title_operate a {
+.detail_content_article_title_operate a, .detail_content_article_title_operate .a {
   width: 151px;
   height: 40px;
   display: inline-block;

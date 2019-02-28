@@ -449,18 +449,18 @@ export default {
     // // 周热点
     let hostPointItems_week = await $get('/web/hobbies/hobbiesWeekRank?', {
         pageNo: 1,
-        size: 12
+        size: 10
       })
       // 月热点
     let hostPointItems_month = await $get('/web/hobbies/hobbiesMonthRank?', {
         pageNo: 1,
-        size: 12
+        size: 10
       })
     // 博主数据
     let bloggerItems =  await $get('/web/user/getBollgerRank?',
     {
       pageNo: 1,
-        size: 12
+        size: 10
     }, {
       'X-Auth0-Token': token
     })

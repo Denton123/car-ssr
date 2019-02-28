@@ -16,7 +16,7 @@
             <nuxt-link :to="`/bloger/${EvRightListData.authorId}/1`">
               <span class="info_header">
                 <img :src="formatPic(EvRightListData.photoUrl)"
-                  :alt="EvRightListData.title"
+                  :alt="EvRightListData.webName !== '' ? EvRightListData.webName : EvRightListData.author"
                   height="100%"
                   width="100%">
               </span>

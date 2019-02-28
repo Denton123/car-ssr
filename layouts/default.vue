@@ -45,3 +45,30 @@
     }
   }
 </script>
+<style>
+  .strong{
+    font-weight: bold;
+  }
+  .v-inline{
+    display: inline;
+  }
+  .v-inline-block{
+    display: inline-block;
+  }
+  .v-block{
+    display: block;
+  }
+  .v-fw-normal{
+    font-weight: normal;
+  }
+  .v-fw-bold{
+    font-weight: bold;
+  }
+  .v-fs-inherit{
+    font-size: inherit;
+  }
+  .v-fs-24{
+    font-size: 24px;
+  }
+
+</style>

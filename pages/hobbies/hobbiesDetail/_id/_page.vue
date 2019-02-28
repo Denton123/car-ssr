@@ -16,7 +16,7 @@
             <span class="detail_title_class">兴趣部落</span>
           </nuxt-link>
           <i class="detail_title_arrow detail_title_arrow_red"></i>
-          <span style="color:#be001e">详情</span>
+          <span style="color:#be001e"><h3 class="v-inline">详情</h3></span>
         </h2>
       </div>
 

@@ -15,7 +15,7 @@
             <span class="detail_title_class">{{essayData.classOneName}}</span>
           </nuxt-link>
           <i class="detail_title_arrow detail_title_arrow_red"></i>
-          <span>{{essayData.title}}</span>
+          <span><h3 class="v-inline">{{essayData.title}}</h3></span>
         </h2>
       </div>
       <!-- 左侧 -->

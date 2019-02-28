@@ -57,7 +57,8 @@
     <div class="bloger_content">
       <div class="bloger_title">
         <img src="/static/images/tagList_nav.png"
-             alt="">共上传<span>{{blogerListDataSize}}篇</span>文章/兴趣部落
+             alt="">
+        <h1 class="v-inline v-fw-bold v-fs-24"  > {{userData.blogger && userData.blogger.loginName}}的文章  <span>{{blogerListDataSize}}篇</span> </h1>
       </div>
       <div class="bloger_list">
         <ul class="clearfix">
@@ -90,7 +91,7 @@
                     @pageChange="pageChange"
                     :totalPage="blogerData.totalPage"
                     :totalCount="blogerData.totalCount"
-                    :pageSize= '9'
+                    :pageSize= '12'
                     :toTop="{x:0, y: 400}"
                     :routePage='`${currentPage}`'
                     ref="pagination"></pagination>
@@ -186,7 +187,7 @@
     async asyncData({params}) {
       let _blogerList = await $get(webBologerlist, {
         bloggerId: params.id,
-        limit: '9',
+        limit: '12',
         page: params.page
       })
       return {
@@ -233,7 +234,7 @@
         let id = `${this.$route.params.id}`
        $get(webBologerlist, {
           bloggerId: id,
-          limit: '9',
+          limit: '12',
           page: page
         }).then(res=> {
          this.blogerListData = res.data.list

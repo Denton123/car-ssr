@@ -155,7 +155,7 @@ export default {
   name: 'rankDetail',
   head(){
     return {
-      title: `${this.modelName}-${this.typeParamsName}_${
+      title: `${this.typeParamsName}_${
         this.currentPage
       }页-尖锋咖`,
       // 设置 meta
@@ -240,12 +240,12 @@ export default {
     // 周排行
     let rankWeekLists = await $get(webEssayGetWeekendRank, {
       pageNo: 1,
-      size: 12
+      size: 10
     })
     // 月排行
     let rankMonthLists = await $get(webEssayGetMonthRank, {
       pageNo: 1,
-      size: 12
+      size: 10
     })
     return {
       leftSideResult: leftSideResult.data ? leftSideResult.data : [],

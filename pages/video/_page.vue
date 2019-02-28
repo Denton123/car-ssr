@@ -485,7 +485,7 @@ export default {
         {
           channel: '5',
           pageNo: params.page,
-          size: 12
+          size: 10
         },
         {
           'X-Auth0-Token': token
@@ -494,12 +494,12 @@ export default {
      // 周排行
     let rankWeekLists = await $get(webEssayGetWeekendRank, {
       pageNo: 1,
-      size: 12
+      size: 10
     })
     // 月排行
     let rankMonthLists = await $get(webEssayGetMonthRank, {
       pageNo: 1,
-      size: 12
+      size: 10
     })
     // 专栏数据
     let bannerResult = await $get(dsfFeatureGetRutureByChannel, {

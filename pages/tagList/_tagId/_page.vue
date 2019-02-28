@@ -196,6 +196,7 @@ export default {
   async asyncData({ params }) {
     let WeekendRank = null;
     let MonthRank = null;
+    let tagObj= {}
     let getWebEassyList = await $get(webTagAboutList, {
       tagId: params.tagId,
       page: params.page,
@@ -211,12 +212,20 @@ export default {
     await $get(webEssayGetMonthRank, { pageNo: "1", size: "12" }).then(res => {
       MonthRank = res.data.essayEntities;
     });
+
+    let id = params.tagId;
+    let res = await $get(webTagGetTagDetail, {
+      id
+    })
+    tagObj = res.data;
+
     return {
       pageObj: getWebEassyList.data,
       eassyList: getWebEassyList.data.list,
       WeekendRank: WeekendRank,
       MonthRank: MonthRank,
-      searchContent: params.searchContent // 暴露当前搜索的tagId
+      searchContent: params.searchContent, // 暴露当前搜索的tagId
+      tagObj
     };
   },
   created(){
