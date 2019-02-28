@@ -39,7 +39,7 @@
             <ul>
               <li v-for="(item, index) in newsObj.click"
                 :key="index">
-                <a :href="`/hots/detail/${item.id}/1`"
+                <a :href="`/${detailsObj['hots']}/detail/${item.id}/1`"
                   class="item_title">{{item.title}}</a>
               </li>
             </ul>
@@ -53,16 +53,17 @@
 import CarCard from '@/components/CarCard'
 import { $get } from '@/http/ajax'
 import { webEssayGethoteassy } from '@/http/api'
+import { detailsObj } from '@/utils/defaultConfig.js'
 export default {
   name: 'HotNews',
   components: {
     'car-card': CarCard
   },
-  // data() {
-  //   return {
-  //     newsObj: {} // 最新资讯
-  //   }
-  // },
+  data() {
+    return {
+      detailsObj
+    }
+  },
   props: {
     newsObj: {
       type: Object,
@@ -272,7 +273,7 @@ export default {
 }
 
 .hot_news .item_title {
-  color:black; 
+  color:black;
   font-size: 16px;
   display: block;
   width: 100%;

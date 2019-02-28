@@ -26,7 +26,7 @@
             <a class="footer_link_ad" href="http://www.ftms.com.cn" target="_blank">广汽丰田网</a>
             <a class="footer_link_ad" href="http://www.gmmc.com.cn" target="_blank">广汽三菱</a>
             <a class="footer_link_ad" href="http://www.acura.com.cn" target="_blank">广汽讴歌</a>
-            <a class="footer_copyright" href="http://www.jfcar.com.cn" target="_blank">Copyright © http://www.jfcar.com.cn</a>
+            <a class="footer_copyright" href="http://www.jfcar.com.cn" target="_blank">Copyright © 尖锋咖</a>
             <a class="footer_copyright">粤ICP备18159865号</a>
           </div>
         </div>

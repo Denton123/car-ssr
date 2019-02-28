@@ -39,7 +39,7 @@
                   <div class="todayImg"
                     @mouseenter="titleActive(item)"
                     @mouseleave="removeTitleActiveFn()">
-                    <nuxt-link :to="`/ev/detail/${item.id}/1`">
+                    <nuxt-link :to="`/${detailsObj['ev']}/detail/${item.id}/1`">
                       <img :src="piectImgUrl(item)"
                         :alt="item.title"
                         @error="imgLossLoad(item)"
@@ -60,7 +60,7 @@
                     <div @mouseenter="titleActive(item)"
                       @mouseleave="removeTitleActiveFn()"
                       :class="removeTitleActive == true&& titleActiveIndex == index ? 'redTitleLine' :'titleLine'"></div>
-                    <nuxt-link :to="`/ev/detail/${item.id}/1`">
+                    <nuxt-link :to="`/${detailsObj['ev']}/detail/${item.id}/1`">
                       <p :class="removeTitleActive == true&&titleActiveIndex == index ? 'redColor' :'title'"
                         @mouseenter="titleActive(item)"
                         @mouseleave="removeTitleActiveFn()">
@@ -164,7 +164,7 @@
                   <div class="todayImg"
                     @mouseenter="titleActive(item)"
                     @mouseleave="removeTitleActiveFn()">
-                    <nuxt-link :to="`/ev/detail/${item.id}/1`">
+                    <nuxt-link :to="`/${detailsObj['ev']}/detail/${item.id}/1`">
                       <img :src="piectImgUrl(item)"
                         :alt="item.title"
                         @error="imgLossLoad(item)"
@@ -185,7 +185,7 @@
                     <div @mouseenter="titleActive(item)"
                       @mouseleave="removeTitleActiveFn()"
                       :class="removeTitleActive == true&& titleActiveIndex == index ? 'redTitleLine' :'titleLine'"></div>
-                    <nuxt-link :to="`/ev/detail/${item.id}/1`">
+                    <nuxt-link :to="`/${detailsObj['ev']}/detail/${item.id}/1`">
                       <p :class="removeTitleActive == true&&titleActiveIndex == index ? 'redColor' :'title'"
                         @mouseenter="titleActive(item)"
                         @mouseleave="removeTitleActiveFn()">
@@ -370,7 +370,7 @@ import Header from '@/components/Header.vue'
 import Footer from '@/components/Footer.vue'
 import BigCoursel from '@/components/BigCoursel.vue'
 import { $get } from '@/http/ajax.js'
-
+import { detailsObj } from '@/utils/defaultConfig.js'
 import {
   webTagGetRandomTagsByChannel,
   dsfFeatureGetRutureByChannel,
@@ -437,7 +437,8 @@ export default {
       imgLossIndex: '',
       imgLoadStatus: true,
       imgFeatureLoadStatus: true,
-      tokenObj: null //token对象
+      tokenObj: null, //token对象
+      detailsObj
     }
   },
   components: {
@@ -459,7 +460,7 @@ export default {
         {
           channel: 4,
           pageNo: params.page,
-          size: 6
+          size: 12
         },
         {
           'X-Auth0-Token': token
@@ -468,12 +469,12 @@ export default {
     // 周排行
     let rankWeekLists = await $get(webEssayGetWeekendRank, {
       pageNo: 1,
-      size: 10
+      size: 12
     })
     // 月排行
     let rankMonthLists = await $get(webEssayGetMonthRank, {
       pageNo: 1,
-      size: 10
+      size: 12
     })
     // 专栏数据
     let bannerResult = await $get(dsfFeatureGetRutureByChannel, {
@@ -718,7 +719,7 @@ export default {
         {
           channel: '4',
           pageNo: this.currentPage,
-          size: 6
+          size: 12
         },
         obj
       )

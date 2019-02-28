@@ -134,6 +134,7 @@
   import Footer from '@/components/Footer.vue'
   import { $post, $get } from '@/http/ajax'
   import systemManage from '@/http/url'
+  import { detailsObj } from '@/utils/defaultConfig.js'
   import {
     webEssayList,
     webTagAboutList,
@@ -164,7 +165,7 @@
      asyncData(content) {
        /* 默认参数 */
     let defaultParams = {
-        pageSize: '6',
+        pageSize: '12',
         pageNo: '1'
       }
     defaultParams.pageNo = content.params.pageNo || '1'
@@ -192,7 +193,8 @@
         preRouteObj: {},
         currentRouteObj: {},
         tempContent: '',
-        type: 'w'
+        type: 'w',
+        detailsObj
       }
     },
     beforeRouteEnter(to, from, next) {
@@ -327,17 +329,17 @@
       },
       // 跳转到文章详情页
       toArticleDetail(essayId) {
-        this.$router.push({ path: `/search/detail/${essayId}/1` })
+        this.$router.push({ path: `/${detailsObj['search']}/detail/${essayId}/1` })
       },
       // 获取文章周和月排行榜
       _getWeekendRank_() {
-        $get(webEssayGetWeekendRank, { pageNo: '1', size: '10' }).then(res => {
+        $get(webEssayGetWeekendRank, { pageNo: '1', size: '12' }).then(res => {
           this.WeekendRank = res.data.essayEntities
         })
       },
       // 获取文章周和月排行榜
       _getMonthRank_() {
-        $get(webEssayGetMonthRank, { pageNo: '1', size: '10' }).then(res => {
+        $get(webEssayGetMonthRank, { pageNo: '1', size: '12' }).then(res => {
           this.MonthRank = res.data.essayEntities
         })
       },

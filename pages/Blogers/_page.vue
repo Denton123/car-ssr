@@ -202,7 +202,7 @@ export default {
     let bloggerLists = await $get('/web/user/getBollgerRank?',
       {
         pageNo: params.page,
-        size: 6
+        size: 12
       },
       {
         'X-Auth0-Token': token
@@ -326,7 +326,7 @@ export default {
         '/web/user/getBollgerRank?',
         {
           pageNo: page,
-          size: 6
+          size: 12
         },
         obj
       )

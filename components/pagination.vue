@@ -7,10 +7,11 @@
       :class="prevDisabled == true ?  'btnDisabled':''">
       <span>上一页</span>
     </div>
+    <!--:total="totalCount"-->
     <el-pagination background
       layout="pager"
-      :total="totalCount"
       :page-size="pageSize"
+                   :page-count="totalPage"
       @current-change="handleCurrentChange"
       :current-page.sync="currentPage">
     </el-pagination>
@@ -143,7 +144,8 @@ export default {
       var page = routePage() - 0;
       var currentPage = page;
       var number = 10
-      html += `<a href="${fullPath()}${currentPage -1}">上一页</a>`
+      let prevPage = currentPage -1 > 0 ? currentPage -1 : currentPage;
+      html += `<a href="${fullPath()}${prevPage}">上一页</a>`
       while(currentPage > 0 && currentPage > page - number ) {
         html += `<a href="${fullPath()}${currentPage}">${currentPage  }</a>`
         currentPage--;

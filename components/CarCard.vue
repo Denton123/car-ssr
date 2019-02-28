@@ -2,7 +2,7 @@
   <div class="index_card_block"
     :style="{'height':height, 'width': width}">
     <div class="pic">
-      <router-link :to="moduleType == 'hobbies' ? `/${moduleType}/hobbiesdetail/${card.id == null ? '' : card.id}/1`:  `/${moduleType}/detail/${card.id == null ? '' : card.id}/1`"
+      <router-link :to="moduleType == 'hobbies' ? `/${detailsObj[moduleType]}/hobbiesdetail/${card.id == null ? '' : card.id}/1`:  `/${detailsObj[moduleType]}/detail/${card.id == null ? '' : card.id}/1`"
         class="img_a">
         <img :src="formatPic(card.photo)"
           :alt="card.title"
@@ -14,7 +14,7 @@
     </div>
     <div class="card-content">
       <router-link class="title"
-        :to="moduleType == 'hobbies' ? `/${moduleType}/hobbiesdetail/${card.id == null ? '' : card.id}/1`:  `/${moduleType}/detail/${card.id == null ? '' : card.id}/1`">{{card.title == '' ? '无': card.title}}</router-link>
+        :to="moduleType == 'hobbies' ? `/${detailsObj[moduleType]}/hobbiesdetail/${card.id == null ? '' : card.id}/1`:  `/${detailsObj[moduleType]}/detail/${card.id == null ? '' : card.id}/1`">{{card.title == '' ? '无': card.title}}</router-link>
       <!-- <p class="card-content-desc" v-html="card.digest == '' ? '': card.digest"></p>       -->
       <div class="info clearfix">
         <div class="info_left">
@@ -40,8 +40,11 @@
 <script>
 import utils from '@/http/url'
 import systemManage from '@/http/photoApi.js'
+import { detailsObj } from "@/utils/defaultConfig.js"
 export default {
   name: 'CarCard',
+  data () { return { detailsObj } },
+
   props: {
     height: {
       type: String,

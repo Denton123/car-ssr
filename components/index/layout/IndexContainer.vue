@@ -361,7 +361,7 @@ export default {
   //   })
   //   return{
   //       EvRightList: EvRightList.data ? EvRightList.data : [],
-  //   } 
+  //   }
   // },
   created(){
       // 取第一条ev数据，放在轮播图的右边板块：
@@ -583,7 +583,7 @@ export default {
     },
 
     // 获取排行版数据
-    async getSortList(type, pageNo = 1, size = 10) {
+    async getSortList(type, pageNo = 1, size = 12) {
       let result = null;
       try {
         switch (type) {

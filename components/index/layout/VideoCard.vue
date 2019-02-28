@@ -4,7 +4,7 @@
       v-for="(item, index) in data"
       :key="index">
       <dd class="video_display">
-        <router-link :to="`/video/detail/${item.id}/1`">
+        <router-link :to="`/${detailsObj['video']}/detail/${item.id}/1`">
           <img :src="item.photo"
             :alt="item.title" />
         </router-link>
@@ -13,7 +13,7 @@
 
       <dt class="video_card_item">
         <router-link class="video_title"
-          :to="`/video/detail/${item.id}/1`">
+          :to="`/${detailsObj['video']}/detail/${item.id}/1`">
           <i class="video_title_line"></i>
           {{item.title}}
         </router-link>
@@ -31,6 +31,7 @@
 </template>
 <script>
 import utils from '@/http/url'
+import { detailsObj } from '@/utils/defaultConfig.js'
 export default {
   name: 'VideoCard',
   props: {
@@ -45,6 +46,7 @@ export default {
       type: String
     }
   },
+  data () { return { detailsObj } },
   computed: {
     data: function() {
       let list = this.list == null ? [] : this.list

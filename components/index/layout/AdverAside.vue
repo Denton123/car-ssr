@@ -10,7 +10,7 @@
       </li>
       <li v-for="(item, index) in data"
         :key="index">
-        <router-link :to="`news/detail/${item.id}/1`"
+        <router-link :to="`/${detailsObj['news']}/detail/${item.id}/1`"
           class="adverr-item"
           v-text="item.title"></router-link>
 
@@ -26,6 +26,7 @@
   </div>
 </template>
 <script>
+  import { detailsObj } from "@/utils/defaultConfig.js"
 export default {
   name: 'AdverAside',
   props: {
@@ -33,6 +34,7 @@ export default {
       type: Array
     }
   },
+  data () { return { detailsObj } },
   computed: {
     data: function() {
       let list = this.list == null ? [] : this.list

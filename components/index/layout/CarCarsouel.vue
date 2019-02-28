@@ -66,7 +66,7 @@ export default {
           item.url = item.url
         }
         return item
-      })
+      }); console.log(result)
       return result
     },
     carFlag: function() {

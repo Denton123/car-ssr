@@ -504,7 +504,7 @@ import Header from '@/components/Header.vue'
 import Footer from '@/components/Footer.vue'
 import Emotion from 'components/detail/emotionIndex.vue'
 import Pagination from '@/components/pagination.vue'
-
+import { detailsObj } from '@/utils/defaultConfig.js'
 // 富文本编辑器
 // import { quillEditor } from 'vue-quill-editor'
 import { instance } from '@/http/instance'
@@ -630,7 +630,8 @@ export default {
         photo: ''
       },
       userCode: 2,
-      isfocusBg: false
+      isfocusBg: false,
+      detailsObj
     }
   },
   async asyncData({params, context, req}) {
@@ -1200,7 +1201,7 @@ export default {
       }
       let id= this.$route.params.id
       this.$router.push({
-        path: `/${model}/detail/${id}/${page}`
+        path: `/${detailsObj[model]}/detail/${id}/${page}`
       })
       this.currentPage = page
       setTimeout(()=>{

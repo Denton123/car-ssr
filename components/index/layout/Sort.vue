@@ -13,7 +13,7 @@
             <span class="li_normal"
               :class="{'li_hot': index < 3}">{{index+1}}</span>
             <router-link class="li_title"
-              :to="`/sorts/detail/${item.essayId}/1`"
+              :to="`/${detailsObj['sorts']}/detail/${item.essayId}/1`"
               v-text="item.title"></router-link>
           </li>
         </ul>
@@ -25,6 +25,7 @@
   </div>
 </template>
 <script>
+  import { detailsObj } from '@/utils/defaultConfig.js'
 export default {
   name: 'Sorts',
   props: {
@@ -39,6 +40,8 @@ export default {
       type: String
     }
   },
+  data () { return { detailsObj } },
+
   computed: {
     data: function() {
       return this.list == null ? [] : this.list

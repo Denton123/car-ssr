@@ -24,7 +24,7 @@
               <div class="todayImg"
                 @mouseenter="titleActive(item)"
                 @mouseleave="removeTitleActiveFn()">
-                <nuxt-link :to="`/rank/detail/${item.essayId}/1`">
+                <nuxt-link :to="`/${detailsObj['rank']}/detail/${item.essayId}/1`">
                   <img :src="piectImgUrl(item)"
                     :alt="item.title"
                     @error="imgLossLoad(index)"
@@ -33,7 +33,7 @@
                 </nuxt-link>
                 <div class="defaultBox"
                   v-if="imgLoadStatus == 'false' && index == imgLossIndex  ">
-                  <nuxt-link :to="`/rank/detail/${item.essayId}/1`">
+                  <nuxt-link :to="`/${detailsObj['rank']}/detail/${item.essayId}/1`">
                     <img src="~static/common/default.png"
                       alt="尖锋咖"
                       width="160px">
@@ -51,7 +51,7 @@
                   :class="removeTitleActive == true&&titleActiveIndex == index ? 'redColor' :'title'"
                   @mouseenter="titleActive(item)"
                   @mouseleave="removeTitleActiveFn()">
-                  <nuxt-link :to="`/rank/detail/${item.essayId}/1`">
+                  <nuxt-link :to="`/${detailsObj['rank']}/detail/${item.essayId}/1`">
                     <strong :class="removeTitleActive == true&&titleActiveIndex == index ? 'redColor' :'title'">
                       {{item.title}}
                     </strong></nuxt-link>
@@ -150,7 +150,7 @@ import {
   webEssayGetDayRank
 } from '@/http/api.js'
 import { race } from 'q';
-
+import { detailsObj } from '@/utils/defaultConfig.js'
 export default {
   name: 'rankDetail',
   head(){
@@ -207,7 +207,8 @@ export default {
       imgLossIndex: '',
       imgLoadStatus: 'true',
       tagName: '',
-      tagId: ''
+      tagId: '',
+      detailsObj
     }
   },
   components: {
@@ -222,29 +223,29 @@ export default {
     if (params.type && params.type == 'w') {
       leftSideResult = await $get(webEssayGetWeekendRank, {
         pageNo: params.page,
-        size: 10
+        size: 12
       }
       )
     } else if (params.type && params.type == 'm') {
       leftSideResult = await $get(webEssayGetMonthRank, {
         pageNo: params.page,
-        size: 10
+        size: 12
       })
     } else {
       leftSideResult = await $get(webEssayGetDayRank, {
         pageNo: params.page,
-        size: 10
+        size: 12
       })
     }
     // 周排行
     let rankWeekLists = await $get(webEssayGetWeekendRank, {
       pageNo: 1,
-      size: 10
+      size: 12
     })
     // 月排行
     let rankMonthLists = await $get(webEssayGetMonthRank, {
       pageNo: 1,
-      size: 10
+      size: 12
     })
     return {
       leftSideResult: leftSideResult.data ? leftSideResult.data : [],

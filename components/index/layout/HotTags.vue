@@ -2,12 +2,12 @@
   <div class="hot-tags">
     <div class="hot-tags-container">
       <nuxt-link class="title"
-          :to="`/ev/detail/${EvRightListData.id == null ? '' : EvRightListData.id}/1`">
+          :to="`/${detailsObj['ev']}/detail/${EvRightListData.id == null ? '' : EvRightListData.id}/1`">
       <img :src="formatPic(EvRightListData.photo)" :alt="EvRightListData.title" class="hot-tags-container-img">
       </nuxt-link>
       <div class="card-content">
         <nuxt-link class="title"
-          :to="`/ev/detail/${EvRightListData.id == null ? '' : EvRightListData.id}/1`">
+          :to="`/${detailsObj['ev']}/detail/${EvRightListData.id == null ? '' : EvRightListData.id}/1`">
           {{EvRightListData.title == '' ? '无': EvRightListData.title}}
         </nuxt-link>
         <p class="card-content-desc" v-html="EvRightListData.digest == '' ? '': EvRightListData.digest"></p>
@@ -53,6 +53,7 @@
 <script>
 import systemManage from '@/http/photoApi.js'
 import { $get } from "@/http/ajax";
+import { detailsObj } from '@/utils/defaultConfig.js'
 import {
   webGetEvRightEssay
 } from "@/http/api";
@@ -60,6 +61,7 @@ export default {
   name: 'HotTags',
   data(){
     return{
+      detailsObj
     }
   },
   props: {

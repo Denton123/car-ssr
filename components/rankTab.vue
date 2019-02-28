@@ -41,7 +41,7 @@
           <div class="textRank"
           :class="{ whiteTextOn : index ===0 || index===1 || index===2}">{{index+1}}</div>
           <div class="titleRank">
-          <nuxt-link :to="`/rank/detail/${hostPointItem.essayId}/1`">{{hostPointItem.title}}</nuxt-link>
+          <nuxt-link :to="`/${detailsObj['rank']}/detail/${hostPointItem.essayId}/1`">{{hostPointItem.title}}</nuxt-link>
           </div>
           <!--<div class="content-left-hostPoint"></div>-->
           <!--<div class="content-right-hostPoint">-->
@@ -63,7 +63,7 @@
           <div class="textRank"
           :class="{ whiteTextOn : index ===0 || index===1 || index===2}">{{index+1}}</div>
           <div class="titleRank">
-          <nuxt-link :to="`/rank/detail/${hostPointItem.essayId}/1`">{{hostPointItem.title}}</nuxt-link>
+          <nuxt-link :to="`/${detailsObj['rank']}/detail/${hostPointItem.essayId}/1`">{{hostPointItem.title}}</nuxt-link>
           </div>
           <!--<div class="content-left-hostPoint"></div>-->
           <!--<div class="content-right-hostPoint">-->
@@ -90,9 +90,9 @@
 
 <script>
 import { $get } from '@/http/ajax.js'
-import { webEssayGetWeekendRank } from '@/http/api.js'
-import { webEssayGetMonthRank } from '@/http/api.js'
-
+import { webEssayGetWeekendRank, webEssayGetMonthRank } from '@/http/api.js'
+// import {  } from '@/http/api.js'
+import { detailsObj } from "@/utils/defaultConfig.js"
 export default {
   name: 'todayRankTab',
   data: function() {
@@ -108,7 +108,8 @@ export default {
       monthDecoration: false,
       activeName: 'first',
       fullPath: '',
-      modelName:''
+      modelName:'',
+      detailsObj
     }
   },
   props: {
@@ -152,7 +153,7 @@ export default {
     },
   },
   created()
-  { 
+  {
     // console.log(this.model,'model 666666666');
     this.hostPointItems_week = this.rankWeekLists
     this.hostPointItems_month = this.rankMonthLists

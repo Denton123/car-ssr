@@ -64,7 +64,7 @@ export default {
   },
   async asyncData({ params }) {
     // 周排行
-    let weeklist = await $get(webEssayGetWeekendRank, { pageNo: 1, size: 10 });
+    let weeklist = await $get(webEssayGetWeekendRank, { pageNo: 1, size: 12 });
     // 大轮播图
     // let bigCourselData = await $get(webBannerList, {
     //   cChannel: 18,
@@ -137,9 +137,9 @@ export default {
       channel: 5
     })
     // 日排行
-    let dayList = await $get(webEssayGetDayRank, { pageNo: 1, size: 10 });
+    let dayList = await $get(webEssayGetDayRank, { pageNo: 1, size: 12 });
     // 月排行
-    let monthList = await $get(webEssayGetMonthRank, { pageNo: 1, size: 10 });
+    let monthList = await $get(webEssayGetMonthRank, { pageNo: 1, size: 12 });
     newsObj.data.click = newsObj.data.click ? (newsObj.data.click.length > 4 ? newsObj.data.click.slice(0, 4) : newsObj.data.click) : []
     newsList.data.forEach(v => {
       v.classOneName = v.classOneName.toLowerCase();

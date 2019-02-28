@@ -202,13 +202,13 @@ export default {
       limit: "6"
     });
     // 获取文章周排行榜
-    await $get(webEssayGetWeekendRank, { pageNo: "1", size: "10" }).then(
+    await $get(webEssayGetWeekendRank, { pageNo: "1", size: "12" }).then(
       res => {
         WeekendRank = res.data.essayEntities;
       }
     );
     // 获取文章月排行榜
-    await $get(webEssayGetMonthRank, { pageNo: "1", size: "10" }).then(res => {
+    await $get(webEssayGetMonthRank, { pageNo: "1", size: "12" }).then(res => {
       MonthRank = res.data.essayEntities;
     });
     return {
