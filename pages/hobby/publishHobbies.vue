@@ -120,10 +120,10 @@
         </div>
       </div>
       <div class="advertise_wrapper">
-        <a href="javascript: void (0);">
+        <span class="a">
           <img src="~assets/images/ad_image.png"
             alt="尖锋咖">
-        </a>
+        </span>
       </div>
     </div>
     <Footer></Footer>
@@ -571,7 +571,7 @@ export default {
   height: 100%;
   background: #f6f6f6;
 }
-#hobby .el-breadcrumb__inner a:hover, 
+#hobby .el-breadcrumb__inner a:hover,
 #hobby .el-breadcrumb__inner.is-link:hover{
   color: #be001e;
 }

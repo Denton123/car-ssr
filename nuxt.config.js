@@ -207,16 +207,16 @@ module.exports = {
       })
 
       if (ctx.isDev && ctx.isClient) {
-        config.module.rules.push(
-          {
-            test: /\.(png|jpe?g|gif|svg|webp)$/,
-            loader: 'url-loader',
-            query: {
-              limit: 1000,
-              name: 'img/[name].[hash:7].[ext]'
-            }
-          }
-        )
+        // config.module.rules.push(
+        //   {
+        //     test: /\.(png|jpe?g|gif|svg|webp)$/,
+        //     loader: 'url-loader',
+        //     query: {
+        //       limit: 1000,
+        //       name: 'img/[name].[hash:7].[ext]'
+        //     }
+        //   }
+        // )
       }
       ctx.loaders.imgUrl.limit = 100
     },

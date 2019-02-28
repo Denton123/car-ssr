@@ -411,7 +411,7 @@ export default {
         {
           hid: 'mobile-agent',
           name: 'mobile-agent',
-          content: `format=html5;url=http://m.jfcar.com.cn`
+          content: `format=html5;url=http://m.jfcar.com.cn${this.$route.fullPath}`
         }
       ],
     }

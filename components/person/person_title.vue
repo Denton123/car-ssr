@@ -3,19 +3,19 @@
     <img src="~static/detail/detail_article.png">
     <h2>共上传<span>{{num}}</span>篇文章/兴趣部落</h2>
     <div class="detail_content_article_title_operate">
-      <a href="javascript:;"
-        class="publishEssay"
+      <span
+        class="publishEssay a"
         v-if="userData.grade == 2"
         @click="publicRouter">
         <span class="detail_content_article_title_operate_plus">+</span>
         <span>发文章</span>
-      </a>
-      <a href="javascript:;"
-        class="publishHobbies"
+      </span>
+      <span
+        class="publishHobbies a"
         @click="hobbiesRouter">
         <span class="detail_content_article_title_operate_plus">+</span>
         <span>发兴趣</span>
-      </a>
+      </span>
     </div>
   </div>
 </template>

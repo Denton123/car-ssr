@@ -178,7 +178,7 @@ export default {
         {
           hid: 'mobile-agent',
           name: 'mobile-agent',
-          content: `format=html5;url=http://m.jfcar.com.cn`
+          content: `format=html5;url=http://m.jfcar.com.cn${this.$route.fullPath}`
         }
       ],
     }
@@ -594,15 +594,15 @@ export default {
   margin: 0px 0px 30px 0px;
   position: relative;
 }
-.rankDetail .crumbsItem a {
+.rankDetail .crumbsItem a, .rankDetail .crumbsItem .a {
   text-decoration: none;
   font-size: 14px;
   font-weight: 400;
   color: rgba(18, 18, 18, 1);
   line-height: 23px;
 }
-.rankDetail .crumbsItem.active a,
-.rankDetail .crumbsItem a:hover
+.rankDetail .crumbsItem.active a, .rankDetail .crumbsItem.active .a,
+.rankDetail .crumbsItem a:hover, .rankDetail .crumbsItem .a:hover
 {
   color: #bd081e;
 }
@@ -706,7 +706,7 @@ export default {
 .rankDetail .imgDesc .imgDesc_Title .redColor {
   color: #bd081e;
 }
-.rankDetail .imgDesc .title a {
+.rankDetail .imgDesc .title a, .rankDetail .imgDesc .title .a {
   color: rgba(18, 18, 18, 1);
 }
 .rankDetail .rankNum {

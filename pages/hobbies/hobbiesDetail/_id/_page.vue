@@ -235,10 +235,10 @@
                     </span>
                   </div>
                   <div class="detail_comment_form_input_operate_login">
-                    <a href="javascript:void(0);"
+                    <span class="a"
                       @click="handleComment()">
                       {{commentBtn}}
-                    </a>
+                    </span>
                   </div>
                 </div>
               </div>
@@ -295,21 +295,21 @@
                         :placeholder="`回复：${list.author}`"
                         v-model="replyText">
                     </div>
-                    <a href="javascript:void(0);"
-                      class="detail_comment_lists_content_reply_btn"
-                      @click="handleReply(list.hobbiesId, list.id, replyText)">回复</a>
+                    <span
+                      class="detail_comment_lists_content_reply_btn a"
+                      @click="handleReply(list.hobbiesId, list.id, replyText)">回复</span>
                   </div>
                   <div class="detail_comment_lists_content_operate">
-                    <a href="javascript:void(0);"
-                      class="detail_comment_lists_content_operate_reply"
+                    <span
+                      class="detail_comment_lists_content_operate_reply a"
                       @click="showReply(list.id)"
-                      v-if="couldReply && list.replyList.length === 0">回复</a>
-                    <a href="javascript:void(0);"
+                      v-if="couldReply && list.replyList.length === 0">回复</span>
+                    <span class="a"
                       :class="list.goodBadLog == 1 ? 'detail_comment_lists_content_operate_like_handle':'detail_comment_lists_content_operate_like'"
                       @click="handleLike(list.id, list.goodCount)">
                       <span v-if="isShowDefault || list.id !== likeIndex|| userCode === 2">{{list.goodCount}}</span>
                       <!-- <span v-else-if="list.id === likeIndex">{{goodCountChange}}</span> -->
-                    </a>
+                    </span>
                   </div>
                 </div>
               </div>
@@ -352,26 +352,26 @@
                 <nuxt-link :to="essayData.userId !== user.id ? `/bloger/${essayData.userId}/1` : '/person/myEssay/1'">
                   <span class="detail_user_msg_name">{{essayData.userName}}</span>
                 </nuxt-link>
-                <a href="javascript:void(0);"
-                  class="detail_user_msg_focus"
+                <span
+                  class="detail_user_msg_focus a"
                   @click="focusBlogger(essayData.userId)">
                   <span v-if="hobbiesIdDetailData.couldFollow && hobbiesIdDetailData.couldFollow !== null || isfocusBg" class="focusBg">已关注</span>
                   <span v-else class="nofocusBg">关注</span>
-                </a>
+                </span>
               </div>
               <div class="detail_user_othermsg">
                 <ul>
                   <li>
-                    <a href="javascript:void(0);">
+                    <span class="a">
                       <span>粉丝</span>
                       <span>{{userInfo.numberOfFans == null ? 0 : userInfo.numberOfFans}}</span>
-                    </a>
+                    </span>
                   </li>
                   <li>
-                    <a href="javascript:void(0);">
+                    <span class="a">
                       <span>关注</span>
                       <span>{{userInfo.numberOfFollowers == null ? 0 : userInfo.numberOfFollowers}}</span>
-                    </a>
+                    </span>
                   </li>
                   <li>
                     <nuxt-link :to="`/bloger/${essayData.userId}/1`">
@@ -427,11 +427,11 @@
           <div class="detail_more_title">
             <img src="~static/detail/detail_article.png">
             <h2>随机推荐</h2>
-            <a href="javascript:void(0);"
+            <span
               @click="changeRandom()"
-              class="detail_more_title_more">
+              class="detail_more_title_more a">
               换一换
-            </a>
+            </span>
           </div>
           <div class="detail_more_content">
             <ul>
@@ -535,7 +535,7 @@ export default {
         {
           hid: 'mobile-agent',
           name: 'mobile-agent',
-          content: `format=html5;url=http://m.jfcar.com.cn`
+          content: `format=html5;url=http://m.jfcar.com.cn${this.$route.fullPath}`
         }
       ],
     }

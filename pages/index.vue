@@ -1,6 +1,6 @@
 <template>
   <div>
-    <index-container 
+    <index-container
       :newsObj="newsObj"
       :tagOne="tagOne"
       :newsCourselData="newsCourselData"
@@ -54,7 +54,7 @@ export default {
         {
           hid: 'mobile-agent',
           name: 'mobile-agent',
-          content: `format=html5;url=http://m.jfcar.com.cn`
+          content: `format=html5;url=http://m.jfcar.com.cn${this.$route.fullPath}`
         }
       ],
     }
@@ -225,6 +225,8 @@ export default {
     // console.log('aaaaaa')
     // console.log(this.EvList,'0000000000000000')
     // console.log(this.newsObj)
+  },
+  mounted () {
   }
 };
 </script>

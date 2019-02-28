@@ -34,9 +34,9 @@
               @click="showSearch()"
               @mouseenter="showSearch()"
               @mouseleave="hideSearch()">
-              <a href="javascript:void(0);">
+              <span class="a">
                 <i :class="{'hasSearchHover': isShowSearch}"></i>
-              </a>
+              </span>
               <!-- 搜索框 -->
               <div class="car_header_banner_search_input">
                 <input type="text"
@@ -54,9 +54,9 @@
               @click="toPublishEssay()"
               @mouseenter="hasToEssay"
               @mouseleave="hideToEssay">
-                <a href="javascript:void(0);">
+                <span class="a">
                   <i></i>
-                </a>
+                </span>
                 <div class="toEssayWrap" v-if="ShowToEssay" @click="toEssay">
                   <span class="toEssay">
                   上传内容
@@ -66,9 +66,9 @@
             <li class="car_header_banner_icon_phone"
               @mouseenter="showActive(3)"
               @mouseleave="showActive(0)">
-              <a href="javascript:void(0);">
+              <span class="a">
                 <i></i>
-              </a>
+              </span>
               <div class="phone_code" v-if="active == 3">
                 <div class="triangle">
                   <span></span>
@@ -80,9 +80,9 @@
             <li class="car_header_banner_icon_wechat"
               @mouseenter="showActive(4)"
               @mouseleave="showActive(0)">
-              <a href="javascript:void(0);">
+              <span class="a">
                 <i></i>
-              </a>
+              </span>
               <div class="wechat_code" v-if="active == 4">
                 <div class="triangle">
                   <span></span>
@@ -124,15 +124,15 @@
           <div v-else
             class="car_header_login_registry_operate"
             style="position: relative">
-            <a href="javascript:;"
+            <span class="a"
               @click="toAnotherRouter('login')">
               <span>登录</span>
-            </a>
+            </span>
             <span class="desperate">|</span>
-            <a href="javascript:;"
+            <span class="a"
               @click="toAnotherRouter('register')">
               <span>注册</span>
-            </a>
+            </span>
           </div>
         </div>
       </div>
@@ -455,7 +455,7 @@ export default {
   position: absolute;
   bottom: 0;
 } */
-.car_header_banner ul li:hover a {
+.car_header_banner ul li:hover a, .car_header_banner ul li:hover .a {
   font-weight: bold;
 }
 .car_header_banner ul li:hover {
@@ -471,7 +471,7 @@ export default {
   /* padding-right: 30px; */
   margin-left: 30px;
 }
-.car_header_banner ul li a {
+.car_header_banner ul li a, .car_header_banner ul li .a {
   /* position: relative; */
   /* width: 70px; */
   display: inline-block;
@@ -485,7 +485,7 @@ export default {
   /* border-bottom: 6px solid red; */
   /* background: url('/static/header/header_side.png') no-repeat right bottom; */
 }
-.car_header_banner ul li a:last-child {
+.car_header_banner ul li a:last-child , .car_header_banner ul li .a:last-child {
   /* width: 70px; */
 }
 .car_header_banner_icon {
@@ -502,7 +502,7 @@ export default {
 .car_header_banner_icon ul {
   margin-left: 5px;
 }
-.car_header_banner_icon ul li a {
+.car_header_banner_icon ul li a, .car_header_banner_icon ul li .a {
   width: 40px;
   height: 40px;
   /*border: 1px dashed #fff;*/
@@ -513,7 +513,7 @@ export default {
   left: 50%;
   margin-left: -20px;
 }
-.car_header_banner_icon ul li a i {
+.car_header_banner_icon ul li a i, .car_header_banner_icon ul li .a i {
   display: inline-block;
   width: 40px;
   height: 40px;
@@ -521,10 +521,10 @@ export default {
 .car_header_banner_icon_search {
   position: relative;
 }
-.car_header_banner_icon_search a i {
+.car_header_banner_icon_search a i, .car_header_banner_icon_search .a i {
   background: url('~static/header/nav_search.png');
 }
-.car_header_banner_icon_search a i:hover {
+.car_header_banner_icon_search a i:hover, .car_header_banner_icon_search .a i:hover {
   background-image: url('~static/header/nav_search_hover.png');
 }
 .header_input_search {
@@ -537,22 +537,22 @@ export default {
 .hasSearchHover {
   background-image: url('~static/header/nav_search_hover.png') !important;
 }
-.car_header_banner_icon_upload a i {
+.car_header_banner_icon_upload a i, .car_header_banner_icon_upload .a i {
   background: url('~static/header/nav_upload.png');
 }
-.car_header_banner_icon_upload a i:hover {
+.car_header_banner_icon_upload a i:hover, .car_header_banner_icon_upload .a i:hover  {
   background-image: url('~static/header/nav_upload_hover.png');
 }
-.car_header_banner_icon_phone a i {
+.car_header_banner_icon_phone a i, .car_header_banner_icon_phone .a i {
   background: url('~static/header/nav_phone.png');
 }
-.car_header_banner_icon_phone a i:hover {
+.car_header_banner_icon_phone a i:hover, .car_header_banner_icon_phone .a i:hover {
   background-image: url('~static/header/nav_phone_hover.png');
 }
-.car_header_banner_icon_wechat a i {
+.car_header_banner_icon_wechat a i, .car_header_banner_icon_wechat .a i {
   background: url('~static/header/nav_wechat.png');
 }
-.car_header_banner_icon_wechat a i:hover {
+.car_header_banner_icon_wechat a i:hover, .car_header_banner_icon_wechat .a i:hover {
   background-image: url('~static/header/nav_wechat_hover.png');
 }
 .car_header_banner_search_input {
@@ -590,14 +590,14 @@ export default {
   display: inline-block;
   float: right;
 }
-.car_header_login_registry .car_header_login_registry_operate a {
+.car_header_login_registry .car_header_login_registry_operate a, .car_header_login_registry .car_header_login_registry_operate .a {
   color: rgba(255, 255, 255, 1);
   text-decoration: none;
   font-size: 16px;
   display: inline-block;
   line-height: 64px;
 }
-.car_header_login_registry .car_header_login_registry_operate a:hover {
+.car_header_login_registry .car_header_login_registry_operate a:hover, .car_header_login_registry .car_header_login_registry_operate .a:hover {
   color: rgba(255, 255, 255, 1);
   font-weight: bold;
   background: url('~static/header/subscript.png') no-repeat;
@@ -712,7 +712,7 @@ export default {
   /* width: 40px; */
   /* height: 40px; */
 }
-.car_header .el-menu--horizontal > .el-submenu .el-submenu__title a {
+.car_header .el-menu--horizontal > .el-submenu .el-submenu__title a, .car_header .el-menu--horizontal > .el-submenu .el-submenu__title .a {
   /* width: 40px;
   height: 40px;
   display: inline-block;

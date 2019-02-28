@@ -38,23 +38,23 @@
               <span class="footer_phone_code">
                 <img src="~static/detail/code.jpg" alt="尖锋咖">
               </span>
-              <a class="footer_code_desc"
-                href="javascript:void(0);">
+              <span class="footer_code_desc a"
+                >
                 <img src="~static/footer/wechat.png"
                   class="footer_wechat" >
-                <a>尖锋咖</a>
-              </a>
+                <span class="a">尖锋咖</span>
+              </span>
             </li>
             <li>
               <span class="footer_phone_code">
                 <img src="~static/detail/code.jpg" alt="尖锋咖">
               </span>
-              <a class="footer_code_desc"
-                href="javascript:void(0);">
+              <span class="footer_code_desc a"
+                >
                 <!-- <img src="@/assets/footer/wechat.png"
                   class="footer_wechat"> -->
-                <a>手机端</a>
-              </a>
+                <span class="a">手机端</span>
+              </span>
             </li>
           </ul>
         </div>

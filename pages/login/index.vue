@@ -32,11 +32,10 @@
                 class="login_btn"
                 element-loading-background="rgba(255, 255, 255, 0.5)"
                 type="submit">登录</el-button>
-              <div class="newCount"><a class="NC"
-                  href="javascript:;"
-                  @click="newCount">注册新账号</a> <a class="FP"
-                  href="javascript:;"
-                  @click="forgetPassword">忘记密码?</a></div>
+              <div class="newCount"><span class="NC"
+
+                  @click="newCount">注册新账号</span> <span class="FP a"
+                  @click="forgetPassword">忘记密码?</span></div>
             </el-form-item>
           </el-form>
 
@@ -322,7 +321,7 @@ export default {
   width: 360px;
   overflow: hidden;
 }
-.login-wrapper .newCount > a {
+.login-wrapper .newCount > a, .login-wrapper .newCount > .a {
   text-decoration: none;
   height: 18px;
   font-size: 16px;

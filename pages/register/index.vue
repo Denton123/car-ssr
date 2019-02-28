@@ -19,7 +19,7 @@
               v-model="registerObj.account"
               key="2"></el-input>
           </el-form-item>
-          <el-form-item 
+          <el-form-item
             prop="loginName"
             v-show="false">
             <el-input class="input"
@@ -61,13 +61,13 @@
           </el-form-item>
           <el-form-item class="des"
             prop="checked">
-            <el-checkbox v-model="registerObj.checked"><a href="javascript:;">同意《用户服务协议》</a></el-checkbox>
+            <el-checkbox v-model="registerObj.checked"><span class="a">同意《用户服务协议》</span></el-checkbox>
           </el-form-item>
           <el-form-item>
             <el-button class="register_btn"
               @click="registerAccount('registerForm')">注册</el-button>
-            <div class="login_des"><a href="javascript:;"
-                @click="goToLogin">已有账号，立即登陆</a></div>
+            <div class="login_des"><span class="a"
+                @click="goToLogin">已有账号，立即登陆</span></div>
           </el-form-item>
         </el-form>
       </div>
@@ -232,7 +232,7 @@ export default {
   methods: {
     registerAccount(formName) {
       if(this.registerObj.password.length < 6 || !this.flag) {
-        return 
+        return
       }
       this.registerObj.loginName = this.registerObj.account
       this.$refs[formName].validate(valid => {

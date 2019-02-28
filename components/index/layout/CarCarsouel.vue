@@ -18,7 +18,7 @@
             <div class="car_footer clearfix"></div>
 
             <img src="../images/car_left.png"
-              alt="样式"
+              alt="尖锋咖"
               width="37px"
               height="76px"
               class="car_left">

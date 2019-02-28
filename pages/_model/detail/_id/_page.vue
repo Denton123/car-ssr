@@ -3,7 +3,7 @@
   <!-- 详情 -->
   <div class="detail_wrap">
     <index-header />
-    <div class="detail_container" v-if="isShowMounted">
+    <div class="detail_container" >
       <!-- 标题 -->
       <div class="detail_title">
         <h2>
@@ -55,7 +55,7 @@
               <!-- <img :src="formatPic(essayData.photo)"
                 class="detail_content_desc_pic" v-if="essayData.classOneName !== '视频'"> -->
                 <video :src="formatPic(essayData.video)" controls="controls"
-                class="detail_content_desc_pic" v-if="essayData.video != '' && essayData.description != '' && essayData.description.indexOf('<video') < 0 "  width="100%"></video>
+                class="detail_content_desc_pic" v-if="essayData.video != '' && essayData.description != '' && essayData.description && essayData.description.indexOf('<video') < 0 "  width="100%"></video>
             <div class="detail_content_introduction"
               v-html="essayData.description"></div>
           </div>
@@ -246,10 +246,10 @@
                     </span>
                   </div>
                   <div class="detail_comment_form_input_operate_login">
-                    <a href="javascript:void(0);"
+                    <span class="a"
                       @click="handleComment()">
                       {{commentBtn}}
-                    </a>
+                    </span>
                   </div>
                 </div>
               </div>
@@ -306,21 +306,21 @@
                         :placeholder="`回复：${list.author}`"
                         v-model="replyText">
                     </div>
-                    <a href="javascript:void(0);"
-                      class="detail_comment_lists_content_reply_btn"
-                      @click="handleReply(list.essayId, list.id, replyText)">回复</a>
+                    <span
+                      class="detail_comment_lists_content_reply_btn a"
+                      @click="handleReply(list.essayId, list.id, replyText)">回复</span>
                   </div>
                   <div class="detail_comment_lists_content_operate">
-                    <a href="javascript:void(0);"
-                      class="detail_comment_lists_content_operate_reply"
+                    <span
+                      class="detail_comment_lists_content_operate_reply a"
                       @click="showReply(list.id)"
-                      v-if="couldReply && list.replyList.length === 0">回复</a>
-                    <a href="javascript:void(0);"
-                      :class="list.goodBadLog == 1 ? 'detail_comment_lists_content_operate_like_handle':'detail_comment_lists_content_operate_like'"
+                      v-if="couldReply && list.replyList.length === 0">回复</span>
+                    <span
+                      :class="list.goodBadLog == 1 ? 'detail_comment_lists_content_operate_like_handle':'detail_comment_lists_content_operate_like'" class="a"
                       @click="handleLike(list.id, list.goodCount)">
                       <span v-if="isShowDefault || list.id !== likeIndex || userCode === 2">{{list.goodCount}}</span>
                       <!-- <span v-else-if="list.id === likeIndex">{{goodCountChange}}</span> -->
-                    </a>
+                    </span>
                   </div>
                 </div>
               </div>
@@ -364,27 +364,27 @@
                   </nuxt-link>
                 </span>
 
-                <a href="javascript:void(0);"
-                  class="detail_user_msg_focus"
+                <span
+                  class="detail_user_msg_focus a"
                   @click="focusBlogger(essayData.userId)"
                   >
                   <span v-if="detailData.couldFollow || isfocusBg" class="focusBg">已关注</span>
                   <span v-else class="nofocusBg">关注</span>
-                </a>
+                </span>
               </div>
               <div class="detail_user_othermsg">
                 <ul>
                   <li>
-                    <a href="javascript:void(0);">
+                    <span class="a">
                       <span>粉丝</span>
                       <span>{{userInfo.fansCount == null ? 0 : userInfo.fansCount}}</span>
-                    </a>
+                    </span>
                   </li>
                   <li>
-                    <a href="javascript:void(0);">
+                    <span class="a">
                       <span>关注</span>
                       <span>{{userInfo.fllowCount == null ? 0 : userInfo.fllowCount }}</span>
-                    </a>
+                    </span>
                   </li>
                   <li>
                     <nuxt-link :to="`/bloger/${essayData.userId}/1`">
@@ -441,11 +441,11 @@
           <div class="detail_more_title">
             <img src="~static/detail/detail_article.png">
             <h2>随机推荐</h2>
-            <a href="javascript:void(0);"
+            <span
               @click="changeRandom()"
-              class="detail_more_title_more">
+              class="detail_more_title_more a">
               换一换
-            </a>
+            </span>
           </div>
           <div class="detail_more_content">
             <ul>
@@ -546,7 +546,7 @@ export default {
         {
           hid: 'mobile-agent',
           name: 'mobile-agent',
-          content: `format=html5;url=http://m.jfcar.com.cn`
+          content: `format=html5;url=http://m.jfcar.com.cn${this.$route.fullPath}`
         }
       ],
     }
@@ -986,87 +986,92 @@ export default {
             this.cookie !== '' ? this.cookie : this.tokenObj.token
         }
       )
-      this.detailData = res.data.result_data
-      // 文章信息
-      this.essayData = this.detailData.essay
-      this.getDataTopSix()
-      this.getRandomData()
-      // 判断是否可以关注
-      if (this.userCode !== 2) {
-        if (
-          this.detailData.couldFollow &&
-          this.detailData.couldFollow !== null
-        ) {
-          this.isFollow = '已关注'
-        } else {
-          this.isFollow = '关注'
-        }
-      } else {
-        this.isFollow = '关注'
-      }
-      switch (this.essayData.classOneName) {
-        case '今日车闻':
-          this.titleModel = 'news'
-          break
-        case '兴趣部落':
-          this.titleModel = 'hobbies'
-          break
-        case '新能源':
-          this.titleModel = 'ev'
-          break
-        case '视频':
-          this.titleModel = 'video'
-          break
-      }
-      this.tabList = this.detailData.essay.tagList
-      this.tabList.forEach(list => {
-          if (list.isShow === 1) {
-            this.brandDetail = list
-          }
-        })
-      // 判断是否点击过
-      if (
-        this.detailData.essayLogEntity &&
-        this.detailData.essayLogEntity !== null &&
-        this.detailData.essayLogEntity.length !== 0
-      ) {
-        if (this.essayData.good !== 0 || this.essayData.bad !== 0) {
-          this.isUp = true
-          this.isDown = true
-          this.goodPercent =
-            Math.round(
-              (this.essayData.good /
-                (this.essayData.good + this.essayData.bad)) *
-                100
-            ) + '%'
+      this.detailData = {}
+      this.essayData = {}
+      this.tabList = []
+     setTimeout(() => {
+       this.detailData = res.data.result_data
+       // 文章信息
+       this.essayData = this.detailData.essay
+       this.getDataTopSix()
+       this.getRandomData()
+       // 判断是否可以关注
+       if (this.userCode !== 2) {
+         if (
+           this.detailData.couldFollow &&
+           this.detailData.couldFollow !== null
+         ) {
+           this.isFollow = '已关注'
+         } else {
+           this.isFollow = '关注'
+         }
+       } else {
+         this.isFollow = '关注'
+       }
+       switch (this.essayData.classOneName) {
+         case '今日车闻':
+           this.titleModel = 'news'
+           break
+         case '兴趣部落':
+           this.titleModel = 'hobbies'
+           break
+         case '新能源':
+           this.titleModel = 'ev'
+           break
+         case '视频':
+           this.titleModel = 'video'
+           break
+       }
+       this.tabList = this.detailData.essay.tagList
+       this.tabList.forEach(list => {
+         if (list.isShow === 1) {
+           this.brandDetail = list
+         }
+       })
+       // 判断是否点击过
+       if (
+         this.detailData.essayLogEntity &&
+         this.detailData.essayLogEntity !== null &&
+         this.detailData.essayLogEntity.length !== 0
+       ) {
+         if (this.essayData.good !== 0 || this.essayData.bad !== 0) {
+           this.isUp = true
+           this.isDown = true
+           this.goodPercent =
+             Math.round(
+               (this.essayData.good /
+                 (this.essayData.good + this.essayData.bad)) *
+               100
+             ) + '%'
 
-          this.badPercent =
-            Math.round(
-              (this.essayData.bad /
-                (this.essayData.good + this.essayData.bad)) *
-                100
-            ) + '%'
-        }
-        this.isCanDown = true
-        this.isCanUp = true
-      } else {
-        this.isCanDown = false
-        this.isCanUp = false
-      }
-      // 是否显示回复按钮
-      this.couldReply = this.detailData.couldReply
-      // 判断文章类型
-      switch (this.essayData.type) {
-        case 1:
-          this.essayType = '原创'
-          break
-        case 2:
-          this.essayType = '转载'
-          break
-        case 3:
-          this.essayType = '翻译'
-          break
-      }
+           this.badPercent =
+             Math.round(
+               (this.essayData.bad /
+                 (this.essayData.good + this.essayData.bad)) *
+               100
+             ) + '%'
+         }
+         this.isCanDown = true
+         this.isCanUp = true
+       } else {
+         this.isCanDown = false
+         this.isCanUp = false
+       }
+       // 是否显示回复按钮
+       this.couldReply = this.detailData.couldReply
+       // 判断文章类型
+       switch (this.essayData.type) {
+         case 1:
+           this.essayType = '原创'
+           break
+         case 2:
+           this.essayType = '转载'
+           break
+         case 3:
+           this.essayType = '翻译'
+           break
+       }
+     })
     },
     // 获取相关文章信息
     async getDataWithTag() {
@@ -1165,11 +1170,13 @@ export default {
       let userInfo = await $get(webUserAthourInfo, {
         essayId: this.essayid
       })
-      if (this.userInfo == userInfo.data) {
+      if (this.userInfo != userInfo.data) {
+        this.userInfo = {}
         this.userInfo = userInfo.data
       }
     },
     formatPic(item) {
+      if (typeof item != 'string') return '';
       if(item.indexOf('http:') >= 0 || item.indexOf('/image') >= 0){
         return item
       }

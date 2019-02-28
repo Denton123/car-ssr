@@ -6,8 +6,8 @@
         class="tags-ul_li_wrap">
         <router-link :to="`/taglist/${item.id}/1`">
           <li @click="changeIndex(index)">
-            <a href="javascript:;"
-              class="normal"><strong>{{item.title}}</strong></a>
+            <span
+              class="a"><strong>{{item.title}}</strong></span>
           </li>
         </router-link>
       </div>

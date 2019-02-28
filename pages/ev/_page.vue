@@ -408,7 +408,7 @@ export default {
         {
           hid: 'mobile-agent',
           name: 'mobile-agent',
-          content: `format=html5;url=http://m.jfcar.com.cn`
+          content: `format=html5;url=http://m.jfcar.com.cn${this.$route.fullPath}`
         }
       ],
     }
@@ -823,7 +823,7 @@ body {
   font-size: 14px;
   cursor: pointer;
 }
-.sources .todayNav a {
+.sources .todayNav a, .sources .todayNav .a {
   color: black;
 }
 .sources .todayNav ul li::after {
@@ -907,7 +907,7 @@ body {
   background-color: #e7e7e7;
   position: relative;
 }
-.sources .todayImg a {
+.sources .todayImg a, .sources .todayImg .a {
   display: block;
   width: 100%;
   max-height: 450px;

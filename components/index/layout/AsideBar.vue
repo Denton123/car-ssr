@@ -116,11 +116,11 @@ export default {
   float: right;
 }
 
-.aside_bar_index_block dl dd a {
+.aside_bar_index_block dl dd a, .aside_bar_index_block dl dd .a {
   color: #999999 !important;
 }
 
-.aside_bar_index_block dl .dd_active a {
+.aside_bar_index_block dl .dd_active a, .aside_bar_index_block dl .dd_active .a {
   color: #fff !important;
 }
 
