@@ -27,7 +27,7 @@
             class="text-more"
             @click.native="refresh">更多></router-link>
         </div>
-        <!-- <nuxt-link :to="`/hobbies/rankList/${rankId}/1`">
+        <!-- <nuxt-link :to="`/hobbies/ranklist/${rankId}/1`">
             <span class="text-more">更多></span>
         </nuxt-link> -->
         <div class="decoration-line"></div>
@@ -77,7 +77,7 @@
       <div class="red3_img"><img src="~static/picture/red.png"></div>
     </div>
     <!-- <div v-if="fullPath != '/w' || fullPath !='/m' || fullPath != '/d'">
-      <nuxt-link :to="`${modelName}/rankList/${activeName == 'first' ? 'w':'m'}/1`"
+      <nuxt-link :to="`${modelName}/ranklist/${activeName == 'first' ? 'w':'m'}/1`"
         class="rankMore">更多></nuxt-link>
     </div>
     <div v-else>
