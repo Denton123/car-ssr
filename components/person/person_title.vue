@@ -1,7 +1,7 @@
 <template>
   <div class="detail_content_article_title">
     <img src="~static/detail/detail_article.png">
-    <h2>共上传<span>{{num}}</span>篇文章/兴趣部落</h2>
+    <h2> {{ this.userData.loginName }}的文章<span>{{num}}</span>篇</h2>
     <div class="detail_content_article_title_operate">
       <span
         class="publishEssay a"
@@ -60,6 +60,7 @@ export default {
       ).then(res => {
         // console.log(res)
         this.userData = res.data.des.user
+
       })
     },
     getCookie(cname) {

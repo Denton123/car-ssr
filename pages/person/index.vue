@@ -105,6 +105,7 @@ import myFans from '@/pages/person/index/myFans/_page.vue'
 import { webUserSelectByPrimaryKey, webMyEssay} from '@/http/api'
 import { $get, $post } from '@/http/ajax'
 import systemManage from '@/http/photoApi.js'
+import Utils from '@/utils/until'
 // const serverUrl = utils.commonUrl
 // const url = serverUrl + utils.apiPath + 'sys/uploadFile'
 export default {
@@ -249,8 +250,6 @@ export default {
     } else if (this.activeName = 'person-index-editHobbies-id') {
       this.activeName = 'person-index-myEssay-page'
     }
-    // this.$router.push('/person/myEssay/1')
-    // this.activeName = 'person-index-myEssay-page'
 
   },
   components: {
@@ -262,6 +261,41 @@ export default {
     myFollower,
     myFans,
     'my-intergral': myIntergral
+  },
+  async assyncData ({ params, req, route }) {
+    let token = Utils.b_getToken(req)
+    let userData = {}
+    let editForm = {}
+    let activeName = ''
+    let res = await $get(
+      webUserSelectByPrimaryKey,
+      {},
+      {
+        'X-Auth0-Token': token
+      }
+    )
+    userData = typeof res.data.des == 'object' ? res.data.des : {}
+    editForm = typeof userData.user == 'object' ? userData.user : {}
+
+    activeName = route.name
+    // 解决刷新之后，选项卡可能不显示的问题
+    if (activeName==='person-index-myFans-page') {
+      activeName = 'person-index-myFans'
+    }else if (activeName==='person-index-myFollower-page') {
+      activeName = 'person-index-myFollower'
+    }else if(activeName == 'person-index-publishEssay') {
+      activeName = 'person-index-myEssay-page'
+    } else if (activeName === 'person-index-editEssay-id') {
+      activeName = 'person-index-myEssay-page'
+    } else if (activeName = 'person-index-editHobbies-id') {
+      activeName = 'person-index-myEssay-page'
+    }
+
+    return {
+      userData,
+      editForm,
+      activeName
+    }
   }
 }
 </script>

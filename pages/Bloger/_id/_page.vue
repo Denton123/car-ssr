@@ -115,6 +115,7 @@
     webUserBloggerItem
   } from '@/http/api'
   import systemManage from '@/http/photoApi.js'
+  import Utils from '@/utils/until'
   export default {
     name: 'Bloger',
     head(){
@@ -184,17 +185,38 @@
       }
     },
     // nuxt异步获取数据
-    async asyncData({params}) {
+    async asyncData({params, req}) {
+      let token = Utils.b_getToken(req)
+      let userData = {}
+      let editForm = {}
+      let userName = ''
+      let userId = ''
       let _blogerList = await $get(webBologerlist, {
         bloggerId: params.id,
         limit: '12',
         page: params.page
       })
+
+      let tokenObj = {
+        'X-Auth0-Token': token
+      }
+      let id = `${params.id}`
+      let res = await $get(webUserBloggerItem, { bloggerId: id }, tokenObj)
+      userData = typeof res.data == 'object' ? res.data : {}
+      editForm = userData.user;
+
+      res = await $get(webUserSelectByPrimaryKey, {}, tokenObj)
+      userName = res.data && res.data.des && res.data.des.user && res.data.des.user.account
+      userId = res.data && res.data.des && res.data.des.user && res.data.des.user.id
       return {
         blogerData: _blogerList.data,
         totalCount: _blogerList.data.totalCount ? _blogerList.data.totalCount : 0,
         totalPage: _blogerList.data.totalPage ? _blogerList.data.totalPage : 0,
         blogerListData: _blogerList.data.list,
+        userData,
+        editForm,
+        userName,
+        userId
       }
     },
     methods: {

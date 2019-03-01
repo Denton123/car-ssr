@@ -46,7 +46,7 @@
     <pagination @pageChange="pageChange"
       :totalCount="listData&&listData.totalCount"
       v-if="listData.list &&listData.list.length !== 0"
-      :pageSize="9"
+      :pageSize="12"
       :totalPage="listData.totalPage"
       :routePage='`${currentPage}`'
       :toTop="{x: 0, y: 1200}" />
@@ -91,7 +91,7 @@ export default {
        $get(
         webMyEssay,
         {
-          limit: 9,
+          limit: 12,
           page: page
         },
         {
@@ -175,7 +175,7 @@ export default {
       //  this.$emit
       }
     }
-  }
+  },
 }
 </script>
 <style>
