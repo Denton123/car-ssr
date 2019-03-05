@@ -117,7 +117,7 @@ export default {
       }
     },
     // 获取粉丝的基本信息
-    async fansList(name) {
+    async fansList(name, isSearch = false) {
       if (this.tokenObj == null) {
         this.tokenObj = {}
       }
@@ -128,9 +128,9 @@ export default {
       let res = await $get(
         webUserGetFans,
         {
-          limit: '8',
+          limit: '12',
           name: name || '',
-          page: this.defaultParams.page || '1'
+          page: isSearch ? '1' :(this.defaultParams.page || '1')
         },
         {
           'X-Auth0-Token': this.cookie !== '' ? this.cookie : this.tokenObj.token
@@ -154,7 +154,7 @@ export default {
     // 搜索
     onSearch(){
       // console.log(this.name)
-      this.fansList(this.name)
+      this.fansList(this.name, true)
     },
     pageChange(page) {
       // console.log(page, 'page')

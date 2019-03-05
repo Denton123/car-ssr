@@ -639,6 +639,9 @@ export default {
     let isShowMounted = false
     let essayData
     let isFollow
+    let user = {};
+    let userCode = {}
+
     // 文章评论
     let articleCommentData = await $get(webEssayEssayCommentList, {essayId: params.id,
         limit: '10',
@@ -678,6 +681,22 @@ export default {
         v.tag = '兴趣部落'
       }
     })
+    let res = await $get(
+      webUserSelectByPrimaryKey,
+      {},
+      {
+        'X-Auth0-Token':
+        token
+      }
+    )
+    if (res.data.code == 0) {
+      user = res.data.des.user
+      userCode = res.data.code
+      if (userCode == 2) {
+        isFollow = '关注'
+      }
+    }
+
       return {
         articleCommentData: articleCommentData.data ? articleCommentData.data.list : [],
         commentData: articleCommentData.data ? articleCommentData.data : [],
@@ -688,7 +707,10 @@ export default {
         detailData: detailData.data.result_data ? detailData.data.result_data : {},
         hotData: hotData.data.result_data ? hotData.data.result_data : [],
         randomData: randomData.data.result_data ? randomData.data.result_data : [],
-        isShowMounted
+        isShowMounted,
+        user,
+        userCode,
+        isFollow
       }
   },
     computed: {
@@ -1570,14 +1592,11 @@ export default {
       this.tokenObj.token !== undefined || this.cookie !== '' ? '评论' : '登录'
       this.currentPage = this.$route.params.page
       this.essayid = this.$route.params.id
-      this.getLoginUserInfo()
+      // this.getLoginUserInfo()
       // 以下getArticleData（）为客户端再渲染一次，不能去掉，否则点赞爆胎刷新之后就没了
-       this.getArticleData()
-       this.getUserInfo()
+      //  this.getArticleData()
+      //  this.getUserInfo()
       this.isShowMounted = true
-
-      // this.getDataTopSix()
-      // this.getRandomData()
       let ad = document.getElementById('advertisement')
       if (ad) {
         ;(window.slotbydup = window.slotbydup || []).push({
