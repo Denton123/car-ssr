@@ -30,7 +30,7 @@
           <div class="detail_content_user" style="background: url('~static/header/nav_upload.png');">
             <nuxt-link :to="`/bloger/${essayData.userId}/1`"
               class="detail_content_user_avatar">
-              <img :src="formatPic(userInfo.photo)"
+              <img :src="$ImgUrlRelative(formatPic(userInfo.photo))"
                 :alt="essayData.userName == null ? '': essayData.userName"
                 class="detail_content_userAvatar"
                 v-if="userInfo.photo !== ''">
@@ -85,7 +85,7 @@
             <div class="detail_content_brand_photo"
               v-if="brandDetail.url !== ''">
               <img class="detail_content_brand_logo"
-                :src="formatPic(brandDetail.url)">
+                :src="$ImgUrlRelative(formatPic(brandDetail.url))">
             </div>
             <div class="detail_content_brand_photo_default"
               v-else>
@@ -152,9 +152,9 @@
               <li v-for="(item, index) in essaysWidthTag"
                 :key="index"
                 class="detail_content_article_block">
-                <nuxt-link :to="`/${item.className.toLowerCase()}/${item.className.toLowerCase() !== 'hobbies' ? 'detail': 'hobbiesDetail'}/${item.id}/1`">
+                <nuxt-link :to="$replaceDetailUrl(`/${item.className.toLowerCase()}/${item.className.toLowerCase() !== 'hobbies' ? 'detail': 'hobbiesdetail'}/${item.id}/1`)">
                   <img v-if="item.photo !== ''"
-                    :src="formatPic(item.cover)"
+                    :src="$ImgUrlRelative(formatPic(item.cover))"
                     class="detail_content_article_block_pic"
                     alt="">
                   <video v-else-if="item.video !== ''"
@@ -170,7 +170,7 @@
                   <div class="detail_content_article_block_avatar_wrap">
                     <nuxt-link :to="`/bloger/${item.authorId}/1`">
                       <img v-if="item.authorPhoto"
-                        :src="formatPic(item.authorPhoto)"
+                        :src="$ImgUrlRelative(formatPic(item.authorPhoto))"
                         class="detail_content_article_block_avatar">
                       <img v-else
                         src="~static/detail/detail_user.png"
@@ -181,7 +181,7 @@
                     <span class="detail_content_article_block_user">{{item.author}}</span>
                   </nuxt-link>
                   <span class="detail_content_article_block_desperate">|</span>
-                  <nuxt-link :to="`/${item.className.toLowerCase()}/${item.className.toLowerCase() !== 'hobbies' ? 'detail': 'hobbiesDetail'}/${item.id}/1`">
+                  <nuxt-link :to="$replaceDetailUrl(`/${item.className.toLowerCase()}/${item.className.toLowerCase() !== 'hobbies' ? 'detail': 'hobbiesdetail'}/${item.id}/1`)">
                   <span class="detail_content_article_block_desc">{{item.tag}}</span>
                   </nuxt-link>
               </li>
@@ -203,7 +203,7 @@
                 <div class="detail_comment_form_avatar_wrap">
                   <img v-if="user.photo !== ''"
                     :alt="user.loginName"
-                    :src="formatPic(user.photo)">
+                    :src="$ImgUrlRelative(formatPic(user.photo))">
                   <img v-else
                     src="~static/detail/detail_user.png">
                 </div>
@@ -258,7 +258,7 @@
                   class="detail_comment_lists_content">
                   <nuxt-link :to="`/bloger/${list.userId}/1`">
                     <span class="detail_comment_lists_avatar">
-                      <img :src="formatPic(list.userPhoto)"
+                      <img :src="$ImgUrlRelative(formatPic(list.userPhoto))"
                         :alt="list.author"
                         v-if="list.userPhoto !== ''">
                       <img v-else
@@ -340,16 +340,16 @@
             <span class="detail_user_bg_red"></span>
             <div class="detail_user_msgWrap">
               <div class="detail_user_msg">
-                <nuxt-link :to="essayData.userId !== user.id ? `/bloger/${essayData.userId}/1` : '/person/myEssay/1'">
+                <nuxt-link :to="essayData.userId !== user.id ? `/bloger/${essayData.userId}/1` : '/person/myessay/1'">
                   <div class="detail_user_msg_avatar_wrap">
                     <img v-if="userInfo.photo !== ''"
                       :alt="essayData.userName"
-                      :src="formatPic(userInfo.photo)">
+                      :src="$ImgUrlRelative(formatPic(userInfo.photo))">
                     <img v-else
                       src="~static/detail/person_default.png">
                   </div>
                 </nuxt-link>
-                <nuxt-link :to="essayData.userId !== user.id ? `/bloger/${essayData.userId}/1` : '/person/myEssay/1'">
+                <nuxt-link :to="essayData.userId !== user.id ? `/bloger/${essayData.userId}/1` : '/person/myessay/1'">
                   <span class="detail_user_msg_name">{{essayData.userName}}</span>
                 </nuxt-link>
                 <span
@@ -399,9 +399,9 @@
             <ul>
               <li v-for="(hot, index) in hotData"
                 :key="index">
-                <nuxt-link :to="`/${hot.className}/${hot.className !== 'hobbies' ? 'detail' : 'hobbiesDetail'}/${hot.id}/1`">
+                <nuxt-link :to="$replaceDetailUrl(`/${hot.className}/${hot.className !== 'hobbies' ? 'detail' : 'hobbiesdetail'}/${hot.id}/1`)">
                   <span v-if="hot.cover">
-                    <img :src="formatPic(hot.cover)" :alt="hot.title">
+                    <img :src="$ImgUrlRelative(formatPic(hot.cover))" :alt="hot.title">
                   </span>
                   <span class="detail_more_content_default"
                     v-else>
@@ -437,10 +437,9 @@
             <ul>
               <li v-for="(random, index) in randomData"
                 :key="index">
-                <nuxt-link :to="`/${random.className}/${random.className !== 'hobbies' ? 'detail' : 'hobbiesDetail'}/${random.id}/1`"
-                  >
+                <nuxt-link :to="$replaceDetailUrl(`/${random.className}/${random.className !== 'hobbies' ? 'detail' : 'hobbiesdetail'}/${random.id}/1`)">
                   <span v-if="random.cover!==''">
-                    <img :src="formatPic(random.cover)" :alt="random.title">
+                    <img :src="$ImgUrlRelative(formatPic(random.cover))" :alt="random.title">
                   </span>
                   <span v-else
                     class="detail_more_content_default">
@@ -495,7 +494,7 @@ import Emotion from 'components/detail/emotionIndex.vue'
 import { instance } from '@/http/instance'
 
 // 轮播图
-import Slider from 'components/hobbiesDetail/swiper.vue'
+import Slider from 'components/hobbiesdetail/swiper.vue'
 
 import Pagination from '@/components/pagination.vue'
 
@@ -520,12 +519,12 @@ export default {
         {
           hid: 'keyWords',
           name: 'keyWords',
-          content: `${this.tagStr}`
+          content: `${this.tagMeta}`
         },
         {
           hid: 'description',
           name: 'description',
-          content: `${this.articleHTMLForMeta}`
+          content: `${this.digestMeta}`
         },
         {
           hid: 'applicable-device',
@@ -671,13 +670,28 @@ export default {
       } else {
         v.tag = '兴趣部落'
       }
+      if (v.className == '新能源') {
+        v.className = 'ev'
+      } else if (v.className == '今日车闻') {
+        v.className = 'news'
+      } else if (v.className == '兴趣部落') {
+        v.className = 'hobbies'
+      } else if (v.className == '视频') {
+        v.className = 'video'
+      } else {
+        v.className = 'hobbies'
+      }
     })
+
+
     tabList = hobbiesIdDetailData.data.result_data.hobbies.tagList == [] ?  [] : hobbiesIdDetailData.data.result_data.hobbies.tagList
     tabList.forEach(list => {
       if (list.isShow === 1) {
         brandDetail = list
       }
     })
+    let _digestMeta = hobbiesIdDetailData.data.result_data.hobbies.description.slice(0,120)
+    let tagMeta= hobbiesIdDetailData.data && hobbiesIdDetailData.data.result_data && hobbiesIdDetailData.data.result_data.hobbies && hobbiesIdDetailData.data.result_data.hobbies.tag
     return {
       sliderData : photoList != '' ? photoList:[],
       essayData: hobbiesIdDetailData.data ? hobbiesIdDetailData.data.result_data.hobbies : {},
@@ -689,7 +703,9 @@ export default {
       articleCommentData: articleCommentData.data.list ? articleCommentData.data.list : [],
       essaysWidthTag: essaysWidthTag ? essaysWidthTag : [],
       tabList: tabList ? tabList : [],
-      brandDetail: brandDetail ? brandDetail : null
+      brandDetail: brandDetail ? brandDetail : null,
+      digestMeta: hobbiesIdDetailData.data.result_data && hobbiesIdDetailData.data.result_data.hobbies && hobbiesIdDetailData.data.result_data.hobbies.description.replace(/<\/?.+?>/g,"").replace(/ /g,"").slice(0,120),
+      tagMeta
     }
   },
   created(){
@@ -1196,7 +1212,7 @@ export default {
     },
     pageChange(page) {
       this.$router.push({
-        path: `/hobbies/hobbiesdetail/${this.hobbiesid}/${page}`
+        path: this.$replaceDetailUrl(`/hobbies/hobbiesdetail/${this.hobbiesid}/${page}`)
       })
       this.getCommentData(page)
       this.currentPage = page
@@ -1470,7 +1486,7 @@ export default {
                 v.flag = 'detail'
                 break
               case 'hobbies':
-                v.flag = 'hobbiesDetail'
+                v.flag = 'hobbiesdetail'
                 break
             }
           })
@@ -1491,7 +1507,7 @@ export default {
                 v.flag = 'detail'
                 break
               case 'hobbies':
-                v.flag = 'hobbiesDetail'
+                v.flag = 'hobbiesdetail'
                 break
             }
           })

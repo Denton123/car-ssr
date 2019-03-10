@@ -7,9 +7,9 @@
             <div class="swiper-slide"
               v-for="(item,index) in bannerData"
               :key="index">
-              <a :href="item.url"
+              <a :href="$replaceDetailUrl(item.url)"
                 target="_blank">
-                <img :src='piectFeatureUrl(item)'
+                <img :src='$ImgUrlRelative(piectFeatureUrl(item))'
                   :alt="item.title">
 
                 <!-- 多个轮播数据的专栏遮罩层 -->

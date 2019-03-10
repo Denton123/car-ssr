@@ -5,7 +5,7 @@
       :key="index">
       <dd class="video_display">
         <router-link :to="`/${detailsObj['video']}/detail/${item.id}/1`">
-          <img :src="item.photo"
+          <img :src="$ImgUrlRelative(item.photo)"
             :alt="item.title" />
         </router-link>
 

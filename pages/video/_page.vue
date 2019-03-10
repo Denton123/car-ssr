@@ -40,7 +40,7 @@
                     @mouseenter="titleActive(item)"
                     @mouseleave="removeTitleActiveFn()">
                     <nuxt-link :to="`/${detailsObj['video']}/detail/${item.id}/1`">
-                    <img :src="piectImgUrl(item)"
+                    <img :src="$ImgUrlRelative(piectImgUrl(item))"
                       :alt="item.title"
                       @error="imgLossLoad(item)"
                       @load="imgSeccessLoad()"
@@ -85,7 +85,7 @@
                 <el-footer class="todayFooter">
                   <div class="footerBox">
                     <nuxt-link :to="`/bloger/${item.authorId}/1`">
-                      <img :src="piectProfileUrl(item)"
+                      <img :src="$ImgUrlRelative(piectProfileUrl(item))"
                         :alt='item.author'
                         class="userIcon"></nuxt-link>
                     <nuxt-link :to="`/bloger/${item.authorId}/1`">
@@ -183,7 +183,7 @@
                     @mouseenter="titleActive(item)"
                     @mouseleave="removeTitleActiveFn()">
                     <nuxt-link :to="`/${detailsObj['video']}/detail/${item.id}/1`">
-                    <img :src="piectImgUrl(item)"
+                    <img :src="$ImgUrlRelative(piectImgUrl(item))"
                       :alt="item.title"
                       @error="imgLossLoad(item)"
                       @load="imgSeccessLoad()"
@@ -228,7 +228,7 @@
                 <el-footer class="todayFooter">
                   <div class="footerBox">
                     <nuxt-link :to="`/bloger/${item.authorId}/1`">
-                      <img :src="piectProfileUrl(item)"
+                      <img :src="$ImgUrlRelative(piectProfileUrl(item))"
                         :alt="item.author"
                         class="userIcon"></nuxt-link>
                     <nuxt-link :to="`/bloger/${item.authorId}/1`">
@@ -302,7 +302,7 @@
                   v-else>
                   <a :href="bannerMessageData.photoLinks == null ? '' : bannerMessageData.photoLinks[0].url"
                     target="_blank">
-                    <img :src="piectFeatureUrl(bannerMessageData.photoLinks == null ? '' : bannerMessageData.photoLinks[0].photo)"
+                    <img :src="$ImgUrlRelative(piectFeatureUrl(bannerMessageData.photoLinks == null ? '' : bannerMessageData.photoLinks[0].photo))"
                       :alt="bannerMessageData.photoLinks == null ? '' : bannerMessageData.photoLinks[0].title"
                       @error="imgFeatureLossLoad()"
                       @load="imgFeatureSeccessLoad()"
@@ -341,7 +341,7 @@
                   v-else>
                   <a :href="bannerTopicData.photoLinks == null ? '': bannerTopicData.photoLinks[0].url"
                     target="_blank">
-                    <img :src="piectFeatureUrl(bannerTopicData.photoLinks == null ? '': bannerTopicData.photoLinks[0].photo)"
+                    <img :src="$ImgUrlRelative(piectFeatureUrl(bannerTopicData.photoLinks == null ? '': bannerTopicData.photoLinks[0].photo))"
                       :alt="bannerTopicData.photoLinks == null ? '' : bannerTopicData.photoLinks[0].title"
                       @error="imgFeatureLossLoad()"
                       @load="imgFeatureSeccessLoad()"

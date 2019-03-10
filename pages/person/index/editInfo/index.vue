@@ -65,7 +65,7 @@
             :before-upload="beforeAvatarUpload">
             <div class="avatar-uploader_wrap">
               <img v-if="editForm.photo"
-                :src="formatPic(editForm.photo)"
+                :src="$ImgUrlRelative(formatPic(editForm.photo))"
                 :alt="editForm.account">
               <img v-else
                 src="~static/person/person_default.png" alt="用户头像">
@@ -251,7 +251,7 @@ export default {
         loginName: [
           { required: true,
             validator: checkLoginName,
-            trigger: 'blur' 
+            trigger: 'blur'
             }
         ],
         name: [{ required: true, message: '请输入真实姓名', trigger: 'blur' }],

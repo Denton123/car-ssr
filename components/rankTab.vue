@@ -19,7 +19,7 @@
                 class="height=6px;width=90px"></div>
         </div>
         <div v-if="fullPath != '/w' || fullPath !='/m' || fullPath != '/d'">
-        <nuxt-link :to="`${modelName}/rankList/${rankId}/1`"
+        <nuxt-link :to="`${modelName}/ranklist/${rankId}/1`"
             class="text-more">更多></nuxt-link>
         </div>
         <div v-else>
@@ -41,7 +41,7 @@
           <div class="textRank"
           :class="{ whiteTextOn : index ===0 || index===1 || index===2}">{{index+1}}</div>
           <div class="titleRank">
-          <nuxt-link :to="`/${detailsObj['rank']}/detail/${hostPointItem.essayId}/1`">{{hostPointItem.title}}</nuxt-link>
+          <nuxt-link :to="$replaceDetailUrl(`/${detailsObj['rank']}/detail/${hostPointItem.essayId}/1`)">{{hostPointItem.title}}</nuxt-link>
           </div>
           <!--<div class="content-left-hostPoint"></div>-->
           <!--<div class="content-right-hostPoint">-->
@@ -63,7 +63,7 @@
           <div class="textRank"
           :class="{ whiteTextOn : index ===0 || index===1 || index===2}">{{index+1}}</div>
           <div class="titleRank">
-          <nuxt-link :to="`/${detailsObj['rank']}/detail/${hostPointItem.essayId}/1`">{{hostPointItem.title}}</nuxt-link>
+          <nuxt-link :to="$replaceDetailUrl(`/${detailsObj['rank']}/detail/${hostPointItem.essayId}/1`)">{{hostPointItem.title}}</nuxt-link>
           </div>
           <!--<div class="content-left-hostPoint"></div>-->
           <!--<div class="content-right-hostPoint">-->
@@ -130,7 +130,7 @@ export default {
   methods: {
     refresh: function() {
         this.$router.push({
-        path: `${this.modelName}/rankList/${
+        path: `${this.modelName}/ranklist/${
           this.activeName == 'first' ? 'w' : 'm'
         }/1`
       })

@@ -3,7 +3,7 @@
     <div class="hot-tags-container">
       <nuxt-link class="title"
           :to="`/${detailsObj['ev']}/detail/${EvRightListData.id == null ? '' : EvRightListData.id}/1`">
-      <img :src="formatPic(EvRightListData.photo)" :alt="EvRightListData.title" class="hot-tags-container-img">
+      <img :src="$ImgUrlRelative(formatPic(EvRightListData.photo))" :alt="EvRightListData.title" class="hot-tags-container-img">
       </nuxt-link>
       <div class="card-content">
         <nuxt-link class="title"
@@ -15,7 +15,7 @@
           <div class="info_left">
             <nuxt-link :to="`/bloger/${EvRightListData.authorId}/1`">
               <span class="info_header">
-                <img :src="formatPic(EvRightListData.photoUrl)"
+                <img :src="$ImgUrlRelative(formatPic(EvRightListData.photoUrl))"
                   :alt="EvRightListData.webName !== '' ? EvRightListData.webName : EvRightListData.author"
                   height="100%"
                   width="100%">

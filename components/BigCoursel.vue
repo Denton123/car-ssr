@@ -34,7 +34,7 @@
           <a :href="item.linkurl"
             class="big_coursel_swiper_a"
             target="_blank">
-            <img :src="concatImage(item.url)" :alt="item.title">
+            <img :src="$ImgUrlRelative(concatImage(item.url))" :alt="item.title">
             <div class="cover"
               ></div>
           </a>
@@ -83,7 +83,7 @@
     <div class="bg-titleWrap">
       <strong class="title"
       v-text="title"></strong>
-    </div>    
+    </div>
     <div class="controll">
       <div class="left"
         @click="prev"></div>
@@ -161,7 +161,7 @@ export default {
         // this.realIndex = this.$refs[this.id].swiper.realIndex;
         this.title = this.list[0].title;
       }
-      
+
     }
   },
   mounted() {
@@ -197,7 +197,7 @@ export default {
       this.realIndex = this.mySwiper100.realIndex; // 获取当前轮播图下标
       this.title = typeof this.list[this.realIndex] == 'object' ? this.list[this.realIndex].title : ''
       }
-      
+
     },
     // 向左滑动
     prev() {

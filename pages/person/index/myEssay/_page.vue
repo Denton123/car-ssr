@@ -6,10 +6,10 @@
       <div class="person_essay_list_block"
         v-for="(item, index) in listData.list"
         :key="index">
-        <nuxt-link :to="`/${item.title !== 'hobbies' ? item.classLabel.toLowerCase() : 'hobbies'}/${item.title !== 'hobbies' ? 'detail' : 'hobbiesDetail'}/${item.id}/1`">
+        <nuxt-link :to="$replaceDetailUrl(`/${item.title !== 'hobbies' ? item.classLabel.toLowerCase() : 'hobbies'}/${item.title !== 'hobbies' ? 'detail' : 'hobbiesdetail'}/${item.id}/1`)">
           <div class="person_essay_list_block_pic"
             v-if="item.photo !== ''">
-            <img :src="formatPic(item.photo) + '?time=' + new Date().getTime"
+            <img :src="$ImgUrlRelative(formatPic(item.photo) + '?time=' + new Date().getTime)"
               :alt="item.title == 'hobbies' ? '兴趣部落' : item.title"
               class="person_essay_list_block_pic">
           </div>
@@ -36,7 +36,7 @@
         <!-- 编辑按钮 -->
         <div class="person_essay_list_block_desc_edit"
           v-if="item.state === '草稿'||item.state === '审核不通过'">
-          <nuxt-link :to="item.title == 'hobbies' ? `/person/editHobbies/${item.id}` : `/person/editEssay/${item.id}`">
+          <nuxt-link :to="item.title == 'hobbies' ? `/person/edithobbies/${item.id}` : `/person/editessay/${item.id}`">
             <i class="el-icon-edit" />
           </nuxt-link>
         </div>
@@ -122,7 +122,7 @@ export default {
           ) {
             v.className = '兴趣部落'
           }
-          this.toLinkDetail = v.title !== 'hobbies' ? 'detail' : 'hobbiesDetail'
+          this.toLinkDetail = v.title !== 'hobbies' ? 'detail' : 'hobbiesdetail'
         })
         }
 
@@ -140,7 +140,7 @@ export default {
     // },
     pageChange : function(page) {
       this.$router.push({
-        path: `/person/myEssay/${page}`
+        path: `/person/myessay/${page}`
       })
       setTimeout(()=>{
         this.currentPage = this.$route.params.page

@@ -2,7 +2,7 @@
   <div class="wrap hobbiesDetailSwiper"
     style="position: relative;">
     <!-- 如果是一张图片，充满整个容器 -->
-     <!-- <swiper v-if="sliderData&& sliderData.length >= 1" :options="galleryTop" ref="topSwiper"  class="swiper-container gallery-top"> 
+     <!-- <swiper v-if="sliderData&& sliderData.length >= 1" :options="galleryTop" ref="topSwiper"  class="swiper-container gallery-top">
     </swiper> -->
     <div class="swiper-button-next" v-if="sliderData&& sliderData.length > 1 "
       style="position:absolute;top:41%;width: 50px;height: 77px;transform: translateY(-50%);" @click="next()"></div>
@@ -13,7 +13,7 @@
     <div v-swiper:mySwiper="galleryTop" v-if="sliderData&& sliderData.length >= 1" ref="topSwiper"   class="swiper-container gallery-top">
       <div class="swiper-wrapper">
           <div class="swiper-slide" v-for="(item, key) in sliderData" :key="key">
-            <img :src="formatphoto(item.photo)" alt="尖锋咖">
+            <img :src="$ImgUrlRelative(formatphoto(item.photo))" alt="尖锋咖">
           </div>
       </div>
           <!-- <div class="swiper-button-next"
@@ -25,7 +25,7 @@
     <div v-if="sliderData&& sliderData.length > 1 "  v-swiper:mySwiper2="galleryThumbs" style="margin-top: 50px;" ref="thumbSwiper"  class="swiper-container gallery-thumbs">
       <div class="swiper-wrapper">
         <div class="swiper-slide" v-for="(item, key) in sliderData" :key="key" @click="thumbClick()">
-          <img :src="formatphoto(item.photo)" alt="尖锋咖">
+          <img :src="$ImgUrlRelative(formatphoto(item.photo))" alt="尖锋咖">
         </div>
       </div>
     </div>
@@ -61,7 +61,7 @@ export default {
               observeParents:true,
               init: false,  //延迟初始化
       },
-      galleryTop: {        
+      galleryTop: {
               notNextTick: true,
               spaceBetween: 10,
               loop: this.sliderData && this.sliderData.length == 9 ? true : false,
@@ -92,7 +92,7 @@ export default {
   computed: {
   },
   mounted() {
-    let defaultHeight = $('.swiper-slide:eq(0)').css('height') 
+    let defaultHeight = $('.swiper-slide:eq(0)').css('height')
      $('.gallery-top').css('height', defaultHeight)
       // for (let i = 0; i < this.sliderData.length; i++) {
           // let imgUrl = this.formatphoto(this.sliderData[i].photo)
@@ -124,7 +124,7 @@ export default {
       if( this.mySwiper && this.mySwiper2){
         this.mySwiper.controller.control = this.mySwiper2
         this.mySwiper2.controller.control = this.mySwiper
-        console.log(this.mySwiper)
+        // console.log(this.mySwiper)
         document.onkeydown = function(e) {
           if (e.keyCode == 37) {
             $('.swiper-button-prev').click()

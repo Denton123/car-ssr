@@ -92,7 +92,7 @@
               <el-dialog :visible.sync="dialogVisible"
                          append-to-body>
                 <img class="imgSize"
-                     :src="piectImgUrl"
+                     :src="$ImgUrlRelative(piectImgUrl)"
                      >
               </el-dialog>
               <!--裁剪图片-->
@@ -132,7 +132,7 @@
                    >
             </el-upload>
             <video v-if="articleForm.video"
-                   :src="pieceVideoUrl"
+                   :src="$ImgUrlRelative(pieceVideoUrl)"
                    class="avatar"
                    controls="controls">
             </video>
@@ -283,7 +283,7 @@
         return systemManage.getApi(this.articleForm.video)
       },
       connectClassOne() {
-        console.log(this.oneClassOptions, 'computed')
+        // console.log(this.oneClassOptions, 'computed')
         let that = this
         let index = this.oneClassOptions.findIndex(function(item) {
           return item.id === that.articleForm.classOne
@@ -566,7 +566,7 @@
                     this.isText = false
                     // 调转到个人中心文章首页
                     this.$router.push({
-                      path: '/person/myEssay/1'
+                      path: '/person/myessay/1'
                     })
                     this.$forceUpdate()
                   } else if (response.data.code === 2) {
@@ -657,7 +657,7 @@
                     this.isText = false
                     // 调转到个人中心文章首页
                     this.$router.push({
-                      path: '/person/myEssay/1'
+                      path: '/person/myessay/1'
                     })
                     this.$forceUpdate()
                   } else if (response.data.code === 2) {
@@ -708,7 +708,7 @@
       }
     },
     mounted() {
-      console.log(this.connectClassOne, 'connectClassOne')
+      // console.log(this.connectClassOne, 'connectClassOne')
       if (
         localStorage.getItem('userMsg') &&
         localStorage.getItem('userMsg') != ''

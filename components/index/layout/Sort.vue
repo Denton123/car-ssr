@@ -1,7 +1,7 @@
 <template>
   <div class="sorts">
     <div class="sorts-container">
-      <router-link :to="`/index/rankList/${sortType}/1`">
+      <router-link :to="`/index/ranklist/${sortType}/1`">
         <div class="sorts-title"
           v-text="title"></div>
       </router-link>

@@ -21,13 +21,13 @@
           </div>
           <div class="footer_link">
             <a class="footer_copyright footer_mb">联系我们：180 1170 3706</a>
-            <span>友情链接：</span>
-            <a class="footer_link_ad" href="http://trumpchi.gacmotor.com" target="_blank">广汽传祺</a>
-            <a class="footer_link_ad" href="http://www.ftms.com.cn" target="_blank">广汽丰田网</a>
-            <a class="footer_link_ad" href="http://www.gmmc.com.cn" target="_blank">广汽三菱</a>
-            <a class="footer_link_ad" href="http://www.acura.com.cn" target="_blank">广汽讴歌</a>
-            <a class="footer_copyright" href="http://www.jfcar.com.cn" target="_blank">Copyright © 尖锋咖</a>
-            <a class="footer_copyright">粤ICP备18159865号</a>
+            <span v-if="isIndex">友情链接：</span>
+            <a v-if="isIndex" class="footer_link_ad" href="http://trumpchi.gacmotor.com" target="_blank">广汽传祺</a>
+            <a v-if="isIndex" class="footer_link_ad" href="http://www.ftms.com.cn" target="_blank">广汽丰田网</a>
+            <a v-if="isIndex" class="footer_link_ad" href="http://www.gmmc.com.cn" target="_blank">广汽三菱</a>
+            <a v-if="isIndex" class="footer_link_ad" href="http://www.acura.com.cn" target="_blank">广汽讴歌</a>
+            <a  class="footer_copyright" href="http://www.jfcar.com.cn" target="_blank">Copyright © 尖锋咖</a>
+            <a  class="footer_copyright">粤ICP备18159865号</a>
           </div>
         </div>
       </div>
@@ -95,6 +95,11 @@ export default {
           toLink: '/hobby/1'
         }
       ]
+    }
+  },
+  computed: {
+    isIndex () {
+      return this.$route.name == 'index';
     }
   }
 }

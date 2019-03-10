@@ -6,7 +6,7 @@
         <div class="person_wrap">
           <div class="person_head">
             <img v-if="userData.blogger && userData.blogger.photo"
-                 :src="formatPic(userData.blogger && userData.blogger.photo)"
+                 :src="$ImgUrlRelative(formatPic(userData.blogger && userData.blogger.photo))"
                  :alt="userData.blogger.loginName"
                  :onerror="defaultImg">
           </div>
@@ -64,10 +64,10 @@
         <ul class="clearfix">
           <li v-for="(item, index) in blogerListData"
               :key="index">
-            <nuxt-link :to="`/${item.title !== 'hobbies'? item.classLabel.toLowerCase() : 'hobbies'}/${item.title !== 'hobbies' ? 'detail' : 'hobbiesDetail'}/${item.id}/1`">
+            <nuxt-link :to="$replaceDetailUrl(`/${item.title !== 'hobbies'? item.classLabel.toLowerCase() : 'hobbies'}/${item.title !== 'hobbies' ? 'detail' : 'hobbiesdetail'}/${item.id}/1`)">
               <div class="bloger_list">
                 <div class="bloger_list_top">
-                  <img :src="formatPic(item.photo && item.photo)"
+                  <img :src="$ImgUrlRelative(formatPic(item.photo && item.photo))"
                        :alt="item.title== 'hobbies' ? '兴趣部落':item.title ">
                   <div class="bloger_mark"
                        v-if="item.title == 'hobbies'">兴趣部落</div>
@@ -232,7 +232,7 @@
       },
       // 跳转到兴趣部落文章详情页
       toHobbiesDetail(id) {
-        this.$router.push({ path: `/hobbies/hobbiesdetail/${id}/1` })
+        this.$router.push({ path: this.$replaceDetailUrl(`/hobbies/hobbiesdetail/${id}/1`) })
       },
       // 图片
       formatPic(item) {

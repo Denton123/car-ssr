@@ -75,7 +75,7 @@
                         <el-dialog :visible.sync="dialogVisible"
                                    append-to-body>
                           <img class="imgSize"
-                               :src="dialogImageUrl"
+                               :src="$ImgUrlRelative(dialogImageUrl)"
                                alt="">
                         </el-dialog>
                       </div>
@@ -100,7 +100,7 @@
                         <i class="el-icon-plus"></i>
                       </el-upload>
                       <video v-if="hobbyForm.video"
-                             :src="pieceVideoUrl"
+                             :src="$ImgUrlRelative(pieceVideoUrl)"
                              class="avatar"
                              controls="controls">
                       </video>
@@ -261,10 +261,10 @@
       },
       handlePictureCardPreview(file) {
         if (file.response && file.response.code === 0) {
-          this.dialogImageUrl = file.url 
+          this.dialogImageUrl = file.url
           this.dialogVisible = true
         } else {
-          this.dialogImageUrl = file.url 
+          this.dialogImageUrl = file.url
           this.dialogVisible = true
         }
       },
@@ -422,7 +422,7 @@
                     this.$refs[formName].resetFields()
                     // 调转到个人中心文章首页
                     this.$router.push({
-                      path: '/person/myEssay/1'
+                      path: '/person/myessay/1'
                     })
                     this.$forceUpdate()
                   } else if (response.data.code === 2) {
@@ -525,7 +525,7 @@
                     this.resetForm(formName)
                     // 调转到个人中心文章首页
                     this.$router.push({
-                      path: '/person/myEssay/1'
+                      path: '/person/myessay/1'
                     })
                     this.$forceUpdate()
                   } else if (response.data.code === 2) {
@@ -594,7 +594,7 @@
       }
     },
     mounted() {
-      this.$nextTick(async () => {      
+      this.$nextTick(async () => {
       })
     },
     components: {

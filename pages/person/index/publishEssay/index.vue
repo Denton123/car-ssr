@@ -3,11 +3,11 @@
     <el-breadcrumb separator-class="el-icon-arrow-right"
                    class="nav_title">
       <el-breadcrumb-item>
-        <router-link to="/person/myEssay/1">个人中心
+        <router-link to="/person/myessay/1">个人中心
         </router-link>
       </el-breadcrumb-item>
       <el-breadcrumb-item>
-        <router-link to="/person/myEssay/1">我的文章
+        <router-link to="/person/myessay/1">我的文章
         </router-link>
       </el-breadcrumb-item>
       <el-breadcrumb-item class="nav_title_active">发表文章</el-breadcrumb-item>
@@ -101,11 +101,11 @@
                   v-show="isCropper">
                 </div>
               </el-upload>
-              <el-dialog 
+              <el-dialog
                 :visible.sync="dialogVisible"
                 append-to-body>
                 <img class="imgSize"
-                    :src="piectImgUrl"
+                    :src="$ImgUrlRelative(piectImgUrl)"
                     alt="">
               </el-dialog>
               <!--裁剪图片-->
@@ -605,7 +605,7 @@
                     this.isText = false
                     // 调转到个人中心文章首页
                     this.$router.push({
-                      path: '/person/myEssay/1'
+                      path: '/person/myessay/1'
                     })
                     this.$forceUpdate()
                   } else if (response.data.code === 2) {
@@ -696,7 +696,7 @@
                     this.isText = false
                     // 调转到个人中心文章首页
                     this.$router.push({
-                      path: '/person/myEssay/1'
+                      path: '/person/myessay/1'
                     })
                     this.$forceUpdate()
                   } else if (response.data.code === 2) {
@@ -854,7 +854,7 @@
           }
         })
       })
-     
+
     },
     components: {
       Header,
@@ -972,7 +972,7 @@
   .article_content_editEssay{
      margin-top: 1px;
    }
-  .article_content_editEssay .el-breadcrumb__inner a:hover, 
+  .article_content_editEssay .el-breadcrumb__inner a:hover,
   .article_content_editEssay .el-breadcrumb__inner.is-link:hover{
     color: #be001e;
   }

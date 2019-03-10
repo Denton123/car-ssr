@@ -76,7 +76,7 @@
                         <el-dialog :visible.sync="dialogVisible"
                           append-to-body>
                           <img class="imgSize"
-                            :src="piectImgUrl"
+                            :src="$ImgUrlRelative(piectImgUrl)"
                             alt="">
                         </el-dialog>
                       </div>
@@ -384,7 +384,7 @@ export default {
                   this.$refs[formName].resetFields()
                   // 调转到个人中心文章首页
                   this.$router.push({
-                    path: '/person/myEssay/1'
+                    path: '/person/myessay/1'
                   })
                   this.$forceUpdate()
                 } else if (response.data.code === 2) {
@@ -487,7 +487,7 @@ export default {
                   this.resetForm(formName)
                   // 调转到个人中心文章首页
                   this.$router.push({
-                    path: '/person/myEssay/1'
+                    path: '/person/myessay/1'
                   })
                   this.$forceUpdate()
                 } else if (response.data.code === 2) {

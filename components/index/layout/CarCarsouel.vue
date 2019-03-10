@@ -11,7 +11,7 @@
           </div>
           <a :href="item.linkurl"
             class="car_carsouel_a">
-            <img :src="item.url "
+            <img :src="$ImgUrlRelative(item.url)"
               :alt="item.title"
               width="100%"
               height="100%">
@@ -66,7 +66,8 @@ export default {
           item.url = item.url
         }
         return item
-      }); console.log(result)
+      });
+      // console.log(result)
       return result
     },
     carFlag: function() {

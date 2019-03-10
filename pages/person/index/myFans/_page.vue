@@ -16,7 +16,7 @@
           <nuxt-link :to="`/bloger/${item.id}/1`">
           <span class="head_image"
                v-if="item.photo !== ''">
-            <img :src="formatPic(item.photo)" :alt="item.loginName">
+            <img :src="$ImgUrlRelative(formatPic(item.photo))" :alt="item.loginName">
           </span>
           <span class="head_image"
                v-else>
@@ -159,7 +159,7 @@ export default {
     pageChange(page) {
       // console.log(page, 'page')
       this.$router.push({
-        path: `/person/myFans/${page}`
+        path: `/person/myfans/${page}`
       })
       this.fansList(page)
     },

@@ -112,14 +112,14 @@
                  @mouseenter="isRedOn(index)"
                  @mouseleave="isRedIn"
               :key="index">
-              <nuxt-link :to="`/hobbies/hobbiesdetail/${mockHobbyItem.id}/1`">
+              <nuxt-link :to="$replaceDetailUrl(`/hobbies/hobbiesdetail/${mockHobbyItem.id}/1`)">
                                 <span class="box-picture"
                                       v-for="(hobbyPicture, index) in mockHobbyItem.photoList"
                                       :key="index">
                   <!--<img src="./picture/x1.png">-->
                   <img class="get-hobby-image"
                        :alt="mockHobbyItem.description"
-                       :src="piectImgUrl(hobbyPicture)"
+                       :src="$ImgUrlRelative(piectImgUrl(hobbyPicture))"
                        :class="hobbiesImageChage(mockHobbyItem.photoList, index)">
                 </span>
               </nuxt-link>
@@ -128,7 +128,7 @@
                       <div class="red-line"
                            v-show="isRed===index"><img src="~static/picture/line_red.png"> </div>
                       <div class="title-wrap">
-                        <nuxt-link :to="`/hobbies/hobbiesdetail/${mockHobbyItem.id}/1`">
+                        <nuxt-link :to="$replaceDetailUrl(`/hobbies/hobbiesdetail/${mockHobbyItem.id}/1`)">
                                                  <span class="detail-hobby-title"
                                                        @mouseenter="isRedOn(index)"
                                                  >
@@ -141,7 +141,7 @@
                         <nuxt-link :to="`/bloger/${mockHobbyItem.userId}/1`">
                             <span style="display: inline-block;float:left" v-if="mockHobbyItem.authorphoto !== ''&&mockHobbyItem.authorphoto !== null">
                                  <img class="detail-container-left-img"
-                                      :src="piecImgUrl(mockHobbyItem)"
+                                      :src="$ImgUrlRelative(piecImgUrl(mockHobbyItem))"
                                       :alt="mockHobbyItem.userName"
                                  >
                             </span>
@@ -195,7 +195,7 @@
                     v-if="bloggerItem.authorPhoto !== ''&& bloggerItem.authorPhoto !== null"
                     :alt="bloggerItem.authorName"
                     class="avatar-blogger"
-                  :src="piecImgUrlS(bloggerItem)">
+                  :src="$ImgUrlRelative(piecImgUrlS(bloggerItem))">
                 <img v-else
                     class="avatar-blogger"
                     :alt="`${bloggerItem.authorName}`"
@@ -229,7 +229,7 @@
                 v-show="monthDecoration"><img src="~static/picture/hotpoint.jpg"
                   class="height=6px;width=90px"></div>
             </div>
-            <nuxt-link :to="`/hobbies/rankList/${rankId}/1`">
+            <nuxt-link :to="`/hobbies/ranklist/${rankId}/1`">
               <span class="text-more">更多></span>
             </nuxt-link>
             <div class="decoration-line"></div>
@@ -243,7 +243,7 @@
                 :class="{ whiteTextOn : index ===0 || index===1 || index===2}">{{index+1}}</div>
               <div class="titleRank">
 
-                <nuxt-link :to="`/hobbies/hobbiesdetail/${hostPointItem.hobbiesId}/1`">{{hostPointItem.description}}</nuxt-link>
+                <nuxt-link :to="$replaceDetailUrl(`/hobbies/hobbiesdetail/${hostPointItem.hobbiesId}/1`)">{{hostPointItem.description}}</nuxt-link>
               </div>
               <!--<div class="content-left-hostPoint"></div>-->
               <!--<div class="content-right-hostPoint">-->
@@ -265,7 +265,7 @@
               <div class="textRank"
                 :class="{ whiteTextOn : index ===0 || index===1 || index===2}">{{index+1}}</div>
               <div class="titleRank">
-                <nuxt-link :to="`/hobbies/hobbiesdetail/${hostPointItem.hobbiesId}/1`">{{hostPointItem.description}}</nuxt-link>
+                <nuxt-link :to="$replaceDetailUrl(`/hobbies/hobbiesdetail/${hostPointItem.hobbiesId}/1`)">{{hostPointItem.description}}</nuxt-link>
               </div>
               <!--<div class="content-left-hostPoint"></div>-->
               <!--<div class="content-right-hostPoint">-->
@@ -767,7 +767,7 @@ export default {
     //   }
     // },
     async getRecentlyHobbiesList(id, page = 1) {
-      console.log(this.sidx, 'sidxsidx')
+      // console.log(this.sidx, 'sidxsidx')
       let wparent = document.getElementsByClassName('content-wrap')
       let contentContain = document.getElementsByClassName('content-contain')
       wparent[0].style.height = 1300 + 'px'
@@ -1035,7 +1035,7 @@ export default {
       setTimeout(() => {
         this.waterFlow('content-wrap', 'contain-hobby-wrap')
       }, 600)
-      console.log(this.recentlyDecorationOn, 'recentlyDecorationOn')
+      // console.log(this.recentlyDecorationOn, 'recentlyDecorationOn')
       // this.scrollEvent()
     },
     // 本月热点——改变按钮样式&&

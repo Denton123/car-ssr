@@ -2,9 +2,9 @@
   <div class="index_card_block"
     :style="{'height':height, 'width': width}">
     <div class="pic">
-      <router-link :to="moduleType == 'hobbies' ? `/${detailsObj[moduleType]}/hobbiesdetail/${card.id == null ? '' : card.id}/1`:  `/${detailsObj[moduleType]}/detail/${card.id == null ? '' : card.id}/1`"
+      <router-link :to="$replaceDetailUrl(moduleType == 'hobbies' ? `/${detailsObj[moduleType]}/hobbiesdetail/${card.id == null ? '' : card.id}/1`:  `/${detailsObj[moduleType]}/detail/${card.id == null ? '' : card.id}/1`)"
         class="img_a">
-        <img :src="formatPic(card.photo)"
+        <img :src="$ImgUrlRelative(formatPic(card.photo))"
           :alt="card.title"
           width="100%"
           height="100%"
@@ -14,13 +14,13 @@
     </div>
     <div class="card-content">
       <router-link class="title"
-        :to="moduleType == 'hobbies' ? `/${detailsObj[moduleType]}/hobbiesdetail/${card.id == null ? '' : card.id}/1`:  `/${detailsObj[moduleType]}/detail/${card.id == null ? '' : card.id}/1`">{{card.title == '' ? '无': card.title}}</router-link>
+        :to="$replaceDetailUrl(moduleType == 'hobbies' ? `/${detailsObj[moduleType]}/hobbiesdetail/${card.id == null ? '' : card.id}/1`:  `/${detailsObj[moduleType]}/detail/${card.id == null ? '' : card.id}/1`)">{{card.title == '' ? '无': card.title}}</router-link>
       <!-- <p class="card-content-desc" v-html="card.digest == '' ? '': card.digest"></p>       -->
       <div class="info clearfix">
         <div class="info_left">
           <router-link :to="`/bloger/${card.authorId}/1`">
             <span class="info_header">
-              <img :src="formatPic(card.photoUrl)"
+              <img :src="$ImgUrlRelative(formatPic(card.photoUrl))"
                 :alt="card.webName !== '' ? card.webName : card.author"
                 height="100%"
                 width="100%">

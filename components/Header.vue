@@ -102,16 +102,16 @@
                 <template slot="title">
                   <div class="car_header_userInfo"
                     @click="toPerson">
-                    <!-- <router-link to="/person/myEssay/1"> -->
+                    <!-- <router-link to="/person/myessay/1"> -->
                     <img v-if="user.photo && user.photo!==''"
-                      :src="formatPic(user.photo)"
+                      :src="$ImgUrlRelative(formatPic(user.photo))"
                       :alt="user.loginName">
                     <img v-else
                       src="~static/detail/detail_user.png"
                       :alt="user.loginName">
                     <!-- </router-link> -->
                   </div>
-                  <router-link to="/person/myEssay/1">
+                  <router-link to="/person/myessay/1">
                     <span class="car_header_user_name">{{user.loginName}}</span>
                   </router-link>
 
@@ -218,7 +218,7 @@ export default {
     },
     toPerson() {
       this.$router.push({
-        path: '/person/myEssay/1'
+        path: '/person/myessay/1'
       })
       // this.toAnotherRouter('resetPassword')
     },
@@ -313,7 +313,7 @@ export default {
       if (this.user.idCard !== '') {
         // console.log('token==============')
         this.$router.push({
-          path: '/person/myEssay/1'
+          path: '/person/myessay/1'
         })
         // this.toAnotherRouter('myEssay')
         // this.toAnotherRouter('publishEssay')
@@ -339,7 +339,7 @@ export default {
     toEssay() {
       if (!!this.tokenObj.token || !!this.cookie) {
           this.$router.push({
-            path: '/person/myEssay/1'
+            path: '/person/myessay/1'
           })
         } else {
           this.$router.push({

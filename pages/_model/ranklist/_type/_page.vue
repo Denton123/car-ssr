@@ -25,7 +25,7 @@
                 @mouseenter="titleActive(item)"
                 @mouseleave="removeTitleActiveFn()">
                 <nuxt-link :to="`/${detailsObj['rank']}/detail/${item.essayId}/1`">
-                  <img :src="piectImgUrl(item)"
+                  <img :src="$ImgUrlRelative(piectImgUrl(item))"
                     :alt="item.title"
                     @error="imgLossLoad(index)"
                     @load="imgSeccessLoad()"
@@ -66,7 +66,7 @@
                 <div class="footerBox">
                   <div class="messageBox">
                     <nuxt-link :to="`/bloger/${item.authorId}/1`">
-                      <img :src="piectProfileUrl(item)"
+                      <img :src="$ImgUrlRelative(piectProfileUrl(item))"
                         :alt="item.NAME || item.name"
                         class="userIcon"></nuxt-link>
                     <nuxt-link :to="`/bloger/${item.authorId}/1`">
@@ -301,7 +301,7 @@ export default {
     },
     pageChangeGetData(newPage, oldPage) {
       this.$router.push({
-        path: `${this.model}/rankList/${this.typeParams.type}/${newPage}`
+        path: `${this.model}/ranklist/${this.typeParams.type}/${newPage}`
       })
       // this.$nextTick(async () => {
       //   if (this.$route.params.type && this.$route.params.type == 'w') {

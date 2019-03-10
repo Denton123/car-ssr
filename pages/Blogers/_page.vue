@@ -25,7 +25,7 @@
             <div class="bloggerList-top">
               <nuxt-link :to="`/bloger/${item.authorId}/1`"
                 style="color: black">
-                  <span class="user_wrap" v-if="item.authorPhoto !== ''&& item.authorPhoto !== null"><img :src="concatImage(item.authorPhoto)"
+                  <span class="user_wrap" v-if="item.authorPhoto !== ''&& item.authorPhoto !== null"><img :src="$ImgUrlRelative(concatImage(item.authorPhoto))"
                       :alt="item.authorName"
                       ></span>
                   <span class="user_wrap" v-else>
@@ -60,16 +60,16 @@
           </div>
           <div class="blogger-middle-right">
             <div class="blogger-list-middle">
-              <nuxt-link :to="`/${item.arr}/${item.arr!== 'hobbies'?'detail':'hobbiesDetail'}/${item.id}/1`">
+              <nuxt-link :to="$replaceDetailUrl(`/${item.arr}/${item.arr!== 'hobbies'?'detail':'hobbiesdetail'}/${item.id}/1`)">
                 <span>
-                  <img :src="concatImage(item.cover)"
+                  <img :src="$ImgUrlRelative(concatImage(item.cover))"
                        :alt="item.title"
                   >
                 </span>
               </nuxt-link>
             </div>
             <div class="blogger-list-right">
-              <nuxt-link :to="`/${item.arr}/${item.arr!== 'hobbies'?'detail':'hobbiesDetail'}/${item.id}/1`">
+              <nuxt-link :to="$replaceDetailUrl(`/${item.arr}/${item.arr!== 'hobbies'?'detail':'hobbiesdetail'}/${item.id}/1`)">
                 <span class="bloggerArticle-title" >
                   <span ><strong>{{item.title}}</strong></span>
                 </span>
@@ -77,7 +77,7 @@
               <div class="line-wrap-blogers">
                 <img src="~static/picture/line.png">
               </div>
-              <nuxt-link :to="`/${item.arr}/${item.arr!== 'hobbies'?'detail':'hobbiesDetail'}/${item.id}/1`">
+              <nuxt-link :to="$replaceDetailUrl(`/${item.arr}/${item.arr!== 'hobbies'?'detail':'hobbiesdetail'}/${item.id}/1`)">
                 <span class="description-list">
                   <span class="digist" v-html="item.digest"></span>
                 </span>
@@ -86,7 +86,7 @@
                 <nuxt-link :to="`/bloger/${item.authorId}/1`"
                 >
                   <span class="right-bottom-wrap" v-if="item.authorPhoto !== ''&& item.authorPhoto !== null">
-                    <img :src="concatImage(item.authorPhoto)"
+                    <img :src="$ImgUrlRelative(concatImage(item.authorPhoto))"
                          :alt="item.authorName"
                     >
                     <span>{{item.authorName}}</span>
@@ -195,10 +195,12 @@ export default {
     Footer,
     pagination
   },
-  async asyncData ({params,req}) {
+  async asyncData ({params,req, route}) {
     let token = Utils.b_getToken(req)
     let totalPage
     let totalCount
+    let currentPage
+    let articleHTMLForMeta
     let bloggerLists = await $get('/web/user/getBollgerRank?',
       {
         pageNo: params.page,
@@ -219,36 +221,20 @@ export default {
         item.arr = 'hobbies'
       }
     })
-    return {
-      totalPage: bloggerLists.data ? bloggerLists.data.totalPageCount : 0,
-      totalCount: bloggerLists.data ? bloggerLists.data.totalBloggerCount : 0,
-      bloggerLists: bloggerLists.data ? bloggerLists.data : [],
-    }
-  },
-  created(){
-      this.currentPage = this.$route.params.page
-      this.bloggerLists.userEntities.forEach(function(item) {
-      if (item.label === '视频') {
-        item.arr = 'video'
-      } else if (item.label === '今日车闻') {
-        item.arr = 'news'
-      } else if (item.label === '新能源') {
-        item.arr = 'ev'
-      } else {
-        item.arr = 'hobbies'
-      }
-    })
+
+    currentPage = params.page
+
     // 以下是为了设置meta
     var tagStr = ''
-    this.bloggerLists.userEntities.forEach((element,index) => {
+    bloggerLists.data.userEntities.forEach((element,index) => {
       if(index == 0){
         //获取每页第一篇文章的摘要
-        this.articleHTMLForMeta =element.digest != '' ? element.digest.replace(/<[^>]+>/g,"") : element.title
-        if(this.articleHTMLForMeta.length >= 120){
-          this.articleHTMLForMeta.slice(0,120);
+        articleHTMLForMeta =element.digest != '' ? element.digest.replace(/<[^>]+>/g,"") : element.title
+        if(articleHTMLForMeta.length >= 120){
+          articleHTMLForMeta.slice(0,120);
         }
         // 获取每页第一篇文章的tag
-        if(element.tagList.length != 0){
+        if(Array.isArray(element.tagList) && element.tagList.length != 0){
           // 如果tagList有数据，则取其
           element.tagList.forEach((e,i) =>{
             if(i <= element.tagList.length - 2 ){
@@ -257,16 +243,27 @@ export default {
               tagStr += `${e.title}`;
             }
           })
-        }else if(element.tag != ''){
+        }else if(element.tag){
+          console.log(element.tag);
           // 如果tagList没有数据，则取tag里的
           tagStr = element.tag
         }else{
           // 如果tagList和tag都没有数据，则等于文本
-          tagStr = this.articleHTMLForMeta
+          tagStr = articleHTMLForMeta
         }
       }
     })
-    this.tagStr = tagStr
+    return {
+      totalPage: bloggerLists.data ? bloggerLists.data.totalPageCount : 0,
+      totalCount: bloggerLists.data ? bloggerLists.data.totalBloggerCount : 0,
+      bloggerLists: bloggerLists.data ? bloggerLists.data : [],
+      tagStr,
+      currentPage,
+      articleHTMLForMeta
+    }
+  },
+  created(){
+
   },
   mounted() {
     // 取token

@@ -16,7 +16,7 @@
           <nuxt-link :to="`/bloger/${item.id}/1`">
           <div class="head_image"
                v-if="item.photo !== ''">
-            <img :src="formatPic(item.photo)" :alt="item.loginName">
+            <img :src="$ImgUrlRelative(formatPic(item.photo))" :alt="item.loginName">
           </div>
           <div class="head_image"
                v-else>

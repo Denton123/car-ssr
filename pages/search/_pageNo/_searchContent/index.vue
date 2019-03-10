@@ -23,7 +23,7 @@
                   @click="toArticleOrHobbiesDetail(eassy)">
                 <div class="
                 img_wrapper">
-                  <img :src="eassy.essayPhoto"
+                  <img :src="$ImgUrlRelative(eassy.essayPhoto)"
                        :alt="eassy.title">
                 </div>
                 <div class="search_item">
@@ -40,7 +40,7 @@
                     <div class="avatar"
                          @click.stop="toBloger(eassy.userId)">
                       <div>
-                        <img :src="eassy.userPhoto"
+                        <img :src="$ImgUrlRelative(eassy.userPhoto)"
                             :alt="eassy.userName&&eassy.userName" >
                         <span class="name">{{eassy.userName&&eassy.userName}}</span>
                       </div>
@@ -299,7 +299,7 @@
       toArticleOrHobbiesDetail(eassy) {
         // console.log(eassy)
         if (eassy.title === 'hobbies') {
-          this.$router.push({ path: `/taglist/hobbiesdetail/${eassy.id}/1` })
+          this.$router.push({ path: this.$replaceDetailUrl(`/taglist/hobbiesdetail/${eassy.id}/1`) })
         } else {
           this.toArticleDetail(eassy.essayId)
         }
@@ -325,7 +325,7 @@
       },
       // 调到排行榜页
       toRank() {
-        this.$router.push({ path: `/search/rankList/${this.type}/1` })
+        this.$router.push({ path: `/search/ranklist/${this.type}/1` })
       },
       // 跳转到文章详情页
       toArticleDetail(essayId) {

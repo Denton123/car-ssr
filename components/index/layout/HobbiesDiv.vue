@@ -3,8 +3,8 @@
     :style="{'height':sHeight, 'width': width}">
     <div class="pic"
       v-if="isContent == '0'">
-      <router-link :to="`/hobbies/hobbiesdetail/${card.id}/1`">
-        <img :src="card.photo"
+      <router-link :to="$replaceDetailUrl(`/hobbies/hobbiesdetail/${card.id}/1`)">
+        <img :src="$ImgUrlRelative(card.photo)"
           :alt="card.title"
           width="100%"
           height="100%"
@@ -12,8 +12,8 @@
       </router-link>
     </div>
     <div v-if="isContent == '1'" class="haveContent">
-      <router-link :to="`/hobbies/hobbiesdetail/${card.id}/1`">
-        <img :src="card.photo"
+      <router-link :to="$replaceDetailUrl(`/hobbies/hobbiesdetail/${card.id}/1`)">
+        <img :src="$ImgUrlRelative(card.photo)"
           :alt="card.title">
       </router-link>
     </div>
@@ -23,7 +23,7 @@
         <div class="info_left"
           @click="$router.push(`/bloger/${cardData.userId}/1`)">
           <span class="info_header">
-            <img :src="formatPic(card.authorphoto) "
+            <img :src="$ImgUrlRelative(formatPic(card.authorphoto))"
               :alt="card.userName"
               height="100%"
               width="100%"
@@ -43,7 +43,7 @@
         <div class="info_left"
           @click="$router.push(`/bloger/${cardData.userId}/1`)">
           <span class="info_header">
-            <img :src="formatPic(card.authorphoto) "
+            <img :src="$ImgUrlRelative(formatPic(card.authorphoto))"
               :alt="card.userName"
               height="100%"
               width="100%"

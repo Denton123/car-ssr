@@ -38,7 +38,7 @@
               :style="{'width': '380px', 'height':'280px',  'overflow': 'hidden', 'margin': '5px'}">
               <div :style="previews.div"
                 class="preview">
-                <img :src="previews.url"
+                <img :src="$ImgUrlRelative(previews.url)"
                   :style="previews.img">
               </div>
             </div>
@@ -139,9 +139,9 @@ export default {
         outputSize: 1, // 剪切后的图片质量（0.1-1）
         full: false, // 输出原图比例截图 props名full
         outputType: 'png || jpeg || jpg',
-        canMove: true, 
-        original: false, 
-        canMoveBox: true, 
+        canMove: true,
+        original: false,
+        canMoveBox: true,
         autoCrop: true,
         autoCropWidth: 380,
         autoCropHeight: 280,
@@ -211,8 +211,8 @@ export default {
                 // 将返回的数据传给父组件（截图）
                 _this.$emit('cropper-after', res.urls[0])
                 this.option.img = ''
-                console.log(this.option.img, 'img')
-                console.log(res.urls[0], '==========')
+                // console.log(this.option.img, 'img')
+                // console.log(res.urls[0], '==========')
               }
             })
         })
@@ -281,7 +281,7 @@ export default {
             })
             // 将返回的数据传给父组件(原图）
             _this.$emit('cropper-before', res.urls[0])
-            console.log(res.urls[0], 'cropper-before')
+            // console.log(res.urls[0], 'cropper-before')
           }
         })
       var reader = new FileReader()

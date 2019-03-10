@@ -15,7 +15,7 @@
           v-if="tagObj.url && tagObj.des">
           <div class="tag_des_img">
             <img v-if="tagObj.url"
-              :src="titleUrl"
+              :src="$ImgUrlRelative(titleUrl)"
               :alt="tagObj.title">
           </div>
           <!--  <div v-if="!tagObj.url"
@@ -40,9 +40,9 @@
               <li v-for="(eassy, index) in eassyListUrl"
                 :key="index"
                 class="tag_list_left_li">
-                <nuxt-link class="tag-nuxt-link" :to=" eassy.title === 'hobbies' ?  `/hobbies/hobbiesdetail/${eassy.id}/1` : `/taglist/detail/${eassy.id}/1`">
+                <nuxt-link class="tag-nuxt-link" :to=" $replaceDetailUrl(eassy.title === 'hobbies' ?  `/hobbies/hobbiesdetail/${eassy.id}/1` : `/taglist/detail/${eassy.id}/1`)">
                   <div class="img_wrapper">
-                    <img :src="eassy.photo"
+                    <img :src="$ImgUrlRelative(eassy.photo)"
                       :alt="eassy.title">
                   </div>
                 </nuxt-link>
@@ -63,7 +63,7 @@
                     <div class="userMsg">
                       <nuxt-link class="tag-nuxt-link" :to="`/bloger/${eassy.userId}/1`">
                         <div class="avatar"
-                        ><img :src="eassy.userPhoto"
+                        ><img :src="$ImgUrlRelative(eassy.userPhoto)"
                             :alt="eassy.userName"><span class="name">{{eassy.userName}}</span><span class="tag_line">|</span>
                         </div>
                       </nuxt-link>
@@ -480,7 +480,7 @@ export default {
         title: this.tagObj.title
       });
       sessionStorage.setItem("tagInfo", tagInfo);
-      this.$router.push({ path: `/taglist/rankList/${this.type}/1` });
+      this.$router.push({ path: `/taglist/ranklist/${this.type}/1` });
     },
     // 跳转到文章详情页
     toArticleDetail(essayId, type) {
@@ -489,7 +489,7 @@ export default {
     // 跳转到兴趣部落文章详情 或 文章
     toArticleOrHobbiesDetail(eassy) {
       if (eassy.title === "hobbies") {
-        this.$router.push({ path: `/hobbies/hobbiesdetail/${eassy.id}/1` });
+        this.$router.push({ path: this.$replaceDetailUrl(`/hobbies/hobbiesdetail/${eassy.id}/1`) });
       } else {
         this.toArticleDetail(eassy.id);
       }
