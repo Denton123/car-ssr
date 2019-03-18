@@ -333,13 +333,13 @@
       },
       // 获取文章周和月排行榜
       _getWeekendRank_() {
-        $get(webEssayGetWeekendRank, { pageNo: '1', size: '12' }).then(res => {
+        $get(webEssayGetWeekendRank, { pageNo: '1', size: '10' }).then(res => {
           this.WeekendRank = res.data.essayEntities
         })
       },
       // 获取文章周和月排行榜
       _getMonthRank_() {
-        $get(webEssayGetMonthRank, { pageNo: '1', size: '12' }).then(res => {
+        $get(webEssayGetMonthRank, { pageNo: '1', size: '10' }).then(res => {
           this.MonthRank = res.data.essayEntities
         })
       },

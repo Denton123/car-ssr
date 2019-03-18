@@ -22,6 +22,8 @@
     return replaceDetailUrl(url)
   }
   Vue.prototype.$FilterHtmlHttp= function (html) {
+
+  // &amp;nbsp;&amp;nbsp;
     return html ? html.replace(/http:\/\/www.jfcar.com.cn/ig, '') : html;
   }
   Vue.prototype.$ImgUrlRelative = function (url) {

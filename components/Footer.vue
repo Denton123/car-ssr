@@ -27,7 +27,12 @@
             <a v-if="isIndex" class="footer_link_ad" href="http://www.gmmc.com.cn" target="_blank">广汽三菱</a>
             <a v-if="isIndex" class="footer_link_ad" href="http://www.acura.com.cn" target="_blank">广汽讴歌</a>
             <a  class="footer_copyright" href="http://www.jfcar.com.cn" target="_blank">Copyright © 尖锋咖</a>
-            <a  class="footer_copyright">粤ICP备18159865号</a>
+            <a  class="footer_copyright">
+              <span class=" footer_copyright-span"> 粤ICP备18159865号</span>
+              <span  class=" footer_copyright-span">
+                <img src="~assets/images/ygaj.png" class="copyright_ygaj"/><p class="copyright_ygaj-title">粤公网安备 44010602006263号</p >
+              </span>
+            </a>
           </div>
         </div>
       </div>
@@ -179,10 +184,28 @@ export default {
   color: #be001e !important;
   cursor: pointer;
 }
-
+.v-fl{
+  float: left;
+}
 .all_footer .footer_copyright {
   display: block;
   margin-top: 10px;
+}
+.footer_copyright-span{
+  float: left;
+  padding-right: 10px;
+}
+.copyright_ygaj{
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  float:left;
+  vertical-align: middle;
+  transform: translateY(2px);
+}
+.copyright_ygaj-title{
+  float:left; color: rgba(153, 153, 153, 1); font-size: 12px;
+  vertical-align: middle;
 }
 
 .all_footer .footer_right {

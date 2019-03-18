@@ -723,8 +723,8 @@ export default {
         userCode,
         isFollow,
         // meta
-        digestMeta: detailData.data.result_data && detailData.data.result_data.essay && detailData.data.result_data.essay.description.replace(/<\/?.+?>/g,"").replace(/ /g,"").slice(0,120),
-        metaTag: detailData.data.result_data && detailData.data.result_data.essay && detailData.data.result_data.essay.tag || '',
+        digestMeta: detailData.data.result_data && detailData.data.result_data.essay && detailData.data.result_data.essay.description.replace(/(<\/?.+?>)|(&amp;)|(nbsp;)|( )|(&)/g,"").slice(0,120) || title,
+        metaTag: detailData.data.result_data && detailData.data.result_data.essay && detailData.data.result_data.essay.tag || title,
         className,
         title
       }
@@ -1595,6 +1595,7 @@ export default {
       this.tagStr = tagStr
   },
   mounted() {
+    console.log(this.digestMeta);
     this.isShowMounted = false
     this.cookie = this.getCookie('token')
     if (this.cookie == '') {
