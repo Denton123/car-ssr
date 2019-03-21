@@ -124,12 +124,12 @@
           <div v-else
             class="car_header_login_registry_operate"
             style="position: relative">
-            <span class="a"
+            <span class="a v-pointer"
               @click="toAnotherRouter('login')">
               <span>登录</span>
             </span>
             <span class="desperate">|</span>
-            <span class="a"
+            <span class="a v-pointer"
               @click="toAnotherRouter('register')">
               <span>注册</span>
             </span>

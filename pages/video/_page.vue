@@ -280,7 +280,7 @@
             v-if="leftSideResult.EssayEntity&&leftSideResult.EssayEntity.length != 0">
             <pagination v-on:pageChange="newPage"
               :totalCount="leftSideResult.essayCount"
-              :pageSize="6"
+              :pageSize="12"
               :totalPage="leftSideResult.totalPageCount"
               :toTop="{x:0,y:760}"
               :routePage='`${currentPage}`'></pagination>
@@ -485,7 +485,7 @@ export default {
         {
           channel: '5',
           pageNo: params.page,
-          size: 10
+          size: 12
         },
         {
           'X-Auth0-Token': token

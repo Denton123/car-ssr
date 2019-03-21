@@ -253,7 +253,7 @@
             v-if="leftSideResult.EssayEntity&&leftSideResult.EssayEntity.length != 0">
             <pagination v-on:pageChange="newPage"
               :totalCount="leftSideResult.essayCount"
-              :pageSize="6"
+              :pageSize="12"
               :totalPage="leftSideResult.totalPageCount"
               :toTop="{x:0,y:760}"
               :routePage='`${currentPage}`'></pagination>

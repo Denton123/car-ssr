@@ -61,7 +61,7 @@
                            prev-text="上一页"
                            next-text="下一页"
                            :page-count="pageObj.totalPage"
-                           :page-size="6"
+                           :page-size="12"
                            :total="pageObj.totalCount">
             </el-pagination>
           </div>

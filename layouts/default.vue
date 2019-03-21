@@ -91,5 +91,7 @@
   .v-fs-24{
     font-size: 24px;
   }
-
+  .v-pointer{
+    cursor: pointer;
+  }
 </style>

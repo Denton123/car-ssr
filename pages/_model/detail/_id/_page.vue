@@ -213,7 +213,7 @@
             <div class="detail_comment_form">
               <div class="detail_comment_form_avatar">
                 <div class="detail_comment_form_avatar_wrap">
-                  <img v-if="user.photo !== ''"
+                  <img v-if="$ImgUrlRelative(formatPic(user.photo))"
                     :alt="user.loginName"
                     :src="$ImgUrlRelative(formatPic(user.photo))">
                   <img v-else
@@ -414,7 +414,7 @@
                 :key="index">
 
                 <nuxt-link :to="$replaceDetailUrl(`/${hot.className}/${hot.className !== 'hobbies' ? 'detail' : 'hobbiesdetail' }/${hot.id}/1`)">
-                  <div v-if="hot.cover !== ''">
+                  <div v-if="$ImgUrlRelative(formatPic(hot.cover))">
                     <img :src="$ImgUrlRelative(formatPic(hot.cover))" :alt="hot.title">
                   </div>
                   <div v-else
@@ -454,7 +454,7 @@
                 :key="index">
 
                 <nuxt-link :to="$replaceDetailUrl(`/${random.className}/${random.className !== 'hobbies' ? 'detail' : 'hobbiesdetail'}/${random.id}/1`)">
-                  <div v-if="random.cover!==''">
+                  <div v-if="$ImgUrlRelative(formatPic(random.cover))">
                     <img :src="$ImgUrlRelative(formatPic(random.cover))" :alt="random.title">
                   </div>
                   <div v-else

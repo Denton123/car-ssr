@@ -4,14 +4,14 @@
     <h2> {{ this.userData.loginName }}的文章<span>{{num}}</span>篇</h2>
     <div class="detail_content_article_title_operate">
       <span
-        class="publishEssay a"
+        class="publishEssay a v-pointer"
         v-if="userData.grade == 2"
         @click="publicRouter">
         <span class="detail_content_article_title_operate_plus">+</span>
         <span>发文章</span>
       </span>
       <span
-        class="publishHobbies a"
+        class="publishHobbies a v-pointer"
         @click="hobbiesRouter">
         <span class="detail_content_article_title_operate_plus">+</span>
         <span>发兴趣</span>

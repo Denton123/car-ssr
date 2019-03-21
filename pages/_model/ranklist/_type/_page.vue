@@ -6,6 +6,7 @@
         <span class="crumbsItem"
           :class="index == (crumbsData.length-1)?'active':''"
           v-for="(item,index) in crumbsData"
+              v-if="(['首页', '排行']).some(v => { return item.pathName.indexOf(v) != -1 })"
           :key="index">
           <nuxt-link :to="`${item.link}`">{{item.pathName}}</nuxt-link>
           <i class="crumbsIcon"

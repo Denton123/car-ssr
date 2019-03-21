@@ -233,6 +233,9 @@ export default {
       if(reg.test(value)){
         this.state = false
          return callback(new Error('昵称不能有空格'))
+      } else  if(!value ){
+        this.state = false
+        return callback(new Error('请输入昵称'))
       }else {
         this.state = true
         callback()
