@@ -40,7 +40,7 @@
               <li v-for="(eassy, index) in eassyListUrl"
                 :key="index"
                 class="tag_list_left_li">
-                <nuxt-link class="tag-nuxt-link" :to=" $replaceDetailUrl(eassy.title === 'hobbies' ?  `/hobbies/hobbiesdetail/${eassy.id}/1` : `/taglist/detail/${eassy.id}/1`)">
+                <nuxt-link class="tag-nuxt-link" :to=" $replaceDetailUrl(eassy.title === 'hobbies' ?  `/${detailsObj['hobbies']}/hobbiesdetail/${eassy.id}/1` : `/${detailsObj['taglist']}/detail/${eassy.id}/1`)">
                   <div class="img_wrapper">
                     <img :src="$ImgUrlRelative(eassy.photo)"
                       :alt="eassy.title">
@@ -49,13 +49,13 @@
                   <div class="tag_item">
                     <p class="tag_title"
                       v-if="eassy.title !== 'hobbies'">
-                      <nuxt-link class="tag-nuxt-link tag-nuxt-des nuxt-redColor" :to="`/taglist/detail/${eassy.id}/1`"><strong>{{eassy.title}}</strong>
+                      <nuxt-link class="tag-nuxt-link tag-nuxt-des nuxt-redColor" :to="`/${detailsObj['taglist']}/detail/${eassy.id}/1`"><strong>{{eassy.title}}</strong>
                       </nuxt-link>
                     </p>
                     <div class="tag_line">
                       <span class="one"></span><span class="two"></span>
                     </div>
-                    <nuxt-link class="tag-nuxt-link tag-nuxt-des" :to="`/taglist/detail/${eassy.id}/1`">
+                    <nuxt-link class="tag-nuxt-link tag-nuxt-des" :to="`/${detailsObj['taglist']}/detail/${eassy.id}/1`">
                     <div class="des nuxt-redColor">
                       {{eassy.digest}}
                     </div>
@@ -162,6 +162,7 @@ import {
   webEssayGetWeekendRank,
   webEssayGetMonthRank
 } from "@/http/api";
+import { detailsObj } from '@/utils/defaultConfig.js'
 export default {
   name: "tagList",
   head(){
@@ -286,6 +287,7 @@ export default {
   },
   data() {
     return {
+      detailsObj: detailsObj,
       tagStr:'',
       metaDesc:'',
       activeName: "weekRank",
@@ -484,7 +486,7 @@ export default {
     },
     // 跳转到文章详情页
     toArticleDetail(essayId, type) {
-      this.$router.push({ path: `/taglist/detail/${essayId}/1` });
+      this.$router.push({ path: `/${this.detailsObj['taglist']}/detail/${essayId}/1` });
     },
     // 跳转到兴趣部落文章详情 或 文章
     toArticleOrHobbiesDetail(eassy) {
