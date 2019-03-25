@@ -7,7 +7,7 @@
       <div class="tag_content_nav">
         <div class="tag_breadCrumb">
           <el-breadcrumb separator-class="el-icon-arrow-right">
-            <el-breadcrumb-item :to="{ path: preRouteObj.path }">{{ preRouteObj.name}}</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: preRouteObj.path }">{{ preRouteObj.name || '首页'}}</el-breadcrumb-item>
             <el-breadcrumb-item class="current"><strong>{{tagObj.title}}</strong></el-breadcrumb-item>
           </el-breadcrumb>
         </div>
@@ -281,9 +281,44 @@ export default {
       } else if (mypath.indexOf("sorts") === 0) {
         name = "排行榜";
       }
+      if (myFrom) {
+        var arr = myFrom.mypath.split('/');
+        switch (arr[0]) {
+          case 'search':
+            name = "首页";
+            break;
+          case 'hots':
+            name = "首页";
+            break;
+
+          case 'news':
+            name = "今日车闻";
+            break;
+
+          case 'ev':
+            name = "新能源";
+            break;
+
+          case 'hobby':
+            name = "兴趣部落";
+            break;
+
+          case 'video':
+            name = "视频";
+            break;
+
+          case 'sorts':
+            name = "排行榜";
+            break;
+
+        }
+      }
       this.preRouteObj = { path: myFrom.fullPath, name };
-        // console.log('preRouteOjb', this.preRouteObj)
+
+      this.$forceUpdate();
     }
+  },
+  mounted () {
   },
   data() {
     return {
@@ -346,7 +381,40 @@ export default {
         } else if (mypath.indexOf("sorts") === 0) {
           name = "排行榜";
         }
+        if (myFrom && myFrom.mypath) {
+          var arr = myFrom.mypath.split('/');
+          switch (arr[0]) {
+            case 'search':
+              name = "首页";
+              break;
+            case 'hots':
+              name = "首页";
+              break;
+
+            case 'news':
+              name = "今日车闻";
+              break;
+
+            case 'ev':
+              name = "新能源";
+              break;
+
+            case 'hobby':
+              name = "兴趣部落";
+              break;
+
+            case 'video':
+              name = "视频";
+              break;
+
+            case 'sorts':
+              name = "排行榜";
+              break;
+
+          }
+        }
         vm.preRouteObj = { path: myFrom.fullPath, name };
+
         vm.currentRouteObj = { path: to.fullPath, name: to.meta.title };
       } else {
         if (
@@ -377,6 +445,38 @@ export default {
             mypath
           })
         );
+        if (mypath) {
+          var arr = mypath.split('/');
+          switch (arr[0]) {
+            case 'search':
+              name = "首页";
+              break;
+            case 'hots':
+              name = "首页";
+              break;
+
+            case 'news':
+              name = "今日车闻";
+              break;
+
+            case 'ev':
+              name = "新能源";
+              break;
+
+            case 'hobby':
+              name = "兴趣部落";
+              break;
+
+            case 'video':
+              name = "视频";
+              break;
+
+            case 'sorts':
+              name = "排行榜";
+              break;
+
+          }
+        }
         vm.preRouteObj = { path: from.fullPath, name };
       }
       vm.currentRouteObj = { path: to.fullPath, name: to.meta.title };
