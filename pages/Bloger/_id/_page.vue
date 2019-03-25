@@ -56,7 +56,8 @@
     </div>
     <div class="bloger_content">
       <div class="bloger_title">
-        <img src="/static/images/tagList_nav.png"
+        <!--~static/detail/detail_article.png-->
+        <img src="~static/detail/detail_article.png"
              alt="">
         <h1 class="v-inline v-fw-bold v-fs-24"  > {{userData.blogger && userData.blogger.loginName}}的文章  <span>{{blogerListDataSize}}篇</span> </h1>
       </div>
