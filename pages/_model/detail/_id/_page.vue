@@ -202,7 +202,7 @@
         </div>
 
         <!-- 发布评论 -->
-        <div class="detail_comment">
+        <div class="detail_comment" >
           <div class="detail_comment_title">
             <img src="~static/detail/detail_article.png">
             <h2>发布评论</h2>
@@ -730,17 +730,24 @@ export default {
       }
   },
     computed: {
-    solveCommentList() {
-    let result = this.articleCommentData.map(item => {
-      item.commentText = item.commentText.replace(/(&amp;nbsp;)/g, ' ')
-      item.replyList = item.replyList.map(innerItem => {
-        innerItem.commentText = innerItem.commentText.replace(/(&amp;nbsp;)/g, ' ')
-        return innerItem
-      })
-      return item
-      })
-      return result
-    }
+      solveCommentList() {
+          let result = this.articleCommentData.map(item => {
+            item.commentText = item.commentText.replace(/(&amp;nbsp;)/g, ' ')
+            if ( Array.isArray(item.replyList) ) {
+              for (var key in item.replyList) {
+                var innerItem = item.replyList[key]
+                innerItem.commentText = innerItem.commentText && innerItem.commentText.replace(/(&amp;nbsp;)/g, ' ')
+                item.replyList[key] = innerItem;
+              }
+            }
+            // item.replyList = Array.isArray(item.replyList) && item.replyList.map(innerItem => {
+            //   innerItem.commentText = innerItem.commentText.replace(/(&amp;nbsp;)/g, ' ')
+            //   return innerItem
+            // })
+            return item
+          })
+          return result
+      }
   },
   methods: {
     getArticle() {
@@ -1420,14 +1427,12 @@ export default {
             this.cookie !== '' ? this.cookie : this.tokenObj.token
         }
       ).then(res => {
-        // console.log(res, 'res')
         if (res.data.code == 0) {
           this.user = res.data.des.user
           this.userCode = res.data.code
           if (this.userCode == 2) {
             this.isFollow = '关注'
           }
-          // console.log(this.userCode)
         }
       })
     },
@@ -1595,7 +1600,6 @@ export default {
       this.tagStr = tagStr
   },
   mounted() {
-    console.log(this.digestMeta);
     this.isShowMounted = false
     this.cookie = this.getCookie('token')
     if (this.cookie == '') {
@@ -1611,12 +1615,12 @@ export default {
       this.essayid = this.$route.params.id
       // this.getLoginUserInfo()
       // 以下getArticleData（）为客户端再渲染一次，不能去掉，否则点赞爆胎刷新之后就没了
-      //  this.getArticleData()
-      //  this.getUserInfo()
+       this.getArticleData()
+       this.getUserInfo()
       this.isShowMounted = true
       let ad = document.getElementById('advertisement')
       if (ad) {
-        ;(window.slotbydup = window.slotbydup || []).push({
+        (window.slotbydup = window.slotbydup || []).push({
           id: '5993946',
           container: ad,
           size: '1200,200',
