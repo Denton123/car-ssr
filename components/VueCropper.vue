@@ -35,7 +35,7 @@
           </div>
           <div style="margin-left:20px;">
             <div class="show-preview"
-              :style="{'width': '380px', 'height':'280px',  'overflow': 'hidden', 'margin': '5px'}">
+              :style="{'width': '380px', 'height':'214px',  'overflow': 'hidden', 'margin': '5px'}">
               <div :style="previews.div"
                 class="preview">
                 <img :src="$ImgUrlRelative(previews.url)"
@@ -65,12 +65,12 @@
                 @click="rotateRight">↻</el-button>
               <el-button type="primary"
                 class="el-button el-button--primary"
-                title="380*280"
-                @click="smallCrop">380*280</el-button>
+                title="380*214"
+                @click="smallCrop">380*214</el-button>
               <el-button type="primary"
                 class="el-button el-button--primary"
-                title="790*450"
-                @click="bigCrop">790*450</el-button>
+                title="790*444"
+                @click="bigCrop">790*444</el-button>
             </el-col>
             <el-col :span="6">
               <input type="button"
@@ -144,7 +144,7 @@ export default {
         canMoveBox: true,
         autoCrop: true,
         autoCropWidth: 380,
-        autoCropHeight: 280,
+        autoCropHeight: 214,
         fixedBox: true //是否固定截图框大小，不允许改变
       },
       fileName: '', // 本机文件地址
@@ -173,12 +173,12 @@ export default {
     // 380*280尺寸
     smallCrop () {
       this.option.autoCropWidth = 380
-      this.option.autoCropHeight = 280
+      this.option.autoCropHeight = 214
     },
     // 790*450尺寸
     bigCrop () {
       this.option.autoCropWidth = 790
-      this.option.autoCropHeight = 450
+      this.option.autoCropHeight = 444
     },
     // 上传图片（点击上传按钮）
     finish(type) {

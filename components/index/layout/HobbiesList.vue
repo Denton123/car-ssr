@@ -7,7 +7,7 @@
         <li v-for="(child, index) in item"
           :key="index">
           <hobbies-div width="380px"
-            height="350px"
+            height="284px"
             :cardData="child"></hobbies-div>
         </li>
       </ul>
@@ -71,7 +71,7 @@ export default {
 .car_card_list ul {
   width: 1200px;
   font-size: 0px;
-  height: 380px;
+  height: 312px;
 }
 
 .car_card_list ul li {

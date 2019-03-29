@@ -1,31 +1,5 @@
 <template>
   <div class="big_container">
-    <!-- <swiper :options="swiperOption"
-      :ref="id"
-      class="big_coursel_swiper"
-      v-if="list && list.length > 1"
-      @slideChange="change">
-      <swiper-slide v-for="(item, index) in list"
-        :key="index"
-        >
-        <div class="item">
-          <a :href="item.linkurl"
-            class="big_coursel_swiper_a"
-            target="_blank">
-            <img :src="concatImage(item.url)">
-            <div class="cover"
-              ></div>
-          </a>
-        </div>
-      </swiper-slide>
-      <div class="swiper-button-prev swiper-button-white"
-        slot="button-prev"
-        @click="prev"></div>
-      <div class="swiper-button-next swiper-button-white"
-        slot="button-next"
-        @click="next"></div>
-    </swiper> -->
-
     <!-- ssr写法： -->
     <div v-swiper:mySwiper100="swiperOption" v-if="list && list.length > 1"  class="big_coursel_swiper">
       <div class="swiper-wrapper">
@@ -49,35 +23,6 @@
         @click="next"></div>
 
     </div>
-    <!-- <div v-swiper:mySwiper="swiperOption"
-      :ref="id"
-      class="big_coursel_swiper"
-      v-if="listData.length"
-      @slideChange="change">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide"
-          v-for="(item, index) in list"
-          :key="index">
-          <div class="item">
-            <a :href="item.linkurl"
-              class="big_coursel_swiper_a"
-              target="_blank">
-              <img :src="item.url"
-                :alt="item.title">
-              <div class="cover"
-                v-if="activeIndex !== index"></div>
-            </a>
-          </div>
-        </div>
-      </div>
-      <div class="swiper-button-prev swiper-button-white"
-        slot="button-prev"
-        @click="prev"></div>
-      <div class="swiper-button-next swiper-button-white"
-        slot="button-next"
-        @click="next"></div>
-    </div> -->
-
     <div class="titleBg">
     </div>
     <div class="bg-titleWrap">
@@ -165,16 +110,6 @@ export default {
     }
   },
   mounted() {
-    // console.log(this.list, 'list')
-    // this.$nextTick(() => {
-    //   this.mySwiper = this.$refs[this.id].swiper
-    // })
-    // setTimeout(() => {
-    //   this.mySwiper = new Swiper('.big_coursel_swiper', {
-    //     ...this.swiperOption
-    //   })
-    // }, 100)
-    // console.log(this.mySwiper.slideChange)
         if(this.mySwiper100){
           this.mySwiper100.init()
         }
@@ -215,13 +150,6 @@ export default {
 
     // 向右滑动
     next() {
-      // if (this.activeIndex < this.listData.length - 1) {
-      //   this.mySwiper.slideTo(this.activeIndex + 1)
-      // } else {
-      //   this.mySwiper.slideTo(0)
-      // }
-      // this.$refs[this.id].swiper.autoplay = true
-
         this.mySwiper100.loop = false;
       this.mySwiper100.slideNext();
       this.mySwiper100.autoplay.start();
@@ -272,11 +200,11 @@ export default {
   background-color: red;
 }
 .big_container .swiper-slide {
-  width: 1200px;
+  width: 1030px;
 }
 .big_container .titleBg
  {
-  width: 1200px;
+  width: 1030px;
   height: 60px;
   background-color: #000;
   opacity: 0.5;
@@ -290,7 +218,7 @@ export default {
   transform: translateX(-50%);
 }
 .big_container .bg-titleWrap{
-  width: 1200px;
+  width: 1030px;
   height: 60px;
   color: #ffffff;
   position: absolute;
@@ -303,7 +231,7 @@ export default {
 }
 
 .big_container .bg-titleWrap{
-  width: 1200px;
+  width: 1030px;
   height: 60px;
   color: #ffffff;
   position: absolute;
@@ -360,11 +288,11 @@ export default {
 }
 .big_container .swiper-button-prev.swiper-button-white {
   /* margin-left: 40px; */
-  width: calc((100% - 1200px) / 2);
+  width: calc((100% - 1030px) / 2);
   height: 598px;
 }
 .big_container .swiper-button-next.swiper-button-white {
-  width: calc((100% - 1200px) / 2);
+  width: calc((100% - 1030px) / 2);
   height: 598px;
 }
 .big_container .swiper-button-next {

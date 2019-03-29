@@ -82,7 +82,7 @@
               <el-radio-button :label="2">无水印</el-radio-button>
             </el-radio-group>
             <!-- 截图开始 -->
-            <div class="article_file_picture">
+            <div class="article_file_picture v-cutpoto">
               <el-upload :action="imgUrl"
                 :data="imgType"
                 :class="{disabled: uploadDisabled}"
@@ -113,9 +113,10 @@
                 title="封面裁图"
                 class="dialog-content"
                 @close='closeDialog'>
+                <!--380 280-->
                 <vueCropper
                   :autoCropWidth=380
-                  :autoCropHeight=280
+                  :autoCropHeight=214
                   @cropper-after="cropperSuccessAfter"
                   @cropper-before="cropperSuccessBefore"
                   :uploads="suploads"
@@ -1205,4 +1206,6 @@
   .avatar{
     max-width: 800px;
   }
+
+
 </style>

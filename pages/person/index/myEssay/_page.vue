@@ -184,7 +184,7 @@ export default {
 }
 .person_my_essay_list .person_essay_list_block {
   width: 380px;
-  height: 380px;
+  height: 314px;
   /* border: 1px solid; */
   margin-right: 30px;
   margin-bottom: 30px;
@@ -202,11 +202,11 @@ export default {
 }
 .person_my_essay_list .person_essay_list_block_pic {
   width: 380px;
-  height: 280px;
+  height: 214px;
 }
 .person_essay_list_block_pic_default {
   width: 380px;
-  height: 280px;
+  height: 214px;
   background: #e7e7e7;
   display: table-cell;
   vertical-align: middle;

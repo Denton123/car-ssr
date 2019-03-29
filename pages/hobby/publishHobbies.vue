@@ -59,7 +59,7 @@
                         <el-radio-button :label="1">增加水印</el-radio-button>
                         <el-radio-button :label="2">无水印</el-radio-button>
                       </el-radio-group>
-                      <div class="hobby_file_picture">
+                      <div class="hobby_file_picture v-cutpoto">
                         <el-upload :action="imgUrl"
                           :data="imgType"
                           :limit="limit"

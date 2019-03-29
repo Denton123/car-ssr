@@ -7,7 +7,7 @@
         <li v-for="(child, index) in item"
           :key="index">
           <car-card width="380px"
-            height="386px"
+            height="334px"
             :cardType="moduleType"
             :cardData="child"></car-card>
         </li>

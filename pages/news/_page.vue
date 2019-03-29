@@ -939,6 +939,7 @@ body {
 }
 .todayNew .todayImg .todayImg_class {
   width: 100%;
+  height: 444px;
 }
 .todayNew .imgDesc {
   overflow: hidden;

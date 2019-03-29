@@ -48,7 +48,7 @@ export default {
   props: {
     height: {
       type: String,
-      default: '400px'
+      default: '334px'
     },
     width: {
       type: String,
@@ -98,7 +98,7 @@ export default {
 }
 
 .index_card_block .pic {
-  height: 280px;
+  height: 214px;
   /* background-color: black; */
 }
 .index_card_block .pic img{

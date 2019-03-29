@@ -111,8 +111,8 @@ export default {
   /* padding: 20px 10px 20px 10px; */
 }
 .hot-tags .hot-tags-container-img{
-  width: 100%;
-  height: 280px;
+  width: 380px;
+  height: 214px;
   object-fit: cover;
 }
 .hot-tags .hot-tags-container-desc{

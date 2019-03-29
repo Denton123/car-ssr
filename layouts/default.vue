@@ -27,13 +27,13 @@
     return html ? html.replace(/http:\/\/www.jfcar.com.cn/ig, '') : html;
   }
   Vue.prototype.$ImgUrlRelative = function (url) {
-    if (url) {
-      var u = url.split("image")[1]
-      if (u) {
-        return '/image' + u
-      }
-      return url;
-    }
+    // if (url) {
+    //   var u = url.split("image")[1]
+    //   if (u) {
+    //     return '/image' + u
+    //   }
+    //   return url;
+    // }
     return url;
   }
   export default {
@@ -66,7 +66,7 @@
     }
   }
 </script>
-<style>
+<style lang="less">
   .strong{
     font-weight: bold;
   }
@@ -93,5 +93,21 @@
   }
   .v-pointer{
     cursor: pointer;
+  }
+
+  .v-cutpoto{
+    .el-upload--picture-card{
+      width: 380/2px;
+      height: 214/2px;
+      line-height: 214/2px;
+    }
+    .el-upload-list--picture-card .el-upload-list__item{
+      width: 380/2px !important;
+      height: 214/2px !important;
+      line-height: 214/2px !important;
+    }
+  }
+  .mt-60{
+    margin-top: 60px;
   }
 </style>

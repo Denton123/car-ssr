@@ -517,7 +517,7 @@
     font-size: 18px;
   }
   .bloger_content {
-    width: 1200px;
+    width: 1220px;
     margin: 0 auto;
   }
   #bloger {
@@ -546,12 +546,13 @@
       margin-bottom: 20px;
       li {
         float: left;
-        width: 31.3333%;
+        /*width: 31.3333%;*/
+        width: 380px;
         margin: 0 1% 1% 1%;
         cursor: pointer;
         .bloger_list_top {
           width: 100%;
-          height: 280px;
+          height: 214px;
           background-color: #e7e7e7;
           background-image: url('~static/images/defaultLogo.png');
           background-repeat: no-repeat;
@@ -559,7 +560,7 @@
           position: relative;
           img {
             width: 100%;
-            height: 280px;
+            height: 214px;
           }
           .bloger_mark {
             position: absolute;

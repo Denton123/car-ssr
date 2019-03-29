@@ -64,7 +64,7 @@
         @change="changeHobbiesBg"></car-carsouel>
       <hobbies-div slot="other"
         :cardData="hobbiesItem"
-        height="450px"
+        height="444px"
         isContent="1"></hobbies-div>
     </center>
     <hobbies-list class="mt20"
@@ -88,15 +88,15 @@
       :listData="tagTwo"></tags>
     <!-- 视频模块 -->
     <center-no-bg class="mt40"
-      lwidth="953"
-      rwidth="217"
-      height="536"
+      lwidth="790"
+      rwidth="389"
+      height="444"
       href="/video/1"
       title="视频"
       titleEn="video"
       id="videos">
       <car-carsouel slot="leftContent"
-        height="536px"
+        height="444px"
         :carsouelFlag="carsouelFlag"
         :list="videoCourselData"></car-carsouel>
       <video-card slot="rightContent"

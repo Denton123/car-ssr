@@ -45,7 +45,7 @@ export default {
   props: {
     height: {
       type: String,
-      default: '450px'
+      default: '444px'
     },
     list: {
       type: Array

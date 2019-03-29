@@ -69,7 +69,7 @@ export default {
   props: {
     height: {
       type: String,
-      default: '350px'
+      default: '284px'
     },
     width: {
       type: String,
@@ -127,7 +127,7 @@ export default {
 }
 
 .hobbiesDiv .pic {
-  height: 280px;
+  height: 214px;
   /* background-color: black; */
 }
 .hobbiesDiv .pic img{
@@ -135,7 +135,7 @@ export default {
 }
 .hobbiesDiv .haveContent img{
   width: 100%;
-  height: 280px;
+  height: 214px;
   object-fit: cover;
 }
 .hobbiesDiv .card-content {

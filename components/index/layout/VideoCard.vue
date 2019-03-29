@@ -69,7 +69,7 @@ export default {
   height: 100%;
 }
 .video_card_list .video_card {
-  height: 172px;
+  height: 219px;
   box-sizing: border-box;
   margin-top: 10px;
   position: relative;
@@ -82,8 +82,10 @@ export default {
   bottom: 0;
   width: 100%;
   height: 50px;
-  background-color: #ffffff;
+  /*background-color: #ffffff;*/
+  background-color: rgba(0, 0, 0, .4);
   line-height: 50px;
+  color: #fff;
 }
 
 .video_card_list .video_card:first-child {
@@ -105,6 +107,7 @@ export default {
   text-overflow: ellipsis;
   white-space: nowrap;
   padding-right: 18px;
+  color: #fff;
 }
 .video_card_list .video_card .video_title:hover .video_title_line {
   background: url('~static/images/line_red.png') no-repeat;
@@ -122,8 +125,8 @@ export default {
 }
 .video_card_list .video_display,
 .video_card_list .video_display_mark {
-  width: 216px;
-  height: 122px;
+  width: 389px;
+  height: 219px;
 }
 /* .video_card_list .video_display_mark {
   position: absolute;

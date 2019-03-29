@@ -47,7 +47,7 @@ export default {
     },
     height: {
       type: String,
-      default: '450'
+      default: '444'
     },
     href: {
       type: String,

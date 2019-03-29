@@ -38,7 +38,9 @@
           <div class="right_list">
             <ul>
               <li v-for="(item, index) in newsObj.click"
-                :key="index">
+                :key="index"
+                v-if="index < 3"
+              >
                 <a :href="`/${detailsObj['hots']}/detail/${item.id}/1`"
                   class="item_title">{{item.title}}</a>
               </li>
@@ -203,7 +205,7 @@ export default {
 .hot_news .hot_news_container .container_right {
   position: absolute;
   width: 370px;
-  height: 447px;
+  height: 390px;
   right: 0;
   top: 0;
   box-sizing: border-box;
@@ -217,13 +219,13 @@ export default {
 
 .hot_news .hot_news_container .container_right .content {
   width: 360px;
-  height: 437px;
+  height: 380px;
   padding: 0px 25px 0px 25px;
   box-sizing: border-box;
   background-color: #fff;
 }
 .hot_news .right-title {
-  padding: 20px 0px;
+  padding: 16px 0px;
   text-align: center;
   font-size: 20px;
   font-weight: bold;
@@ -241,7 +243,7 @@ export default {
 
 .hot_news .right_Adver_name {
   text-align: center;
-  margin: 20px 0px 16px 0px;
+  margin: 16px 0px 12px 0px;
   height: 16px;
   font-size: 16px;
   font-weight: bold;

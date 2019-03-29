@@ -371,7 +371,7 @@ export default {
         ;(window.slotbydup = window.slotbydup || []).push({
           id: oneAdverId,
           container: oneBox,
-          size: '380,280',
+          size: '380,214',
           display: 'inlay-fix',
           // 异步加载，不然广告不会显示
           async: true
@@ -383,7 +383,7 @@ export default {
         ;(window.slotbydup = window.slotbydup || []).push({
           id: twoAdverId,
           container: twoBox,
-          size: '380,280',
+          size: '380,214',
           display: 'inlay-fix',
           // 异步加载，不然广告不会显示
           async: true
@@ -395,7 +395,7 @@ export default {
         ;(window.slotbydup = window.slotbydup || []).push({
           id: threeAdverId,
           container: threeBox,
-          size: '380,280',
+          size: '380,214',
           display: 'inlay-fix',
           // 异步加载，不然广告不会显示
           async: true
@@ -407,7 +407,7 @@ export default {
         ;(window.slotbydup = window.slotbydup || []).push({
           id: fourAdverId,
           container: fourBox,
-          size: '380,280',
+          size: '380,214',
           display: 'inlay-fix',
           // 异步加载，不然广告不会显示
           async: true
@@ -646,7 +646,7 @@ export default {
 }
 .rankDetail .todayContainer {
   width: 100%;
-  height: 280px;
+  height: 214px;
   background: white;
   margin-bottom: 30px;
   position: relative;
@@ -660,7 +660,7 @@ export default {
   background-image: url('~static/common/default.png');
   background-position: center;
   background-repeat: no-repeat;
-  height: 280px;
+  height: 214px;
 }
 .rankDetail .defaultBox {
   position: relative;
@@ -668,13 +668,13 @@ export default {
   float: left;
   overflow: hidden;
   width: 380px;
-  height: 280px;
+  height: 214px;
   text-align: center;
-  line-height: 280px;
+  line-height: 214px;
   background: #e7e7e7;
 }
 .rankDetail .todayImg .todayImg_class {
-  height: 280px;
+  height: 214px;
   position: absolute;
   z-index: 1;
   width: 380px;
@@ -685,7 +685,7 @@ export default {
   float: left;
   overflow: hidden;
   width: 410px;
-  height: 280px;
+  height: 214px;
   position: relative;
 }
 
@@ -735,7 +735,7 @@ export default {
   height: 5px;
   position: absolute;
   left: 41px;
-  top: 85px;
+  top: 75px;
 }
 .rankDetail .imgDesc .divider div {
   position: absolute;
@@ -760,7 +760,7 @@ export default {
   /* autoprefixer: ignore next */
   -webkit-box-orient: vertical;
   position: absolute;
-  top: 116px;
+  top: 90px;
   width: 331px;
   height: 45px;
 }
@@ -768,7 +768,7 @@ export default {
   width: 100%;
   display: flex;
   align-items: center;
-  bottom: 37px;
+  bottom: 10px;
   position: absolute;
 }
 
@@ -831,7 +831,7 @@ export default {
 }
 .rankDetail .advertisesBox .advertisesItem {
   width: 100%;
-  height: 280px;
+  height: 214px;
   margin-bottom: 30px;
   position: relative;
 }

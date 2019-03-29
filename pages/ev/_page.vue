@@ -924,6 +924,7 @@ body {
 } */
 .sources .todayImg .todayImg_class {
   width: 100%;
+  height: 444px;
 }
 .sources .imgDesc {
   overflow: hidden;
