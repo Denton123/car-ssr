@@ -511,7 +511,7 @@ export default {
         ;(window.slotbydup = window.slotbydup || []).push({
           id: advertiseId,
           container: middleBox,
-          size: '790,450',
+          size: '790,444',
           display: 'inlay-fix',
           async: true
         })
@@ -650,7 +650,7 @@ export default {
     },
     async getTotalData() {
       // 触发广告位方法
-      this.getAdvertise('imgBox', '5993940', 'adverImgBox', '5993943')
+      this.getAdvertise('imgBox', '6124512', 'adverImgBox', '5993943')
       if (this.tokenObj == null) {
         this.tokenObj = {}
       }
@@ -901,7 +901,7 @@ body {
 .sources .todayImg {
   overflow: hidden;
   width: 100%;
-  max-height: 450px;
+  max-height: 444px;
   background: url('~static/common/default.png');
   background-position: center;
   background-repeat: no-repeat;
@@ -911,7 +911,7 @@ body {
 .sources .todayImg a, .sources .todayImg .a {
   display: block;
   width: 100%;
-  max-height: 450px;
+  max-height: 444px;
 }
 /* .sources .defaultBox {
   overflow: hidden;

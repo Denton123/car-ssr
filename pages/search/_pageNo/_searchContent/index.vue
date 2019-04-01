@@ -346,30 +346,30 @@
       // 生成广告图片
       createAdPicture() {
         ;(window.slotbydup = window.slotbydup || []).push({
-          id: '5993947',
+          id: '6124506',
           container: 'search_ad_1',
-          size: '380,280',
+          size: '380,214',
           display: 'inlay-fix',
           async: true
         })
         ;(window.slotbydup = window.slotbydup || []).push({
-          id: '5993948',
+          id: '6124509',
           container: 'search_ad_2',
-          size: '380,280',
+          size: '380,214',
           display: 'inlay-fix',
           async: true
         })
         ;(window.slotbydup = window.slotbydup || []).push({
-          id: '5993949',
+          id: '6124510',
           container: 'search_ad_3',
-          size: '380,280',
+          size: '380,214',
           display: 'inlay-fix',
           async: true
         })
         ;(window.slotbydup = window.slotbydup || []).push({
-          id: '5993950',
+          id: '6124511',
           container: 'search_ad_4',
-          size: '380,280',
+          size: '380,214',
           display: 'inlay-fix',
           async: true
         })
@@ -530,7 +530,7 @@
             .search_list_left_li {
               margin-bottom: 30px;
               width: 100%;
-              height: 280px;
+              height: 214px;
               overflow: hidden;
               cursor: pointer;
               &:last-child {
@@ -581,7 +581,7 @@
                 .search_line {
                   position: relative;
                   width: 100%;
-                  height: 65px;
+                  height: 44px;
                   .one {
                     position: absolute;
                     width: 65px;
@@ -591,7 +591,7 @@
                   .one {
                     position: absolute;
                     left: 10px;
-                    top: 30px;
+                    top: 22px;
                     width: 45px;
                     height: 1px;
                     border-top: 1px solid #ccc;
@@ -601,7 +601,7 @@
                     width: 45px;
                     height: 1px;
                     left: 20px;
-                    top: 32px;
+                    top: 24px;
                     border-top: 1px solid #ccc;
                   }
                 }
@@ -620,7 +620,7 @@
                 }
               }
               .userMsg {
-                margin-top: 67px;
+                margin-top: 28px;
                 height: 25px;
                 width: 100%;
                 font-size: 14px;
@@ -692,7 +692,7 @@
               .search_ad {
                 position: relative;
                 margin-bottom: 30px;
-                height: 280px;
+                height: 214px;
                 background-color: #e7e7e7;
                 background-image: url('~static/images/defaultLogo.png');
                 background-repeat: no-repeat;

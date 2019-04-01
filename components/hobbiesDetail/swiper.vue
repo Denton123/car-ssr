@@ -92,32 +92,9 @@ export default {
   computed: {
   },
   mounted() {
-    let defaultHeight = $('.swiper-slide:eq(0)').css('height')
-     $('.gallery-top').css('height', defaultHeight)
-      // for (let i = 0; i < this.sliderData.length; i++) {
-          // let imgUrl = this.formatphoto(this.sliderData[i].photo)
-        // 不知为何，这里会重复执行两次，所以下面的append会执行两次，就会出现double数量的图片，因此加上了判断
-      //     if($('.swiper-wrapper')[1] && $('.swiper-wrapper')[1].childElementCount < this.sliderData.length){  //多张图片的情况
-      //         $('.swiper-wrapper').append(
-      //           `<swiper-slide class="swiper-slide"><img src="${imgUrl}"></swiper-slide>`
-      //         )
-      //     }else if(!$('.swiper-wrapper')[1] && $('.swiper-wrapper')[0].childElementCount < this.sliderData.length){ //一张图片的情况
-      //         $('.swiper-wrapper').append(
-      //           `<swiper-slide class="swiper-slide"><img src="${imgUrl}"></swiper-slide>`
-      //         )
-      //     }
-      // }
-                    // $('.swiper-wrapper').append(
-                // `<swiper-slide class="swiper-slide"><img src="${imgUrl}"></swiper-slide>`
-              // )
-      // }
-      //  this.$refs.topSwiper && this.$refs.topSwiper.swiper.init()
-      //  this.$refs.thumbSwiper && this.$refs.thumbSwiper.swiper.init()
+    // let defaultHeight = $('.swiper-slide:eq(0)').css('height')
+    //  $('.gallery-top').css('height', defaultHeight)
 
-      // if( this.$refs.topSwiper && this.$refs.thumbSwiper){
-      //   this.$refs.topSwiper.swiper.controller.control = this.$refs.thumbSwiper.swiper
-      //   this.$refs.thumbSwiper.swiper.controller.control = this.$refs.topSwiper.swiper
-      // }
       this.mySwiper && this.mySwiper.init()
        this.mySwiper2 && this.mySwiper2.init()
 
@@ -170,21 +147,21 @@ export default {
     },
     // 点击右箭头自适应高度
     next() {
-      $('.gallery-top').css('height', 'auto')
-      let imgHeight = $('.swiper-slide-active').next().css('height')
-      $('.gallery-top').css('height', imgHeight)
+      // $('.gallery-top').css('height', 'auto')
+      // let imgHeight = $('.swiper-slide-active').next().css('height')
+      // $('.gallery-top').css('height', imgHeight)
     },
     // 点击左箭头自适应高度
     prev() {
-      $('.gallery-top').css('height', 'auto')
-      let imgHeight = $('.swiper-slide-active').prev().css('height')
-      $('.gallery-top').css('height', imgHeight)
+      // $('.gallery-top').css('height', 'auto')
+      // let imgHeight = $('.swiper-slide-active').prev().css('height')
+      // $('.gallery-top').css('height', imgHeight)
     },
     // 点击当前图片自适应高度
     thumbClick(){
-      $('.gallery-top').css('height', 'auto')
-      let currentHeight = $('.swiper-slide-active').css('height')
-      $('.gallery-top').css('height', currentHeight)
+      // $('.gallery-top').css('height', 'auto')
+      // let currentHeight = $('.swiper-slide-active').css('height')
+      // $('.gallery-top').css('height', currentHeight)
     }
   },
 
@@ -199,7 +176,7 @@ export default {
 }
 .hobbiesDetailSwiper .swiper-container {
   width: 100%;
-  /* height: 300px; */
+   height: 393.7672273161951px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -231,7 +208,7 @@ export default {
   cursor: pointer;
 }
 .hobbiesDetailSwiper .gallery-top img {
-  object-fit: contain;
+  object-fit: cover;
 }
 
 .hobbiesDetailSwiper .gallery-thumbs .swiper-slide {

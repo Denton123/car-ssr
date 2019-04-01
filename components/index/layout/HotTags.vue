@@ -109,6 +109,7 @@ export default {
   height: 98%;
   box-sizing: border-box;
   /* padding: 20px 10px 20px 10px; */
+  position: relative;
 }
 .hot-tags .hot-tags-container-img{
   width: 380px;
@@ -173,6 +174,8 @@ export default {
 .hot-tags .card-content .info {
   margin-top: 20px;
   padding-left: 16px;
+  position: absolute;
+  bottom: 10px;
 }
 
 .hot-tags .card-content .info .info_left {

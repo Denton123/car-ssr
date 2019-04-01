@@ -622,28 +622,28 @@ export default {
       (window.slotbydup = window.slotbydup || []).push({
         id: "5993947",
         container: "search_ad_1",
-        size: "380,280",
+        size: "380,214",
         display: "inlay-fix",
         async: true
       });
       (window.slotbydup = window.slotbydup || []).push({
         id: "5993948",
         container: "tag_ad_2",
-        size: "380,280",
+        size: "380,214",
         display: "inlay-fix",
         async: true
       });
       (window.slotbydup = window.slotbydup || []).push({
         id: "5993949",
         container: "tag_ad_3",
-        size: "380,280",
+        size: "380,214",
         display: "inlay-fix",
         async: true
       });
       (window.slotbydup = window.slotbydup || []).push({
         id: "5993950",
         container: "tag_ad_4",
-        size: "380,280",
+        size: "380,214",
         display: "inlay-fix",
         async: true
       });
@@ -844,7 +844,7 @@ export default {
             margin-bottom: 30px;
             margin-right: 30px;
             width: 100%;
-            height: 280px;
+            height: 214px;
             overflow: hidden;
             cursor: pointer;
             &:last-child {
@@ -853,14 +853,14 @@ export default {
             .img_wrapper {
               float: left;
               width: 380px;
-              height: 280px;
+              height: 214px;
               background: url('~static/common/default.png');
               background-position: center;
               background-repeat: no-repeat;
               background-color: #e7e7e7;
               img {
                 width: 100%;
-                height: 280px;
+                height: 214px;
                 object-fit: cover;
               }
             }
@@ -891,7 +891,7 @@ export default {
               .tag_line {
                 position: relative;
                 width: 100%;
-                height: 65px;
+                height: 46px;
                 .one {
                   position: absolute;
                   width: 65px;
@@ -901,7 +901,7 @@ export default {
                 .one {
                   position: absolute;
                   left: 10px;
-                  top: 30px;
+                  top: 22px;
                   width: 45px;
                   height: 1px;
                   border-top: 1px solid #ccc;
@@ -911,7 +911,7 @@ export default {
                   width: 45px;
                   height: 1px;
                   left: 20px;
-                  top: 32px;
+                  top: 24px;
                   border-top: 1px solid #ccc;
                 }
               }
@@ -927,6 +927,8 @@ export default {
                 -webkit-line-clamp: 2;
                 /* autoprefixer: ignore next */
                 -webkit-box-orient: vertical;
+                white-space: normal;
+                display: -webkit-box;
                 &:hover {
                   color: #be001e;
                 }
@@ -999,7 +1001,7 @@ export default {
             .tag_ad {
               position: relative;
               margin-bottom: 30px;
-              height: 280px;
+              height: 214px;
               background-color: #e7e7e7;
               background-image: url("~static/images/defaultLogo.png");
               background-repeat: no-repeat;

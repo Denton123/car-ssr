@@ -2348,7 +2348,7 @@ detail_comment_form_input_operate_emoji:hover span {
 }
 .detail_more_content ul li a img {
   width: 100px;
-  height: 74px;
+  height: 56.252461045170726px;
   vertical-align: bottom;
   object-fit: cover;
 }

@@ -536,7 +536,7 @@ export default {
         ;(window.slotbydup = window.slotbydup || []).push({
           id: advertiseId,
           container: middleBox,
-          size: '790,450',
+          size: '790,444',
           display: 'inlay-fix',
           async: true
         })
@@ -674,8 +674,8 @@ export default {
       this.imgFeatureLoadStatus = true
     },
     async getTotalData() {
-      // 触发广告位方法
-      this.getAdvertise('imgBox', '5993954', 'adverImgBox', '5994002')
+      // 触发广告位方法 5993954
+      this.getAdvertise('imgBox', '6124357', 'adverImgBox', '5994002')
       if (this.tokenObj == null) {
         this.tokenObj = {}
       }

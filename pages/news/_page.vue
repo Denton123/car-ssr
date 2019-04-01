@@ -907,7 +907,7 @@ body {
 .todayNew .todayImg {
   overflow: hidden;
   width: 100%;
-  max-height: 450px;
+  max-height: 444px;
   background: url('~static/common/default.png');
   background-position: center;
   background-repeat: no-repeat;
@@ -917,7 +917,7 @@ body {
 .todayNew .todayImg a {
   display: block;
   width: 100%;
-  max-height: 450px;
+  max-height: 444px;
 }
 /* .todayNew .defaultBox {
   overflow: hidden;

@@ -161,7 +161,7 @@
                 :key="index"
                 class="detail_content_article_block">
                 <nuxt-link :to="$replaceDetailUrl(`/${item.className.toLowerCase()}/${item.className.toLowerCase() !== 'hobbies' ? 'detail': 'hobbiesdetail'}/${item.id}/1`)">
-                  <span style="width: 190px;height: 140px;display:inline-block;">
+                  <span style="display:inline-block;">
                     <img v-if="item.photo !== ''"
                       :src="$ImgUrlRelative(formatPic(item.cover))"
                       class="detail_content_article_block_pic"
@@ -1941,7 +1941,7 @@ export default {
 
 .detail_content_article_block {
   width: 190px;
-  height: 218px;
+  height: 185px;
   margin-right: 10px;
   display: inline-block;
   margin-bottom: 10px;
@@ -1956,7 +1956,7 @@ export default {
 .detail_content_article_block_pic,
 .detail_content_article_block_video {
   width: 190px;
-  height: 140px;
+  height: 106.85px;
   display: inline-block;
   /*border: 1px solid;*/
 }
@@ -2447,7 +2447,7 @@ export default {
 }
 .detail_more_content ul li a img {
   width: 100px !important;
-  height: 74px;
+  height: 56.25px;
   vertical-align: bottom;
   object-fit: cover;
   /*display: block;*/
@@ -2550,6 +2550,7 @@ export default {
 }
 .detail_content_introduction p img {
   width: 100% !important;
+  height: 399.5498030388295px;
 }
 .detail_user_msg_avatar_wrap {
   width: 100px;

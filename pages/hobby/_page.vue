@@ -1379,7 +1379,7 @@ html {
 }
 .get-hobby-image.oneImage {
   width: 380px;
-  height: 280px;
+  height: 214px;
   /*float: left;*/
   clear: both;
   /*display: inline-block;*/
@@ -1387,7 +1387,7 @@ html {
 }
 .get-hobby-image.twoImage {
   width: 185px;
-  height: 137px;
+  height: 104px;
   /*float: left;*/
   clear: both;
   /*display: inline-block;*/
@@ -1395,7 +1395,7 @@ html {
 }
 .get-hobby-image.threeImage {
   width: 120px;
-  height: 90px;
+  height: 67.5px;
   /*float: left;*/
   clear: both;
   /*display: inline-block;*/
@@ -1403,7 +1403,7 @@ html {
 }
 .get-hobby-image.fourImage {
   width: 185px;
-  height: 137px;
+  height: 104px;
   /*float: left;*/
   clear: both;
   /*display: inline-block;*/
@@ -1411,7 +1411,7 @@ html {
 }
 .get-hobby-image.fiveImage {
   width: 185px;
-  height: 137px;
+  height: 104px;
   /*float: left;*/
   clear: both;
   /*display: inline-block;*/
@@ -1419,7 +1419,7 @@ html {
 }
 .get-hobby-image.sixImage {
   width: 120px;
-  height: 90px;
+  height: 67.5px;
   /*float: left;*/
   clear: both;
   /*display: inline-block;*/
@@ -1427,7 +1427,7 @@ html {
 }
 .get-hobby-image.nineImage {
   width: 120px;
-  height: 90px;
+  height: 67.5px;
   /*float: left;*/
   clear: both;
   /*display: inline-block;*/

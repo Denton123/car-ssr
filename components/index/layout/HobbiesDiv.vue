@@ -40,22 +40,24 @@
       <div v-if="sContent== '1'"
         class="hobbies_content info clearfix">
         <p v-html="card.description"></p>
-        <div class="info_left"
-          @click="$router.push(`/bloger/${cardData.userId}/1`)">
+        <div class="v-xxbb-po">
+          <div class="info_left "
+               @click="$router.push(`/bloger/${cardData.userId}/1`)">
           <span class="info_header">
             <img :src="$ImgUrlRelative(formatPic(card.authorphoto))"
-              :alt="card.userName"
-              height="100%"
-              width="100%"
-              v-if="card.authorphoto != null">
+                 :alt="card.userName"
+                 height="100%"
+                 width="100%"
+                 v-if="card.authorphoto != null">
           </span>
-          <router-link :to="`/bloger/${card.userId}/1`">
-            <span class="info_name">{{card.userName == '' ? '无': card.userName}}</span>
-          </router-link>
+            <router-link :to="`/bloger/${card.userId}/1`">
+              <span class="info_name">{{card.userName == '' ? '无': card.userName}}</span>
+            </router-link>
+          </div>
+          <!-- <div class="info_right">{{card.className == ''?'无': '兴趣部落'}}</div> -->
+          <div class="info_center"></div>
+          <div class="info_right">兴趣部落</div>
         </div>
-        <!-- <div class="info_right">{{card.className == ''?'无': '兴趣部落'}}</div> -->
-        <div class="info_center"></div>
-        <div class="info_right">兴趣部落</div>
       </div>
     </div>
   </div>
@@ -220,4 +222,8 @@ export default {
   overflow: hidden;
   margin-bottom: 10px;
 }
+  .v-xxbb-po{
+    position: absolute;
+    bottom: 20px;
+  }
 </style>
