@@ -2,7 +2,9 @@
   <div class="video_card_list">
     <dl class="video_card"
       v-for="(item, index) in data"
-      :key="index">
+      :key="index"
+      v-if="index <= 1"
+      >
       <dd class="video_display">
         <router-link :to="`/${detailsObj['video']}/detail/${item.id}/1`">
           <img :src="$ImgUrlRelative(item.photo)"

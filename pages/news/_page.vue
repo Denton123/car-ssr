@@ -667,7 +667,7 @@ export default {
       this.imgFeatureLoadStatus = true
     },
     async getTotalData() {
-      this.getAdvertise('imgBox', '5993934', 'adverImgBox', '5994002')
+      this.getAdvertise('imgBox', '6124820', 'adverImgBox', '5994002')
       // 触发广告位方法
       if (this.tokenObj == null) {
         this.tokenObj = {}

@@ -536,7 +536,7 @@ export default {
 .blogger-list-middle img {
   object-fit: cover;
   display: inline-block;
-  width:380px;height: 280px;color:black
+  width:380px;height: 214px;color:black
 }
 .follow-wrap {
   position: relative; cursor: pointer;

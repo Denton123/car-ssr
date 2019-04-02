@@ -543,13 +543,13 @@ export default {
       this.getAdvertise('adverImgBox', '5993946')
       this.getRightSideAdver(
         'imgBox_rankOne',
-        '5993947',
+        '6125043',
         'imgBox_rankTwo',
-        '5993948',
+        '6125046',
         'imgBox_rankThree',
-        '5993949',
+        '6125048',
         'imgBox_rankFour',
-        '5993950'
+        '6125051'
       )
       // 触发广告位方法
       // if (this.$route.params.type && this.$route.params.type == 'w') {

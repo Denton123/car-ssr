@@ -620,28 +620,28 @@ export default {
     // 生成广告图片
     createAdPicture() {
       (window.slotbydup = window.slotbydup || []).push({
-        id: "5993947",
+        id: "6124975",
         container: "search_ad_1",
         size: "380,214",
         display: "inlay-fix",
         async: true
       });
       (window.slotbydup = window.slotbydup || []).push({
-        id: "5993948",
+        id: "6124976",
         container: "tag_ad_2",
         size: "380,214",
         display: "inlay-fix",
         async: true
       });
       (window.slotbydup = window.slotbydup || []).push({
-        id: "5993949",
+        id: "6124979",
         container: "tag_ad_3",
         size: "380,214",
         display: "inlay-fix",
         async: true
       });
       (window.slotbydup = window.slotbydup || []).push({
-        id: "5993950",
+        id: "6124990",
         container: "tag_ad_4",
         size: "380,214",
         display: "inlay-fix",

@@ -158,7 +158,7 @@ export default {
   /* autoprefixer: ignore next */
   -webkit-box-orient: vertical;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
   overflow: hidden;
   padding-left: 17px;
   color: #000;
