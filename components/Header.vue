@@ -74,7 +74,7 @@
                   <span></span>
                 </div>
                 <span class="codeDes">扫码浏览手机端</span>
-                <img src="~static/detail/code.jpg">
+                <img src="~static/detail/code2.png">
               </div>
             </li>
             <li class="car_header_banner_icon_wechat"

@@ -53,7 +53,7 @@
                     </div>
                     <el-form-item prop="fileList">
                       <p class="hobby_form_title">
-                        <i>*</i>上传图片<span>图片不小于790*450px，大小建议为5M以内</span>
+                        <i>*</i>上传图片<span>图片不小于790*444px，大小建议为5M以内</span>
                       </p>
                       <el-radio-group v-model="hobbyForm.watermark">
                         <el-radio-button :label="1">增加水印</el-radio-button>
