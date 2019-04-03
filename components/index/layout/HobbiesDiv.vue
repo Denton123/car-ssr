@@ -224,6 +224,6 @@ export default {
 }
   .v-xxbb-po{
     position: absolute;
-    bottom: 20px;
+    bottom: 30px;
   }
 </style>

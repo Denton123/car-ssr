@@ -175,7 +175,7 @@ export default {
   margin-top: 20px;
   padding-left: 16px;
   position: absolute;
-  bottom: 10px;
+  bottom: 30px;
 }
 
 .hot-tags .card-content .info .info_left {

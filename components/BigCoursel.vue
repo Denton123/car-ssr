@@ -250,7 +250,7 @@ export default {
   color: #ffffff;
   position: absolute;
   bottom: 0px;
-  left: 24%;
+  left: 26%;
   box-sizing: border-box;
   padding-top: 10px;
   overflow: hidden;
