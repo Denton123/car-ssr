@@ -210,7 +210,7 @@ export default {
                 })
                 // 将返回的数据传给父组件（截图）
                 _this.$emit('cropper-after', res.urls[0])
-                this.option.img = ''
+                this.option.img = ' '
                 // console.log(this.option.img, 'img')
                 // console.log(res.urls[0], '==========')
               }

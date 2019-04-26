@@ -1873,12 +1873,12 @@ export default {
   /*padding: 38px 43px 32px 0;*/
 }
 .detail_content_brand_desc h3 {
-  margin-bottom: 18px;
+  margin-bottom: 3px;
   font-size: 24px;
   /* font-family: SourceHanSansCN-Bold; */
   font-weight: bold;
   color: rgba(18, 18, 18, 1);
-  margin-top: 18px;
+  margin-top: 3px;
   /* margin-left: 25px; */
 }
 .detail_content_brand_desc p {
@@ -2550,7 +2550,6 @@ export default {
 }
 .detail_content_introduction p img {
   width: 100% !important;
-  height: 399.5498030388295px;
 }
 .detail_user_msg_avatar_wrap {
   width: 100px;

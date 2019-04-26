@@ -20,20 +20,8 @@
       <div class="container_right">
         <div class="content">
           <div class="right-title">最热文章</div>
-          <a href="http://www.acura.com.cn/rdx/special/?mz_ca=2106651&mz_sp=7K9Bh&mz_sb=1"
-            target="_blank">
-            <div class="right_Adver">
-              <img src="../images/hotNews.jpg"
-                alt="全新RDX狂热登场"
-                width="100%"
-                height="100%">
-            </div>
-          </a>
-          <a href="http://www.acura.com.cn/rdx/special/?mz_ca=2106651&mz_sp=7K9Bh&mz_sb=1"
-            target="_blank">
-            <div class="right_Adver_name">全新RDX狂热登场</div>
-          </a>
-
+          <div class="right_Adver" id="index_hot_ad"></div>
+          <div class="right_Adver_name" id="index_hot_adname"></div>
           <div class="right_border"></div>
           <div class="right_list">
             <ul>
@@ -75,6 +63,7 @@ export default {
     }
   },
   mounted() {
+    this.addAd()
     this.$nextTick(async () => {
       // let hotNews = this.getHotNews()
       // this.newsObj = await hotNews
@@ -107,6 +96,27 @@ export default {
     })
   },
   methods: {
+    addAd() {
+      // 首页今日车闻部分通栏广告
+      (window.slotbydup = window.slotbydup || []).push({
+        id: "6150452",
+        container: "index_hot_ad",
+        size: "310,174",
+        display: "inlay-fix",
+        async: true
+      });
+      // 文字广告
+      (window.slotbydup = window.slotbydup || []).push({
+        id: "6150453",
+        container: "index_hot_adname",
+        size: "310,20",
+        display: "inlay-fix",
+        async: true
+      });
+      setTimeout(function(){
+        $(window.frames["iframe6150453_0"].document).find("body").css("text-align","center")
+      },300)
+    }
     // 获取最热的5篇文章和点击量最多的10篇文章
     // async getHotNews() {
     //   let result = {}

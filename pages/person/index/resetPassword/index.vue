@@ -163,8 +163,8 @@ export default {
         this.passwordFlag = false
         // console.log(this.passwordFlag, 'this.passwordFlag')
       } else if (
-        /[`~!#$%^&*_+<>{}\/'[\]]/im.test(this.resetForm.newPassword) ||
-        /[`~!#$%^&*_+<>{}\/'[\]]/im.test(this.resetForm.repeatPassword)
+        /[`~!,，#$%^&*_+<>{}\/'[\]]/im.test(this.resetForm.newPassword) ||
+        /[`~!,，#$%^&*_+<>{}\/'[\]]/im.test(this.resetForm.repeatPassword)
       ) {
         this.$message({
           type: 'warning',

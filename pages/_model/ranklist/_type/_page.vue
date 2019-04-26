@@ -827,7 +827,7 @@ export default {
 }
 .rankDetail .rightSideContent .advertisesBox {
   width: 100%;
-  height: 1240px;
+  height: 976px;
 }
 .rankDetail .advertisesBox .advertisesItem {
   width: 100%;

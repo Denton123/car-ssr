@@ -91,13 +91,12 @@
                 :on-error="uploadPicFailure"
                 list-type="picture-card"
                 name="upPhoto"
-                :disabled="uploadFlag"
                 :on-preview="handlePictureCardPreview"
                 :before-upload="beforeUpload"
                 :on-remove="handleRemove">
                 <i class="el-icon-plus"></i>
                 <div class="app-main-content"
-                  @click="isShowCropper"
+                  @click.stop="isShowCropper"
                   v-show="isCropper">
                 </div>
               </el-upload>
@@ -1121,6 +1120,7 @@
     width: 148px;
     height: 100%;
     cursor: pointer;
+    z-index: 10;
   }
   /* 限制上传视频名字宽度 */
   .person_container .el-upload-list {

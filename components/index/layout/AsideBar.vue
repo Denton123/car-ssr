@@ -62,15 +62,15 @@ export default {
         this.isShow = false
       }
       // console.log(scrollTop)
-      if (scrollTop + room < 1216) {
+      if (scrollTop + room < 1378) {
         this.activeIndex = 0
-      } else if (scrollTop + room > 1216 && scrollTop + room < 2506) {
+      } else if (scrollTop + room > 1378 && scrollTop + room < 2668) {
         this.activeIndex = 1
-      } else if (scrollTop + room > 2506 && scrollTop + room < 3522) {
+      } else if (scrollTop + room > 2668 && scrollTop + room < 3590) {
         this.activeIndex = 2
-      } else if (scrollTop + room > 3522 && scrollTop + room < 5317) {
+      } else if (scrollTop + room > 3590 && scrollTop + room < 5177) {
         this.activeIndex = 3
-      } else if (scrollTop + room > 5317) {
+      } else if (scrollTop + room > 5177) {
         this.activeIndex = 4
       }
     }

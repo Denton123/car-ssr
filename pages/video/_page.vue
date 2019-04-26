@@ -555,10 +555,10 @@ export default {
     },
     // 文章的图片拼接
     piectImgUrl(item) {
-      if(item.photo.indexOf('http:') >= 0 || item.photo.indexOf('/image') >= 0){
-        return item.photo
+      if(item.cover.indexOf('http:') >= 0 || item.cover.indexOf('/image') >= 0){
+        return item.cover
       }
-      return systemManage.getApi(item.photo)
+      return systemManage.getApi(item.cover)
     },
     // 头像的图片拼接
     piectProfileUrl(item) {

@@ -104,7 +104,7 @@
     .el-upload-list--picture-card .el-upload-list__item{
       width: 380/2px !important;
       height: 214/2px !important;
-      line-height: 214/2px !important;
+      // line-height: 214/2px !important;
     }
   }
   .mt-60{

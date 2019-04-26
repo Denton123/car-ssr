@@ -52,7 +52,7 @@
             </li>
             <li>
               <span class="footer_phone_code">
-                <img src="~static/detail/code.jpg" alt="尖锋咖">
+                <img src="~static/detail/code2.png" alt="尖锋咖">
               </span>
               <span class="footer_code_desc a"
                 >

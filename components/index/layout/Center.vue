@@ -195,7 +195,7 @@ export default {
   display: inline-block;
   width: 380px;
   height: 450px;
-  margin-left: 20px;
+  margin-left: 30px;
   box-sizing: border-box;
 }
 </style>
