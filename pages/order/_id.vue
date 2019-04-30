@@ -125,8 +125,8 @@
                   v-model="check"
                   class="select"
                   name="ok">
-                <label for="ok"
-                  style="margin-left: 10px">我已阅读并同意《XXXXXX》</label>
+                <label 
+                  style="margin-left: 10px;" @click="showAgree">我已阅读并同意《用户信息保密协议》</label>
               </div>
               <div class="btn_submit mT30"
                 @click="submit">提交</div>
@@ -136,6 +136,35 @@
         </div>
       </div>
     </div>
+    <el-dialog
+      title="用户信息保密协议"
+      :visible.sync="agreeDialogVisible"
+      width="60%"
+      center>
+      <p style="text-indent:2em;">保护用户个人信息是先锋咖的一项基本原则。先锋咖将按照本声明及《隐私政策》（链接地址：http://www.jfcar.com.cn）的规定收集、使用、储存和分享您的个人信息。本协议对个人信息保护规定的内容与上述《隐私政策》有相冲突的，及本协议对个人信息保护相关内容未作明确规定的，以《隐私政策》的内容为准。</p>
+      <p>一、个人信息的收集</p>
+      <p class="text-pd">1、您自愿报名参与活动，您在活动现场与经销商达成的交易意向，先锋咖不提供任何保证，亦不承担任何法律责任。</p>
+      <p class="text-pd">2、我们收集您的个人信息的最终目的是为了向您提供更好的产品、服务，优化并丰富您的用户体验，这些个人信息是能够单独或者与其他信息结合识别您的个人身份的信息，包括：</p>
+      <p class="text-pd">①姓名</p>
+      <p class="text-pd">②移动电话</p>
+      <p class="text-pd">③您在网站的表格上输入的其他信息（电子邮箱、车牌号、住址等）</p>
+      <p class="text-pd">④在您上载到网站的内容中包含的任何个人信息</p>
+      <p class="text-pd">3、以上个人信息均是您自愿提供。您有权拒绝提供，但如果您拒绝提供某些个人信息，您将可能无法使用我们提供的产品、服务，或者可能对您使用产品或服务造成一定的影响。</p>
+      <p class="text-pd">4、对于不满18岁的用户，须在其法定监护人已经阅读本声明并且许可的情况下，通过网站提交个人信息。</p>
+      <p>二、个人信息的使用和分享</p>
+      <p class="text-pd">您同意，先锋咖可以通过以下方式对个人信息进行使用和分享（包含对于个人信息的存储和处理）：</p>
+      <p class="text-pd">1、我们和关联公司使用；</p>
+      <p class="text-pd">2、我们向相关汽车经销商、厂商及集团分享并由其使用；</p>
+      <p class="text-pd">我们及关联公司及相关汽车经销商、厂商为满足您的需求，可能通过您提供的信息与您联系；</p>
+      <p class="text-pd">我们及关联公司及相关汽车经销商、厂商可能定期或不定期向您发送有关产品、服务或相关活动的信息，您同意接收上述信息。</p>
+      <p class="text-pd">您同意免除上述个人信息的接收和/或使用方在按照本法律声明所述情形下进行信息披露和使用而导致的或可能导致的所有索赔、责任和损失。</p>
+      <p>三、更正或投诉</p>
+      <p class="text-pd">如果您需要查询、修改或更正您的个人信息，或对个人信息保护问题有任何疑问或投诉，您可以拨打电话180 1170 3706联系我们。</p>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="agreeDialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="agreeDialogVisible = false,check = true">确 定</el-button>
+      </span>
+    </el-dialog>
     <div class="adver">
       <img src="~static/images/guanggao.png"
         alt="广告图片"
@@ -190,7 +219,7 @@ export default {
         // console.log(href)
         // 切割地址栏
         // let arr = href.split('/')
-        // this.activeId = arr[arr.length - 1]
+        this.activeId = this.$route.params.id
         let result = await this.getBrandInfo(this.$route.params.id)
         console.log(result)
         if (result.brandId) {
@@ -229,7 +258,8 @@ export default {
       shopArr: [], // 经销商数组
       activeId: '', // 活动id
       brandId: '', // 通过活动id获取到的brandId
-      check: false // 是否勾选
+      check: false, // 是否勾选
+      agreeDialogVisible: false
     }
   },
   methods: {
@@ -371,8 +401,8 @@ export default {
         let flag = this.checkIsNull()
         if (flag) {
           // 判断是否存在token
-          let token = Utils.getToken()
-          if (token === '') {
+          let token = Utils.getToken() 
+          if (token == '') {
             this.$message.warning('请先登录')
           } else {
             // 拼装obj
@@ -394,7 +424,7 @@ export default {
               })
               if (result.data) {
                 let data = result.data
-                if (data.code !== '0') {
+                if (data.code != 0) {
                   this.$message.warning(`${data.des}`)
                 } else {
                   this.$message.success(`预约试驾成功`)
@@ -466,6 +496,9 @@ export default {
       }
 
       return !flag
+    },
+    showAgree() {
+      this.agreeDialogVisible = true
     }
   }
 }
@@ -632,4 +665,7 @@ export default {
   cursor: not-allowed;
   background: url("~static/images/codeBg.png") no-repeat;
 }
+.text-pd {
+  padding-left: 50px;
+} 
 </style>

@@ -48,15 +48,14 @@ const getToken = function () {
       return result
     }
   }
-
   // 如果运行到这里，说明cookie中不存在token，则取localstorage中的值
-  let localItemStr =localStorage.getItem('userMsg') && localStorage.getItem('userMsg') != '' ? localStorage.getItem('userMsg') :'null'
+  let localItemStr =localStorage.getItem('userMsg') && localStorage.getItem('userMsg') != '' ? localStorage.getItem('userMsg') : null
   if (localItemStr != null) {
     // 转换为json格式
     let localItem = JSON.parse(localItemStr)
     return localItem.token
   }
-
+  
   // 运行到这里，说明用户没登录或者cookie已过期
   return ''
 }
