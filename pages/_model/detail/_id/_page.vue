@@ -548,6 +548,10 @@ export default {
           hid: 'mobile-agent',
           name: 'mobile-agent',
           content: `format=html5;url=http://m.jfcar.com.cn${this.$route.fullPath}`
+        },
+        {
+          name: 'referrer',
+          content: 'no-referrer'
         }
       ],
     }
@@ -1039,6 +1043,9 @@ export default {
        this.detailData = res.data.result_data
        // 文章信息
        this.essayData = this.detailData.essay
+       if(this.essayData.description){
+         this.essayData.description = this.essayData.description.replace(/http:\/\/www.jfcar.com.cn/ig, '')
+       }
        this.getDataTopSix()
        this.getRandomData()
        // 判断是否可以关注
