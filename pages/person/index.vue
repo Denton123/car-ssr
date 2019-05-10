@@ -254,15 +254,15 @@ export default {
   created() {
     this.activeName = this.$route.name
     // 解决刷新之后，选项卡可能不显示的问题
-    if (this.activeName==='person-index-myfans-page') {
+    if (this.activeName==='person-index-myFans-page') {
       this.activeName = 'person-index-myFans'
-    }else if (this.activeName==='person-index-myfollower-page') {
+    }else if (this.activeName==='person-index-myFollower-page') {
       this.activeName = 'person-index-myFollower'
     }else if (this.activeName==='person-index-myIntergral') {
       this.activeName = 'person-index-myIntergral'
     }else if (this.activeName==='person-index-editInfo') {
       this.activeName = 'person-index-editInfo'
-    }else if (this.activeName==='person-index-resetpassword') {
+    }else if (this.activeName==='person-index-resetPassword') {
       this.activeName = 'person-index-resetPassword'
     }else if(this.activeName == 'person-index-publishessay') {
       this.activeName = 'person-index-myEssay-page'
