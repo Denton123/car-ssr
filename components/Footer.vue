@@ -20,7 +20,7 @@
             <!-- </router-link> -->
           </div>
           <div class="footer_link">
-            <a class="footer_copyright footer_mb">联系我们：180 1170 3706</a>
+            <a class="footer_copyright footer_mb">联系我们：18011703706 contact@jfcar.com.cn</a>
             <span v-if="isIndex">友情链接：</span>
             <a v-if="isIndex" class="footer_link_ad" href="http://trumpchi.gacmotor.com" target="_blank">广汽传祺</a>
             <a v-if="isIndex" class="footer_link_ad" href="http://www.ftms.com.cn" target="_blank">广汽丰田网</a>

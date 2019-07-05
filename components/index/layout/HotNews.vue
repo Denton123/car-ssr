@@ -174,6 +174,7 @@ export default {
   box-sizing: border-box;
   position: relative;
   padding-right: 390px;
+  min-height: 381px;
 }
 
 .hot_news .hot_news_container .container_left {
